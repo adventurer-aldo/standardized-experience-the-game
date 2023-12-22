@@ -1,0 +1,39 @@
+[gd_scene load_steps=4 format=3 uid="uid://d1krru41ftoe8"]
+
+[ext_resource type="Script" path="res://scenes/data/questions/answer_open.gd" id="1_odajj"]
+[ext_resource type="PackedScene" uid="uid://cfhwmxxwa7rw8" path="res://scenes/data/questions/alternative_open.tscn" id="2_54hp2"]
+[ext_resource type="Theme" uid="uid://dphjscf0acfaw" path="res://graphics/themes/general.tres" id="3_ylv4v"]
+
+[node name="Answer" type="VBoxContainer"]
+size_flags_horizontal = 3
+script = ExtResource("1_odajj")
+alternative_scene = ExtResource("2_54hp2")
+
+[node name="Main" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Text" type="TextEdit" parent="Main"]
+custom_minimum_size = Vector2(100, 35)
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("3_ylv4v")
+placeholder_text = "What should be typed to answer the question?"
+wrap_mode = 1
+scroll_smooth = true
+scroll_v_scroll_speed = 40.0
+
+[node name="Delete" type="Button" parent="Main"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+text = "-"
+
+[node name="Add" type="Button" parent="Main"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+text = "+"
+
+[node name="Alternatives" type="VBoxContainer" parent="."]
+layout_mode = 2
+alignment = 2
+
+[connection signal="pressed" from="Main/Add" to="." method="_on_add_pressed"]

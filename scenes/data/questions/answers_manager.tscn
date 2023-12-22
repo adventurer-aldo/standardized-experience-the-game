@@ -1,0 +1,68 @@
+[gd_scene load_steps=3 format=3 uid="uid://c38tdjn0fngab"]
+
+[ext_resource type="Script" path="res://scenes/data/questions/answers_manager.gd" id="1_5jttr"]
+[ext_resource type="Theme" uid="uid://dphjscf0acfaw" path="res://graphics/themes/general.tres" id="2_8pawt"]
+
+[node name="AnswersManager" type="VBoxContainer"]
+script = ExtResource("1_5jttr")
+
+[node name="Types" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+alignment = 1
+
+[node name="Open" type="Button" parent="Types"]
+custom_minimum_size = Vector2(50, 40)
+layout_mode = 2
+theme = ExtResource("2_8pawt")
+toggle_mode = true
+text = "Open"
+
+[node name="List" type="Button" parent="Types"]
+custom_minimum_size = Vector2(50, 40)
+layout_mode = 2
+theme = ExtResource("2_8pawt")
+toggle_mode = true
+text = "List"
+
+[node name="Formula" type="Button" parent="Types"]
+custom_minimum_size = Vector2(50, 40)
+layout_mode = 2
+theme = ExtResource("2_8pawt")
+toggle_mode = true
+text = "Formula"
+
+[node name="Choice" type="Button" parent="Types"]
+custom_minimum_size = Vector2(50, 40)
+layout_mode = 2
+theme = ExtResource("2_8pawt")
+toggle_mode = true
+text = "Choice"
+
+[node name="Veracity" type="Button" parent="Types"]
+custom_minimum_size = Vector2(50, 40)
+layout_mode = 2
+theme = ExtResource("2_8pawt")
+toggle_mode = true
+text = "Veracity"
+
+[node name="Fill" type="Button" parent="Types"]
+custom_minimum_size = Vector2(50, 40)
+layout_mode = 2
+theme = ExtResource("2_8pawt")
+toggle_mode = true
+text = "Fill"
+
+[node name="Table" type="Button" parent="Types"]
+custom_minimum_size = Vector2(50, 40)
+layout_mode = 2
+theme = ExtResource("2_8pawt")
+toggle_mode = true
+text = "Table"
+
+[node name="Match" type="Button" parent="Types"]
+custom_minimum_size = Vector2(50, 40)
+layout_mode = 2
+theme = ExtResource("2_8pawt")
+toggle_mode = true
+text = "Match"

@@ -1,0 +1,166 @@
+[gd_scene load_steps=9 format=3 uid="uid://d11bo78dwoh5x"]
+
+[ext_resource type="Script" path="res://scenes/data/questions.gd" id="1_qdrcd"]
+[ext_resource type="PackedScene" uid="uid://cklpthhbe5lxb" path="res://scenes/background.tscn" id="2_v4acm"]
+[ext_resource type="PackedScene" uid="uid://5brymvjpoetb" path="res://scenes/topbar.tscn" id="4_1vrxg"]
+[ext_resource type="Theme" uid="uid://dphjscf0acfaw" path="res://graphics/themes/general.tres" id="4_jud6d"]
+[ext_resource type="Script" path="res://scenes/data/questions_manager.gd" id="4_u841u"]
+[ext_resource type="PackedScene" uid="uid://35bn8nw6fdpd" path="res://scenes/data/questions/question.tscn" id="5_5n8c8"]
+[ext_resource type="Script" path="res://scenes/data/questions/answers_manager.gd" id="6_alkfu"]
+[ext_resource type="PackedScene" uid="uid://d1krru41ftoe8" path="res://scenes/data/questions/answer_open.tscn" id="7_my641"]
+
+[node name="Questions" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_qdrcd")
+
+[node name="Background" parent="." instance=ExtResource("2_v4acm")]
+layout_mode = 1
+
+[node name="Topbar" parent="." instance=ExtResource("4_1vrxg")]
+layout_mode = 1
+grow_horizontal = 0
+
+[node name="Scroller" type="ScrollContainer" parent="."]
+clip_contents = false
+layout_mode = 0
+offset_left = 15.0
+offset_top = 59.0
+offset_right = 687.0
+offset_bottom = 637.0
+follow_focus = true
+
+[node name="Components" type="VBoxContainer" parent="Scroller"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="QuestionsManager" type="HBoxContainer" parent="Scroller/Components"]
+layout_mode = 2
+script = ExtResource("4_u841u")
+answer_package = ExtResource("5_5n8c8")
+
+[node name="Questions" type="VBoxContainer" parent="Scroller/Components/QuestionsManager"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Question" parent="Scroller/Components/QuestionsManager/Questions" instance=ExtResource("5_5n8c8")]
+layout_mode = 2
+
+[node name="AddAnswerButton" type="Button" parent="Scroller/Components/QuestionsManager"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+text = "+"
+
+[node name="AnswersManager" type="VBoxContainer" parent="Scroller/Components"]
+layout_mode = 2
+script = ExtResource("6_alkfu")
+answer_open = ExtResource("7_my641")
+
+[node name="AnswerBox" type="HBoxContainer" parent="Scroller/Components/AnswersManager"]
+layout_mode = 2
+
+[node name="Answers" type="VBoxContainer" parent="Scroller/Components/AnswersManager/AnswerBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Answer" parent="Scroller/Components/AnswersManager/AnswerBox/Answers" instance=ExtResource("7_my641")]
+layout_mode = 2
+
+[node name="Add" type="Button" parent="Scroller/Components/AnswersManager/AnswerBox"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+text = "+"
+
+[node name="Types" type="HBoxContainer" parent="Scroller/Components/AnswersManager"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+alignment = 1
+
+[node name="Open" type="Button" parent="Scroller/Components/AnswersManager/Types"]
+custom_minimum_size = Vector2(50, 40)
+layout_mode = 2
+theme = ExtResource("4_jud6d")
+toggle_mode = true
+text = "Open"
+
+[node name="Formula" type="Button" parent="Scroller/Components/AnswersManager/Types"]
+custom_minimum_size = Vector2(50, 40)
+layout_mode = 2
+theme = ExtResource("4_jud6d")
+toggle_mode = true
+text = "Formula"
+
+[node name="Choice" type="Button" parent="Scroller/Components/AnswersManager/Types"]
+custom_minimum_size = Vector2(50, 40)
+layout_mode = 2
+theme = ExtResource("4_jud6d")
+toggle_mode = true
+text = "Choice"
+
+[node name="Veracity" type="Button" parent="Scroller/Components/AnswersManager/Types"]
+custom_minimum_size = Vector2(50, 40)
+layout_mode = 2
+theme = ExtResource("4_jud6d")
+toggle_mode = true
+text = "Veracity"
+
+[node name="Fill" type="Button" parent="Scroller/Components/AnswersManager/Types"]
+custom_minimum_size = Vector2(50, 40)
+layout_mode = 2
+theme = ExtResource("4_jud6d")
+toggle_mode = true
+text = "Fill"
+
+[node name="Table" type="Button" parent="Scroller/Components/AnswersManager/Types"]
+custom_minimum_size = Vector2(50, 40)
+layout_mode = 2
+theme = ExtResource("4_jud6d")
+toggle_mode = true
+text = "Table"
+
+[node name="Match" type="Button" parent="Scroller/Components/AnswersManager/Types"]
+custom_minimum_size = Vector2(50, 40)
+layout_mode = 2
+theme = ExtResource("4_jud6d")
+toggle_mode = true
+text = "Match"
+
+[node name="SubjectLabel" type="Label" parent="Scroller/Components"]
+layout_mode = 2
+theme = ExtResource("4_jud6d")
+text = "For what subject?"
+
+[node name="Subject" type="OptionButton" parent="Scroller/Components"]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+theme = ExtResource("4_jud6d")
+
+[node name="Tags" type="GridContainer" parent="Scroller/Components"]
+layout_mode = 2
+
+[node name="TagInput" type="TextEdit" parent="Scroller/Components"]
+custom_minimum_size = Vector2(100, 35)
+layout_mode = 2
+theme = ExtResource("4_jud6d")
+placeholder_text = "Insert the question's tags"
+wrap_mode = 1
+scroll_smooth = true
+scroll_v_scroll_speed = 40.0
+
+[node name="Submit" type="Button" parent="Scroller/Components"]
+layout_mode = 2
+theme = ExtResource("4_jud6d")
+text = "Submit"
+
+[connection signal="delete_pressed" from="Scroller/Components/QuestionsManager/Questions/Question" to="Scroller/Components/QuestionsManager" method="_on_answer_delete_pressed"]
+[connection signal="pressed" from="Scroller/Components/QuestionsManager/AddAnswerButton" to="Scroller/Components/QuestionsManager" method="_on_add_answer_button_pressed"]
+[connection signal="pressed" from="Scroller/Components/AnswersManager/AnswerBox/Add" to="Scroller/Components/AnswersManager" method="_on_add_pressed"]
+[connection signal="item_selected" from="Scroller/Components/Subject" to="." method="_on_subject_item_selected"]
+[connection signal="pressed" from="Scroller/Components/Submit" to="." method="_on_submit_pressed"]
+
+[editable path="Background"]

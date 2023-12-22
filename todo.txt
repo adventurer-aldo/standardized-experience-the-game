@@ -1,0 +1,26 @@
+ - Show X amount of questions found before and X amount of questions seen for the first time
+AKA Question LINKS
+Basically you could draw like a mindmap of a question, with children question (maybe those only show up after the first one has been solved.)
+You could decide it being a true child (only shows up when parent has been defeated) or false child (is like a branch question)
+Schema question type
+
+ - OST based on overall journey progress as well as how you're faring on the test
+ - SFX when writing
+
+ - Way to compare present and past tests (to see how far you've come)
+ - Surprise comparison test (do the same test you've done before)
+
+ - Particles *-_-*-_-*-_-*-_-*
+
+ - Some guy/girl's voiceover for stuff like cheers and more
+ - More cheers (and actually for more specific scenarios)
+
+ - Question board (basically write all in the notepad like some sort of programming language)
+
+[STORYLINE]
+Three Houses teaching three different ways of learning.
+ - Green Boards
+ - Crimson Pens
+ - Shining Aces
+
+ - Standardized Experience

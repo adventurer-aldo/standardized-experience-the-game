@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://35bn8nw6fdpd"]
+
+[ext_resource type="Script" path="res://scenes/data/questions/question.gd" id="1_3a4er"]
+[ext_resource type="Theme" uid="uid://dphjscf0acfaw" path="res://graphics/themes/general.tres" id="2_j687a"]
+
+[node name="Question" type="HBoxContainer"]
+script = ExtResource("1_3a4er")
+
+[node name="Text" type="TextEdit" parent="."]
+custom_minimum_size = Vector2(100, 35)
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_j687a")
+placeholder_text = "How will you request the answer?"
+wrap_mode = 1
+scroll_smooth = true
+scroll_v_scroll_speed = 40.0
+
+[node name="Delete" type="Button" parent="."]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+text = "-"
+
+[connection signal="pressed" from="Delete" to="." method="_on_delete_pressed"]

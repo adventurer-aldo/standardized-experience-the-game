@@ -1,0 +1,115 @@
+[gd_scene load_steps=8 format=3 uid="uid://dko6oqwxvglog"]
+
+[ext_resource type="Script" path="res://scenes/quiz/choice.gd" id="1_hv4d0"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nahdc"]
+bg_color = Color(0.862745, 0.913725, 0.988235, 1)
+border_width_bottom = 5
+border_color = Color(0.690196, 0.694118, 0.8, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+expand_margin_left = 5.0
+expand_margin_top = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 5.0
+shadow_color = Color(0, 0, 0, 0.317647)
+shadow_size = 3
+shadow_offset = Vector2(2, 2)
+anti_aliasing_size = 0.358
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fremx"]
+bg_color = Color(1, 1, 1, 1)
+border_width_bottom = 5
+border_color = Color(0.835294, 0.839216, 0.898039, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+expand_margin_left = 5.0
+expand_margin_top = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 5.0
+shadow_color = Color(0, 0, 0, 0.317647)
+shadow_size = 3
+shadow_offset = Vector2(2, 2)
+anti_aliasing_size = 0.358
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kwd24"]
+bg_color = Color(0.298039, 0.517647, 0.882353, 1)
+border_width_bottom = 5
+border_color = Color(0.0941176, 0.223529, 0.447059, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+expand_margin_left = 5.0
+expand_margin_top = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 5.0
+shadow_color = Color(0, 0, 0, 0.317647)
+shadow_size = 3
+shadow_offset = Vector2(2, 2)
+anti_aliasing_size = 0.358
+
+[sub_resource type="Theme" id="Theme_ho5ti"]
+Button/colors/font_color = Color(0, 0, 0, 1)
+Button/colors/font_focus_color = Color(0, 0, 0, 1)
+Button/colors/font_hover_color = Color(0, 0, 0, 1)
+Button/colors/font_pressed_color = Color(1, 1, 1, 1)
+Button/styles/focus = SubResource("StyleBoxFlat_nahdc")
+Button/styles/hover = SubResource("StyleBoxFlat_nahdc")
+Button/styles/normal = SubResource("StyleBoxFlat_fremx")
+Button/styles/pressed = SubResource("StyleBoxFlat_kwd24")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5417i"]
+bg_color = Color(0.0859375, 0.0859375, 0.128906, 1)
+border_width_bottom = 5
+border_color = Color(0.12549, 0.168627, 0.313726, 1)
+corner_radius_top_left = 10
+corner_radius_bottom_left = 10
+expand_margin_left = 5.0
+expand_margin_top = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 5.0
+shadow_color = Color(0, 0, 0, 0.317647)
+shadow_size = 3
+shadow_offset = Vector2(0, 2)
+anti_aliasing_size = 0.358
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_jeuhd"]
+allow_unpress = true
+
+[node name="ButtonMargin" type="MarginContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 7
+theme_override_constants/margin_top = 7
+theme_override_constants/margin_right = 7
+theme_override_constants/margin_bottom = 7
+script = ExtResource("1_hv4d0")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Alternative" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 3
+focus_mode = 0
+theme = SubResource("Theme_ho5ti")
+theme_override_colors/font_disabled_color = Color(1, 1, 1, 1)
+theme_override_styles/disabled = SubResource("StyleBoxFlat_5417i")
+disabled = true
+text = "a) "
+
+[node name="Value" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 3
+focus_mode = 0
+theme = SubResource("Theme_ho5ti")
+toggle_mode = true
+button_group = SubResource("ButtonGroup_jeuhd")
+text = "Text"

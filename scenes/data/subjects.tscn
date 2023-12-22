@@ -1,0 +1,115 @@
+[gd_scene load_steps=5 format=3 uid="uid://njcan8xh86nx"]
+
+[ext_resource type="Script" path="res://scenes/data/subjects.gd" id="1_itp3r"]
+[ext_resource type="Theme" uid="uid://cufykjww4blk4" path="res://graphics/themes/shitynotes.tres" id="2_1k2le"]
+[ext_resource type="PackedScene" uid="uid://cklpthhbe5lxb" path="res://scenes/background.tscn" id="2_atkwt"]
+[ext_resource type="PackedScene" uid="uid://5brymvjpoetb" path="res://scenes/topbar.tscn" id="4_7dhwi"]
+
+[node name="Subjects" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_itp3r")
+
+[node name="Background" parent="." instance=ExtResource("2_atkwt")]
+layout_mode = 1
+
+[node name="Title" type="TextEdit" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 53.0
+offset_right = -686.0
+offset_bottom = -549.0
+focus_neighbor_bottom = NodePath("../Description")
+focus_next = NodePath("../Description")
+theme = ExtResource("2_1k2le")
+placeholder_text = "What's the name of the subject you wish to add?"
+
+[node name="Description" type="TextEdit" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 9.0
+offset_top = 103.0
+offset_right = -686.0
+offset_bottom = -357.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_1k2le")
+placeholder_text = "What's this subject about?"
+
+[node name="Submit" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 575.0
+offset_right = -683.0
+offset_bottom = -33.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Submit"
+
+[node name="Panel" type="Button" parent="."]
+visible = false
+custom_minimum_size = Vector2(500, 100)
+layout_mode = 2
+offset_left = -1.0
+offset_top = 1.0
+offset_right = 499.0
+offset_bottom = 101.0
+
+[node name="Title" type="Label" parent="Panel"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 2.0
+offset_right = 230.0
+offset_bottom = 42.0
+text = "Title"
+
+[node name="Description" type="Label" parent="Panel"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 27.0
+offset_right = 490.0
+offset_bottom = 91.0
+text = "Description"
+
+[node name="VScrollBar" type="ScrollContainer" parent="."]
+layout_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 476.0
+offset_top = 55.0
+offset_right = 1.0
+offset_bottom = 2.0
+
+[node name="Questions" type="BoxContainer" parent="VScrollBar"]
+custom_minimum_size = Vector2(659.41, 587.44)
+layout_mode = 2
+vertical = true
+
+[node name="Topbar" parent="." instance=ExtResource("4_7dhwi")]
+layout_mode = 0
+anchors_preset = 0
+anchor_left = 0.0
+anchor_right = 0.0
+offset_left = 0.0
+offset_right = 1152.0
+grow_horizontal = 1
+
+[node name="Topbar2" parent="." instance=ExtResource("4_7dhwi")]
+layout_mode = 1
+anchors_preset = 1
+
+[connection signal="text_changed" from="Title" to="." method="_on_title_text_changed"]
+[connection signal="text_changed" from="Description" to="." method="_on_description_text_changed"]
+[connection signal="pressed" from="Submit" to="." method="_on_submit_pressed"]

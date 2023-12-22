@@ -1,0 +1,113 @@
+[gd_scene load_steps=8 format=3 uid="uid://ca5brlramqrr6"]
+
+[ext_resource type="Script" path="res://scenes/main.gd" id="1_4oc6p"]
+[ext_resource type="PackedScene" uid="uid://cklpthhbe5lxb" path="res://scenes/background.tscn" id="1_nlvlq"]
+[ext_resource type="Texture2D" uid="uid://bds2v1xc3f7o3" path="res://graphics/logo.png" id="2_7bg8o"]
+[ext_resource type="Texture2D" uid="uid://xaw1uyd2v3h1" path="res://graphics/pictures/school.png" id="3_25uw3"]
+[ext_resource type="Theme" uid="uid://dphjscf0acfaw" path="res://graphics/themes/general.tres" id="4_ogymf"]
+[ext_resource type="Texture2D" uid="uid://duk1nj73fkylh" path="res://graphics/title/icon_book.png" id="5_5x6qw"]
+[ext_resource type="Texture2D" uid="uid://cj2gvrm5a14eu" path="res://graphics/title/icon_download.png" id="6_5yl7s"]
+
+[node name="Main" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_4oc6p")
+
+[node name="Background" parent="." instance=ExtResource("1_nlvlq")]
+layout_mode = 1
+
+[node name="Foreground" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 1137.0
+offset_bottom = 648.0
+texture = ExtResource("3_25uw3")
+
+[node name="Buttons" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -422.0
+offset_top = 424.0
+offset_right = -22.0
+offset_bottom = -128.0
+grow_horizontal = 0
+grow_vertical = 2
+metadata/_edit_group_ = true
+
+[node name="BehindBegin" type="Panel" parent="Buttons"]
+custom_minimum_size = Vector2(400, 50.78)
+layout_mode = 2
+theme = ExtResource("4_ogymf")
+
+[node name="Icon" type="Sprite2D" parent="Buttons/BehindBegin"]
+position = Vector2(25, 24)
+texture = ExtResource("5_5x6qw")
+
+[node name="BeginButton" type="Button" parent="Buttons/BehindBegin"]
+custom_minimum_size = Vector2(350, 50.37)
+layout_mode = 0
+offset_left = 50.0
+offset_right = 400.0
+offset_bottom = 50.78
+theme = ExtResource("4_ogymf")
+theme_override_font_sizes/font_size = 30
+text = "Begin"
+
+[node name="BehindDownload" type="Panel" parent="Buttons"]
+custom_minimum_size = Vector2(400, 50.78)
+layout_mode = 2
+theme = ExtResource("4_ogymf")
+
+[node name="Icon" type="Sprite2D" parent="Buttons/BehindDownload"]
+position = Vector2(25, 24)
+texture = ExtResource("6_5yl7s")
+
+[node name="BeginButton" type="Button" parent="Buttons/BehindDownload"]
+custom_minimum_size = Vector2(350, 50.37)
+layout_mode = 0
+offset_left = 50.0
+offset_right = 400.0
+offset_bottom = 50.78
+theme = ExtResource("4_ogymf")
+theme_override_font_sizes/font_size = 30
+text = "Download
+"
+
+[node name="Logo" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -436.0
+offset_top = 55.0
+offset_right = 717.0
+offset_bottom = 570.0
+grow_horizontal = 0
+scale = Vector2(0.366019, 0.366019)
+texture = ExtResource("2_7bg8o")
+metadata/_edit_group_ = true
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.613
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 84.824
+offset_top = 567.0
+offset_right = -58.0
+offset_bottom = -53.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("4_ogymf")
+theme_override_colors/font_color = Color(0.333333, 0.333333, 0.333333, 1)
+text = "2021-2024 Standardized Experience"
+
+[connection signal="pressed" from="Buttons/BehindBegin/BeginButton" to="." method="_on_press_key_pressed"]
+[connection signal="pressed" from="Buttons/BehindDownload/BeginButton" to="." method="_on_begin_button_pressed"]
