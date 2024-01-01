@@ -1,5 +1,7 @@
 extends Node
 
+signal finished
+
 var subjects := {}
 var questions := {}
 

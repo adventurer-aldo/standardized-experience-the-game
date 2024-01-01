@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://d11bo78dwoh5x"]
+[gd_scene load_steps=22 format=3 uid="uid://d11bo78dwoh5x"]
 
 [ext_resource type="Script" path="res://scenes/data/questions.gd" id="1_qdrcd"]
 [ext_resource type="PackedScene" uid="uid://cklpthhbe5lxb" path="res://scenes/background.tscn" id="2_v4acm"]
@@ -8,6 +8,64 @@
 [ext_resource type="PackedScene" uid="uid://35bn8nw6fdpd" path="res://scenes/data/questions/question.tscn" id="5_5n8c8"]
 [ext_resource type="Script" path="res://scenes/data/questions/answers_manager.gd" id="6_alkfu"]
 [ext_resource type="PackedScene" uid="uid://d1krru41ftoe8" path="res://scenes/data/questions/answer_open.tscn" id="7_my641"]
+[ext_resource type="Script" path="res://scenes/data/questiongrid.gd" id="9_5ef4l"]
+[ext_resource type="Script" path="res://addons/SmoothScroll/SmoothScrollContainer.gd" id="9_fantj"]
+[ext_resource type="FontFile" uid="uid://drunskociit7h" path="res://fonts/FOT-RodinProN-L.otf" id="9_ukek2"]
+[ext_resource type="PackedScene" uid="uid://ckx2x5dpo4pow" path="res://scenes/data/questions/question_panel.tscn" id="10_0o1iw"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5uw6d"]
+bg_color = Color(0.0820313, 0.449219, 0.277344, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.0820313, 0.449219, 0.277344, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="Theme" id="Theme_8ta6l"]
+default_font = ExtResource("9_ukek2")
+Button/constants/outline_size = 2
+Button/styles/normal = SubResource("StyleBoxFlat_5uw6d")
+
+[sub_resource type="Theme" id="Theme_tec06"]
+default_font = ExtResource("9_ukek2")
+Button/constants/outline_size = 2
+Button/styles/normal = SubResource("StyleBoxFlat_5uw6d")
+
+[sub_resource type="Theme" id="Theme_30luu"]
+default_font = ExtResource("9_ukek2")
+Button/constants/outline_size = 2
+Button/styles/normal = SubResource("StyleBoxFlat_5uw6d")
+
+[sub_resource type="Theme" id="Theme_2crtj"]
+default_font = ExtResource("9_ukek2")
+Button/constants/outline_size = 2
+Button/styles/normal = SubResource("StyleBoxFlat_5uw6d")
+
+[sub_resource type="Theme" id="Theme_bciwt"]
+default_font = ExtResource("9_ukek2")
+Button/constants/outline_size = 2
+Button/styles/normal = SubResource("StyleBoxFlat_5uw6d")
+
+[sub_resource type="Theme" id="Theme_yvnay"]
+default_font = ExtResource("9_ukek2")
+Button/constants/outline_size = 2
+Button/styles/normal = SubResource("StyleBoxFlat_5uw6d")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1gsis"]
+bg_color = Color(0, 0, 0, 0.498039)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="Theme" id="Theme_55fh5"]
+default_font = ExtResource("9_ukek2")
+OptionButton/constants/outline_size = 2
+OptionButton/styles/normal = SubResource("StyleBoxFlat_1gsis")
 
 [node name="Questions" type="Control"]
 layout_mode = 3
@@ -27,11 +85,16 @@ grow_horizontal = 0
 
 [node name="Scroller" type="ScrollContainer" parent="."]
 clip_contents = false
-layout_mode = 0
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.5
+anchor_bottom = 0.985
 offset_left = 15.0
 offset_top = 59.0
-offset_right = 687.0
-offset_bottom = 637.0
+offset_right = -17.0
+offset_bottom = -6.10352e-05
+grow_horizontal = 2
+grow_vertical = 2
 follow_focus = true
 
 [node name="Components" type="VBoxContainer" parent="Scroller"]
@@ -84,49 +147,42 @@ alignment = 1
 [node name="Open" type="Button" parent="Scroller/Components/AnswersManager/Types"]
 custom_minimum_size = Vector2(50, 40)
 layout_mode = 2
-theme = ExtResource("4_jud6d")
+theme = SubResource("Theme_8ta6l")
 toggle_mode = true
 text = "Open"
-
-[node name="Formula" type="Button" parent="Scroller/Components/AnswersManager/Types"]
-custom_minimum_size = Vector2(50, 40)
-layout_mode = 2
-theme = ExtResource("4_jud6d")
-toggle_mode = true
-text = "Formula"
 
 [node name="Choice" type="Button" parent="Scroller/Components/AnswersManager/Types"]
 custom_minimum_size = Vector2(50, 40)
 layout_mode = 2
-theme = ExtResource("4_jud6d")
+theme = SubResource("Theme_tec06")
 toggle_mode = true
 text = "Choice"
 
 [node name="Veracity" type="Button" parent="Scroller/Components/AnswersManager/Types"]
 custom_minimum_size = Vector2(50, 40)
 layout_mode = 2
-theme = ExtResource("4_jud6d")
+theme = SubResource("Theme_30luu")
 toggle_mode = true
 text = "Veracity"
 
 [node name="Fill" type="Button" parent="Scroller/Components/AnswersManager/Types"]
 custom_minimum_size = Vector2(50, 40)
 layout_mode = 2
-theme = ExtResource("4_jud6d")
+theme = SubResource("Theme_2crtj")
 toggle_mode = true
 text = "Fill"
 
 [node name="Table" type="Button" parent="Scroller/Components/AnswersManager/Types"]
 custom_minimum_size = Vector2(50, 40)
 layout_mode = 2
-theme = ExtResource("4_jud6d")
+theme = SubResource("Theme_bciwt")
 toggle_mode = true
 text = "Table"
 
 [node name="Match" type="Button" parent="Scroller/Components/AnswersManager/Types"]
 custom_minimum_size = Vector2(50, 40)
 layout_mode = 2
-theme = ExtResource("4_jud6d")
+theme = SubResource("Theme_yvnay")
 toggle_mode = true
 text = "Match"
 
@@ -138,7 +194,11 @@ text = "For what subject?"
 [node name="Subject" type="OptionButton" parent="Scroller/Components"]
 custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
-theme = ExtResource("4_jud6d")
+theme = SubResource("Theme_55fh5")
+item_count = 1
+selected = 0
+popup/item_0/text = "Provisional Thing"
+popup/item_0/id = 0
 
 [node name="Tags" type="GridContainer" parent="Scroller/Components"]
 layout_mode = 2
@@ -156,6 +216,34 @@ scroll_v_scroll_speed = 40.0
 layout_mode = 2
 theme = ExtResource("4_jud6d")
 text = "Submit"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 2
+anchor_left = 0.492
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 0.216003
+offset_top = 57.0
+offset_right = -4.0
+offset_bottom = -7.0
+horizontal_scroll_mode = 3
+vertical_scroll_mode = 3
+script = ExtResource("9_fantj")
+
+[node name="GridContainer" type="GridContainer" parent="ScrollContainer"]
+layout_mode = 2
+theme_override_constants/h_separation = 5
+theme_override_constants/v_separation = 5
+columns = 2
+script = ExtResource("9_5ef4l")
+
+[node name="Question" parent="." instance=ExtResource("10_0o1iw")]
+visible = false
+layout_mode = 0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 291.0
+offset_bottom = 180.0
 
 [connection signal="delete_pressed" from="Scroller/Components/QuestionsManager/Questions/Question" to="Scroller/Components/QuestionsManager" method="_on_answer_delete_pressed"]
 [connection signal="pressed" from="Scroller/Components/QuestionsManager/AddAnswerButton" to="Scroller/Components/QuestionsManager" method="_on_add_answer_button_pressed"]

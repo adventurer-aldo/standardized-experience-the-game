@@ -26,6 +26,10 @@ User="*res://scenes/user.gd"
 SFX="*res://scenes/sfx.tscn"
 BGM="*res://scenes/bgm.tscn"
 
+[display]
+
+window/size/viewport_height=600
+
 [input]
 
 ui_accept={

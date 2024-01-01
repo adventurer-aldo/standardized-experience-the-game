@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://5brymvjpoetb"]
 
-[ext_resource type="FontFile" uid="uid://drunskociit7h" path="res://fonts/FOT-RodinProN-L.otf" id="1_0ydmq"]
+[ext_resource type="FontFile" uid="uid://b34fgfhi138hl" path="res://fonts/learning_curve_regular_ot_tt.ttf" id="1_phmnw"]
 [ext_resource type="Texture2D" uid="uid://gndjcpr5yu7u" path="res://graphics/title/icon2.png" id="2_s0mmq"]
 
 [node name="Topbar" type="ColorRect"]
@@ -23,7 +23,7 @@ grow_vertical = 2
 theme_override_colors/font_shadow_color = Color(0.313726, 0.203922, 0.866667, 1)
 theme_override_constants/shadow_offset_x = 5
 theme_override_constants/outline_size = 5
-theme_override_fonts/font = ExtResource("1_0ydmq")
+theme_override_fonts/font = ExtResource("1_phmnw")
 theme_override_font_sizes/font_size = 38
 text = "Standardized Experience"
 horizontal_alignment = 2
@@ -35,9 +35,8 @@ anchors_preset = -1
 anchor_left = 1.086
 anchor_right = 1.086
 anchor_bottom = 1.0
-offset_left = -522.84
-offset_top = 1.0
-offset_right = -322.84
-offset_bottom = 153.0
+offset_left = -366.284
+offset_right = -166.284
+offset_bottom = 152.0
 scale = Vector2(0.23, 0.23)
 texture = ExtResource("2_s0mmq")

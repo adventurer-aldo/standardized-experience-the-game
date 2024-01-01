@@ -1,6 +1,12 @@
-[gd_scene load_steps=3 format=3 uid="uid://ct08ocoash7yo"]
+[gd_scene load_steps=6 format=3 uid="uid://ct08ocoash7yo"]
 
 [ext_resource type="FontFile" uid="uid://b34fgfhi138hl" path="res://fonts/learning_curve_regular_ot_tt.ttf" id="1_v6p5u"]
+[ext_resource type="Script" path="res://scenes/quiz/open.gd" id="2_6gttb"]
+
+[sub_resource type="Theme" id="Theme_gtd8c"]
+default_font = ExtResource("1_v6p5u")
+RichTextLabel/colors/default_color = Color(0, 0, 0.996094, 1)
+TextEdit/colors/font_color = Color(0, 0, 1, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hgo2d"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -14,13 +20,32 @@ corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 shadow_color = Color(0, 0, 0, 0.141176)
 
+[sub_resource type="Theme" id="Theme_8iwa2"]
+default_font = ExtResource("1_v6p5u")
+RichTextLabel/colors/default_color = Color(0, 0, 0.996094, 1)
+RichTextLabel/font_sizes/bold_font_size = 56
+RichTextLabel/font_sizes/normal_font_size = 56
+TextEdit/colors/font_color = Color(0, 0, 1, 1)
+
 [node name="Open" type="TextEdit"]
+offset_right = 158.0
+offset_bottom = 102.0
 size_flags_vertical = 3
-theme_override_colors/font_color = Color(0, 0, 1, 1)
-theme_override_fonts/font = ExtResource("1_v6p5u")
+theme = SubResource("Theme_gtd8c")
 theme_override_font_sizes/font_size = 56
 theme_override_styles/normal = SubResource("StyleBoxFlat_hgo2d")
 wrap_mode = 1
 scroll_smooth = true
 scroll_fit_content_height = true
 caret_blink = true
+script = ExtResource("2_6gttb")
+
+[node name="Correction" type="RichTextLabel" parent="."]
+visible = false
+layout_mode = 0
+offset_right = 131.0
+offset_bottom = 104.0
+theme = SubResource("Theme_8iwa2")
+theme_override_styles/normal = SubResource("StyleBoxFlat_hgo2d")
+bbcode_enabled = true
+scroll_active = false
