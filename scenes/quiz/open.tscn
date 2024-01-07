@@ -28,24 +28,28 @@ RichTextLabel/font_sizes/normal_font_size = 56
 TextEdit/colors/font_color = Color(0, 0, 1, 1)
 
 [node name="Open" type="TextEdit"]
-offset_right = 158.0
-offset_bottom = 102.0
-size_flags_vertical = 3
+offset_right = 145.0
+offset_bottom = 100.0
+size_flags_horizontal = 3
 theme = SubResource("Theme_gtd8c")
 theme_override_font_sizes/font_size = 56
 theme_override_styles/normal = SubResource("StyleBoxFlat_hgo2d")
+text = "8945"
 wrap_mode = 1
-scroll_smooth = true
 scroll_fit_content_height = true
 caret_blink = true
 script = ExtResource("2_6gttb")
 
 [node name="Correction" type="RichTextLabel" parent="."]
 visible = false
-layout_mode = 0
-offset_right = 131.0
-offset_bottom = 104.0
+clip_contents = false
+layout_mode = 2
+offset_right = 158.0
+offset_bottom = 58.0
+size_flags_horizontal = 3
+focus_mode = 2
 theme = SubResource("Theme_8iwa2")
-theme_override_styles/normal = SubResource("StyleBoxFlat_hgo2d")
 bbcode_enabled = true
+fit_content = true
 scroll_active = false
+selection_enabled = true

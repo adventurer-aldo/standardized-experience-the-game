@@ -5,6 +5,119 @@
 [ext_resource type="Texture2D" uid="uid://dfvysekdfjhtn" path="res://graphics/title/download/circle_spin.png" id="3_ogffo"]
 [ext_resource type="Theme" uid="uid://dphjscf0acfaw" path="res://graphics/themes/general.tres" id="4_33hvr"]
 
+[sub_resource type="Animation" id="Animation_qdsih"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0.527344, 0.996094, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Spin:speed_scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../ColorRect:color")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0.345098, 0.988235, 0.498039)]
+}
+
+[sub_resource type="Animation" id="Animation_ud0fo"]
+resource_name = "fail"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0.527344, 0.996094, 1), Color(1, 0, 0, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../ColorRect:color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0.345098, 0.988235, 0.498039), Color(0.988235, 0, 0, 0.498039)]
+}
+
+[sub_resource type="Animation" id="Animation_geyi2"]
+resource_name = "success"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0.527344, 0.996094, 1), Color(0.117647, 1, 0, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Spin:speed_scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.1, 0.1]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../ColorRect:color")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0.345098, 0.988235, 0.498039), Color(0.113725, 0.988235, 0, 0.498039)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ba5tu"]
+_data = {
+"RESET": SubResource("Animation_qdsih"),
+"fail": SubResource("Animation_ud0fo"),
+"success": SubResource("Animation_geyi2")
+}
+
 [sub_resource type="Animation" id="Animation_vipce"]
 length = 0.001
 tracks/0/type = "value"
@@ -41,83 +154,6 @@ _data = {
 "spin": SubResource("Animation_oa343")
 }
 
-[sub_resource type="Animation" id="Animation_qdsih"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(0, 0.527344, 0.996094, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Spin:speed_scale")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [1.0]
-}
-
-[sub_resource type="Animation" id="Animation_ud0fo"]
-resource_name = "fail"
-length = 0.2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(0, 0.527344, 0.996094, 1), Color(1, 0, 0, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_geyi2"]
-resource_name = "success"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(0, 0.527344, 0.996094, 1), Color(0.117647, 1, 0, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Spin:speed_scale")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [1.0, 0.0]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_ba5tu"]
-_data = {
-"RESET": SubResource("Animation_qdsih"),
-"fail": SubResource("Animation_ud0fo"),
-"success": SubResource("Animation_geyi2")
-}
-
 [node name="Playground" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -145,17 +181,25 @@ offset_bottom = 427.0
 [node name="Background" parent="." instance=ExtResource("2_d2xq8")]
 layout_mode = 1
 
+[node name="Result" type="AnimationPlayer" parent="."]
+root_node = NodePath("../CircleSpin")
+libraries = {
+"": SubResource("AnimationLibrary_ba5tu")
+}
+
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
 anchors_preset = 14
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_top = -37.0
-offset_bottom = 37.0
+offset_left = 0.5
+offset_top = -32.5
+offset_right = 1048.5
+offset_bottom = 34.5
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0.521569, 0.992157, 0.498039)
+color = Color(0, 0.345098, 0.988235, 0.498039)
 
 [node name="CircleSpin" type="TextureRect" parent="."]
 modulate = Color(0, 0.527344, 0.996094, 1)
@@ -179,11 +223,6 @@ libraries = {
 "": SubResource("AnimationLibrary_8q8p5")
 }
 
-[node name="Result" type="AnimationPlayer" parent="CircleSpin"]
-libraries = {
-"": SubResource("AnimationLibrary_ba5tu")
-}
-
 [node name="Process" type="Label" parent="."]
 layout_mode = 1
 anchors_preset = 8
@@ -201,6 +240,16 @@ theme = ExtResource("4_33hvr")
 theme_override_constants/outline_size = 4
 theme_override_font_sizes/font_size = 51
 text = "Downloading..."
+
+[node name="Image" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -216.0
+offset_right = 217.0
+offset_bottom = 217.0
+grow_horizontal = 2
 
 [connection signal="request_completed" from="HTTPRequest" to="." method="_on_http_request_request_completed"]
 [connection signal="request_completed" from="ImageRequest" to="." method="_on_image_request_request_completed"]

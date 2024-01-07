@@ -208,8 +208,13 @@ text = "2021-2024 Standardized Experience"
 position = Vector2(942, 123)
 texture = ExtResource("8_5g4ri")
 
+[connection signal="focus_entered" from="Buttons/BehindBegin/BeginButton" to="." method="_on_button_focus_entered"]
 [connection signal="pressed" from="Buttons/BehindBegin/BeginButton" to="." method="_on_begin_button_pressed"]
+[connection signal="focus_entered" from="Buttons/BehindDownload/DownloadButton" to="." method="_on_button_focus_entered"]
 [connection signal="pressed" from="Buttons/BehindDownload/DownloadButton" to="." method="_on_download_button_pressed"]
+[connection signal="focus_entered" from="Buttons2/BehindData/DataButton" to="." method="_on_button_focus_entered"]
 [connection signal="pressed" from="Buttons2/BehindData/DataButton" to="." method="_on_data_button_pressed"]
+[connection signal="focus_entered" from="Buttons2/BehindQuiz/QuizButton" to="." method="_on_button_focus_entered"]
 [connection signal="pressed" from="Buttons2/BehindQuiz/QuizButton" to="." method="_on_quiz_button_pressed"]
+[connection signal="focus_entered" from="Buttons2/BehindBack/BackButton" to="." method="_on_button_focus_entered"]
 [connection signal="pressed" from="Buttons2/BehindBack/BackButton" to="." method="_on_back_button_pressed"]

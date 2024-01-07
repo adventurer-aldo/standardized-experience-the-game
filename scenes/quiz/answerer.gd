@@ -1,5 +1,7 @@
 extends HBoxContainer
 
+var grade := 0.0
+
 func setup(question_id: int, question_sample: int, type: String, choices: Array, _answer_id: int):
 	if User.questions.has(question_id) == false: return
 	var question = User.questions[question_id] as Dictionary
@@ -22,9 +24,11 @@ func setup(question_id: int, question_sample: int, type: String, choices: Array,
 		var cho = load("res://scenes/quiz/{type}.tscn".format({"type": type})) as PackedScene
 		for i in choices:
 			var new_choice = cho.instantiate()
-			var text = question.choices[i][0] if typeof(i) == TYPE_INT else question.answers[int(i)]
+			new_choice.answers = question.answers
+			var text = question.choices[i].text[0]
 			new_choice.value = text
 			$Ratio/Margin/VContent/Choices.add_child(new_choice)
+			new_choice.grade = grade
 			if type == 'choice' && choices.filter(func n(k): return typeof(k) == TYPE_STRING).size() <= 1:
 				new_choice.button_group = button_group
 

@@ -1,3 +1,13 @@
+[ACTUAL TO-DO]
+1. Redo questions as subjects instead of Hashes to make it easier for coding
+2. Make a new scene for correcting a quiz
+3. See if there's a way to improve performance when iterating questions or answers (maybe the new org will solve this)
+4. Ways to navigate to and from each scene
+5. Indicator displaying which scene I'm at
+6. Solve the issue with images not displaying in quizzes
+99. Add a Hub (Shows stuff like my stats and my practice stuff)
+
+[FEATURES]
  - Show X amount of questions found before and X amount of questions seen for the first time
 AKA Question LINKS
 Basically you could draw like a mindmap of a question, with children question (maybe those only show up after the first one has been solved.)

@@ -1,6 +1,7 @@
 extends Node
 
 signal finished
+signal grade(value)
 
 var subjects := {}
 var questions := {}

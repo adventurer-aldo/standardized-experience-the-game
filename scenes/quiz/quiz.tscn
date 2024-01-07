@@ -1,37 +1,13 @@
-[gd_scene load_steps=16 format=3 uid="uid://b1owkchsug7x4"]
+[gd_scene load_steps=12 format=3 uid="uid://b1owkchsug7x4"]
 
 [ext_resource type="Script" path="res://scenes/quiz/quiz.gd" id="1_8n255"]
 [ext_resource type="PackedScene" uid="uid://cklpthhbe5lxb" path="res://scenes/background.tscn" id="1_aptwy"]
-[ext_resource type="Theme" uid="uid://dphjscf0acfaw" path="res://graphics/themes/general.tres" id="3_vw7bo"]
-[ext_resource type="Script" path="res://scenes/quiz/answerer.gd" id="3_y5ph3"]
-[ext_resource type="Script" path="res://scenes/quiz/alternatives_manager.gd" id="6_46v15"]
 [ext_resource type="Script" path="res://addons/SmoothScroll/SmoothScrollContainer.gd" id="6_ef3fk"]
+[ext_resource type="FontFile" uid="uid://b34fgfhi138hl" path="res://fonts/learning_curve_regular_ot_tt.ttf" id="7_eafx6"]
 [ext_resource type="Texture2D" uid="uid://bsnb8acrwa5ww" path="res://graphics/submit.png" id="7_eds0u"]
 [ext_resource type="FontFile" uid="uid://drunskociit7h" path="res://fonts/FOT-RodinProN-L.otf" id="8_j8lpl"]
 [ext_resource type="Texture2D" uid="uid://bxunaysknjqil" path="res://graphics/glow.png" id="9_eab2j"]
 [ext_resource type="Script" path="res://scenes/quiz/quiz_timer.gd" id="10_itlsp"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r4yt7"]
-bg_color = Color(0.0859375, 0.0859375, 0.128906, 1)
-border_width_bottom = 5
-border_color = Color(0.12549, 0.168627, 0.313726, 1)
-corner_radius_top_left = 10
-corner_radius_bottom_left = 10
-shadow_color = Color(0, 0, 0, 0.317647)
-shadow_size = 3
-shadow_offset = Vector2(0, 2)
-anti_aliasing_size = 0.358
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7dbj8"]
-bg_color = Color(1, 1, 1, 1)
-border_width_bottom = 5
-border_color = Color(0.835294, 0.839216, 0.898039, 1)
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-shadow_color = Color(0, 0, 0, 0.317647)
-shadow_size = 3
-shadow_offset = Vector2(0, 2)
-anti_aliasing_size = 0.358
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nr8o8"]
 bg_color = Color(0, 0.523438, 0.992188, 1)
@@ -61,84 +37,22 @@ layout_mode = 1
 [node name="BackgroundDark" parent="Background/Background" index="0"]
 visible = false
 
-[node name="Question" type="HBoxContainer" parent="."]
-layout_mode = 0
-offset_left = 95.0
-offset_top = 181.0
-offset_right = 995.0
-offset_bottom = 389.0
-theme_override_constants/separation = 0
-script = ExtResource("3_y5ph3")
-
-[node name="Info" type="Panel" parent="Question"]
-custom_minimum_size = Vector2(42, 0)
-layout_mode = 2
-theme = ExtResource("3_vw7bo")
-theme_override_styles/panel = SubResource("StyleBoxFlat_r4yt7")
-
-[node name="Number" type="Label" parent="Question/Info"]
-layout_mode = 2
-offset_left = 2.0
-offset_right = 42.0
-offset_bottom = 30.0
-theme_override_constants/outline_size = 3
-theme_override_font_sizes/font_size = 14
-text = "100."
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Ratio" type="AspectRatioContainer" parent="Question"]
-layout_mode = 2
-ratio = 0.001
-alignment_horizontal = 0
-alignment_vertical = 0
-
-[node name="Background" type="Panel" parent="Question/Ratio"]
-custom_minimum_size = Vector2(850, 0)
-layout_mode = 2
-theme = ExtResource("3_vw7bo")
-theme_override_styles/panel = SubResource("StyleBoxFlat_7dbj8")
-
-[node name="Margin" type="MarginContainer" parent="Question/Ratio"]
-custom_minimum_size = Vector2(850, 0)
-layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
-
-[node name="VContent" type="VBoxContainer" parent="Question/Ratio/Margin"]
-layout_mode = 2
-theme_override_constants/separation = 15
-
-[node name="Question" type="Label" parent="Question/Ratio/Margin/VContent"]
-custom_minimum_size = Vector2(700, 0)
-layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-autowrap_mode = 3
-
-[node name="Image" type="TextureRect" parent="Question/Ratio/Margin/VContent"]
-layout_mode = 2
-expand_mode = 5
-stretch_mode = 4
-
-[node name="Choices" type="FlowContainer" parent="Question/Ratio/Margin/VContent"]
-layout_mode = 2
-script = ExtResource("6_46v15")
-
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 126.0
-offset_right = -126.0
+offset_left = 5.0
+offset_top = 39.0
+offset_right = -5.0
+offset_bottom = -3.0
 grow_horizontal = 2
 grow_vertical = 2
 horizontal_scroll_mode = 3
 vertical_scroll_mode = 3
 script = ExtResource("6_ef3fk")
 speed = 10.0
+allow_horizontal_scroll = false
 
 [node name="Elements" type="VBoxContainer" parent="ScrollContainer"]
 layout_mode = 2
@@ -185,6 +99,79 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Level"
 horizontal_alignment = 1
 
+[node name="Control" type="Control" parent="ScrollContainer/Elements/Margin/BasicInformation"]
+layout_mode = 2
+mouse_filter = 1
+
+[node name="Subject3" type="Label" parent="ScrollContainer/Elements/Margin/BasicInformation/Control"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 357.0
+offset_top = -67.0
+offset_right = 502.0
+offset_bottom = -41.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 1
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "_____________________"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="ScrollContainer/Elements/Margin/BasicInformation/Control"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -208.0
+offset_top = -117.0
+offset_right = -67.0
+offset_bottom = -22.0
+grow_horizontal = 0
+grow_vertical = 0
+mouse_filter = 1
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_fonts/font = ExtResource("7_eafx6")
+theme_override_font_sizes/font_size = 91
+text = "0,0"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="Subject2" type="Label" parent="ScrollContainer/Elements/Margin/BasicInformation/Control"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 502.0
+offset_top = -66.0
+offset_right = 558.0
+offset_bottom = -40.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 1
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "values"
+horizontal_alignment = 1
+
+[node name="Subject" type="Label" parent="ScrollContainer/Elements/Margin/BasicInformation/Control"]
+offset_left = 871.0
+offset_top = -66.0
+offset_right = 927.0
+offset_bottom = -40.0
+mouse_filter = 1
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Grade: "
+horizontal_alignment = 1
+
 [node name="Questions" type="VBoxContainer" parent="ScrollContainer/Elements"]
 layout_mode = 2
 
@@ -227,15 +214,16 @@ one_shot = true
 [node name="SubmitButton" type="Button" parent="."]
 clip_contents = true
 layout_mode = 1
-anchors_preset = 11
+anchors_preset = 3
 anchor_left = 1.0
+anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -120.0
-offset_top = 446.0
+offset_top = -154.0
 offset_bottom = -21.0
 grow_horizontal = 0
-grow_vertical = 2
+grow_vertical = 0
 theme = SubResource("Theme_4hcyd")
 
 [node name="Submit" type="Sprite2D" parent="SubmitButton"]
@@ -260,5 +248,6 @@ position = Vector2(59, 69)
 texture = ExtResource("9_eab2j")
 
 [connection signal="timeout" from="Time/Timer" to="." method="_on_timer_timeout"]
+[connection signal="pressed" from="SubmitButton" to="." method="_on_submit_button_pressed"]
 
 [editable path="Background"]

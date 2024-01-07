@@ -3,5 +3,8 @@
 [ext_resource type="Script" path="res://scenes/sfx.gd" id="1_5v4c6"]
 
 [node name="SFX" type="AudioStreamPlayer"]
-bus = &"SFX"
+bus = &"SFX_main"
 script = ExtResource("1_5v4c6")
+
+[node name="SFX_alt" type="AudioStreamPlayer" parent="."]
+bus = &"SFX_alt"

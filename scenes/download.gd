@@ -24,40 +24,61 @@ func _on_http_request_request_completed(_result, _response_code, _headers, body)
 	
 	if res == null:
 		$Process.text = "Fail..."
-		$CircleSpin/Result.play("fail")
-		await $CircleSpin/Result.animation_finished
+		$Result.play("fail")
+		await $Result.animation_finished
 		await get_tree().create_timer(5).timeout
 		return
-	for i in res.keys():
+	$Process.text = "Fetching subjects..."
+	for i in res.subjects.keys():
+		User.subjects[int(i)] = {
+			"title": res.subjects[i]["title"],
+			"description": res.subjects[i]["description"]
+		}
+	$Process.text = "Fetching questions..."
+	for i in res.questions.keys():
+		$Process.text = "Adding question #{x}".format({"x": i})
 		User.questions[int(i)] = {
-			"question": res[i]["ask"], 
-			"answers": res[i]["answers"],
-			"choices": res[i]["choices"], 
-			"types": res[i]["types"], 
-			"tags": res[i]["tags"], 
-			"level": res[i]["level"],
-			"subject_id": res[i]["subject"], 
+			"question": res.questions[i]["ask"], 
+			"answers": res.questions[i]["answers"],
+			"choices": res.questions[i]["choices"], 
+			"types": res.questions[i]["types"], 
+			"tags": res.questions[i]["tags"], 
+			"level": res.questions[i]["level"],
+			"subject_id": res.questions[i]["subject"], 
 			"hits": 0, 
 			"misses": 0, 
 			"appearances": 0
 		}
-		if res[i].has("image"):
-			print("Has image")
-			print(res[i]["image"])
-			if res[i].has("png"):
-				$ImageRequest.request(res[i]["image"])
+		if res.questions[i].has("image"):
+			$Process.text = "Adding image for #{x}".format({"x": i})
+			print("Question #{x} has image".format({"x": str(i)}))
+			print(res.questions[i]["image"])
+			if res.questions[i].has("png"):
+				$ImageRequest.request(res.questions[i]["image"])
 				User.questions[int(i)]["image_format"] = "png"
 			else:
-				$JPGRequest.request(res[i]["image"])
+				$JPGRequest.request(res.questions[i]["image"])
 				User.questions[int(i)]["image_format"] = "jpg"
 			await img_processed
+			var imoga = Image.new()
+			match User.questions[int(i)]["image_format"]:
+				"jpg":
+					imoga.load_jpg_from_buffer(img)
+				"png":
+					imoga.load_png_from_buffer(img)
+			$Image.texture = ImageTexture.create_from_image(imoga)
 			User.questions[int(i)]["image"] = img
+	$Process.text = "Saving subjects..."
+	var subjects_file = FileAccess.open("user://subjects.dat", FileAccess.WRITE)
+	subjects_file.store_var(User.subjects)
+	subjects_file.close()
+	$Process.text = "Saving questions..."
 	var questions_file = FileAccess.open("user://questions.dat", FileAccess.WRITE)
 	questions_file.store_var(User.questions)
 	questions_file.close()
 	$Process.text = "Success!"
-	$CircleSpin/Result.play("success")
-	await $CircleSpin/Result.animation_finished
+	$Result.play("success")
+	await $Result.animation_finished
 	await get_tree().create_timer(5).timeout
 	get_tree().change_scene_to_file("res://scenes/main.tscn")
 

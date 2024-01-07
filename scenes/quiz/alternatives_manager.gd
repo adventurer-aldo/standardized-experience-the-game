@@ -1,4 +1,4 @@
-extends FlowContainer
+extends VBoxContainer
 
 signal button_toggled
 
