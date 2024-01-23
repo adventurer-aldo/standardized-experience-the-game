@@ -28,7 +28,8 @@ func _on_quiz_button_pressed():
 
 func _on_data_button_pressed():
 	SFX.autoplay("confirm")
-	get_tree().change_scene_to_file("res://scenes/data/questions.tscn")
+	var more_scene = load("res://scenes/data/questions.tscn") as PackedScene
+	add_child(more_scene.instantiate())
 
 func _on_button_focus_entered():
 	SFX.autoplay("move", false)

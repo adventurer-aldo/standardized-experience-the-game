@@ -34,7 +34,6 @@ size_flags_horizontal = 3
 theme = SubResource("Theme_gtd8c")
 theme_override_font_sizes/font_size = 56
 theme_override_styles/normal = SubResource("StyleBoxFlat_hgo2d")
-text = "8945"
 wrap_mode = 1
 scroll_fit_content_height = true
 caret_blink = true

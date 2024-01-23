@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scenes/data/questions.gd" id="1_qdrcd"]
 [ext_resource type="PackedScene" uid="uid://cklpthhbe5lxb" path="res://scenes/background.tscn" id="2_v4acm"]
-[ext_resource type="PackedScene" uid="uid://5brymvjpoetb" path="res://scenes/topbar.tscn" id="4_1vrxg"]
+[ext_resource type="PackedScene" uid="uid://5brymvjpoetb" path="res://scenes/tipbar.tscn" id="4_1vrxg"]
 [ext_resource type="Theme" uid="uid://dphjscf0acfaw" path="res://graphics/themes/general.tres" id="4_jud6d"]
 [ext_resource type="Script" path="res://scenes/data/questions_manager.gd" id="4_u841u"]
 [ext_resource type="PackedScene" uid="uid://35bn8nw6fdpd" path="res://scenes/data/questions/question.tscn" id="5_5n8c8"]
@@ -245,10 +245,17 @@ offset_top = 0.0
 offset_right = 291.0
 offset_bottom = 180.0
 
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_right = 175.0
+offset_bottom = 44.0
+text = "Main"
+
 [connection signal="delete_pressed" from="Scroller/Components/QuestionsManager/Questions/Question" to="Scroller/Components/QuestionsManager" method="_on_answer_delete_pressed"]
 [connection signal="pressed" from="Scroller/Components/QuestionsManager/AddAnswerButton" to="Scroller/Components/QuestionsManager" method="_on_add_answer_button_pressed"]
 [connection signal="pressed" from="Scroller/Components/AnswersManager/AnswerBox/Add" to="Scroller/Components/AnswersManager" method="_on_add_pressed"]
 [connection signal="item_selected" from="Scroller/Components/Subject" to="." method="_on_subject_item_selected"]
 [connection signal="pressed" from="Scroller/Components/Submit" to="." method="_on_submit_pressed"]
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
 
 [editable path="Background"]

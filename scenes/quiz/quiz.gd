@@ -65,15 +65,15 @@ func _ready():
 		$ScrollContainer/Elements/Questions.add_child(ques)
 		ques.show()
 	$Time/Timer.start()
-	# BGM.autoplay("test")
+	
 
 func finish():
-	# BGM.autoplay("result")
 	var tween = create_tween()
 	tween.tween_property($ScrollContainer, "scroll_vertical", 0, 1.0)
 
 func evaluate(value: float):
 	grade += snapped(value, 0.01)
+	grade = clamp(grade, 0.0, 20.0)
 	$ScrollContainer/Elements/Margin/BasicInformation/Control/Label.text = str(grade).replace(".", ",")
 	
 
@@ -84,3 +84,7 @@ func _on_timer_timeout():
 func _on_submit_button_pressed():
 	$Time/Timer.paused = true
 	User.emit_signal("finished")
+
+
+func _on_button_pressed():
+	get_tree().reload_current_scene()

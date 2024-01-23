@@ -86,8 +86,7 @@ focus_next = NodePath("../../BehindBegin/BeginButton")
 focus_previous = NodePath("../../BehindBegin/BeginButton")
 theme = ExtResource("4_ogymf")
 theme_override_font_sizes/font_size = 30
-text = "Download
-"
+text = "Download"
 
 [node name="Buttons2" type="VBoxContainer" parent="."]
 visible = false
@@ -148,8 +147,7 @@ focus_next = NodePath("../../BehindBack/BackButton")
 focus_previous = NodePath("../../BehindData/DataButton")
 theme = ExtResource("4_ogymf")
 theme_override_font_sizes/font_size = 30
-text = "Quiz
-"
+text = "Practice"
 
 [node name="BehindBack" type="Panel" parent="Buttons2"]
 custom_minimum_size = Vector2(400, 50.78)
@@ -172,7 +170,7 @@ focus_next = NodePath("../../BehindData/DataButton")
 focus_previous = NodePath("../../BehindQuiz/QuizButton")
 theme = ExtResource("4_ogymf")
 theme_override_font_sizes/font_size = 30
-text = "Back"
+text = "Return"
 
 [node name="Logo" type="TextureRect" parent="."]
 layout_mode = 1

@@ -57,3 +57,5 @@ func _ready():
 		$Scroller/Components/Subject.add_item(User.subjects[i].title)
 	_on_subject_item_selected($Scroller/Components/Subject.selected)
 
+func _on_button_pressed():
+	queue_free()

@@ -1,9 +1,12 @@
 extends Node
 
 func _ready():
-	var voices = load("res://texts/level1_cheers.txt")
-	print(FileAccess.open("res://texts/level1_cheers.txt", FileAccess.READ).get_as_text())
+	# print(DisplayServer.clipboard_get())
+	load("user://questions.dat")
 	
-	print(User.questions[User.questions.keys().filter(func i(k):
-		return int(User.questions[k].subject_id) == User.subjects.keys()[-1]
-	)[0]])
+
+
+func _on_file_dialog_file_selected(path):
+	var ben = Image.new()
+	ben.load(path)
+	$TextureRect.texture = ImageTexture.create_from_image(ben)
