@@ -20,14 +20,20 @@ func tada(type, arr):
 		get_img.load_jpg_from_buffer(arr)
 	return get_img
 
+func fail():
+	$Process.text = "Fail..."
+	$Result.play("fail")
+	get_tree().create_tween().tween_property($Load/LoadingBar/ParticleControl/CPUParticles2D, "color", Color.RED, 0.1)
+	$Load/LoadingBar/ParticleControl/CPUParticles2D.emitting = false
+	get_tree().create_tween().tween_property($Glow, "modulate", Color.RED, 0.1)
+	await $Result.animation_finished
+	await get_tree().create_timer(5).timeout
+
 func _on_http_request_request_completed(_result, _response_code, _headers, body):
 	var res = JSON.parse_string(body.get_string_from_utf8())
 	
 	if res == null:
-		$Process.text = "Fail..."
-		$Result.play("fail")
-		await $Result.animation_finished
-		await get_tree().create_timer(5).timeout
+		fail()
 		return
 	$Process.text = "Fetching subjects..."
 	for i in res.subjects.keys():
@@ -85,14 +91,20 @@ func _on_http_request_request_completed(_result, _response_code, _headers, body)
 	get_tree().change_scene_to_file("res://scenes/main.tscn")
 
 
-func _on_image_request_request_completed(_result, _response_code, _headers, body):
-	img = body
-	emit_signal("img_processed")
+func _on_image_request_request_completed(result, _response_code, _headers, body):
+	if result == null:
+		fail()
+	else:
+		img = body
+		emit_signal("img_processed")
 
 
-func _on_jpg_request_request_completed(_result, _response_code, _headers, body):
-	img = body
-	emit_signal("img_processed")
+func _on_jpg_request_request_completed(result, _response_code, _headers, body):
+	if result == null:
+		fail()
+	else:
+		img = body
+		emit_signal("img_processed")
 
 
 func _on_spin_animation_finished(_anim_name):

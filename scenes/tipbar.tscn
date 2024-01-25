@@ -12,6 +12,7 @@ color = Color(0.0507813, 0.421875, 0.972656, 1)
 script = ExtResource("1_w7fhr")
 source = "Downloads"
 downloads = PackedStringArray("Information up-to-date is the most reliable one out there.", "The more reliable data there is, the more reliable the conclusions.")
+questions = PackedStringArray("Transcribing data yourself is one efficient way to get used to it.", "New data isn\'t complex. It\'s just your first time seeing it.", "A second brain of sorts, where all the information you\'ve yet to learn is stored.")
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 1
