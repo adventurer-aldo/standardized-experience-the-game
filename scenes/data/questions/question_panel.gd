@@ -1,6 +1,6 @@
 extends Panel
 
-var question: String = ""
+var question: String = ''
 var answers: Array = []
 var subject: String = ""
 var types: Array = ["open"]

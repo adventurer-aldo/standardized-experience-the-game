@@ -45,7 +45,7 @@ func _on_http_request_request_completed(_result, _response_code, _headers, body)
 	for i in res.questions.keys():
 		$Progress.text = str(int((float(res.questions.keys().find(i) + 1) / float(res.questions.keys().size())) * 100)) + '%'
 		get_tree().create_tween().tween_property($Load/LoadingBar, "size", Vector2((float(res.questions.keys().find(i) + 1) / float(res.questions.keys().size())) * load, $Load/LoadingBar.size.y), 0.1)
-		# $Load/LoadingBar.size.x = (float(res.questions.keys().find(i) + 1) / float(res.questions.keys().size())) * load
+		#$Load/LoadingBar.size.x = (float(res.questions.keys().find(i) + 1) / float(res.questions.keys().size())) * load
 		$Process.text = "Adding question #{x}".format({"x": i})
 		User.questions[int(i)] = {
 			"question": res.questions[i]["ask"], 

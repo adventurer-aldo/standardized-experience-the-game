@@ -1,6 +1,9 @@
 extends Control
 
+@export_range(0.0, 2.0, 0.01) var speed = 0.25
+
 func _ready():
+	$LoopAnim.speed_scale = speed
 	var time = {"hour": 12} # Time.get_time_dict_from_system()
 	if time.hour >= 18 || time.hour <= 6:
 		$Background/BackgroundDark.show()

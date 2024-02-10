@@ -22,23 +22,29 @@ script = ExtResource("1_4oc6p")
 layout_mode = 1
 
 [node name="Foreground" type="TextureRect" parent="."]
-layout_mode = 0
-offset_right = 935.0
-offset_bottom = 602.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -217.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("3_25uw3")
 expand_mode = 1
 
 [node name="Buttons" type="VBoxContainer" parent="."]
 layout_mode = 1
-anchors_preset = 11
-anchor_left = 1.0
+anchors_preset = -1
+anchor_left = 0.634
+anchor_top = 0.66
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -422.0
-offset_top = 424.0
+offset_left = -0.367981
+offset_top = -3.05176e-05
 offset_right = -22.0
-offset_bottom = -128.0
-grow_horizontal = 0
+offset_bottom = -100.0
+grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_group_ = true
 
@@ -174,14 +180,16 @@ text = "Return"
 
 [node name="Logo" type="TextureRect" parent="."]
 layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
+anchors_preset = -1
+anchor_left = 0.56
 anchor_right = 1.0
-offset_left = -436.0
+anchor_bottom = 1.0
+offset_left = 70.88
 offset_top = 188.0
 offset_right = 717.0
-offset_bottom = 703.0
-grow_horizontal = 0
+offset_bottom = 103.0
+grow_horizontal = 2
+grow_vertical = 2
 scale = Vector2(0.366019, 0.366019)
 texture = ExtResource("2_7bg8o")
 metadata/_edit_group_ = true
@@ -189,10 +197,9 @@ metadata/_edit_group_ = true
 [node name="Label" type="Label" parent="."]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.613
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 84.824
+offset_left = 791.0
 offset_top = 567.0
 offset_right = -58.0
 offset_bottom = -53.0
@@ -202,9 +209,20 @@ theme = ExtResource("4_ogymf")
 theme_override_colors/font_color = Color(0.333333, 0.333333, 0.333333, 1)
 text = "2021-2024 Standardized Experience"
 
-[node name="Logo2" type="Sprite2D" parent="."]
-position = Vector2(942, 123)
+[node name="Logo2" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.604
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 136.192
+offset_top = 30.0
+offset_right = -128.0
+offset_bottom = -378.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("8_5g4ri")
+stretch_mode = 2
 
 [connection signal="focus_entered" from="Buttons/BehindBegin/BeginButton" to="." method="_on_button_focus_entered"]
 [connection signal="pressed" from="Buttons/BehindBegin/BeginButton" to="." method="_on_begin_button_pressed"]

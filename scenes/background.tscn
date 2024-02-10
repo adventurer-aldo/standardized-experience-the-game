@@ -128,10 +128,10 @@ stretch_mode = 1
 
 [node name="LoopAnim" type="AnimationPlayer" parent="."]
 reset_on_save = false
-speed_scale = 0.25
 libraries = {
 "": SubResource("AnimationLibrary_0cep3")
 }
+speed_scale = 0.25
 
 [node name="Faders" type="AnimationPlayer" parent="."]
 libraries = {

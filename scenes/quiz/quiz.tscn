@@ -1,7 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://b1owkchsug7x4"]
+[gd_scene load_steps=14 format=3 uid="uid://b1owkchsug7x4"]
 
 [ext_resource type="Script" path="res://scenes/quiz/quiz.gd" id="1_8n255"]
 [ext_resource type="PackedScene" uid="uid://cklpthhbe5lxb" path="res://scenes/background.tscn" id="1_aptwy"]
+[ext_resource type="Texture2D" uid="uid://c08oykekb02jh" path="res://graphics/testure.png" id="3_ws1yj"]
+[ext_resource type="Theme" uid="uid://bbkfe3x78ihvo" path="res://themes/times.tres" id="5_putkc"]
 [ext_resource type="Script" path="res://addons/SmoothScroll/SmoothScrollContainer.gd" id="6_ef3fk"]
 [ext_resource type="FontFile" uid="uid://b34fgfhi138hl" path="res://fonts/learning_curve_regular_ot_tt.ttf" id="7_eafx6"]
 [ext_resource type="Texture2D" uid="uid://bsnb8acrwa5ww" path="res://graphics/submit.png" id="7_eds0u"]
@@ -20,7 +22,7 @@ corner_radius_bottom_left = 10
 Button/styles/normal = SubResource("StyleBoxFlat_nr8o8")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_70cuw"]
-bg_color = Color(0, 0.523438, 0.988281, 1)
+bg_color = Color(0.109804, 0.117647, 0.121569, 1)
 
 [node name="Quiz" type="Control"]
 layout_mode = 3
@@ -33,9 +35,31 @@ script = ExtResource("1_8n255")
 
 [node name="Background" parent="." instance=ExtResource("1_aptwy")]
 layout_mode = 1
+speed = 0.15
 
 [node name="BackgroundDark" parent="Background/Background" index="0"]
 visible = false
+
+[node name="Testure" type="TextureRect" parent="Background/Background" index="1"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_ws1yj")
+stretch_mode = 1
+
+[node name="Paper" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 155.0
+offset_top = 38.0
+offset_right = -155.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
 layout_mode = 1
@@ -67,6 +91,7 @@ theme_override_constants/margin_top = 30
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme_override_constants/separation = 13
 
 [node name="TextureRect" type="TextureRect" parent="ScrollContainer/Elements/Margin/BasicInformation"]
 layout_mode = 2
@@ -74,29 +99,25 @@ layout_mode = 2
 [node name="Standardized" type="Label" parent="ScrollContainer/Elements/Margin/BasicInformation"]
 layout_mode = 2
 mouse_filter = 1
+theme = ExtResource("5_putkc")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "Standardized Experience"
+text = "INSTITUTO SUPERIOR DE CIÊNCIAS E TECNOLOGIAS DE MOÇAMBIQUE"
 horizontal_alignment = 1
 
-[node name="Subject" type="Label" parent="ScrollContainer/Elements/Margin/BasicInformation"]
+[node name="Standardized2" type="Label" parent="ScrollContainer/Elements/Margin/BasicInformation"]
 layout_mode = 2
 mouse_filter = 1
+theme = ExtResource("5_putkc")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "Subject Title"
+text = "ESCOLA DE CIÊNCIAS DE SAÚDE"
 horizontal_alignment = 1
 
-[node name="Duration" type="Label" parent="ScrollContainer/Elements/Margin/BasicInformation"]
+[node name="Standardized3" type="Label" parent="ScrollContainer/Elements/Margin/BasicInformation"]
 layout_mode = 2
 mouse_filter = 1
+theme = ExtResource("5_putkc")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "Time"
-horizontal_alignment = 1
-
-[node name="Level" type="Label" parent="ScrollContainer/Elements/Margin/BasicInformation"]
-layout_mode = 2
-mouse_filter = 1
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "Level"
+text = "LICENCIATURA EM MEDICINA GERAL"
 horizontal_alignment = 1
 
 [node name="Control" type="Control" parent="ScrollContainer/Elements/Margin/BasicInformation"]
@@ -170,6 +191,60 @@ offset_bottom = -40.0
 mouse_filter = 1
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Grade: "
+horizontal_alignment = 1
+
+[node name="Level" type="Label" parent="ScrollContainer/Elements/Margin/BasicInformation"]
+layout_mode = 2
+mouse_filter = 1
+theme = ExtResource("5_putkc")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "1º TESTE TEÓRICO DE ANATOMIA PATOLÓGICA-1º SEMESTRE"
+horizontal_alignment = 1
+
+[node name="Duration" type="Label" parent="ScrollContainer/Elements/Margin/BasicInformation"]
+layout_mode = 2
+mouse_filter = 1
+theme = ExtResource("5_putkc")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Data: 04/02/2024"
+horizontal_alignment = 1
+
+[node name="Subject" type="Label" parent="ScrollContainer/Elements/Margin/BasicInformation"]
+layout_mode = 2
+mouse_filter = 1
+theme = ExtResource("5_putkc")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Subject Title"
+horizontal_alignment = 1
+
+[node name="Subject2" type="Label" parent="ScrollContainer/Elements/Margin/BasicInformation"]
+layout_mode = 2
+mouse_filter = 1
+theme = ExtResource("5_putkc")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Nome: _________________________________________________, Código: ________________
+Turma: _________"
+horizontal_alignment = 1
+
+[node name="Subject3" type="Label" parent="ScrollContainer/Elements/Margin/BasicInformation"]
+layout_mode = 2
+mouse_filter = 1
+theme = ExtResource("5_putkc")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "INSTRUÇÕES"
+horizontal_alignment = 1
+
+[node name="Subject4" type="Label" parent="ScrollContainer/Elements/Margin/BasicInformation"]
+layout_mode = 2
+mouse_filter = 1
+theme = ExtResource("5_putkc")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Escreva o seu Nome com Letras MAIÚSCULAS em todas as folhas que compõem o teste.
+
+O presente teste é constituído por 4 partes: I - Verdadeiro (V) e falso (F), II- Escolha múltipla, 
+III-Tabelas para Correspondência e IV- espaços em brano. Não é permitido conversar/sussurar, o uso de
+dispositivos eletrônicos e outros materiais de apoio para além das folhas do Teste. 
+A fraude académica é punida nos termos do regulamento do ISCTEM."
 horizontal_alignment = 1
 
 [node name="Questions" type="VBoxContainer" parent="ScrollContainer/Elements"]
