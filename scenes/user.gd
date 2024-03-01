@@ -5,13 +5,18 @@ signal grade(value)
 
 var subjects := {}
 var questions := {}
+var stats
 
 func _ready():
-	if FileAccess.file_exists("user://subjects.dat"):
-		var subjects_file = FileAccess.open("user://subjects.dat", FileAccess.READ)
-		subjects = subjects_file.get_var(true)
-		subjects_file.close()
-	if FileAccess.file_exists("user://questions.dat"):
-		var questions_file = FileAccess.open("user://questions.dat", FileAccess.READ)
-		questions = questions_file.get_var(true)
-		questions_file.close()
+	for dir in ["subjects", "quizzes", "journeys"]:
+		if !DirAccess.dir_exists_absolute("user://{dir}".format({"dir": dir})):
+			DirAccess.make_dir_absolute("user://{dir}".format({"dir": dir}))
+	if ResourceLoader.exists("user://stats.res"):
+		stats = ResourceLoader.load("user://stats.res")
+	else:
+		var stats = load("res://resources/stats.tres").duplicate()
+		ResourceSaver.save(stats, "user://stats.res", ResourceSaver.FLAG_COMPRESS)
+
+func save_stats():
+	print(stats.last_question_id)
+	print(ResourceSaver.save(stats, "user://stats.res", ResourceSaver.FLAG_COMPRESS))

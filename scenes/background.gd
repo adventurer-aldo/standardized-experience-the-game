@@ -4,7 +4,7 @@ extends Control
 
 func _ready():
 	$LoopAnim.speed_scale = speed
-	var time = {"hour": 12} # Time.get_time_dict_from_system()
+	var time = {"hour": 10} # Time.get_time_dict_from_system()
 	if time.hour >= 18 || time.hour <= 6:
 		$Background/BackgroundDark.show()
 	else:

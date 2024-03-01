@@ -12,7 +12,7 @@ config_version=5
 
 config/name="Standardized Experience"
 config/description="Level up your learning."
-run/main_scene="res://scenes/main.tscn"
+run/main_scene="res://scenes/load.tscn"
 config/use_custom_user_dir=true
 config/custom_user_dir_name="StandardizedExperience"
 config/features=PackedStringArray("4.2", "GL Compatibility")
@@ -28,11 +28,16 @@ BGM="*res://scenes/bgm.tscn"
 
 [display]
 
-window/size/viewport_height=600
+window/size/viewport_width=1280
+window/size/viewport_height=720
 
 [dotnet]
 
 project/assembly_name="Standardized Experience"
+
+[editor]
+
+movie_writer/movie_file="C:/Users/KAVONA/Videos/Test.avi"
 
 [input]
 

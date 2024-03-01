@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cfhwmxxwa7rw8"]
 
 [ext_resource type="Script" path="res://scenes/data/questions/alternative_open.gd" id="1_muj0h"]
-[ext_resource type="Theme" uid="uid://dphjscf0acfaw" path="res://graphics/themes/general.tres" id="1_o81cu"]
+[ext_resource type="Theme" uid="uid://dphjscf0acfaw" path="res://themes/general.tres" id="1_o81cu"]
 
 [node name="Alternative" type="HBoxContainer"]
 theme = ExtResource("1_o81cu")
@@ -25,4 +25,5 @@ custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
 text = "-"
 
+[connection signal="text_changed" from="Text" to="." method="_on_text_text_changed"]
 [connection signal="pressed" from="Delete" to="." method="_on_delete_pressed"]

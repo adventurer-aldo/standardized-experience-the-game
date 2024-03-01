@@ -1,9 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://dx2lto7swm1wm"]
+[gd_scene load_steps=15 format=3 uid="uid://dx2lto7swm1wm"]
 
 [ext_resource type="Script" path="res://scenes/download.gd" id="1_x4dy5"]
 [ext_resource type="PackedScene" uid="uid://cklpthhbe5lxb" path="res://scenes/background.tscn" id="2_d2xq8"]
 [ext_resource type="Texture2D" uid="uid://dfvysekdfjhtn" path="res://graphics/title/download/circle_spin.png" id="3_ogffo"]
-[ext_resource type="Theme" uid="uid://dphjscf0acfaw" path="res://graphics/themes/general.tres" id="4_33hvr"]
+[ext_resource type="Theme" uid="uid://dphjscf0acfaw" path="res://themes/general.tres" id="4_33hvr"]
 [ext_resource type="Texture2D" uid="uid://bxunaysknjqil" path="res://graphics/glow.png" id="5_tlaer"]
 
 [sub_resource type="Animation" id="Animation_qdsih"]
@@ -155,6 +155,12 @@ _data = {
 "spin": SubResource("Animation_oa343")
 }
 
+[sub_resource type="InputEventAction" id="InputEventAction_rrfbi"]
+action = &"ui_accept"
+
+[sub_resource type="Shortcut" id="Shortcut_yix46"]
+events = [SubResource("InputEventAction_rrfbi")]
+
 [node name="Playground" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -165,10 +171,13 @@ grow_vertical = 2
 script = ExtResource("1_x4dy5")
 
 [node name="HTTPRequest" type="HTTPRequest" parent="."]
+use_threads = true
 
 [node name="ImageRequest" type="HTTPRequest" parent="."]
+use_threads = true
 
 [node name="JPGRequest" type="HTTPRequest" parent="."]
+use_threads = true
 
 [node name="Background" parent="." instance=ExtResource("2_d2xq8")]
 layout_mode = 1
@@ -241,21 +250,25 @@ grow_vertical = 2
 theme = ExtResource("4_33hvr")
 theme_override_constants/outline_size = 4
 theme_override_font_sizes/font_size = 51
-text = "Downloading..."
+text = " "
 
 [node name="Load" type="ColorRect" parent="."]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
 offset_left = 61.0
-offset_top = 506.0
-offset_right = 1124.0
-offset_bottom = 515.0
+offset_top = -94.0
+offset_right = -28.0
+offset_bottom = -85.0
+color = Color(0.517647, 0.709804, 0.87451, 1)
 
 [node name="LoadingBar" type="HBoxContainer" parent="Load"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = -1063.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 0
@@ -282,12 +295,6 @@ scale_amount_min = 0.0
 scale_amount_max = 0.1
 color = Color(0, 0.458824, 1, 1)
 
-[node name="Glow" type="Sprite2D" parent="."]
-modulate = Color(0, 0.458824, 1, 1)
-position = Vector2(575, 547)
-scale = Vector2(0.722222, 0.34965)
-texture = ExtResource("5_tlaer")
-
 [node name="Progress" type="Label" parent="."]
 layout_mode = 1
 anchors_preset = 8
@@ -308,7 +315,50 @@ text = "0%"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Glow" type="Sprite2D" parent="Progress"]
+modulate = Color(0, 0.458824, 1, 1)
+show_behind_parent = true
+position = Vector2(188.5, 25)
+scale = Vector2(0.756944, 0.34965)
+texture = ExtResource("5_tlaer")
+
+[node name="Fade" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.733333)
+
+[node name="Host" type="LineEdit" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 213.0
+offset_top = -29.0
+offset_right = -207.0
+offset_bottom = 29.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Go" type="TextureButton" parent="Host"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -67.0
+offset_top = 84.0
+offset_right = 67.0
+offset_bottom = 124.0
+grow_horizontal = 2
+shortcut = SubResource("Shortcut_yix46")
+
 [connection signal="request_completed" from="HTTPRequest" to="." method="_on_http_request_request_completed"]
 [connection signal="request_completed" from="ImageRequest" to="." method="_on_image_request_request_completed"]
 [connection signal="request_completed" from="JPGRequest" to="." method="_on_jpg_request_request_completed"]
 [connection signal="animation_finished" from="CircleSpin/Spin" to="." method="_on_spin_animation_finished"]
+[connection signal="text_changed" from="Host" to="." method="_on_host_text_changed"]
+[connection signal="pressed" from="Host/Go" to="." method="_on_go_pressed"]

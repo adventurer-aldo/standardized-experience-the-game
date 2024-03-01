@@ -1,30 +1,27 @@
 extends Control
 
 var grade := 0.0
-
-func _process(_delta):
-	$SubmitButton/Glow.global_position = get_global_mouse_position()
+var subject_key := 0
 
 func generate_quiz(subject_id: int, duration: int, level: int = 1):
-	var questions = User.questions.keys().filter(
-		func i(k):
-			var question = User.questions[k]
-			return question.subject_id == subject_id
-	)
+	var questions = Array(DirAccess.get_files_at("user://subjects/{subj}/".format({"subj": subject_id})))
 	randomize()
 	questions.shuffle()
 	questions.resize(clamp(randi_range(10, 20), 0, questions.size()))
 	var answers = questions.map(func i(question):
+		var loaded_question = ResourceLoader.load("user://subjects/{subj}/{q}".format({"subj": subject_id, "q": question}))
+		print(question)
+		print(loaded_question)
 		var result = {
 		"attempt": [], 
-		"question_id": question, 
-		"question_sample": randi() % User.questions[question].question.size(),
-		"type": randi() % User.questions[question].types.size(),
+		"question_id": int(question), 
+		"question_sample": randi() % loaded_question.question.size(),
+		"type": randi() % loaded_question.get_types().size(),
 		"choices": []
 		}
-		match User.questions[question].types[result.type]:
+		match loaded_question.get_types()[result.type]:
 			'choice':
-				var rchoices = User.questions[question].choices
+				var rchoices = loaded_question.choices
 				var true_choices = rchoices.filter(func i(choice):
 					return choice.veracity == true)
 				var false_choices = rchoices.filter(func i(choice):
@@ -35,7 +32,7 @@ func generate_quiz(subject_id: int, duration: int, level: int = 1):
 				choices.shuffle()
 				result['choices'] = choices
 			'veracity':
-				var choices = User.questions[question].choices
+				var choices = loaded_question.choices
 				choices = choices.map(func n(k): return choices.find(k))
 				choices.shuffle()
 				choices.resize(clamp(randi_range(2, 10), 0, choices.size()))
@@ -50,22 +47,30 @@ func generate_quiz(subject_id: int, duration: int, level: int = 1):
 func _ready():
 	User.finished.connect(finish)
 	User.grade.connect(evaluate)
-	var a = FileAccess.open("user://questions.dat", FileAccess.WRITE)
-	a.store_var(User.questions)
-	a.close()
-	var quiz = generate_quiz(User.subjects.keys()[-1], 160)
+	if subject_key == 0:
+		for i in User.subjects.keys():
+			var clone = $Discard/ScrollContainer/Subjects/SubjectSelector.duplicate()
+			$Discard/ScrollContainer/Subjects.add_child(clone)
+			clone.text = str(i) + ": " + User.subjects[i].title
+			clone.key = User.subjects.keys().find(i)
+	else:
+		$Discard.hide()
+		prepare()
+
+func prepare():
+	var quiz = generate_quiz(User.subjects.keys()[subject_key], 160)
 	$ScrollContainer/Elements/Margin/BasicInformation/Subject.text = User.subjects[quiz.subject_id].title
 	$Time/Timer.wait_time = quiz.end_time - quiz.start_time
+	var loaded_ques = preload("res://scenes/quiz/question.tscn") as PackedScene
 	for i in quiz.answers:
-		var loaded_ques = load("res://scenes/quiz/question.tscn") as PackedScene
-		var ques := loaded_ques.instantiate()
+		var ques = loaded_ques.instantiate()
 		ques.grade = 20.0 / quiz.answers.size()
 		ques.setup(i.question_id, i.question_sample, 
-		User.questions[i.question_id].types[i.type], i.choices, 1)
+		ResourceLoader.load("user://subjects/{subj}/{q}.res".format({"subj": quiz.subject_id, "q": i.question_id})).get_types()[i.type], i.choices, quiz.subject_id)
 		$ScrollContainer/Elements/Questions.add_child(ques)
 		ques.show()
 	$Time/Timer.start()
-	
+	$Discard.hide()
 
 func finish():
 	var tween = create_tween()
@@ -75,16 +80,17 @@ func evaluate(value: float):
 	grade += snapped(value, 0.01)
 	grade = clamp(grade, 0.0, 20.0)
 	$ScrollContainer/Elements/Margin/BasicInformation/Control/Label.text = str(grade).replace(".", ",")
-	
 
 func _on_timer_timeout():
 	User.emit_signal("finished")
-
 
 func _on_submit_button_pressed():
 	$Time/Timer.paused = true
 	User.emit_signal("finished")
 
-
 func _on_button_pressed():
 	get_tree().reload_current_scene()
+
+func _on_subject_selector_subject_selected(id):
+	subject_key = id
+	prepare()

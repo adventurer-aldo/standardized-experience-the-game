@@ -1,0 +1,286 @@
+[gd_scene load_steps=13 format=3 uid="uid://bq5abjg04fi7a"]
+
+[ext_resource type="Script" path="res://scenes/question_data.gd" id="1_4rxcw"]
+[ext_resource type="Texture2D" uid="uid://ddt0r4yxf01tm" path="res://graphics/topper.png" id="2_x7v53"]
+[ext_resource type="Texture2D" uid="uid://b8iujppcj6cfj" path="res://graphics/delete.png" id="3_swc0f"]
+[ext_resource type="Texture2D" uid="uid://coqg5m685pq61" path="res://graphics/details.png" id="4_ro32e"]
+[ext_resource type="Texture2D" uid="uid://dtrox0vv377dk" path="res://graphics/edit.png" id="5_k1gie"]
+[ext_resource type="Theme" uid="uid://ddpx351m2ye8v" path="res://themes/fe_font.tres" id="6_vrha8"]
+[ext_resource type="Texture2D" uid="uid://n1yehrljitvn" path="res://testimg.jpg" id="7_i4w5x"]
+[ext_resource type="Texture2D" uid="uid://cmym26tl6mi5w" path="res://graphics/type.png" id="8_vh0qi"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_muqi2"]
+texture = ExtResource("2_x7v53")
+texture_margin_left = 50.0
+texture_margin_right = 50.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ddkt7"]
+texture = ExtResource("8_vh0qi")
+texture_margin_left = 46.0
+texture_margin_top = 10.0
+texture_margin_right = 46.0
+texture_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qpqi2"]
+bg_color = Color(0.0196078, 0.0862745, 0.152941, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6vp10"]
+texture = ExtResource("2_x7v53")
+texture_margin_left = 50.0
+texture_margin_right = 50.0
+region_rect = Rect2(0, 9.28598, 395, 30.714)
+
+[node name="1234" type="VBoxContainer"]
+custom_minimum_size = Vector2(450, 220)
+offset_right = 450.0
+offset_bottom = 294.0
+theme_override_constants/separation = 0
+script = ExtResource("1_4rxcw")
+metadata/_edit_group_ = true
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+
+[node name="IDnStuff" type="Panel" parent="MarginContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_muqi2")
+
+[node name="MarkerTop" type="Control" parent="MarginContainer/IDnStuff"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+grow_horizontal = 2
+
+[node name="Marker2D" type="Marker2D" parent="MarginContainer/IDnStuff/MarkerTop"]
+
+[node name="Margin" type="MarginContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Horizontal" type="HBoxContainer" parent="MarginContainer/Margin"]
+layout_mode = 2
+
+[node name="Edit" type="TextureButton" parent="MarginContainer/Margin/Horizontal"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+texture_normal = ExtResource("5_k1gie")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Details" type="TextureButton" parent="MarginContainer/Margin/Horizontal"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+texture_normal = ExtResource("4_ro32e")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Delete" type="TextureButton" parent="MarginContainer/Margin/Horizontal"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+texture_normal = ExtResource("3_swc0f")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Level" type="Label" parent="MarginContainer/Margin/Horizontal"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("6_vrha8")
+theme_override_font_sizes/font_size = 20
+text = "Level 1"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Image" type="TextureRect" parent="."]
+visible = false
+clip_contents = true
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("7_i4w5x")
+expand_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="."]
+layout_mode = 2
+
+[node name="Backgrounder" type="MarginContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="Backgrounder"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Backgrounder/MarginContainer"]
+layout_mode = 2
+
+[node name="Question" type="Label" parent="Backgrounder/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+theme = ExtResource("6_vrha8")
+theme_override_font_sizes/font_size = 20
+text = "Qual é a principal função da membrana celular?
+"
+autowrap_mode = 3
+text_overrun_behavior = 3
+
+[node name="TypesContainer" type="FlowContainer" parent="Backgrounder/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Open" type="Button" parent="Backgrounder/MarginContainer/VBoxContainer/TypesContainer"]
+visible = false
+layout_mode = 2
+theme = ExtResource("6_vrha8")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = SubResource("StyleBoxTexture_ddkt7")
+text = "Open"
+
+[node name="Choice" type="Button" parent="Backgrounder/MarginContainer/VBoxContainer/TypesContainer"]
+visible = false
+layout_mode = 2
+theme = ExtResource("6_vrha8")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = SubResource("StyleBoxTexture_ddkt7")
+text = "Choice"
+
+[node name="Veracity" type="Button" parent="Backgrounder/MarginContainer/VBoxContainer/TypesContainer"]
+visible = false
+layout_mode = 2
+theme = ExtResource("6_vrha8")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = SubResource("StyleBoxTexture_ddkt7")
+text = "Veracity"
+
+[node name="Match" type="Button" parent="Backgrounder/MarginContainer/VBoxContainer/TypesContainer"]
+visible = false
+layout_mode = 2
+theme = ExtResource("6_vrha8")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = SubResource("StyleBoxTexture_ddkt7")
+text = "Match"
+
+[node name="Fill" type="Button" parent="Backgrounder/MarginContainer/VBoxContainer/TypesContainer"]
+visible = false
+layout_mode = 2
+theme = ExtResource("6_vrha8")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = SubResource("StyleBoxTexture_ddkt7")
+text = "Fill"
+
+[node name="Table" type="Button" parent="Backgrounder/MarginContainer/VBoxContainer/TypesContainer"]
+visible = false
+layout_mode = 2
+theme = ExtResource("6_vrha8")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = SubResource("StyleBoxTexture_ddkt7")
+text = "Table"
+
+[node name="Strict" type="Button" parent="Backgrounder/MarginContainer/VBoxContainer/TypesContainer"]
+visible = false
+modulate = Color(0.396078, 0.635294, 0.878431, 1)
+layout_mode = 2
+theme = ExtResource("6_vrha8")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = SubResource("StyleBoxTexture_ddkt7")
+text = "Strict"
+
+[node name="Order" type="Button" parent="Backgrounder/MarginContainer/VBoxContainer/TypesContainer"]
+visible = false
+modulate = Color(0.396078, 0.635294, 0.878431, 1)
+layout_mode = 2
+theme = ExtResource("6_vrha8")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = SubResource("StyleBoxTexture_ddkt7")
+text = "Order"
+
+[node name="Shuffle" type="Button" parent="Backgrounder/MarginContainer/VBoxContainer/TypesContainer"]
+visible = false
+modulate = Color(0.396078, 0.635294, 0.878431, 1)
+layout_mode = 2
+theme = ExtResource("6_vrha8")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = SubResource("StyleBoxTexture_ddkt7")
+text = "Shuffle"
+
+[node name="Enumerate" type="Button" parent="Backgrounder/MarginContainer/VBoxContainer/TypesContainer"]
+visible = false
+modulate = Color(0.396078, 0.635294, 0.878431, 1)
+layout_mode = 2
+theme = ExtResource("6_vrha8")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = SubResource("StyleBoxTexture_ddkt7")
+text = "Enumerate"
+
+[node name="Background" type="Panel" parent="Backgrounder"]
+show_behind_parent = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_qpqi2")
+
+[node name="TagsPanel" type="Panel" parent="."]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_6vp10")
+
+[node name="MarginContainer" type="MarginContainer" parent="TagsPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Horizontal" type="HBoxContainer" parent="TagsPanel/MarginContainer"]
+layout_mode = 2
+
+[node name="Tags" type="Label" parent="TagsPanel/MarginContainer/Horizontal"]
+layout_mode = 2
+theme = ExtResource("6_vrha8")
+theme_override_font_sizes/font_size = 20
+text = "◊Tags◊"
+
+[node name="BackgrounderTags" type="MarginContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="BackgrounderTags"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Tags" type="Label" parent="BackgrounderTags/MarginContainer"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+theme = ExtResource("6_vrha8")
+theme_override_font_sizes/font_size = 20
+text = "vasos sanguíneos, corpo, veias, artérias, plasma, pensamentos, azul, vermelho, algo, inimaginável, azul_vaso, teste1, teste2"
+autowrap_mode = 3
+text_overrun_behavior = 3
+
+[node name="Background" type="Panel" parent="BackgrounderTags"]
+show_behind_parent = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_qpqi2")

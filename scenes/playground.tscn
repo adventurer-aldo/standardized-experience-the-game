@@ -2,54 +2,13 @@
 
 [ext_resource type="Script" path="res://scenes/playground.gd" id="1_7rcs3"]
 
-[node name="Node" type="Node"]
+[node name="Node" type="ColorRect"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.223529, 0.223529, 0.223529, 1)
 script = ExtResource("1_7rcs3")
 
-[node name="Panel" type="Panel" parent="."]
-offset_right = 193.0
-offset_bottom = 91.0
-
-[node name="RichTextLabel" type="RichTextLabel" parent="Panel"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -3.0
-offset_right = 1.0
-offset_bottom = -3.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "ujuuuuudffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
-scroll_active = false
-
-[node name="Button" type="Button" parent="Panel"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 266.0
-offset_top = 187.0
-offset_right = 266.0
-offset_bottom = 187.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="TextureRect" type="TextureRect" parent="."]
-offset_left = 529.0
-offset_top = 138.0
-offset_right = 771.0
-offset_bottom = 381.0
-
-[node name="FileDialog" type="FileDialog" parent="."]
-title = "Open a File"
-initial_position = 2
-size = Vector2i(884, 609)
-visible = true
-borderless = true
-always_on_top = true
-popup_window = true
-ok_button_text = "Open"
-file_mode = 0
-access = 2
-
-[connection signal="file_selected" from="FileDialog" to="." method="_on_file_dialog_file_selected"]
+[node name="Node" type="Node" parent="."]

@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_4oc6p"]
 [ext_resource type="PackedScene" uid="uid://cklpthhbe5lxb" path="res://scenes/background.tscn" id="1_nlvlq"]
-[ext_resource type="Texture2D" uid="uid://bds2v1xc3f7o3" path="res://graphics/logo.png" id="2_7bg8o"]
+[ext_resource type="Texture2D" uid="uid://bds2v1xc3f7o3" path="res://graphics/old_logo.png" id="2_7bg8o"]
 [ext_resource type="Texture2D" uid="uid://xaw1uyd2v3h1" path="res://graphics/pictures/school.png" id="3_25uw3"]
-[ext_resource type="Theme" uid="uid://dphjscf0acfaw" path="res://graphics/themes/general.tres" id="4_ogymf"]
+[ext_resource type="Theme" uid="uid://dphjscf0acfaw" path="res://themes/general.tres" id="4_ogymf"]
 [ext_resource type="Texture2D" uid="uid://duk1nj73fkylh" path="res://graphics/title/icon_book.png" id="5_5x6qw"]
 [ext_resource type="Texture2D" uid="uid://cj2gvrm5a14eu" path="res://graphics/title/icon_download.png" id="6_5yl7s"]
 [ext_resource type="Texture2D" uid="uid://j804wvsw4kul" path="res://logo.png" id="8_5g4ri"]
@@ -36,11 +36,11 @@ expand_mode = 1
 [node name="Buttons" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.634
+anchor_left = 1.0
 anchor_top = 0.66
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -0.367981
+offset_left = -422.0
 offset_top = -3.05176e-05
 offset_right = -22.0
 offset_bottom = -100.0
@@ -197,10 +197,12 @@ metadata/_edit_group_ = true
 [node name="Label" type="Label" parent="."]
 layout_mode = 1
 anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 791.0
-offset_top = 567.0
+offset_left = -363.0
+offset_top = -76.0
 offset_right = -58.0
 offset_bottom = -53.0
 grow_horizontal = 2

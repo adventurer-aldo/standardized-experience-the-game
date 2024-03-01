@@ -1,9 +1,8 @@
-[gd_scene load_steps=22 format=3 uid="uid://d11bo78dwoh5x"]
+[gd_scene load_steps=20 format=3 uid="uid://d11bo78dwoh5x"]
 
 [ext_resource type="Script" path="res://scenes/data/questions.gd" id="1_qdrcd"]
 [ext_resource type="PackedScene" uid="uid://cklpthhbe5lxb" path="res://scenes/background.tscn" id="2_v4acm"]
-[ext_resource type="PackedScene" uid="uid://5brymvjpoetb" path="res://scenes/tipbar.tscn" id="4_1vrxg"]
-[ext_resource type="Theme" uid="uid://dphjscf0acfaw" path="res://graphics/themes/general.tres" id="4_jud6d"]
+[ext_resource type="Theme" uid="uid://dphjscf0acfaw" path="res://themes/general.tres" id="4_jud6d"]
 [ext_resource type="Script" path="res://scenes/data/questions_manager.gd" id="4_u841u"]
 [ext_resource type="PackedScene" uid="uid://35bn8nw6fdpd" path="res://scenes/data/questions/question.tscn" id="5_5n8c8"]
 [ext_resource type="Script" path="res://scenes/data/questions/answers_manager.gd" id="6_alkfu"]
@@ -11,7 +10,6 @@
 [ext_resource type="Script" path="res://scenes/data/questiongrid.gd" id="9_5ef4l"]
 [ext_resource type="Script" path="res://addons/SmoothScroll/SmoothScrollContainer.gd" id="9_fantj"]
 [ext_resource type="FontFile" uid="uid://drunskociit7h" path="res://fonts/FOT-RodinProN-L.otf" id="9_ukek2"]
-[ext_resource type="PackedScene" uid="uid://ckx2x5dpo4pow" path="res://scenes/data/questions/question_panel.tscn" id="10_0o1iw"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5uw6d"]
 bg_color = Color(0.0820313, 0.449219, 0.277344, 1)
@@ -78,11 +76,6 @@ script = ExtResource("1_qdrcd")
 
 [node name="Background" parent="." instance=ExtResource("2_v4acm")]
 layout_mode = 1
-
-[node name="Topbar" parent="." instance=ExtResource("4_1vrxg")]
-layout_mode = 1
-grow_horizontal = 0
-source = "Questions"
 
 [node name="Scroller" type="ScrollContainer" parent="."]
 clip_contents = false
@@ -196,10 +189,6 @@ text = "For what subject?"
 custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 theme = SubResource("Theme_55fh5")
-item_count = 1
-selected = 0
-popup/item_0/text = "Provisional Thing"
-popup/item_0/id = 0
 
 [node name="Tags" type="GridContainer" parent="Scroller/Components"]
 layout_mode = 2
@@ -237,14 +226,6 @@ theme_override_constants/h_separation = 5
 theme_override_constants/v_separation = 5
 columns = 2
 script = ExtResource("9_5ef4l")
-
-[node name="Question" parent="." instance=ExtResource("10_0o1iw")]
-visible = false
-layout_mode = 0
-offset_left = 0.0
-offset_top = 0.0
-offset_right = 291.0
-offset_bottom = 180.0
 
 [node name="Button" type="Button" parent="."]
 layout_mode = 0

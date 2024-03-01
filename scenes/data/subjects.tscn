@@ -1,12 +1,24 @@
-[gd_scene load_steps=5 format=3 uid="uid://njcan8xh86nx"]
+[gd_scene load_steps=8 format=3 uid="uid://njcan8xh86nx"]
 
+[ext_resource type="Theme" uid="uid://ddpx351m2ye8v" path="res://themes/fe_font.tres" id="1_deu7q"]
 [ext_resource type="Script" path="res://scenes/data/subjects.gd" id="1_itp3r"]
-[ext_resource type="Theme" uid="uid://cufykjww4blk4" path="res://graphics/themes/shitynotes.tres" id="2_1k2le"]
-[ext_resource type="PackedScene" uid="uid://cklpthhbe5lxb" path="res://scenes/background.tscn" id="2_atkwt"]
-[ext_resource type="PackedScene" uid="uid://5brymvjpoetb" path="res://scenes/topbar.tscn" id="4_7dhwi"]
+[ext_resource type="Script" path="res://scenes/data/subject.gd" id="2_xwboi"]
+[ext_resource type="Script" path="res://addons/SmoothScroll/SmoothScrollContainer.gd" id="4_evhab"]
 
-[node name="Subjects" type="Control"]
-layout_mode = 3
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rcyqq"]
+bg_color = Color(0.172549, 0, 0, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qp1q1"]
+corner_radius_top_left = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a1woh"]
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[node name="Subjects" type="ColorRect"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -14,102 +26,115 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_itp3r")
 
-[node name="Background" parent="." instance=ExtResource("2_atkwt")]
-layout_mode = 1
-
-[node name="Title" type="TextEdit" parent="."]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 10.0
-offset_top = 53.0
-offset_right = -686.0
-offset_bottom = -549.0
-focus_neighbor_bottom = NodePath("../Description")
-focus_next = NodePath("../Description")
-theme = ExtResource("2_1k2le")
-placeholder_text = "What's the name of the subject you wish to add?"
-
-[node name="Description" type="TextEdit" parent="."]
+[node name="Subject" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 9.0
-offset_top = 103.0
-offset_right = -686.0
-offset_bottom = -357.0
+offset_left = 149.0
+offset_top = 102.0
+offset_right = -711.0
+offset_bottom = -398.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("2_1k2le")
-placeholder_text = "What's this subject about?"
+theme_override_constants/separation = 0
+script = ExtResource("2_xwboi")
 
-[node name="Submit" type="Button" parent="."]
+[node name="BackgroundColor" type="Panel" parent="Subject"]
+custom_minimum_size = Vector2(420, 220)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_rcyqq")
+
+[node name="Title" type="Label" parent="Subject/BackgroundColor"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 10.0
-offset_top = 575.0
-offset_right = -683.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_deu7q")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 81
+text = "I"
+horizontal_alignment = 1
+vertical_alignment = 1
+visible_characters = 7
+visible_ratio = 7.0
+
+[node name="QuestionNumber" type="Label" parent="Subject/BackgroundColor"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -103.0
+offset_top = -60.0
+offset_right = -13.0
 offset_bottom = -33.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "Submit"
+grow_horizontal = 0
+grow_vertical = 0
+theme = ExtResource("1_deu7q")
+theme_override_font_sizes/font_size = 26
+text = "99999"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="Panel" type="Button" parent="."]
-visible = false
-custom_minimum_size = Vector2(500, 100)
-layout_mode = 2
-offset_left = -1.0
-offset_top = 1.0
-offset_right = 499.0
-offset_bottom = 101.0
-
-[node name="Title" type="Label" parent="Panel"]
-layout_mode = 0
-offset_left = 10.0
-offset_top = 2.0
-offset_right = 230.0
-offset_bottom = 42.0
-text = "Title"
-
-[node name="Description" type="Label" parent="Panel"]
-layout_mode = 0
-offset_left = 10.0
-offset_top = 27.0
-offset_right = 490.0
-offset_bottom = 91.0
-text = "Description"
-
-[node name="VScrollBar" type="ScrollContainer" parent="."]
-layout_mode = 2
+[node name="BackgroundNumber" type="Panel" parent="Subject/BackgroundColor/QuestionNumber"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 476.0
-offset_top = 55.0
-offset_right = 1.0
-offset_bottom = 2.0
+offset_left = -8.0
+offset_top = -4.0
+offset_right = 13.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_qp1q1")
 
-[node name="Questions" type="BoxContainer" parent="VScrollBar"]
-custom_minimum_size = Vector2(659.41, 587.44)
+[node name="FullTitleContainer" type="MarginContainer" parent="Subject"]
 layout_mode = 2
-vertical = true
+size_flags_vertical = 3
 
-[node name="Topbar" parent="." instance=ExtResource("4_7dhwi")]
-layout_mode = 0
-anchors_preset = 0
-anchor_left = 0.0
-anchor_right = 0.0
-offset_left = 0.0
-offset_right = 1152.0
-grow_horizontal = 1
+[node name="FullTitleMargin" type="MarginContainer" parent="Subject/FullTitleContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
 
-[node name="Topbar2" parent="." instance=ExtResource("4_7dhwi")]
+[node name="FullTitle" type="Label" parent="Subject/FullTitleContainer/FullTitleMargin"]
+custom_minimum_size = Vector2(2, 2)
+layout_mode = 2
+theme = ExtResource("1_deu7q")
+theme_override_font_sizes/font_size = 26
+text = "Introdução à Saúde Comunitária"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="FullTitleBackground" type="Panel" parent="Subject/FullTitleContainer"]
+show_behind_parent = true
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_a1woh")
+
+[node name="GridContainer2" type="ScrollContainer" parent="."]
 layout_mode = 1
-anchors_preset = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 19.0
+offset_top = 59.0
+offset_right = -19.0
+offset_bottom = -59.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 3
+script = ExtResource("4_evhab")
 
-[connection signal="text_changed" from="Title" to="." method="_on_title_text_changed"]
-[connection signal="text_changed" from="Description" to="." method="_on_description_text_changed"]
-[connection signal="pressed" from="Submit" to="." method="_on_submit_pressed"]
+[node name="GridContainer" type="GridContainer" parent="GridContainer2"]
+layout_mode = 2
+columns = 3

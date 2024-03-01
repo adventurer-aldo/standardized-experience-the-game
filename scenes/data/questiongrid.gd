@@ -1,16 +1,14 @@
 extends GridContainer
 
 func _ready():
-	var arrs = User.questions.keys()
-	arrs.resize(6)
+	var arrs = DirAccess.get_files_at("user://subjects/6")
+	arrs.resize(10)
 	for i in arrs:
-		var question = User.questions[i]
-		var don: PackedScene = load("res://scenes/data/questions/question_panel.tscn")
+		var question = load("user://subjects/6/{file}".format({"file": i}))
+		var don: PackedScene = load("res://scenes/data_question.tscn")
 		var pon = don.instantiate()
-		pon.question = question.question[0]
-		pon.answers = question.answers
-		pon.types = question.types
-		pon.subject = User.subjects[int(question.subject_id)].title
-		pon.has_image = question.has("image")
-		pon.setup()
+		pon.questions = question.question
+		pon.types = question.get_types()
+		pon.tags = question.tags
+		pon.level = question.level
 		add_child(pon)

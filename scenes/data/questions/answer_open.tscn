@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" path="res://scenes/data/questions/answer_open.gd" id="1_odajj"]
 [ext_resource type="PackedScene" uid="uid://cfhwmxxwa7rw8" path="res://scenes/data/questions/alternative_open.tscn" id="2_54hp2"]
-[ext_resource type="Theme" uid="uid://dphjscf0acfaw" path="res://graphics/themes/general.tres" id="3_ylv4v"]
+[ext_resource type="Theme" uid="uid://dphjscf0acfaw" path="res://themes/general.tres" id="3_ylv4v"]
 
-[node name="Answer" type="VBoxContainer"]
+[node name="Answer" type="VBoxContainer" groups=["answer"]]
 size_flags_horizontal = 3
 script = ExtResource("1_odajj")
 alternative_scene = ExtResource("2_54hp2")

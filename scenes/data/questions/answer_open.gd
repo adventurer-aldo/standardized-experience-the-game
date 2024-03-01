@@ -13,3 +13,9 @@ func _on_add_pressed():
 
 func ab():
 	emit_signal("alternatives_modified")
+
+func get_array():
+	var arr = [$Main/Text.text]
+	for alternative in $Alternatives.get_children():
+		arr.push_back(alternative.text)
+	return arr

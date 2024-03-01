@@ -3,6 +3,7 @@ extends HBoxContainer
 signal de
 
 var order = 1
+var text = ""
 
 func get_order():
 	var par_child = get_parent().get_children()
@@ -15,3 +16,7 @@ func get_order():
 
 func _on_delete_pressed():
 	queue_free()
+
+
+func _on_text_text_changed():
+	text = $Text.text

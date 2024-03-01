@@ -1,0 +1,69 @@
+[gd_scene load_steps=6 format=3 uid="uid://pforl4o3pn63"]
+
+[ext_resource type="Script" path="res://scenes/questions.gd" id="1_8rn5k"]
+[ext_resource type="Theme" uid="uid://ddpx351m2ye8v" path="res://themes/fe_font.tres" id="1_rdpm4"]
+[ext_resource type="PackedScene" uid="uid://bq5abjg04fi7a" path="res://scenes/data_question.tscn" id="2_quxj6"]
+[ext_resource type="Texture2D" uid="uid://dm1u7w2bu1hip" path="res://graphics/top_parallax_end.png" id="4_axsg2"]
+[ext_resource type="Texture2D" uid="uid://c4rxmmjy8j2y7" path="res://graphics/top_parallax.png" id="5_cfdna"]
+
+[node name="Control" type="ColorRect"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_8rn5k")
+
+[node name="1234" parent="." instance=ExtResource("2_quxj6")]
+layout_mode = 0
+
+[node name="Top" type="HBoxContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 39.0
+grow_horizontal = 2
+theme_override_constants/separation = 0
+
+[node name="Start" type="TextureRect" parent="Top"]
+texture_repeat = 2
+layout_mode = 2
+texture = ExtResource("4_axsg2")
+expand_mode = 2
+flip_h = true
+
+[node name="Middle" type="TextureRect" parent="Top"]
+texture_repeat = 2
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("5_cfdna")
+expand_mode = 1
+
+[node name="Level" type="Label" parent="Top/Middle"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+theme = ExtResource("1_rdpm4")
+theme_override_font_sizes/font_size = 20
+text = "INATR"
+vertical_alignment = 1
+
+[node name="End" type="TextureRect" parent="Top"]
+texture_repeat = 2
+layout_mode = 2
+texture = ExtResource("4_axsg2")
+expand_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+columns = 4

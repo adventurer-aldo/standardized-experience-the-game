@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://8q2esikay8yr"]
 
 [ext_resource type="Script" path="res://scenes/quiz/answerer.gd" id="1_w6s5s"]
-[ext_resource type="Theme" uid="uid://dphjscf0acfaw" path="res://graphics/themes/general.tres" id="2_rax7m"]
+[ext_resource type="Theme" uid="uid://dphjscf0acfaw" path="res://themes/general.tres" id="2_rax7m"]
 [ext_resource type="Script" path="res://scenes/quiz/alternatives_manager.gd" id="3_l43m4"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r4yt7"]
@@ -29,8 +29,8 @@ anti_aliasing_size = 0.358
 [node name="Question" type="HBoxContainer"]
 offset_left = 95.0
 offset_top = 181.0
-offset_right = 1150.0
-offset_bottom = 254.0
+offset_right = 1310.0
+offset_bottom = 769.0
 theme_override_constants/separation = 0
 script = ExtResource("1_w6s5s")
 
@@ -77,12 +77,14 @@ layout_mode = 2
 theme_override_constants/separation = 15
 
 [node name="Question" type="Label" parent="Ratio/Margin/VContent"]
+custom_minimum_size = Vector2(0.04, 0.115)
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 autowrap_mode = 3
 
 [node name="Image" type="TextureRect" parent="Ratio/Margin/VContent"]
 layout_mode = 2
+size_flags_horizontal = 4
 
 [node name="Choices" type="VBoxContainer" parent="Ratio/Margin/VContent"]
 layout_mode = 2

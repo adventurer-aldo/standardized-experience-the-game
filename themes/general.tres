@@ -1,0 +1,69 @@
+[gd_resource type="Theme" load_steps=8 format=3 uid="uid://dphjscf0acfaw"]
+
+[ext_resource type="FontFile" uid="uid://drunskociit7h" path="res://fonts/FOT-RodinProN-L.otf" id="1_mfxpk"]
+
+[sub_resource type="FontVariation" id="FontVariation_x4v6y"]
+base_font = ExtResource("1_mfxpk")
+variation_embolden = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jbibs"]
+bg_color = Color(0, 0.527344, 0.996094, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rkvn3"]
+bg_color = Color(0.545098, 0.74902, 1, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_44mx1"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dt6rq"]
+bg_color = Color(0, 0.392157, 0.996078, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_526yl"]
+bg_color = Color(0, 0.527344, 0.996094, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[resource]
+default_font = SubResource("FontVariation_x4v6y")
+Button/colors/font_color = Color(0, 0.527344, 0.996094, 1)
+Button/colors/font_disabled_color = Color(0, 0, 0, 1)
+Button/colors/font_focus_color = Color(1, 1, 1, 1)
+Button/colors/font_hover_color = Color(1, 1, 1, 1)
+Button/colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+Button/colors/font_outline_color = Color(0, 0, 0, 1)
+Button/colors/font_pressed_color = Color(0, 0, 0, 1)
+Button/colors/icon_disabled_color = Color(0, 0, 0, 1)
+Button/colors/icon_focus_color = Color(0, 0, 0, 1)
+Button/colors/icon_hover_color = Color(0, 0, 0, 1)
+Button/colors/icon_hover_pressed_color = Color(0, 0, 0, 1)
+Button/colors/icon_normal_color = Color(0, 0, 0, 1)
+Button/colors/icon_pressed_color = Color(0, 0, 0, 1)
+Button/constants/h_separation = 160
+Button/constants/icon_max_width = 0
+Button/constants/outline_size = 0
+Button/font_sizes/font_size = 16
+Button/fonts/font = SubResource("FontVariation_x4v6y")
+Button/styles/disabled = null
+Button/styles/focus = SubResource("StyleBoxFlat_jbibs")
+Button/styles/hover = SubResource("StyleBoxFlat_rkvn3")
+Button/styles/normal = SubResource("StyleBoxFlat_44mx1")
+Button/styles/pressed = SubResource("StyleBoxFlat_dt6rq")
+Panel/styles/panel = SubResource("StyleBoxFlat_526yl")
