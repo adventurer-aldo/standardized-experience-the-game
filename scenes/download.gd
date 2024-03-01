@@ -137,9 +137,10 @@ func generate_random_color_with_contrast():
 		random_color.g = random_color.g * 0.7
 		random_color.b = random_color.b * 0.7
 	else:
+		pass
 		# If too dark, make the color lighter
-		random_color.r = random_color.r + (1 - random_color.r) * 0.3
-		random_color.g = random_color.g + (1 - random_color.g) * 0.3
-		random_color.b = random_color.b + (1 - random_color.b) * 0.3
+		# random_color.r = random_color.r + (1 - random_color.r) * 0.3
+		# random_color.g = random_color.g + (1 - random_color.g) * 0.3
+		# random_color.b = random_color.b + (1 - random_color.b) * 0.3
 
 	return random_color

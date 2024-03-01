@@ -6,15 +6,19 @@
 [ext_resource type="Script" path="res://addons/SmoothScroll/SmoothScrollContainer.gd" id="4_evhab"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rcyqq"]
-bg_color = Color(0.172549, 0, 0, 1)
+bg_color = Color(1, 1, 1, 1)
 corner_radius_top_left = 15
 corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qp1q1"]
+bg_color = Color(0, 0, 0.196078, 0.588235)
 corner_radius_top_left = 15
 corner_radius_bottom_left = 15
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a1woh"]
+bg_color = Color(0, 0, 0.196078, 0.588235)
 corner_radius_bottom_right = 15
 corner_radius_bottom_left = 15
 
@@ -26,32 +30,25 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_itp3r")
 
-[node name="Subject" type="VBoxContainer" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 149.0
-offset_top = 102.0
-offset_right = -711.0
-offset_bottom = -398.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/separation = 0
+[node name="Subject" type="MarginContainer" parent="."]
+custom_minimum_size = Vector2(420, 220)
+layout_mode = 0
+offset_right = 420.0
+offset_bottom = 287.0
 script = ExtResource("2_xwboi")
 
 [node name="BackgroundColor" type="Panel" parent="Subject"]
-custom_minimum_size = Vector2(420, 220)
+self_modulate = Color(0, 1, 1, 1)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_rcyqq")
 
-[node name="Title" type="Label" parent="Subject/BackgroundColor"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="SubjectElements" type="VBoxContainer" parent="Subject"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Title" type="Label" parent="Subject/SubjectElements"]
+custom_minimum_size = Vector2(420, 220)
+layout_mode = 2
 theme = ExtResource("1_deu7q")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 81
@@ -61,7 +58,7 @@ vertical_alignment = 1
 visible_characters = 7
 visible_ratio = 7.0
 
-[node name="QuestionNumber" type="Label" parent="Subject/BackgroundColor"]
+[node name="QuestionNumber" type="Label" parent="Subject/SubjectElements/Title"]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -80,7 +77,7 @@ text = "99999"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="BackgroundNumber" type="Panel" parent="Subject/BackgroundColor/QuestionNumber"]
+[node name="BackgroundNumber" type="Panel" parent="Subject/SubjectElements/Title/QuestionNumber"]
 show_behind_parent = true
 layout_mode = 1
 anchors_preset = 15
@@ -94,18 +91,18 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_qp1q1")
 
-[node name="FullTitleContainer" type="MarginContainer" parent="Subject"]
+[node name="FullTitleContainer" type="MarginContainer" parent="Subject/SubjectElements"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="FullTitleMargin" type="MarginContainer" parent="Subject/FullTitleContainer"]
+[node name="FullTitleMargin" type="MarginContainer" parent="Subject/SubjectElements/FullTitleContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="FullTitle" type="Label" parent="Subject/FullTitleContainer/FullTitleMargin"]
+[node name="FullTitle" type="Label" parent="Subject/SubjectElements/FullTitleContainer/FullTitleMargin"]
 custom_minimum_size = Vector2(2, 2)
 layout_mode = 2
 theme = ExtResource("1_deu7q")
@@ -115,7 +112,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
 
-[node name="FullTitleBackground" type="Panel" parent="Subject/FullTitleContainer"]
+[node name="FullTitleBackground" type="Panel" parent="Subject/SubjectElements/FullTitleContainer"]
 show_behind_parent = true
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_a1woh")
