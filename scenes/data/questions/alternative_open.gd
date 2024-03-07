@@ -17,6 +17,9 @@ func get_order():
 func _on_delete_pressed():
 	queue_free()
 
+func clean():
+	$Text.text = ""
+	text = ""
 
 func _on_text_text_changed():
 	text = $Text.text

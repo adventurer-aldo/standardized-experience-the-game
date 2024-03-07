@@ -1,5 +1,8 @@
 extends VBoxContainer
 
+signal parent_pressed(id)
+
+var id := 0
 var level := 1
 var questions := []
 var types := []
@@ -20,3 +23,8 @@ func _ready():
 	if types.has("order"): $Backgrounder/MarginContainer/VBoxContainer/TypesContainer/Order.show()
 	if types.has("shuffle"): $Backgrounder/MarginContainer/VBoxContainer/TypesContainer/Shuffle.show()
 	if types.has("enumerate"): $Backgrounder/MarginContainer/VBoxContainer/TypesContainer/Enumerate.show()
+
+
+func _on_edit_pressed():
+	emit_signal("parent_pressed", id)
+	print("pressed from button")

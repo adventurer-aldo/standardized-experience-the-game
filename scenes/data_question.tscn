@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bq5abjg04fi7a"]
+[gd_scene load_steps=12 format=3 uid="uid://bq5abjg04fi7a"]
 
 [ext_resource type="Script" path="res://scenes/question_data.gd" id="1_4rxcw"]
 [ext_resource type="Texture2D" uid="uid://ddt0r4yxf01tm" path="res://graphics/topper.png" id="2_x7v53"]
@@ -6,7 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://coqg5m685pq61" path="res://graphics/details.png" id="4_ro32e"]
 [ext_resource type="Texture2D" uid="uid://dtrox0vv377dk" path="res://graphics/edit.png" id="5_k1gie"]
 [ext_resource type="Theme" uid="uid://ddpx351m2ye8v" path="res://themes/fe_font.tres" id="6_vrha8"]
-[ext_resource type="Texture2D" uid="uid://n1yehrljitvn" path="res://testimg.jpg" id="7_i4w5x"]
 [ext_resource type="Texture2D" uid="uid://cmym26tl6mi5w" path="res://graphics/type.png" id="8_vh0qi"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_muqi2"]
@@ -36,7 +35,6 @@ offset_right = 450.0
 offset_bottom = 294.0
 theme_override_constants/separation = 0
 script = ExtResource("1_4rxcw")
-metadata/_edit_group_ = true
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 custom_minimum_size = Vector2(0, 40)
@@ -102,7 +100,6 @@ clip_contents = true
 custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
 size_flags_vertical = 3
-texture = ExtResource("7_i4w5x")
 expand_mode = 2
 
 [node name="GridContainer" type="GridContainer" parent="."]
@@ -110,7 +107,6 @@ layout_mode = 2
 
 [node name="Backgrounder" type="MarginContainer" parent="."]
 layout_mode = 2
-size_flags_vertical = 3
 theme_override_constants/margin_left = 0
 theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 0
@@ -127,7 +123,7 @@ theme_override_constants/margin_bottom = 10
 layout_mode = 2
 
 [node name="Question" type="Label" parent="Backgrounder/MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 80)
+custom_minimum_size = Vector2(0, 57.76)
 layout_mode = 2
 theme = ExtResource("6_vrha8")
 theme_override_font_sizes/font_size = 20
@@ -230,6 +226,7 @@ size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_qpqi2")
 
 [node name="TagsPanel" type="Panel" parent="."]
+visible = false
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_6vp10")
@@ -271,6 +268,7 @@ theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
 [node name="Tags" type="Label" parent="BackgrounderTags/MarginContainer"]
+visible = false
 custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
 theme = ExtResource("6_vrha8")
@@ -280,7 +278,10 @@ autowrap_mode = 3
 text_overrun_behavior = 3
 
 [node name="Background" type="Panel" parent="BackgrounderTags"]
+visible = false
 show_behind_parent = true
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_qpqi2")
+
+[connection signal="pressed" from="MarginContainer/Margin/Horizontal/Edit" to="." method="_on_edit_pressed"]

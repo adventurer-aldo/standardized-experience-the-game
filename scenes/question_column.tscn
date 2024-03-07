@@ -1,0 +1,98 @@
+[gd_scene load_steps=9 format=3 uid="uid://cti6wqhe8hrdw"]
+
+[ext_resource type="Script" path="res://scenes/data/question_column.gd" id="1_741s1"]
+[ext_resource type="Theme" uid="uid://ddpx351m2ye8v" path="res://themes/fe_font.tres" id="2_m0x2i"]
+[ext_resource type="Texture2D" uid="uid://b0a3qeyva6nbp" path="res://user-graduate.svg" id="3_kad04"]
+[ext_resource type="Texture2D" uid="uid://mywmvr3y7ahy" path="res://pen-nib.svg" id="4_uceu4"]
+[ext_resource type="Texture2D" uid="uid://bitcbwjbsqpxy" path="res://trash-can.svg" id="5_em74b"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mh88f"]
+bg_color = Color(1, 1, 1, 0.482353)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.8, 0.8, 0.8, 0.568627)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2v743"]
+bg_color = Color(0.729412, 0.729412, 0.729412, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.729412, 0.729412, 0.729412, 1)
+corner_radius_top_left = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_krue6"]
+bg_color = Color(0.72549, 0.584314, 0, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.72549, 0.584314, 0, 1)
+corner_radius_top_left = 5
+corner_radius_bottom_left = 5
+
+[node name="Question" type="MarginContainer"]
+script = ExtResource("1_741s1")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_mh88f")
+
+[node name="Elements" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(0, 35)
+layout_mode = 2
+
+[node name="Parent" type="Button" parent="Elements" groups=["data_question"]]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+mouse_filter = 1
+theme = ExtResource("2_m0x2i")
+theme_override_styles/normal = SubResource("StyleBoxFlat_2v743")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_krue6")
+toggle_mode = true
+icon = ExtResource("3_kad04")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Edit" type="Button" parent="Elements"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+mouse_filter = 1
+theme = ExtResource("2_m0x2i")
+icon = ExtResource("4_uceu4")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Delete" type="Button" parent="Elements"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+mouse_filter = 1
+theme = ExtResource("2_m0x2i")
+icon = ExtResource("5_em74b")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Question" type="Button" parent="Elements"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+theme = ExtResource("2_m0x2i")
+text = "O que é uma proteína funcional? E o que essas proteínas funcionais fazem?"
+alignment = 0
+text_overrun_behavior = 3
+
+[node name="Level" type="Button" parent="Elements"]
+layout_mode = 2
+mouse_filter = 1
+text = "1st Test"
+
+[connection signal="pressed" from="Elements/Parent" to="." method="_on_parent_pressed"]
+[connection signal="pressed" from="Elements/Delete" to="." method="_on_delete_pressed"]

@@ -1,72 +1,30 @@
 [gd_resource type="Resource" load_steps=2 format=3 uid="uid://brrkv146asax3"]
 
-[sub_resource type="GDScript" id="GDScript_y77pl"]
-script/source = "extends Resource
-
-@export var id: int
-@export var question: PackedStringArray = [\"\"]
-@export var image: Image
-@export var answers: Array
-@export var choices: Array
-@export var tags: PackedStringArray = []
-@export var parents: PackedInt64Array = []
-@export_range(1, 4) var level := 0
-@export var subject_id := 0
-@export_group(\"Question Types\")
-@export var open: bool = false
-@export var choice: bool = false
-@export var veracity: bool = false
-@export var fill: bool = false
-@export var table: bool = false
-@export var match: bool = false
-@export_subgroup(\"Parameters\")
-@export var strict: bool = false
-@export var order: bool = false
-@export var enumerate: bool = false
-@export_group(\"Statistics\")
-@export var hits := 0
-@export var misses := 0
-@export var streak := 0
-@export var appearances := 0
-
-func get_types() -> PackedStringArray:
-	var output = PackedStringArray()
-	if open == true: output.push_back(\"open\")
-	if choice == true: output.push_back(\"choice\")
-	if veracity == true: output.push_back(\"veracity\")
-	if fill == true: output.push_back(\"fill\")
-	if table == true: output.push_back(\"table\")
-	if match == true: output.push_back(\"match\")
-	return output
-
-func get_parameters() -> PackedStringArray:
-	var output = PackedStringArray()
-	if strict == true: output.push_back(\"strict\")
-	if choice == true: output.push_back(\"order\")
-	if veracity == true: output.push_back(\"enumerate\")
-	return output
-"
+[ext_resource type="Script" path="res://resources/question.gd" id="1_sl347"]
 
 [resource]
-script = SubResource("GDScript_y77pl")
-id = 0
-question = [""]
-answers = []
-choices = []
-tags = []
-parents = []
-level = 0
-subject_id = 0
-open = false
-choice = false
-veracity = false
-fill = false
-table = false
-match = false
-strict = false
-order = false
-enumerate = false
-hits = 0
-misses = 0
-streak = 0
-appearances = 0
+script = ExtResource("1_sl347")
+id = null
+question = null
+answers = null
+choices = null
+tags = null
+parents = null
+level = null
+subject_id = null
+open = null
+choice = null
+veracity = null
+fill = null
+table = null
+match = null
+strict = null
+order = null
+enumerate = null
+appearances = null
+hits = null
+misses = null
+hit_streak = null
+miss_streak = null
+spaced_level = null
+next_checkup = null

@@ -24,7 +24,9 @@ func load_questions():
 
 func load_subjects():
 	data_type = "subjects"
-	for file in DirAccess.get_files_at("user://subjects"):
+	var files = DirAccess.get_files_at("user://subjects")
+	files.reverse()
+	for file in files:
 		ResourceLoader.load_threaded_request("user://subjects/{file}".format({"file": file}), "", true)
 		current_file = file
 		await file_loaded
@@ -44,6 +46,7 @@ func _on_spin_animation_finished(_anim_name):
 
 func _on_data_loaded():
 	# await get_tree().create_timer(52.0).timeout
-	get_tree().change_scene_to_file("res://scenes/data/subjects.tscn")
-	# get_tree().change_scene_to_file("res://scenes/quiz/quiz.tscn")
+	# get_tree().change_scene_to_file("res://scenes/data/subjects.tscn")
+	# get_tree().change_scene_to_file("res://scenes/data/questions.tscn")
+	get_tree().change_scene_to_file("res://scenes/title.tscn")
 	

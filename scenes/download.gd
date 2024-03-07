@@ -96,7 +96,7 @@ func _on_http_request_request_completed(_result, _response_code, _headers, body)
 	$Result.play("success")
 	await $Result.animation_finished
 	await get_tree().create_timer(5).timeout
-	get_tree().change_scene_to_file("res://scenes/main.tscn")
+	get_tree().change_scene_to_file("res://scenes/title.tscn")
 
 func _on_image_request_request_completed(result, _response_code, _headers, body):
 	if result == null:

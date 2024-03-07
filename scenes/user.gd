@@ -14,7 +14,7 @@ func _ready():
 	if ResourceLoader.exists("user://stats.res"):
 		stats = ResourceLoader.load("user://stats.res")
 	else:
-		var stats = load("res://resources/stats.tres").duplicate()
+		stats = load("res://resources/stats.tres").duplicate()
 		ResourceSaver.save(stats, "user://stats.res", ResourceSaver.FLAG_COMPRESS)
 
 func save_stats():

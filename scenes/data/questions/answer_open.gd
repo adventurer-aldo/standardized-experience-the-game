@@ -14,8 +14,21 @@ func _on_add_pressed():
 func ab():
 	emit_signal("alternatives_modified")
 
-func get_array():
+func get_array(delete_afterwards := true):
 	var arr = [$Main/Text.text]
 	for alternative in $Alternatives.get_children():
 		arr.push_back(alternative.text)
+		if delete_afterwards == true:
+			alternative.clean()
+	if delete_afterwards == true:
+		$Main/Text.text = ""
 	return arr
+
+func delete():
+	for alternative in $Alternatives.get_children():
+		alternative.clean()
+	$Main/Text.text = ""
+
+
+func _on_delete_pressed():
+	queue_free()

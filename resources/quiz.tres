@@ -1,0 +1,6 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://dmfj5iqp82ll5"]
+
+[ext_resource type="Script" path="res://resources/quiz.gd" id="1_gtux7"]
+
+[resource]
+script = ExtResource("1_gtux7")

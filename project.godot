@@ -39,6 +39,10 @@ project/assembly_name="Standardized Experience"
 
 movie_writer/movie_file="C:/Users/KAVONA/Videos/Test.avi"
 
+[filesystem]
+
+import/fbx/enabled=false
+
 [input]
 
 ui_accept={
@@ -50,6 +54,5 @@ ui_accept={
 
 [rendering]
 
-renderer/rendering_method="gl_compatibility"
-renderer/rendering_method.mobile="gl_compatibility"
+renderer/rendering_method="mobile"
 textures/vram_compression/import_etc2_astc=true

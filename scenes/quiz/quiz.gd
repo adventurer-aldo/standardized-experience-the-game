@@ -92,5 +92,8 @@ func _on_button_pressed():
 	get_tree().reload_current_scene()
 
 func _on_subject_selector_subject_selected(id):
-	subject_key = id
-	prepare()
+	if id == -1:
+		get_tree().change_scene_to_file("res://scenes/title.tscn")
+	else:
+		subject_key = id
+		prepare()

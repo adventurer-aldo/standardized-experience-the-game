@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://s4fp255ba262"]
+
+[ext_resource type="Script" path="res://scenes/data/tag.gd" id="1_mgnvm"]
+
+[node name="Tag" type="HBoxContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_mgnvm")
+
+[node name="Remove" type="Button" parent="."]
+layout_mode = 2
+text = "X"
+
+[node name="Text" type="Button" parent="."]
+layout_mode = 2

@@ -1,16 +1,26 @@
-[gd_scene load_steps=3 format=3 uid="uid://35bn8nw6fdpd"]
+[gd_scene load_steps=4 format=3 uid="uid://35bn8nw6fdpd"]
 
 [ext_resource type="Script" path="res://scenes/data/questions/question.gd" id="1_3a4er"]
-[ext_resource type="Theme" uid="uid://dphjscf0acfaw" path="res://themes/general.tres" id="2_j687a"]
+[ext_resource type="Theme" uid="uid://ddpx351m2ye8v" path="res://themes/fe_font.tres" id="2_rekw0"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4cqqu"]
+bg_color = Color(1, 1, 1, 1)
 
 [node name="Question" type="HBoxContainer"]
+size_flags_horizontal = 3
 script = ExtResource("1_3a4er")
 
 [node name="Text" type="TextEdit" parent="." groups=["question"]]
 custom_minimum_size = Vector2(100, 35)
 layout_mode = 2
 size_flags_horizontal = 3
-theme = ExtResource("2_j687a")
+theme = ExtResource("2_rekw0")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_selected_color = Color(0, 0, 0, 1)
+theme_override_colors/font_readonly_color = Color(0, 0, 0, 1)
+theme_override_colors/font_placeholder_color = Color(0.282353, 0.282353, 0.556863, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_4cqqu")
 placeholder_text = "How will you request the answer?"
 wrap_mode = 1
 scroll_smooth = true

@@ -1,27 +1,90 @@
-[gd_scene load_steps=11 format=3 uid="uid://djourm2ce5j3h"]
+[gd_scene load_steps=14 format=3 uid="uid://djourm2ce5j3h"]
 
-[ext_resource type="Texture2D" uid="uid://da3xltocdjmaw" path="res://graphics/pictures/garden.png" id="1_1qou8"]
-[ext_resource type="Texture2D" uid="uid://cuwtse6jtgiqo" path="res://graphics/logo.png" id="2_5gdnj"]
 [ext_resource type="Texture2D" uid="uid://j804wvsw4kul" path="res://logo.png" id="2_37hhe"]
 [ext_resource type="Script" path="res://scenes/title.gd" id="2_e4613"]
+[ext_resource type="Texture2D" uid="uid://bf0bckgxw37ki" path="res://title.png" id="3_0ljim"]
 [ext_resource type="Texture2D" uid="uid://b127o8gr3nds7" path="res://graphics/logo_blur.png" id="3_6s5hm"]
 [ext_resource type="Texture2D" uid="uid://dm1u7w2bu1hip" path="res://graphics/top_parallax_end.png" id="5_2hfl4"]
 [ext_resource type="Texture2D" uid="uid://c4rxmmjy8j2y7" path="res://graphics/top_parallax.png" id="6_1u5f8"]
 [ext_resource type="Texture2D" uid="uid://b4pssotffjjhi" path="res://graphics/button.png" id="7_a6sim"]
 [ext_resource type="Texture2D" uid="uid://bdco7ajgnxsfj" path="res://graphics/button_pressed.png" id="8_jhtqc"]
 [ext_resource type="Theme" uid="uid://bbkfe3x78ihvo" path="res://themes/times.tres" id="9_38fcd"]
+[ext_resource type="PackedScene" uid="uid://bj70dtoi5ugaq" path="res://models/library/model.glb" id="11_iynvp"]
 
-[node name="Title" type="TextureRect"]
+[sub_resource type="Animation" id="Animation_yl0gf"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-14.2618, 2.29673, -14.5773)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_me537"]
+resource_name = "zooms"
+length = 29.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 26.4, 29),
+"transitions": PackedFloat32Array(0.965936, 0.353553, 1),
+"update": 0,
+"values": [Vector3(-14.2618, 2.29673, -14.5773), Vector3(-14.2618, 2.29673, -94.6157), Vector3(-14.2618, 10.3566, -91.9237)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 26.4, 29),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(-0.336849, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_y817a"]
+_data = {
+"RESET": SubResource("Animation_yl0gf"),
+"zooms": SubResource("Animation_me537")
+}
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("2_e4613")
+
+[node name="Title" type="TextureRect" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("1_1qou8")
 expand_mode = 2
-script = ExtResource("2_e4613")
 
-[node name="Logo2" type="TextureRect" parent="."]
+[node name="Logo2" type="TextureRect" parent="Title"]
+visible = false
 modulate = Color(0.0705882, 0, 0.709804, 0.490196)
 layout_mode = 0
 offset_left = 447.0
@@ -31,7 +94,7 @@ offset_bottom = 228.0
 scale = Vector2(2.21875, 2.21875)
 texture = ExtResource("2_37hhe")
 
-[node name="Logo" type="TextureRect" parent="."]
+[node name="Logo" type="TextureRect" parent="Title"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
@@ -44,11 +107,12 @@ offset_right = 343.5
 offset_bottom = 173.28
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_5gdnj")
+texture = ExtResource("3_0ljim")
 expand_mode = 2
 metadata/_edit_group_ = true
 
-[node name="LogoBlur" type="TextureRect" parent="Logo"]
+[node name="LogoBlur" type="TextureRect" parent="Title/Logo"]
+visible = false
 modulate = Color(0, 0.529412, 1, 0.419608)
 show_behind_parent = true
 layout_mode = 1
@@ -65,7 +129,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("3_6s5hm")
 
-[node name="Top" type="HBoxContainer" parent="."]
+[node name="Top" type="HBoxContainer" parent="Title"]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -73,27 +137,41 @@ offset_bottom = 39.0
 grow_horizontal = 2
 theme_override_constants/separation = 0
 
-[node name="Start" type="TextureRect" parent="Top"]
+[node name="Start" type="TextureRect" parent="Title/Top"]
 texture_repeat = 2
 layout_mode = 2
 texture = ExtResource("5_2hfl4")
 expand_mode = 2
 flip_h = true
 
-[node name="Middle" type="TextureRect" parent="Top"]
+[node name="Middle" type="TextureRect" parent="Title/Top"]
 texture_repeat = 2
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("6_1u5f8")
 expand_mode = 1
 
-[node name="End" type="TextureRect" parent="Top"]
+[node name="Label" type="Label" parent="Title/Top/Middle"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("9_38fcd")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 26
+text = "It's time to experience."
+vertical_alignment = 1
+
+[node name="End" type="TextureRect" parent="Title/Top"]
 texture_repeat = 2
 layout_mode = 2
 texture = ExtResource("5_2hfl4")
 expand_mode = 2
 
-[node name="Button" type="TextureButton" parent="."]
+[node name="Button" type="TextureButton" parent="Title"]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -109,7 +187,7 @@ grow_vertical = 2
 texture_normal = ExtResource("7_a6sim")
 texture_pressed = ExtResource("8_jhtqc")
 
-[node name="Label" type="Label" parent="Button"]
+[node name="Label" type="Label" parent="Title/Button"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -125,7 +203,7 @@ text = "Data"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Trademark" type="Label" parent="."]
+[node name="Trademark" type="Label" parent="Title"]
 modulate = Color(1, 0.929412, 0.929412, 1)
 layout_mode = 1
 anchors_preset = 12
@@ -142,3 +220,62 @@ theme_override_font_sizes/font_size = 21
 text = "2021 - 2024 Standardized Experience"
 horizontal_alignment = 1
 vertical_alignment = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Camera3D")
+libraries = {
+"": SubResource("AnimationLibrary_y817a")
+}
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.2618, 2.29673, -14.5773)
+current = true
+fov = 33.0
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.195518, 0, -9.53201)
+light_color = Color(0.239216, 0.490196, 1, 1)
+light_energy = 8.055
+light_indirect_energy = 2.17
+light_volumetric_fog_energy = 1.71
+light_size = 6.58
+light_specular = 0.0
+omni_range = 14.736
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.0663, 39.7231, -122.232)
+light_color = Color(0.215686, 0.329412, 0.580392, 1)
+light_energy = 21.738
+light_volumetric_fog_energy = 15.233
+light_size = 50.0
+light_specular = 0.0
+omni_range = 4098.53
+omni_attenuation = 0.594604
+
+[node name="Library" parent="." instance=ExtResource("11_iynvp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.1133, 0, -33.7205)
+
+[node name="Subjects" type="Button" parent="."]
+offset_left = 344.0
+offset_top = 440.0
+offset_right = 489.0
+offset_bottom = 589.0
+text = "Subjects"
+
+[node name="Quiz" type="Button" parent="."]
+offset_left = 597.0
+offset_top = 456.0
+offset_right = 742.0
+offset_bottom = 605.0
+text = "Quiz"
+
+[node name="Download" type="Button" parent="."]
+offset_left = 861.0
+offset_top = 444.0
+offset_right = 1006.0
+offset_bottom = 593.0
+text = "Download"
+
+[connection signal="pressed" from="Subjects" to="." method="_on_subjects_pressed"]
+[connection signal="pressed" from="Quiz" to="." method="_on_quiz_pressed"]
+[connection signal="pressed" from="Download" to="." method="_on_download_pressed"]

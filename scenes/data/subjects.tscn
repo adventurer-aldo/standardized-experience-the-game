@@ -1,26 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://njcan8xh86nx"]
+[gd_scene load_steps=3 format=3 uid="uid://njcan8xh86nx"]
 
-[ext_resource type="Theme" uid="uid://ddpx351m2ye8v" path="res://themes/fe_font.tres" id="1_deu7q"]
 [ext_resource type="Script" path="res://scenes/data/subjects.gd" id="1_itp3r"]
-[ext_resource type="Script" path="res://scenes/data/subject.gd" id="2_xwboi"]
 [ext_resource type="Script" path="res://addons/SmoothScroll/SmoothScrollContainer.gd" id="4_evhab"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rcyqq"]
-bg_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 15
-corner_radius_top_right = 15
-corner_radius_bottom_right = 15
-corner_radius_bottom_left = 15
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qp1q1"]
-bg_color = Color(0, 0, 0.196078, 0.588235)
-corner_radius_top_left = 15
-corner_radius_bottom_left = 15
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a1woh"]
-bg_color = Color(0, 0, 0.196078, 0.588235)
-corner_radius_bottom_right = 15
-corner_radius_bottom_left = 15
 
 [node name="Subjects" type="ColorRect"]
 anchors_preset = 15
@@ -28,96 +9,11 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+color = Color(1, 1, 1, 0)
 script = ExtResource("1_itp3r")
 
-[node name="Subject" type="MarginContainer" parent="."]
-custom_minimum_size = Vector2(420, 220)
-layout_mode = 0
-offset_right = 420.0
-offset_bottom = 287.0
-script = ExtResource("2_xwboi")
-
-[node name="BackgroundColor" type="Panel" parent="Subject"]
-self_modulate = Color(0, 1, 1, 1)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_rcyqq")
-
-[node name="SubjectElements" type="VBoxContainer" parent="Subject"]
-layout_mode = 2
-theme_override_constants/separation = 0
-
-[node name="Title" type="Label" parent="Subject/SubjectElements"]
-custom_minimum_size = Vector2(420, 220)
-layout_mode = 2
-theme = ExtResource("1_deu7q")
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 81
-text = "I"
-horizontal_alignment = 1
-vertical_alignment = 1
-visible_characters = 7
-visible_ratio = 7.0
-
-[node name="QuestionNumber" type="Label" parent="Subject/SubjectElements/Title"]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -103.0
-offset_top = -60.0
-offset_right = -13.0
-offset_bottom = -33.0
-grow_horizontal = 0
-grow_vertical = 0
-theme = ExtResource("1_deu7q")
-theme_override_font_sizes/font_size = 26
-text = "99999"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="BackgroundNumber" type="Panel" parent="Subject/SubjectElements/Title/QuestionNumber"]
-show_behind_parent = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -8.0
-offset_top = -4.0
-offset_right = 13.0
-offset_bottom = 4.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_qp1q1")
-
-[node name="FullTitleContainer" type="MarginContainer" parent="Subject/SubjectElements"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="FullTitleMargin" type="MarginContainer" parent="Subject/SubjectElements/FullTitleContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
-
-[node name="FullTitle" type="Label" parent="Subject/SubjectElements/FullTitleContainer/FullTitleMargin"]
-custom_minimum_size = Vector2(2, 2)
-layout_mode = 2
-theme = ExtResource("1_deu7q")
-theme_override_font_sizes/font_size = 26
-text = "Introdução à Saúde Comunitária"
-horizontal_alignment = 1
-vertical_alignment = 1
-autowrap_mode = 3
-
-[node name="FullTitleBackground" type="Panel" parent="Subject/SubjectElements/FullTitleContainer"]
-show_behind_parent = true
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_a1woh")
-
 [node name="GridContainer2" type="ScrollContainer" parent="."]
+clip_contents = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -128,6 +24,7 @@ offset_right = -19.0
 offset_bottom = -59.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 0
 horizontal_scroll_mode = 0
 vertical_scroll_mode = 3
 script = ExtResource("4_evhab")
@@ -135,3 +32,15 @@ script = ExtResource("4_evhab")
 [node name="GridContainer" type="GridContainer" parent="GridContainer2"]
 layout_mode = 2
 columns = 3
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -208.0
+offset_bottom = 55.0
+grow_horizontal = 0
+text = "Exit"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

@@ -1,6 +1,15 @@
-extends TextureRect
+extends Node3D
+
+func _ready():
+	$AnimationPlayer.play("zooms")
+	BGM.autoplay("title")
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+func _on_subjects_pressed():
+	add_child(load("res://scenes/data/subjects.tscn").instantiate())
+
+func _on_quiz_pressed():
+	get_tree().change_scene_to_file("res://scenes/quiz/quiz.tscn")
+
+func _on_download_pressed():
+	get_tree().change_scene_to_file("res://scenes/download.tscn")
