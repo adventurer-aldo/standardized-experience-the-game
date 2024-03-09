@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://8q2esikay8yr"]
 
-[ext_resource type="Script" path="res://scenes/quiz/answerer.gd" id="1_w6s5s"]
-[ext_resource type="Theme" uid="uid://dphjscf0acfaw" path="res://themes/general.tres" id="2_rax7m"]
-[ext_resource type="Script" path="res://scenes/quiz/alternatives_manager.gd" id="3_l43m4"]
+[ext_resource type="Script" path="res://scenes/quiz/answerer.gd" id="1_qan1o"]
+[ext_resource type="Theme" uid="uid://dphjscf0acfaw" path="res://themes/general.tres" id="2_iof83"]
+[ext_resource type="Script" path="res://scenes/quiz/alternatives_manager.gd" id="3_v12dr"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r4yt7"]
 bg_color = Color(0.0859375, 0.0859375, 0.128906, 1)
@@ -32,12 +32,12 @@ offset_top = 181.0
 offset_right = 1310.0
 offset_bottom = 769.0
 theme_override_constants/separation = 0
-script = ExtResource("1_w6s5s")
+script = ExtResource("1_qan1o")
 
 [node name="Info" type="Panel" parent="."]
 custom_minimum_size = Vector2(42, 0)
 layout_mode = 2
-theme = ExtResource("2_rax7m")
+theme = ExtResource("2_iof83")
 theme_override_styles/panel = SubResource("StyleBoxFlat_r4yt7")
 
 [node name="Number" type="Label" parent="Info"]
@@ -61,7 +61,7 @@ alignment_vertical = 0
 [node name="Background" type="Panel" parent="Ratio"]
 custom_minimum_size = Vector2(850, 0)
 layout_mode = 2
-theme = ExtResource("2_rax7m")
+theme = ExtResource("2_iof83")
 theme_override_styles/panel = SubResource("StyleBoxFlat_7dbj8")
 
 [node name="Margin" type="MarginContainer" parent="Ratio"]
@@ -88,4 +88,7 @@ size_flags_horizontal = 4
 
 [node name="Choices" type="VBoxContainer" parent="Ratio/Margin/VContent"]
 layout_mode = 2
-script = ExtResource("3_l43m4")
+script = ExtResource("3_v12dr")
+
+[node name="Opens" type="VBoxContainer" parent="Ratio/Margin/VContent"]
+layout_mode = 2

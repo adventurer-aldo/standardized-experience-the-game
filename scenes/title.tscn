@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://djourm2ce5j3h"]
+[gd_scene load_steps=16 format=3 uid="uid://djourm2ce5j3h"]
 
 [ext_resource type="Texture2D" uid="uid://j804wvsw4kul" path="res://logo.png" id="2_37hhe"]
 [ext_resource type="Script" path="res://scenes/title.gd" id="2_e4613"]
@@ -9,7 +9,9 @@
 [ext_resource type="Texture2D" uid="uid://b4pssotffjjhi" path="res://graphics/button.png" id="7_a6sim"]
 [ext_resource type="Texture2D" uid="uid://bdco7ajgnxsfj" path="res://graphics/button_pressed.png" id="8_jhtqc"]
 [ext_resource type="Theme" uid="uid://bbkfe3x78ihvo" path="res://themes/times.tres" id="9_38fcd"]
+[ext_resource type="PackedScene" uid="uid://bxiw1dn02gy4g" path="res://scenes/title_action.tscn" id="11_4jxkd"]
 [ext_resource type="PackedScene" uid="uid://bj70dtoi5ugaq" path="res://models/library/model.glb" id="11_iynvp"]
+[ext_resource type="Texture2D" uid="uid://cx5jbdftuo6t0" path="res://books.svg" id="12_o0jr2"]
 
 [sub_resource type="Animation" id="Animation_yl0gf"]
 length = 0.001
@@ -255,13 +257,6 @@ omni_attenuation = 0.594604
 [node name="Library" parent="." instance=ExtResource("11_iynvp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.1133, 0, -33.7205)
 
-[node name="Subjects" type="Button" parent="."]
-offset_left = 344.0
-offset_top = 440.0
-offset_right = 489.0
-offset_bottom = 589.0
-text = "Subjects"
-
 [node name="Quiz" type="Button" parent="."]
 offset_left = 597.0
 offset_top = 456.0
@@ -276,6 +271,21 @@ offset_right = 1006.0
 offset_bottom = 593.0
 text = "Download"
 
-[connection signal="pressed" from="Subjects" to="." method="_on_subjects_pressed"]
+[node name="Action" parent="." instance=ExtResource("11_4jxkd")]
+offset_left = 237.0
+offset_top = 431.0
+offset_right = 509.0
+offset_bottom = 606.0
+metadata/_edit_group_ = true
+
+[node name="Icon" parent="Action/ActionSplitter/Margin" index="1"]
+texture = ExtResource("12_o0jr2")
+
+[node name="ActionName" parent="Action/ActionSplitter/Margin2" index="0"]
+text = "Subjects"
+
 [connection signal="pressed" from="Quiz" to="." method="_on_quiz_pressed"]
 [connection signal="pressed" from="Download" to="." method="_on_download_pressed"]
+[connection signal="pressed" from="Action" to="." method="_on_subjects_pressed"]
+
+[editable path="Action"]

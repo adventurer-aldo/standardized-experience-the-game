@@ -15,11 +15,18 @@ func get_order():
 		$Lister.texture = load("res://scenes/data/questions/alternative_lister.png")
 
 func _on_delete_pressed():
+	if find_prev_valid_focus(): 
+		find_prev_valid_focus().grab_focus()
+	elif find_next_valid_focus():
+		find_next_valid_focus().grab_focus()
 	queue_free()
+
+func grab_text_focus():
+	$Text.grab_focus()
 
 func clean():
 	$Text.text = ""
 	text = ""
 
-func _on_text_text_changed():
+func _on_text_text_changed(new_text):
 	text = $Text.text

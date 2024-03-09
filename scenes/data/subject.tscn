@@ -59,7 +59,7 @@ expand_margin_bottom = 5.0
 [node name="Subject" type="MarginContainer"]
 custom_minimum_size = Vector2(420, 220)
 offset_right = 420.0
-offset_bottom = 287.0
+offset_bottom = 294.0
 script = ExtResource("1_71anw")
 
 [node name="BackgroundColor" type="Panel" parent="."]

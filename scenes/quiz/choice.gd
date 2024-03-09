@@ -8,6 +8,7 @@ var button_group: ButtonGroup = ButtonGroup.new()
 var is_correct = false
 var relevant = false
 var grade := 0.0
+var pressed := false
 
 var answers = []
 
@@ -16,7 +17,7 @@ func _ready():
 	$HBoxContainer/Alternative.text = alphabet[index] + ') '
 	$HBoxContainer/Value.text = value
 	$HBoxContainer/Value/Button.button_group = button_group
-	User.finished.connect(correct)
+	Global.finished.connect(correct)
 
 func _on_value_pressed():
 	answer = [1, 2, 0][answer]
@@ -30,9 +31,13 @@ func correct():
 			$HBoxContainer/Value/Button.modulate = Color.GREEN
 			$HBoxContainer/Value.add_theme_color_override("default_color", Color(0, 0.1, 0))
 			is_correct = true
-			User.emit_signal("grade", grade)
+			Global.emit_signal("grade", grade)
 		else:
 			$HBoxContainer/Value/Button.modulate = Color.RED
 			$HBoxContainer/Value.add_theme_color_override("default_color", Color(0.1, 0, 0))
 	elif answers.has(value):
 		$HBoxContainer/Value/Button.modulate = Color.ORANGE
+
+
+func _on_button_pressed():
+	pressed = $HBoxContainer/Value/Button.button_pressed

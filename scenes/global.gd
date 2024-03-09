@@ -18,5 +18,4 @@ func _ready():
 		ResourceSaver.save(stats, "user://stats.res", ResourceSaver.FLAG_COMPRESS)
 
 func save_stats():
-	print(stats.last_question_id)
-	print(ResourceSaver.save(stats, "user://stats.res", ResourceSaver.FLAG_COMPRESS))
+	ResourceSaver.save(stats, "user://stats.res", ResourceSaver.FLAG_COMPRESS)

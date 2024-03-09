@@ -10,6 +10,7 @@ func _on_add_pressed():
 	alternatives_modified.connect(new_alternative.get_order)
 	new_alternative.tree_exiting.connect(ab)
 	emit_signal("alternatives_modified")
+	new_alternative.grab_text_focus()
 
 func ab():
 	emit_signal("alternatives_modified")
@@ -29,6 +30,13 @@ func delete():
 		alternative.clean()
 	$Main/Text.text = ""
 
+func grab_first_focus():
+	$Main/Text.grab_focus()
 
 func _on_delete_pressed():
-	queue_free()
+	if get_parent().get_child_count() > 1:
+		if find_prev_valid_focus(): 
+			find_prev_valid_focus().grab_focus()
+		elif find_next_valid_focus():
+			find_next_valid_focus().grab_focus()
+		queue_free()

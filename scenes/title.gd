@@ -1,9 +1,8 @@
 extends Node3D
 
 func _ready():
-	$AnimationPlayer.play("zooms")
 	BGM.autoplay("title")
-
+	$AnimationPlayer.play("zooms")
 
 func _on_subjects_pressed():
 	add_child(load("res://scenes/data/subjects.tscn").instantiate())

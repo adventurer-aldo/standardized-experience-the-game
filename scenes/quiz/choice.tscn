@@ -130,3 +130,5 @@ focus_mode = 0
 theme = SubResource("Theme_ho5ti")
 toggle_mode = true
 button_group = SubResource("ButtonGroup_jeuhd")
+
+[connection signal="pressed" from="HBoxContainer/Value/Button" to="." method="_on_button_pressed"]

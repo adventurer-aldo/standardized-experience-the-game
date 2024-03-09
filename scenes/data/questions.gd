@@ -14,11 +14,6 @@ var level := 1
 var subject := 1
 var subject_name := ""
 
-func _unhandled_input(event):
-	if event.is_action("ui_accept"):
-		print("Enter has been pressed")
-		get_viewport().set_input_as_handled()
-
 func _on_submit_pressed():
 	var submitted_questions = get_tree().get_nodes_in_group("question").map(func i(node): return node.text)
 	var submitted_answers = get_tree().get_nodes_in_group("answer").map(func i(node): return node.get_array(false))
@@ -29,8 +24,8 @@ func _on_submit_pressed():
 	get_tree().get_nodes_in_group("answer").map(func i(node): node.delete())
 	for ques in $Editables/QuestionDetails/Details/Components/QuestionsManager/Questions.get_children():
 		ques.clean()
-	User.stats.last_question_id += 1
-	var key = User.stats.last_question_id
+	Global.stats.last_question_id += 1
+	var key = Global.stats.last_question_id
 	var new_question = load("res://resources/question.tres")
 	new_question.question = submitted_questions
 	new_question.answers = submitted_answers
@@ -41,7 +36,7 @@ func _on_submit_pressed():
 	new_question.level = level
 	new_question.tags = tags
 	new_question.subject_id = subject
-	User.save_stats()
+	Global.save_stats()
 	print(new_question.id)
 	new_question.save()
 	# ResourceSaver.save(new_question, "user://subjects/{subj}/{id}.res".format({"subj": new_question.subject_id, "id": key}), ResourceSaver.FLAG_COMPRESS)
@@ -52,6 +47,7 @@ func _ready():
 	$Editables/QuestionDetails/Details/Components/Exit/Margin/HBoxContainer/SubjectName.text = subject_name
 	$Editables/ScrollContainer/GridContainer.subject_id = subject
 	$Editables/ScrollContainer/GridContainer.load_questions()
+	$Editables/QuestionDetails/Details/Components/QuestionsManager/Questions/Question/Text.grab_focus()
 
 func _on_grid_container_parent_pressed(id):
 	var par_id = parents.find(id)
@@ -64,7 +60,6 @@ func _on_grid_container_parent_pressed(id):
 		var pop = pap.instantiate()
 		pop.text = str(id)
 		$Editables/QuestionDetails/Details/Components/Parents.add_child(pop)
-	print(parents)
 
 func _on_exit_pressed():
 	queue_free()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://d11bo78dwoh5x"]
+[gd_scene load_steps=26 format=3 uid="uid://d11bo78dwoh5x"]
 
 [ext_resource type="Script" path="res://scenes/data/questions.gd" id="1_qdrcd"]
 [ext_resource type="Texture2D" uid="uid://usvm3mhvakq3" path="res://triangle.svg" id="2_hv0in"]
@@ -10,7 +10,6 @@
 [ext_resource type="PackedScene" uid="uid://d1krru41ftoe8" path="res://scenes/data/questions/answer_open.tscn" id="7_my641"]
 [ext_resource type="Script" path="res://scenes/data/questiongrid.gd" id="9_5ef4l"]
 [ext_resource type="Script" path="res://addons/SmoothScroll/SmoothScrollContainer.gd" id="9_fantj"]
-[ext_resource type="FontFile" uid="uid://drunskociit7h" path="res://fonts/FOT-RodinProN-L.otf" id="9_ukek2"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mh88f"]
 bg_color = Color(1, 1, 1, 0.482353)
@@ -39,27 +38,47 @@ bg_color = Color(0.027451, 0.25098, 0.580392, 1)
 corner_radius_top_left = 15
 corner_radius_top_right = 15
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5uw6d"]
-bg_color = Color(0.0820313, 0.449219, 0.277344, 1)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 5
-border_color = Color(0.0820313, 0.449219, 0.277344, 1)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
+[sub_resource type="InputEventKey" id="InputEventKey_2yunt"]
+device = -1
+keycode = 4194305
 
-[sub_resource type="Theme" id="Theme_8ta6l"]
-default_font = ExtResource("9_ukek2")
-Button/constants/outline_size = 2
-Button/styles/normal = SubResource("StyleBoxFlat_5uw6d")
+[sub_resource type="Shortcut" id="Shortcut_8d77r"]
+events = [SubResource("InputEventKey_2yunt")]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_832b4"]
+bg_color = Color(0.207843, 0.67451, 0.690196, 1)
+
+[sub_resource type="InputEventKey" id="InputEventKey_vumdo"]
+device = -1
+alt_pressed = true
+keycode = 61
+unicode = 43
+
+[sub_resource type="Shortcut" id="Shortcut_k7u18"]
+events = [SubResource("InputEventKey_vumdo")]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bp14y"]
+bg_color = Color(0.207843, 0.67451, 0.690196, 1)
+
+[sub_resource type="InputEventKey" id="InputEventKey_efklp"]
+device = -1
+ctrl_pressed = true
+keycode = 61
+unicode = 43
+
+[sub_resource type="Shortcut" id="Shortcut_ywsnw"]
+events = [SubResource("InputEventKey_efklp")]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p8ig8"]
 bg_color = Color(0.00784314, 0.313726, 0.768627, 1)
 corner_radius_bottom_right = 15
 corner_radius_bottom_left = 15
+
+[sub_resource type="InputEventKey" id="InputEventKey_x1uv4"]
+keycode = 4194309
+
+[sub_resource type="Shortcut" id="Shortcut_236m4"]
+events = [SubResource("InputEventKey_x1uv4")]
 
 [node name="Questions" type="Control"]
 top_level = true
@@ -72,11 +91,14 @@ grow_vertical = 2
 script = ExtResource("1_qdrcd")
 
 [node name="Editables" type="VBoxContainer" parent="."]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
 offset_left = 10.0
 offset_top = 54.0
-offset_right = 727.0
-offset_bottom = 711.0
+offset_right = -553.0
+offset_bottom = -9.0
 
 [node name="QuestionDetails" type="MarginContainer" parent="Editables"]
 layout_mode = 2
@@ -109,6 +131,7 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_ieu3a")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_cd3yd")
 theme_override_styles/disabled = SubResource("StyleBoxFlat_3y7u8")
 theme_override_styles/focus = SubResource("StyleBoxFlat_3y7u8")
+shortcut = SubResource("Shortcut_8d77r")
 
 [node name="Margin" type="MarginContainer" parent="Editables/QuestionDetails/Details/Components/Exit"]
 layout_mode = 1
@@ -152,9 +175,14 @@ size_flags_horizontal = 3
 [node name="Question" parent="Editables/QuestionDetails/Details/Components/QuestionsManager/Questions" instance=ExtResource("5_5n8c8")]
 layout_mode = 2
 
-[node name="AddAnswerButton" type="Button" parent="Editables/QuestionDetails/Details/Components/QuestionsManager"]
+[node name="AddAnswerButton" type="Button" parent="Editables/QuestionDetails/Details/Components/QuestionsManager" node_paths=PackedStringArray("shortcut_context")]
 custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
+focus_mode = 1
+shortcut_context = NodePath("../Questions")
+theme = ExtResource("3_43xrh")
+theme_override_styles/normal = SubResource("StyleBoxFlat_832b4")
+shortcut = SubResource("Shortcut_k7u18")
 text = "+"
 
 [node name="AnswersManager" type="VBoxContainer" parent="Editables/QuestionDetails/Details/Components"]
@@ -175,27 +203,24 @@ layout_mode = 2
 [node name="Add" type="Button" parent="Editables/QuestionDetails/Details/Components/AnswersManager/AnswerBox"]
 custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
+focus_mode = 1
+theme_override_styles/normal = SubResource("StyleBoxFlat_bp14y")
+shortcut = SubResource("Shortcut_ywsnw")
 text = "+"
 
 [node name="Types" type="HBoxContainer" parent="Editables/QuestionDetails/Details/Components/AnswersManager"]
-custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 alignment = 1
-
-[node name="Open" type="Button" parent="Editables/QuestionDetails/Details/Components/AnswersManager/Types"]
-custom_minimum_size = Vector2(50, 40)
-layout_mode = 2
-theme = SubResource("Theme_8ta6l")
-toggle_mode = true
-text = "Open"
 
 [node name="Parents" type="FlowContainer" parent="Editables/QuestionDetails/Details/Components"]
 layout_mode = 2
 
 [node name="Tags" type="GridContainer" parent="Editables/QuestionDetails/Details/Components"]
+visible = false
 layout_mode = 2
 
 [node name="TagInput" type="TextEdit" parent="Editables/QuestionDetails/Details/Components"]
+visible = false
 custom_minimum_size = Vector2(100, 35)
 layout_mode = 2
 theme = ExtResource("4_jud6d")
@@ -207,7 +232,9 @@ scroll_v_scroll_speed = 40.0
 [node name="Submit" type="Button" parent="Editables/QuestionDetails/Details/Components"]
 custom_minimum_size = Vector2(50, 30.005)
 layout_mode = 2
+focus_mode = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_p8ig8")
+shortcut = SubResource("Shortcut_236m4")
 
 [node name="Margin" type="MarginContainer" parent="Editables/QuestionDetails/Details/Components/Submit"]
 layout_mode = 1

@@ -22,7 +22,7 @@ config/icon="res://logo.png"
 
 [autoload]
 
-User="*res://scenes/user.gd"
+Global="*res://scenes/global.gd"
 SFX="*res://scenes/sfx.tscn"
 BGM="*res://scenes/bgm.tscn"
 
@@ -51,8 +51,15 @@ ui_accept={
 , Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":4194310,"physical_keycode":0,"key_label":0,"unicode":0,"echo":false,"script":null)
 ]
 }
+ui_text_indent={
+"deadzone": 0.5,
+"events": []
+}
+ui_text_dedent={
+"deadzone": 0.5,
+"events": []
+}
 
 [rendering]
 
-renderer/rendering_method="mobile"
 textures/vram_compression/import_etc2_astc=true

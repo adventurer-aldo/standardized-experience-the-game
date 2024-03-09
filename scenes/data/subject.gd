@@ -18,7 +18,7 @@ func _ready():
 	if image != null: ImageTexture.create_from_image(image)
 
 func star():
-	var subj = User.subjects[id]
+	var subj = Global.subjects[id]
 	subj.starred = !subj.starred
 
 func _on_mouse_entered():

@@ -62,6 +62,16 @@ func progress_level():
 		hit_streak = 0
 		miss_streak = 0
 
+func hit_up():
+	hits += 1
+	hit_streak += 1
+	miss_streak = 0
+
+func miss_up():
+	misses += 1
+	miss_streak += 1
+	hit_streak = 0
+
 func get_parents():
 	var found_parents = []
 	for parent in parents:

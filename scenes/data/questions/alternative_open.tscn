@@ -1,7 +1,27 @@
-[gd_scene load_steps=3 format=3 uid="uid://cfhwmxxwa7rw8"]
+[gd_scene load_steps=8 format=3 uid="uid://cfhwmxxwa7rw8"]
 
 [ext_resource type="Script" path="res://scenes/data/questions/alternative_open.gd" id="1_muj0h"]
 [ext_resource type="Theme" uid="uid://dphjscf0acfaw" path="res://themes/general.tres" id="1_o81cu"]
+[ext_resource type="Theme" uid="uid://ddpx351m2ye8v" path="res://themes/fe_font.tres" id="3_hk2ig"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0w20y"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iuxcu"]
+bg_color = Color(0.862745, 0.207843, 0.270588, 1)
+
+[sub_resource type="InputEventKey" id="InputEventKey_myabp"]
+device = -1
+alt_pressed = true
+keycode = 45
+unicode = 45
+
+[sub_resource type="Shortcut" id="Shortcut_ky1ob"]
+events = [SubResource("InputEventKey_myabp")]
 
 [node name="Alternative" type="HBoxContainer"]
 theme = ExtResource("1_o81cu")
@@ -11,18 +31,25 @@ script = ExtResource("1_muj0h")
 [node name="Lister" type="TextureRect" parent="."]
 layout_mode = 2
 
-[node name="Text" type="TextEdit" parent="."]
+[node name="Text" type="LineEdit" parent="."]
 custom_minimum_size = Vector2(100, 35)
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_placeholder_color = Color(0.560784, 0.560784, 0.560784, 1)
+theme_override_colors/caret_color = Color(0, 0, 1, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_0w20y")
 placeholder_text = "What's an alternative for the above answer?"
-wrap_mode = 1
-scroll_smooth = true
-scroll_v_scroll_speed = 40.0
 
-[node name="Delete" type="Button" parent="."]
+[node name="Delete" type="Button" parent="." node_paths=PackedStringArray("shortcut_context")]
 custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
+focus_mode = 1
+shortcut_context = NodePath("..")
+theme = ExtResource("3_hk2ig")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_iuxcu")
+shortcut = SubResource("Shortcut_ky1ob")
 text = "-"
 
 [connection signal="text_changed" from="Text" to="." method="_on_text_text_changed"]

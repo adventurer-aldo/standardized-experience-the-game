@@ -4,7 +4,7 @@ var answers: Array = []
 var id := 1
 
 func _ready():
-	User.finished.connect(correct)
+	Global.finished.connect(correct)
 
 func correct(_strict := false):
 	if answers.map(func i(alternatives_array): return alternatives_array.has(text)).has(true):
