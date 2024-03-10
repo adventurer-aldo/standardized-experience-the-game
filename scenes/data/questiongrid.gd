@@ -2,6 +2,7 @@ extends VBoxContainer
 
 signal parent_pressed(id)
 signal delete_pressed(id)
+signal edit_pressed(id)
 signal file_loaded
 signal single_file_loaded
 
@@ -42,6 +43,9 @@ func parent_pressed_in_question(id):
 
 func delete_pressed_in_question(id):
 	emit_signal("delete_pressed", questions[id])
+
+func edit_pressed_in_question(id):
+	emit_signal("edit_pressed", questions[id])
 
 func prepare_question(template, object):
 	var pon = template.instantiate()

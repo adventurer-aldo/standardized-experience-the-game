@@ -12,3 +12,6 @@ extends Resource
 
 func save():
 	ResourceSaver.save(self, "user://subjects/" + str(id) + ".res", ResourceSaver.FLAG_COMPRESS)
+
+func get_question(question_id: int):
+	ResourceLoader.load("user://subjects/" + str(id) + "/" + str(question_id) + ".res")

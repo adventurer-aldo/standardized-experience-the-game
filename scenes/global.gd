@@ -1,7 +1,6 @@
 extends Node
 
 signal finished
-signal grade(value)
 
 var subjects := {}
 var questions := {}
@@ -19,3 +18,4 @@ func _ready():
 
 func save_stats():
 	ResourceSaver.save(stats, "user://stats.res", ResourceSaver.FLAG_COMPRESS)
+

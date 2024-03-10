@@ -25,6 +25,9 @@ func get_array(delete_afterwards := true):
 		$Main/Text.text = ""
 	return arr
 
+func get_alternatives_nodes():
+	return $Alternatives.get_children()
+
 func delete():
 	for alternative in $Alternatives.get_children():
 		alternative.clean()

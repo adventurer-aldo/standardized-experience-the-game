@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bitcbwjbsqpxy"
-path="res://.godot/imported/trash-can.svg-603c90dd45a3e5ecb0e39f8c6cb9070e.ctex"
+uid="uid://mywmvr3y7ahy"
+path="res://.godot/imported/pen-nib.svg-943e216898e235616e7a274a02c38d2b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://trash-can.svg"
-dest_files=["res://.godot/imported/trash-can.svg-603c90dd45a3e5ecb0e39f8c6cb9070e.ctex"]
+source_file="res://graphics/icons/pen-nib.svg"
+dest_files=["res://.godot/imported/pen-nib.svg-943e216898e235616e7a274a02c38d2b.ctex"]
 
 [params]
 

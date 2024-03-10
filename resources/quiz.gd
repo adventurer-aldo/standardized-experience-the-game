@@ -23,13 +23,28 @@ func get_answers():
 		return ResourceLoader.load("user://quizzes/" + str(id) + '/'+ answer)
 	)
 
+func get_grade():
+	var grade = 0.0
+	for answer in get_answers():
+		if answer.is_correct(): grade += answer.grade
+	return grade
+
 func generate_answers():
 	var questions = Array(DirAccess.get_files_at("user://subjects/{subj}/".format({"subj": subject_id}))).map(func i(question):
 		return ResourceLoader.load("user://subjects/" + str(subject_id) + "/" + question)
-	)
+	).filter(func i(question): return question.are_parents_won())
 	randomize()
-	questions.sort_custom(func i(question_a, question_b): return question_a.hit_streak < question_b.hit_streak)
+	questions.sort_custom(func i(question_a, question_b): 
+		return question_a.appearances < question_b.appearances
+	)
+	questions.sort_custom(func i(question_a, question_b):
+		return question_a.hit_streak > question_b.hit_streak
+	)
+	questions.sort_custom(func i(question_a, question_b):
+		return question_a.miss_streak > question_b.miss_streak
+	)
 	questions.resize(clamp(randi_range(10, 20), 0, questions.size()))
+	# questions.shuffle()
 	var answer_resource = load("res://resources/answer.tres")
 	var index_count = -1
 	for question in questions:

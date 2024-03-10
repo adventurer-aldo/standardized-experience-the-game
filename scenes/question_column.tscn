@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" path="res://scenes/data/question_column.gd" id="1_741s1"]
 [ext_resource type="Theme" uid="uid://ddpx351m2ye8v" path="res://themes/fe_font.tres" id="2_m0x2i"]
-[ext_resource type="Texture2D" uid="uid://b0a3qeyva6nbp" path="res://user-graduate.svg" id="3_kad04"]
-[ext_resource type="Texture2D" uid="uid://mywmvr3y7ahy" path="res://pen-nib.svg" id="4_uceu4"]
-[ext_resource type="Texture2D" uid="uid://bitcbwjbsqpxy" path="res://trash-can.svg" id="5_em74b"]
+[ext_resource type="Texture2D" uid="uid://b0a3qeyva6nbp" path="res://graphics/icons/user-graduate.svg" id="3_kad04"]
+[ext_resource type="Texture2D" uid="uid://mywmvr3y7ahy" path="res://graphics/icons/pen-nib.svg" id="4_uceu4"]
+[ext_resource type="Texture2D" uid="uid://bitcbwjbsqpxy" path="res://graphics/icons/trash-can.svg" id="5_em74b"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mh88f"]
 bg_color = Color(1, 1, 1, 0.482353)
@@ -63,6 +63,7 @@ icon_alignment = 1
 expand_icon = true
 
 [node name="Edit" type="Button" parent="Elements"]
+visible = false
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 mouse_filter = 1
@@ -72,6 +73,7 @@ icon_alignment = 1
 expand_icon = true
 
 [node name="Delete" type="Button" parent="Elements"]
+visible = false
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 mouse_filter = 1
@@ -95,4 +97,5 @@ mouse_filter = 1
 text = "1st Test"
 
 [connection signal="pressed" from="Elements/Parent" to="." method="_on_parent_pressed"]
+[connection signal="pressed" from="Elements/Edit" to="." method="_on_edit_pressed"]
 [connection signal="pressed" from="Elements/Delete" to="." method="_on_delete_pressed"]

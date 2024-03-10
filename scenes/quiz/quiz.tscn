@@ -1,14 +1,12 @@
-[gd_scene load_steps=15 format=3 uid="uid://b1owkchsug7x4"]
+[gd_scene load_steps=13 format=3 uid="uid://b1owkchsug7x4"]
 
 [ext_resource type="Script" path="res://scenes/quiz/quiz.gd" id="1_8n255"]
 [ext_resource type="PackedScene" uid="uid://cklpthhbe5lxb" path="res://scenes/background.tscn" id="1_aptwy"]
 [ext_resource type="Texture2D" uid="uid://c08oykekb02jh" path="res://graphics/testure.png" id="3_ws1yj"]
 [ext_resource type="Theme" uid="uid://bbkfe3x78ihvo" path="res://themes/times.tres" id="5_putkc"]
-[ext_resource type="Script" path="res://addons/SmoothScroll/SmoothScrollContainer.gd" id="6_ef3fk"]
 [ext_resource type="FontFile" uid="uid://b34fgfhi138hl" path="res://fonts/learning_curve_regular_ot_tt.ttf" id="7_eafx6"]
 [ext_resource type="Texture2D" uid="uid://bsnb8acrwa5ww" path="res://graphics/submit.png" id="7_eds0u"]
 [ext_resource type="FontFile" uid="uid://drunskociit7h" path="res://fonts/FOT-RodinProN-L.otf" id="8_j8lpl"]
-[ext_resource type="Texture2D" uid="uid://bxunaysknjqil" path="res://graphics/glow.png" id="9_eab2j"]
 [ext_resource type="Script" path="res://scenes/quiz/quiz_timer.gd" id="10_itlsp"]
 [ext_resource type="Script" path="res://scenes/quiz/selector_temp.gd" id="11_lkp24"]
 
@@ -75,9 +73,6 @@ grow_horizontal = 2
 grow_vertical = 2
 horizontal_scroll_mode = 3
 vertical_scroll_mode = 3
-script = ExtResource("6_ef3fk")
-speed = 10.0
-allow_horizontal_scroll = false
 
 [node name="Elements" type="VBoxContainer" parent="ScrollContainer"]
 layout_mode = 2
@@ -125,17 +120,17 @@ horizontal_alignment = 1
 layout_mode = 2
 mouse_filter = 1
 
-[node name="Subject3" type="Label" parent="ScrollContainer/Elements/Margin/BasicInformation/Control"]
+[node name="Trace" type="Label" parent="ScrollContainer/Elements/Margin/BasicInformation/Control"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = 357.0
-offset_top = -67.0
-offset_right = 502.0
-offset_bottom = -41.0
+offset_left = 229.5
+offset_top = -24.0
+offset_right = 374.5
+offset_bottom = 2.0
 grow_horizontal = 2
 grow_vertical = 0
 mouse_filter = 1
@@ -150,10 +145,10 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -208.0
-offset_top = -117.0
-offset_right = -67.0
-offset_bottom = -22.0
+offset_left = -261.0
+offset_top = -73.0
+offset_right = -116.0
+offset_bottom = 22.0
 grow_horizontal = 0
 grow_vertical = 0
 mouse_filter = 1
@@ -165,34 +160,33 @@ theme_override_font_sizes/font_size = 91
 horizontal_alignment = 1
 vertical_alignment = 2
 
-[node name="Subject2" type="Label" parent="ScrollContainer/Elements/Margin/BasicInformation/Control"]
+[node name="values" type="Label" parent="ScrollContainer/Elements/Margin/BasicInformation/Control"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = 502.0
-offset_top = -66.0
-offset_right = 558.0
-offset_bottom = -40.0
+offset_left = 373.5
+offset_top = -23.0
+offset_right = 430.5
+offset_bottom = 3.0
 grow_horizontal = 2
 grow_vertical = 0
 mouse_filter = 1
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "values"
+text = "valores"
 horizontal_alignment = 1
 
-[node name="Subject" type="Label" parent="ScrollContainer/Elements/Margin/BasicInformation/Control"]
+[node name="Grade" type="Label" parent="ScrollContainer/Elements/Margin/BasicInformation/Control"]
 layout_mode = 0
-offset_left = 871.0
-offset_top = -66.0
-offset_right = 927.0
-offset_bottom = -40.0
+offset_left = 671.0
+offset_top = -23.0
+offset_right = 764.0
+offset_bottom = 3.0
 mouse_filter = 1
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "Grade: "
-horizontal_alignment = 1
+text = "Nota: "
 
 [node name="Level" type="Label" parent="ScrollContainer/Elements/Margin/BasicInformation"]
 layout_mode = 2
@@ -256,7 +250,7 @@ clip_contents = true
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_bottom = 38.0
+offset_top = -38.0
 grow_horizontal = 2
 mouse_filter = 1
 theme = SubResource("Theme_4hcyd")
@@ -319,10 +313,6 @@ theme_override_fonts/font = ExtResource("8_j8lpl")
 theme_override_font_sizes/font_size = 76
 text = "Submit"
 
-[node name="Glow" type="Sprite2D" parent="SubmitButton"]
-position = Vector2(59, 69)
-texture = ExtResource("9_eab2j")
-
 [node name="Button" type="Button" parent="."]
 layout_mode = 1
 anchors_preset = 6
@@ -365,6 +355,8 @@ columns = 5
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+mouse_filter = 1
+mouse_default_cursor_shape = 2
 script = ExtResource("11_lkp24")
 
 [connection signal="timeout" from="Time/Timer" to="." method="_on_timer_timeout"]

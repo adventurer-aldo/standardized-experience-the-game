@@ -1,7 +1,7 @@
-[gd_scene load_steps=26 format=3 uid="uid://d11bo78dwoh5x"]
+[gd_scene load_steps=28 format=3 uid="uid://d11bo78dwoh5x"]
 
 [ext_resource type="Script" path="res://scenes/data/questions.gd" id="1_qdrcd"]
-[ext_resource type="Texture2D" uid="uid://usvm3mhvakq3" path="res://triangle.svg" id="2_hv0in"]
+[ext_resource type="Texture2D" uid="uid://usvm3mhvakq3" path="res://graphics/icons/triangle.svg" id="2_hv0in"]
 [ext_resource type="Theme" uid="uid://ddpx351m2ye8v" path="res://themes/fe_font.tres" id="3_43xrh"]
 [ext_resource type="Theme" uid="uid://dphjscf0acfaw" path="res://themes/general.tres" id="4_jud6d"]
 [ext_resource type="Script" path="res://scenes/data/questions_manager.gd" id="4_u841u"]
@@ -75,10 +75,22 @@ corner_radius_bottom_right = 15
 corner_radius_bottom_left = 15
 
 [sub_resource type="InputEventKey" id="InputEventKey_x1uv4"]
-keycode = 4194309
+device = -1
+ctrl_pressed = true
+keycode = 83
+unicode = 115
 
 [sub_resource type="Shortcut" id="Shortcut_236m4"]
 events = [SubResource("InputEventKey_x1uv4")]
+
+[sub_resource type="InputEventKey" id="InputEventKey_k8v2h"]
+device = -1
+ctrl_pressed = true
+keycode = 82
+unicode = 114
+
+[sub_resource type="Shortcut" id="Shortcut_wimpp"]
+events = [SubResource("InputEventKey_k8v2h")]
 
 [node name="Questions" type="Control"]
 top_level = true
@@ -272,6 +284,16 @@ script = ExtResource("9_5ef4l")
 
 [node name="Node" type="Node" parent="Editables/ScrollContainer/GridContainer"]
 
+[node name="Reset" type="Button" parent="." node_paths=PackedStringArray("shortcut_context")]
+layout_mode = 0
+offset_left = 18.0
+offset_top = -47.0
+offset_right = 78.0
+offset_bottom = -17.0
+shortcut_context = NodePath("../Editables/QuestionDetails")
+shortcut = SubResource("Shortcut_wimpp")
+text = "Reset"
+
 [connection signal="submitted" from="." to="Editables/ScrollContainer/GridContainer" method="_on_questions_submitted"]
 [connection signal="pressed" from="Editables/QuestionDetails/Details/Components/Exit" to="." method="_on_exit_pressed"]
 [connection signal="delete_pressed" from="Editables/QuestionDetails/Details/Components/QuestionsManager/Questions/Question" to="Editables/QuestionDetails/Details/Components/QuestionsManager" method="_on_answer_delete_pressed"]
@@ -279,4 +301,6 @@ script = ExtResource("9_5ef4l")
 [connection signal="pressed" from="Editables/QuestionDetails/Details/Components/AnswersManager/AnswerBox/Add" to="Editables/QuestionDetails/Details/Components/AnswersManager" method="_on_add_pressed"]
 [connection signal="pressed" from="Editables/QuestionDetails/Details/Components/Submit" to="." method="_on_submit_pressed"]
 [connection signal="delete_pressed" from="Editables/ScrollContainer/GridContainer" to="." method="_on_grid_container_delete_pressed"]
+[connection signal="edit_pressed" from="Editables/ScrollContainer/GridContainer" to="." method="_on_grid_container_edit_pressed"]
 [connection signal="parent_pressed" from="Editables/ScrollContainer/GridContainer" to="." method="_on_grid_container_parent_pressed"]
+[connection signal="pressed" from="Reset" to="." method="_on_reset_pressed"]

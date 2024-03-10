@@ -7,7 +7,10 @@ func _ready():
 	Global.finished.connect(correct)
 
 func correct(_strict := false):
-	if answers.map(func i(alternatives_array): return alternatives_array.has(text)).has(true):
+	if answers.map(func i(alternatives_array): 
+		return alternatives_array.map(func i(k): 
+			return k.to_lower()).has(text.to_lower())
+		).has(true):
 		pass
 	else:
 		# self_modulate = Color(Color.WHITE, 0)

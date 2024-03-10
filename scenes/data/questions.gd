@@ -17,8 +17,6 @@ var subject_name := ""
 func _on_submit_pressed():
 	var submitted_questions = get_tree().get_nodes_in_group("question").map(func i(node): return node.text)
 	var submitted_answers = get_tree().get_nodes_in_group("answer").map(func i(node): return node.get_array(false))
-	print(submitted_answers)
-	print(subject)
 	if submitted_questions.has(""): return
 	if submitted_answers.map(func i(answ): return answ.has("")).has(true): return
 	get_tree().get_nodes_in_group("answer").map(func i(node): node.delete())
@@ -37,8 +35,8 @@ func _on_submit_pressed():
 	new_question.tags = tags
 	new_question.subject_id = subject
 	Global.save_stats()
-	print(new_question.id)
 	new_question.save()
+	$Editables/QuestionDetails/Details/Components/QuestionsManager/Questions.get_children()[0].grab_text_focus()
 	# ResourceSaver.save(new_question, "user://subjects/{subj}/{id}.res".format({"subj": new_question.subject_id, "id": key}), ResourceSaver.FLAG_COMPRESS)
 	# vResourceSaver.save(new_question, "res://" + str(key) + ".res")
 	emit_signal("submitted", key)
@@ -66,3 +64,25 @@ func _on_exit_pressed():
 
 func _on_grid_container_delete_pressed(resource: Resource):
 	DirAccess.remove_absolute(resource.resource_path)
+
+func _on_grid_container_edit_pressed(resource):
+	for i in $Editables/QuestionDetails/Details/Components/QuestionsManager/Questions.get_children():
+		i.queue_free()
+	for i in $Editables/QuestionDetails/Details/Components/AnswersManager/AnswerBox/Answers.get_children():
+		i.queue_free()
+	
+	for question in resource.question:
+		var non = load("res://scenes/data/questions/question.tscn").instantiate()
+		non.get_children()[0].text = question
+
+
+func _on_reset_pressed():
+	for child in $Editables/QuestionDetails/Details/Components/QuestionsManager/Questions.get_children():
+		if child.get_index() != 0:
+			child.queue_free()
+	for child in $Editables/QuestionDetails/Details/Components/AnswersManager/AnswerBox/Answers.get_children():
+		if child.get_index() != 0: 
+			child.queue_free()
+		else:
+			for alternative in child.get_alternatives_nodes():
+				alternative.queue_free()

@@ -1,10 +1,10 @@
 extends Control
 
-var grade := 0.0
+var quiz
 var subject_key := 0
 
 func generate_quiz(subject_id: int, duration: int, level: int = 1):
-	var quiz = load("res://resources/quiz.tres").duplicate()
+	quiz = load("res://resources/quiz.tres").duplicate()
 	Global.stats.last_quiz_id += 1
 	quiz.subject_id = subject_id
 	quiz.level = level
@@ -18,7 +18,6 @@ func generate_quiz(subject_id: int, duration: int, level: int = 1):
 
 func _ready():
 	Global.finished.connect(finish)
-	Global.grade.connect(evaluate)
 	if subject_key == 0:
 		for i in Global.subjects.keys():
 			var clone = $Discard/ScrollContainer/Subjects/SubjectSelector.duplicate()
@@ -49,11 +48,9 @@ func finish():
 	tween.tween_property($ScrollContainer, "scroll_vertical", 0, 1.0)
 	for answerer in $ScrollContainer/Elements/Questions.get_children():
 		answerer.respond()
-
-func evaluate(value: float):
-	grade += snapped(value, 0.01)
-	grade = clamp(grade, 0.0, 20.0)
-	$ScrollContainer/Elements/Margin/BasicInformation/Control/Label.text = str(grade).replace(".", ",")
+	$ScrollContainer/Elements/Margin/BasicInformation/Control/Label.text = str(quiz.get_grade()).replace(".", ",")
+	
+	
 
 func _on_timer_timeout():
 	Global.emit_signal("finished")

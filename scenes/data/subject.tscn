@@ -1,9 +1,9 @@
 [gd_scene load_steps=13 format=3 uid="uid://djdokvbtmxqkc"]
 
 [ext_resource type="Script" path="res://scenes/data/subject.gd" id="1_71anw"]
-[ext_resource type="Texture2D" uid="uid://ix7nu7ud6nks" path="res://book.svg" id="2_n1fyx"]
-[ext_resource type="Texture2D" uid="uid://mywmvr3y7ahy" path="res://pen-nib.svg" id="3_f6h8f"]
-[ext_resource type="Texture2D" uid="uid://bitcbwjbsqpxy" path="res://trash-can.svg" id="4_bqt8d"]
+[ext_resource type="Texture2D" uid="uid://ix7nu7ud6nks" path="res://graphics/icons/book.svg" id="2_n1fyx"]
+[ext_resource type="Texture2D" uid="uid://mywmvr3y7ahy" path="res://graphics/icons/pen-nib.svg" id="3_f6h8f"]
+[ext_resource type="Texture2D" uid="uid://bitcbwjbsqpxy" path="res://graphics/icons/trash-can.svg" id="4_bqt8d"]
 [ext_resource type="Theme" uid="uid://ddpx351m2ye8v" path="res://themes/fe_font.tres" id="5_pray3"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rcyqq"]
@@ -201,6 +201,7 @@ mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_a1woh")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
+visible = false
 visibility_layer = 2
 layout_mode = 2
 size_flags_horizontal = 8

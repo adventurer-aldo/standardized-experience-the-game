@@ -30,3 +30,7 @@ func change_parenting():
 func _on_delete_pressed():
 	emit_signal("delete_pressed", id)
 	queue_free()
+
+
+func _on_edit_pressed():
+	emit_signal("edit_pressed", id)

@@ -61,22 +61,28 @@ func progress_level():
 	if !(marked_level == spaced_level):
 		hit_streak = 0
 		miss_streak = 0
+	save()
 
 func hit_up():
 	hits += 1
 	hit_streak += 1
 	miss_streak = 0
+	progress_level()
 
 func miss_up():
 	misses += 1
 	miss_streak += 1
 	hit_streak = 0
+	progress_level()
 
 func get_parents():
 	var found_parents = []
 	for parent in parents:
 		found_parents.push_back(load("user://subjects/{subject}/{parent}.res".format({"subject": subject_id, "parent": parent})))
 	return found_parents
+
+func are_parents_won():
+	return !get_parents().map(func i(parent): return parent.is_won() || parent.spaced_level > 2).has(false)
 
 func delete():
 	DirAccess.remove_absolute("user://subjects/" + str(subject_id) + "/" + str(id) + ".res")

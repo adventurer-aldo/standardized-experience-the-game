@@ -144,3 +144,7 @@ func generate_random_color_with_contrast():
 		# random_color.b = random_color.b + (1 - random_color.b) * 0.3
 
 	return random_color
+
+
+func _on_button_pressed():
+	get_tree().change_scene_to_file("res://scenes/title.tscn")

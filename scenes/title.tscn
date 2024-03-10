@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://djourm2ce5j3h"]
+[gd_scene load_steps=19 format=3 uid="uid://djourm2ce5j3h"]
 
 [ext_resource type="Texture2D" uid="uid://j804wvsw4kul" path="res://logo.png" id="2_37hhe"]
 [ext_resource type="Script" path="res://scenes/title.gd" id="2_e4613"]
@@ -11,7 +11,10 @@
 [ext_resource type="Theme" uid="uid://bbkfe3x78ihvo" path="res://themes/times.tres" id="9_38fcd"]
 [ext_resource type="PackedScene" uid="uid://bxiw1dn02gy4g" path="res://scenes/title_action.tscn" id="11_4jxkd"]
 [ext_resource type="PackedScene" uid="uid://bj70dtoi5ugaq" path="res://models/library/model.glb" id="11_iynvp"]
-[ext_resource type="Texture2D" uid="uid://cx5jbdftuo6t0" path="res://books.svg" id="12_o0jr2"]
+[ext_resource type="Script" path="res://addons/SmoothScroll/SmoothScrollContainer.gd" id="11_ya3re"]
+[ext_resource type="Texture2D" uid="uid://cx5jbdftuo6t0" path="res://graphics/icons/books.svg" id="12_o0jr2"]
+[ext_resource type="Texture2D" uid="uid://cqxafjycbkjco" path="res://graphics/icons/file-pen.svg" id="13_tgwoy"]
+[ext_resource type="Texture2D" uid="uid://dh61trwhnvcao" path="res://graphics/icons/person-from-portal.svg" id="14_g2bbi"]
 
 [sub_resource type="Animation" id="Animation_yl0gf"]
 length = 0.001
@@ -74,18 +77,16 @@ _data = {
 "zooms": SubResource("Animation_me537")
 }
 
-[node name="Node3D" type="Node3D"]
-script = ExtResource("2_e4613")
-
-[node name="Title" type="TextureRect" parent="."]
+[node name="Title" type="TextureRect"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 expand_mode = 2
+script = ExtResource("2_e4613")
 
-[node name="Logo2" type="TextureRect" parent="Title"]
+[node name="Logo2" type="TextureRect" parent="."]
 visible = false
 modulate = Color(0.0705882, 0, 0.709804, 0.490196)
 layout_mode = 0
@@ -96,7 +97,7 @@ offset_bottom = 228.0
 scale = Vector2(2.21875, 2.21875)
 texture = ExtResource("2_37hhe")
 
-[node name="Logo" type="TextureRect" parent="Title"]
+[node name="Logo" type="TextureRect" parent="."]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
@@ -113,7 +114,7 @@ texture = ExtResource("3_0ljim")
 expand_mode = 2
 metadata/_edit_group_ = true
 
-[node name="LogoBlur" type="TextureRect" parent="Title/Logo"]
+[node name="LogoBlur" type="TextureRect" parent="Logo"]
 visible = false
 modulate = Color(0, 0.529412, 1, 0.419608)
 show_behind_parent = true
@@ -131,7 +132,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("3_6s5hm")
 
-[node name="Top" type="HBoxContainer" parent="Title"]
+[node name="Top" type="HBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -139,21 +140,21 @@ offset_bottom = 39.0
 grow_horizontal = 2
 theme_override_constants/separation = 0
 
-[node name="Start" type="TextureRect" parent="Title/Top"]
+[node name="Start" type="TextureRect" parent="Top"]
 texture_repeat = 2
 layout_mode = 2
 texture = ExtResource("5_2hfl4")
 expand_mode = 2
 flip_h = true
 
-[node name="Middle" type="TextureRect" parent="Title/Top"]
+[node name="Middle" type="TextureRect" parent="Top"]
 texture_repeat = 2
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("6_1u5f8")
 expand_mode = 1
 
-[node name="Label" type="Label" parent="Title/Top/Middle"]
+[node name="Label" type="Label" parent="Top/Middle"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -166,13 +167,13 @@ theme_override_font_sizes/font_size = 26
 text = "It's time to experience."
 vertical_alignment = 1
 
-[node name="End" type="TextureRect" parent="Title/Top"]
+[node name="End" type="TextureRect" parent="Top"]
 texture_repeat = 2
 layout_mode = 2
 texture = ExtResource("5_2hfl4")
 expand_mode = 2
 
-[node name="Button" type="TextureButton" parent="Title"]
+[node name="Button" type="TextureButton" parent="."]
 visible = false
 layout_mode = 1
 anchors_preset = 8
@@ -189,7 +190,7 @@ grow_vertical = 2
 texture_normal = ExtResource("7_a6sim")
 texture_pressed = ExtResource("8_jhtqc")
 
-[node name="Label" type="Label" parent="Title/Button"]
+[node name="Label" type="Label" parent="Button"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -205,7 +206,7 @@ text = "Data"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Trademark" type="Label" parent="Title"]
+[node name="Trademark" type="Label" parent="."]
 modulate = Color(1, 0.929412, 0.929412, 1)
 layout_mode = 1
 anchors_preset = 12
@@ -223,18 +224,132 @@ text = "2021 - 2024 Standardized Experience"
 horizontal_alignment = 1
 vertical_alignment = 2
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 255.0
+offset_top = 443.0
+offset_right = -255.0
+offset_bottom = -84.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+horizontal_scroll_mode = 3
+vertical_scroll_mode = 0
+script = ExtResource("11_ya3re")
+
+[node name="ActionsContainer" type="HBoxContainer" parent="ScrollContainer"]
+layout_mode = 2
+
+[node name="Subjects" parent="ScrollContainer/ActionsContainer" instance=ExtResource("11_4jxkd")]
+layout_mode = 2
+metadata/_edit_group_ = true
+
+[node name="ActionSplitter" parent="ScrollContainer/ActionsContainer/Subjects" index="0"]
+mouse_filter = 1
+
+[node name="Margin" parent="ScrollContainer/ActionsContainer/Subjects/ActionSplitter" index="0"]
+mouse_filter = 1
+
+[node name="BackgroundColor" parent="ScrollContainer/ActionsContainer/Subjects/ActionSplitter/Margin" index="0"]
+mouse_filter = 1
+
+[node name="Icon" parent="ScrollContainer/ActionsContainer/Subjects/ActionSplitter/Margin" index="1"]
+mouse_filter = 1
+texture = ExtResource("12_o0jr2")
+
+[node name="Margin2" parent="ScrollContainer/ActionsContainer/Subjects/ActionSplitter" index="1"]
+mouse_filter = 1
+
+[node name="ActionName" parent="ScrollContainer/ActionsContainer/Subjects/ActionSplitter/Margin2" index="0"]
+mouse_filter = 1
+text = "Subjects"
+
+[node name="Download" parent="ScrollContainer/ActionsContainer" instance=ExtResource("11_4jxkd")]
+layout_mode = 2
+
+[node name="ActionSplitter" parent="ScrollContainer/ActionsContainer/Download" index="0"]
+mouse_filter = 1
+
+[node name="Margin" parent="ScrollContainer/ActionsContainer/Download/ActionSplitter" index="0"]
+mouse_filter = 1
+
+[node name="BackgroundColor" parent="ScrollContainer/ActionsContainer/Download/ActionSplitter/Margin" index="0"]
+mouse_filter = 1
+
+[node name="Icon" parent="ScrollContainer/ActionsContainer/Download/ActionSplitter/Margin" index="1"]
+mouse_filter = 1
+
+[node name="Margin2" parent="ScrollContainer/ActionsContainer/Download/ActionSplitter" index="1"]
+mouse_filter = 1
+
+[node name="ActionName" parent="ScrollContainer/ActionsContainer/Download/ActionSplitter/Margin2" index="0"]
+mouse_filter = 1
+text = "Download"
+
+[node name="Quiz" parent="ScrollContainer/ActionsContainer" instance=ExtResource("11_4jxkd")]
+layout_mode = 2
+
+[node name="ActionSplitter" parent="ScrollContainer/ActionsContainer/Quiz" index="0"]
+mouse_filter = 1
+
+[node name="Margin" parent="ScrollContainer/ActionsContainer/Quiz/ActionSplitter" index="0"]
+mouse_filter = 1
+
+[node name="BackgroundColor" parent="ScrollContainer/ActionsContainer/Quiz/ActionSplitter/Margin" index="0"]
+mouse_filter = 1
+
+[node name="Icon" parent="ScrollContainer/ActionsContainer/Quiz/ActionSplitter/Margin" index="1"]
+mouse_filter = 1
+texture = ExtResource("13_tgwoy")
+
+[node name="Margin2" parent="ScrollContainer/ActionsContainer/Quiz/ActionSplitter" index="1"]
+mouse_filter = 1
+
+[node name="ActionName" parent="ScrollContainer/ActionsContainer/Quiz/ActionSplitter/Margin2" index="0"]
+mouse_filter = 1
+text = "Quiz"
+
+[node name="Exit" parent="ScrollContainer/ActionsContainer" instance=ExtResource("11_4jxkd")]
+layout_mode = 2
+
+[node name="ActionSplitter" parent="ScrollContainer/ActionsContainer/Exit" index="0"]
+mouse_filter = 1
+
+[node name="Margin" parent="ScrollContainer/ActionsContainer/Exit/ActionSplitter" index="0"]
+mouse_filter = 1
+
+[node name="BackgroundColor" parent="ScrollContainer/ActionsContainer/Exit/ActionSplitter/Margin" index="0"]
+mouse_filter = 1
+
+[node name="Icon" parent="ScrollContainer/ActionsContainer/Exit/ActionSplitter/Margin" index="1"]
+mouse_filter = 1
+texture = ExtResource("14_g2bbi")
+
+[node name="Margin2" parent="ScrollContainer/ActionsContainer/Exit/ActionSplitter" index="1"]
+mouse_filter = 1
+
+[node name="ActionName" parent="ScrollContainer/ActionsContainer/Exit/ActionSplitter/Margin2" index="0"]
+mouse_filter = 1
+text = "Exit"
+
+[node name="Node3D" type="Node3D" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Node3D"]
 root_node = NodePath("../Camera3D")
 libraries = {
 "": SubResource("AnimationLibrary_y817a")
 }
 
-[node name="Camera3D" type="Camera3D" parent="."]
+[node name="Camera3D" type="Camera3D" parent="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.2618, 2.29673, -14.5773)
 current = true
 fov = 33.0
 
-[node name="OmniLight3D" type="OmniLight3D" parent="Camera3D"]
+[node name="OmniLight3D" type="OmniLight3D" parent="Node3D/Camera3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.195518, 0, -9.53201)
 light_color = Color(0.239216, 0.490196, 1, 1)
 light_energy = 8.055
@@ -244,7 +359,7 @@ light_size = 6.58
 light_specular = 0.0
 omni_range = 14.736
 
-[node name="OmniLight3D2" type="OmniLight3D" parent="."]
+[node name="OmniLight3D2" type="OmniLight3D" parent="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.0663, 39.7231, -122.232)
 light_color = Color(0.215686, 0.329412, 0.580392, 1)
 light_energy = 21.738
@@ -254,38 +369,15 @@ light_specular = 0.0
 omni_range = 4098.53
 omni_attenuation = 0.594604
 
-[node name="Library" parent="." instance=ExtResource("11_iynvp")]
+[node name="Library" parent="Node3D" instance=ExtResource("11_iynvp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.1133, 0, -33.7205)
 
-[node name="Quiz" type="Button" parent="."]
-offset_left = 597.0
-offset_top = 456.0
-offset_right = 742.0
-offset_bottom = 605.0
-text = "Quiz"
+[connection signal="pressed" from="ScrollContainer/ActionsContainer/Subjects" to="." method="_on_subjects_pressed"]
+[connection signal="pressed" from="ScrollContainer/ActionsContainer/Download" to="." method="_on_download_pressed"]
+[connection signal="pressed" from="ScrollContainer/ActionsContainer/Quiz" to="." method="_on_quiz_pressed"]
+[connection signal="pressed" from="ScrollContainer/ActionsContainer/Exit" to="." method="_on_exit_pressed"]
 
-[node name="Download" type="Button" parent="."]
-offset_left = 861.0
-offset_top = 444.0
-offset_right = 1006.0
-offset_bottom = 593.0
-text = "Download"
-
-[node name="Action" parent="." instance=ExtResource("11_4jxkd")]
-offset_left = 237.0
-offset_top = 431.0
-offset_right = 509.0
-offset_bottom = 606.0
-metadata/_edit_group_ = true
-
-[node name="Icon" parent="Action/ActionSplitter/Margin" index="1"]
-texture = ExtResource("12_o0jr2")
-
-[node name="ActionName" parent="Action/ActionSplitter/Margin2" index="0"]
-text = "Subjects"
-
-[connection signal="pressed" from="Quiz" to="." method="_on_quiz_pressed"]
-[connection signal="pressed" from="Download" to="." method="_on_download_pressed"]
-[connection signal="pressed" from="Action" to="." method="_on_subjects_pressed"]
-
-[editable path="Action"]
+[editable path="ScrollContainer/ActionsContainer/Subjects"]
+[editable path="ScrollContainer/ActionsContainer/Download"]
+[editable path="ScrollContainer/ActionsContainer/Quiz"]
+[editable path="ScrollContainer/ActionsContainer/Exit"]
