@@ -1,7 +1,7 @@
 extends TextureRect
 
 func _ready():
-	BGM.autoplay("title")
+	# BGM.autoplay("title")
 	$ScrollContainer/ActionsContainer/Subjects.grab_focus()
 	$Node3D/AnimationPlayer.play("zooms")
 

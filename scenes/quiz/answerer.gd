@@ -22,7 +22,10 @@ func setup():
 		var cho = load("res://scenes/quiz/{type}.tscn".format({"type": answer.type})) as PackedScene
 		for i in answer.choice_indexes:
 			var new_choice = cho.instantiate()
-			new_choice.answers = question.answers
+			var whole_answer = []
+			for answer in question.answers:
+				whole_answer += Array(answer)
+			new_choice.answers = whole_answer
 			var text = question.choices[i].texts[0]
 			new_choice.value = text
 			$Ratio/Margin/VContent/Choices.add_child(new_choice)

@@ -1,4 +1,4 @@
 extends ColorRect
 
 func _ready():
-	print($Node.id)
+	print(Global.get_last_quiz().get_grade())

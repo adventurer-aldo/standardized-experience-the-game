@@ -1,7 +1,73 @@
-[gd_scene load_steps=3 format=3 uid="uid://njcan8xh86nx"]
+[gd_scene load_steps=9 format=3 uid="uid://njcan8xh86nx"]
 
 [ext_resource type="Script" path="res://scenes/data/subjects.gd" id="1_itp3r"]
+[ext_resource type="Theme" uid="uid://ddpx351m2ye8v" path="res://themes/fe_font.tres" id="3_ev04e"]
 [ext_resource type="Script" path="res://addons/SmoothScroll/SmoothScrollContainer.gd" id="4_evhab"]
+[ext_resource type="Texture2D" uid="uid://usvm3mhvakq3" path="res://graphics/icons/triangle.svg" id="4_fgr48"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ckw35"]
+bg_color = Color(1, 1, 1, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.8, 0.8, 0.8, 0.658824)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+expand_margin_left = 5.0
+expand_margin_top = 4.0
+expand_margin_right = 5.0
+expand_margin_bottom = 4.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uyx86"]
+bg_color = Color(1, 1, 1, 0.192157)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.8, 0.8, 0.8, 0.658824)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+expand_margin_left = 5.0
+expand_margin_top = 4.0
+expand_margin_right = 5.0
+expand_margin_bottom = 4.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4wh6d"]
+bg_color = Color(1, 1, 1, 0.592157)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.8, 0.8, 0.8, 0.658824)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+expand_margin_left = 5.0
+expand_margin_top = 4.0
+expand_margin_right = 5.0
+expand_margin_bottom = 4.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0levg"]
+bg_color = Color(1, 1, 1, 0.192157)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.8, 0.8, 0.8, 0.658824)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+expand_margin_left = 5.0
+expand_margin_top = 4.0
+expand_margin_right = 5.0
+expand_margin_bottom = 4.0
 
 [node name="Subjects" type="ColorRect"]
 anchors_preset = 15
@@ -9,7 +75,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(1, 1, 1, 0)
+color = Color(0, 0, 0, 0)
 script = ExtResource("1_itp3r")
 
 [node name="GridContainer2" type="ScrollContainer" parent="."]
@@ -35,14 +101,60 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 alignment = 1
 
-[node name="Button" type="Button" parent="."]
+[node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
+anchors_preset = 10
 anchor_right = 1.0
-offset_left = -208.0
-offset_bottom = 55.0
-grow_horizontal = 0
-text = "Exit"
+offset_bottom = 41.0
+grow_horizontal = 2
+color = Color(0.0509804, 0.427451, 0.976471, 1)
 
-[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[node name="HBoxContainer" type="HBoxContainer" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 2
+
+[node name="Label" type="Label" parent="ColorRect/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("3_ev04e")
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 1
+text = "			Editing Subjects..."
+
+[node name="MarginContainer" type="MarginContainer" parent="ColorRect/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Button" type="Button" parent="ColorRect/HBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_ckw35")
+theme_override_styles/hover = SubResource("StyleBoxFlat_uyx86")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_4wh6d")
+theme_override_styles/focus = SubResource("StyleBoxFlat_0levg")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ColorRect/HBoxContainer/MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="ArrowLeft" type="TextureRect" parent="ColorRect/HBoxContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("4_fgr48")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="ColorRect/HBoxContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("3_ev04e")
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 1
+text = "Return"
+
+[connection signal="pressed" from="ColorRect/HBoxContainer/MarginContainer/Button" to="." method="_on_button_pressed"]

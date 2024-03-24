@@ -2,6 +2,7 @@ extends TextEdit
 
 var answers: Array = []
 var id := 1
+@onready var prev_text = text # For m
 
 func _ready():
 	Global.finished.connect(correct)
@@ -25,3 +26,11 @@ func correct(_strict := false):
 		text += chos
 		$Correction.text = fin
 		$Correction.size = size
+
+
+func _on_text_changed():
+	if text.length() > prev_text.length():
+		BGM.pump_might(0.5)
+	elif text.length() < prev_text.length():
+		BGM.pump_might(-0.5)
+	prev_text = text

@@ -13,8 +13,6 @@ var current_single_file := ""
 
 func _process(_delta):
 	if current_file != "":
-		# print(subject_id)
-		# print(ResourceLoader.load_threaded_get_status("user://{subjects/{subj}/{file}".format({"file": current_file, "subj": subject_id})))
 		match ResourceLoader.load_threaded_get_status("user://subjects/{subj}/{file}".format({"file": current_file, "subj": subject_id})):
 			3:
 				current_file = ""
@@ -36,27 +34,16 @@ func load_questions():
 		var question = ResourceLoader.load_threaded_get("user://subjects/{subj}/{file}".format({"file": file, "subj": subject_id}))
 		add_child(prepare_question(don, question))
 		questions[int(file)] = question
-	# emit_signal("data_loaded")
-
-func parent_pressed_in_question(id):
-	emit_signal("parent_pressed", id)
-
-func delete_pressed_in_question(id):
-	emit_signal("delete_pressed", questions[id])
-
-func edit_pressed_in_question(id):
-	emit_signal("edit_pressed", questions[id])
 
 func prepare_question(template, object):
-	var pon = template.instantiate()
-	pon.id = object.id
-	pon.questions = object.question
-	pon.types = object.get_types()
-	pon.tags = object.tags
-	pon.level = object.level
-	pon.parent_pressed.connect(parent_pressed_in_question)
-	pon.delete_pressed.connect(delete_pressed_in_question)
-	return pon
+	var loaded_question = template.instantiate()
+	loaded_question.id = object.id
+	loaded_question.questions = object.question
+	loaded_question.types = object.get_types()
+	loaded_question.tags = object.tags
+	loaded_question.level = object.level
+	loaded_question.resource = object
+	return loaded_question
 
 func _on_questions_submitted(id):
 	ResourceLoader.load_threaded_request("user://subjects/{subj}/{file}".format({"file": str(id) + ".res", "subj": subject_id}), "", true)

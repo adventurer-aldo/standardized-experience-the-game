@@ -5,3 +5,12 @@
 [node name="BGM" type="AudioStreamPlayer"]
 bus = &"BGM"
 script = ExtResource("1_bdg3m")
+
+[node name="BGM_Rush" type="AudioStreamPlayer" parent="."]
+volume_db = -60.0
+bus = &"BGM_rush"
+
+[node name="MightTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="MightTimer" to="." method="_on_might_timer_timeout"]

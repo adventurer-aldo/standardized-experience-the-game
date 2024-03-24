@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cti6wqhe8hrdw"]
+[gd_scene load_steps=12 format=3 uid="uid://cti6wqhe8hrdw"]
 
 [ext_resource type="Script" path="res://scenes/data/question_column.gd" id="1_741s1"]
 [ext_resource type="Theme" uid="uid://ddpx351m2ye8v" path="res://themes/fe_font.tres" id="2_m0x2i"]
@@ -38,6 +38,27 @@ border_color = Color(0.72549, 0.584314, 0, 1)
 corner_radius_top_left = 5
 corner_radius_bottom_left = 5
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tqt4p"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0.0509804, 0.423529, 0.976471, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7jnga"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0.862745, 0.207843, 0.270588, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jyifa"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0.0509804, 0.423529, 0.976471, 1)
+
 [node name="Question" type="MarginContainer"]
 script = ExtResource("1_741s1")
 
@@ -63,21 +84,21 @@ icon_alignment = 1
 expand_icon = true
 
 [node name="Edit" type="Button" parent="Elements"]
-visible = false
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 mouse_filter = 1
 theme = ExtResource("2_m0x2i")
+theme_override_styles/normal = SubResource("StyleBoxFlat_tqt4p")
 icon = ExtResource("4_uceu4")
 icon_alignment = 1
 expand_icon = true
 
 [node name="Delete" type="Button" parent="Elements"]
-visible = false
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 mouse_filter = 1
 theme = ExtResource("2_m0x2i")
+theme_override_styles/normal = SubResource("StyleBoxFlat_7jnga")
 icon = ExtResource("5_em74b")
 icon_alignment = 1
 expand_icon = true
@@ -94,6 +115,7 @@ text_overrun_behavior = 3
 [node name="Level" type="Button" parent="Elements"]
 layout_mode = 2
 mouse_filter = 1
+theme_override_styles/normal = SubResource("StyleBoxFlat_jyifa")
 text = "1st Test"
 
 [connection signal="pressed" from="Elements/Parent" to="." method="_on_parent_pressed"]

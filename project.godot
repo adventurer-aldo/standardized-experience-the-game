@@ -23,8 +23,8 @@ config/icon="res://logo.png"
 [autoload]
 
 Global="*res://scenes/global.gd"
-SFX="*res://scenes/sfx.tscn"
 BGM="*res://scenes/bgm.tscn"
+SFX="*res://scenes/sfx.tscn"
 
 [display]
 

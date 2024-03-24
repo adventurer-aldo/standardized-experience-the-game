@@ -26,10 +26,11 @@ func get_answers():
 func get_grade():
 	var grade = 0.0
 	for answer in get_answers():
+		print(answer.is_correct())
 		if answer.is_correct(): grade += answer.grade
 	return grade
 
-func generate_answers():
+func generate_answers(min_answers := 3, max_answers := 5):
 	var questions = Array(DirAccess.get_files_at("user://subjects/{subj}/".format({"subj": subject_id}))).map(func i(question):
 		return ResourceLoader.load("user://subjects/" + str(subject_id) + "/" + question)
 	).filter(func i(question): return question.are_parents_won())
@@ -38,12 +39,12 @@ func generate_answers():
 		return question_a.appearances < question_b.appearances
 	)
 	questions.sort_custom(func i(question_a, question_b):
-		return question_a.hit_streak > question_b.hit_streak
-	)
-	questions.sort_custom(func i(question_a, question_b):
 		return question_a.miss_streak > question_b.miss_streak
 	)
-	questions.resize(clamp(randi_range(10, 20), 0, questions.size()))
+	questions.sort_custom(func i(question_a, question_b):
+		return question_a.hit_streak > question_b.hit_streak
+	)
+	questions.resize(clamp(randi_range(min_answers, max_answers), 0, questions.size()))
 	# questions.shuffle()
 	var answer_resource = load("res://resources/answer.tres")
 	var index_count = -1

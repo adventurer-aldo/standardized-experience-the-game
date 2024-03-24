@@ -21,6 +21,10 @@ func _on_delete_pressed():
 		find_next_valid_focus().grab_focus()
 	queue_free()
 
+func set_text(gtext = ""):
+	$Text.text = gtext
+	text = gtext
+
 func grab_text_focus():
 	$Text.grab_focus()
 

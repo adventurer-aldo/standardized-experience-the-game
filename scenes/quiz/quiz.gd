@@ -17,6 +17,7 @@ func generate_quiz(subject_id: int, duration: int, level: int = 1):
 	return quiz
 
 func _ready():
+	BGM.fade_out(1)
 	Global.finished.connect(finish)
 	if subject_key == 0:
 		for i in Global.subjects.keys():
@@ -41,6 +42,7 @@ func prepare():
 		ques.setup()
 		$ScrollContainer/Elements/Questions.add_child(ques)
 	$Time/Timer.start()
+	BGM.autoplay("engage_practice", "engage_practice_rush")
 	$Discard.hide()
 
 func finish():
@@ -48,9 +50,24 @@ func finish():
 	tween.tween_property($ScrollContainer, "scroll_vertical", 0, 1.0)
 	for answerer in $ScrollContainer/Elements/Questions.get_children():
 		answerer.respond()
-	$ScrollContainer/Elements/Margin/BasicInformation/Control/Label.text = str(quiz.get_grade()).replace(".", ",")
-	
-	
+	$ScrollContainer/Elements/Margin/BasicInformation/Control/Label.text = String.num(quiz.get_grade(), 2).replace(".", ",")
+	BGM.autoplay(result(quiz.get_grade()))
+
+func result(grade):
+	if grade >= 20.0:
+		return "results_victory_best"
+	elif grade >= 18.5:
+		return "results_victory_greatest"
+	elif grade >= 14.5:
+		return "results_victory_great"
+	elif grade >= 9.5:
+		return "results_victory_good"
+	elif grade >= 6.5:
+		return "results_defeat_nice"
+	elif grade >= 3.5:
+		return "results_defeat_tried"
+	else:
+		return "results_defeat_terrible"
 
 func _on_timer_timeout():
 	Global.emit_signal("finished")

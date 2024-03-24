@@ -25,26 +25,20 @@ func respond(response):
 func is_correct():
 	match type:
 		"open", "formula", "caption":
-			var answers = get_question().answers.duplicate()
-			for answer in answers:
-				var found_match = false
-				for att in attempt:
-					if answer.map(func i(ans): return ans.to_lower()).has(att.to_lower()): 
-						answers.erase(answer)
-						found_match = true
-						break
-				if found_match == true: break
-			return answers.size() == 0
-			#return !attempt.map(func i(attempted_answer):
-			#	return get_question().answers[attempt.find(attempted_answer)].has(attempted_answer)).has(false)
+			return !get_question().answers.map(func i(answer):
+				var att = attempt.map(func i(attemp): return attemp.to_lower())
+				var ans = answer.map(func i(k): return k.to_lower())
+				if intersects(att, ans):
+					return true
+				else:
+					return false).has(false)
 		"choice":
 			return !attempt.map(func e(attempted_answer):
-				print(get_question().answers)
 				return get_question().answers.map(
 					func i(answer): 
 						return answer.has(attempted_answer)
 						).has(true)
-				).has(false)
+				).has(false) && attempt.size() > 0
 
 func get_quiz():
 	return ResourceLoader.load("user://quizzes/" + str(quiz_id) + ".res")
@@ -57,3 +51,13 @@ func get_question():
 
 func save():
 	ResourceSaver.save(self, "user://quizzes/" + str(quiz_id) + '/' + str(index) + ".res")
+
+func intersects(arr1, arr2):
+	var arr2_dict = {}
+	for v in arr2:
+		arr2_dict[v] = true
+
+	for v in arr1:
+		if arr2_dict.get(v, false):
+			return true
+	return false

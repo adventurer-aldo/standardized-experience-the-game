@@ -2,10 +2,11 @@ extends HBoxContainer
 
 @export var answer_package: PackedScene
 
-func _on_add_answer_button_pressed():
+func _on_add_answer_button_pressed(text = ""):
 	var new_answer = answer_package.instantiate()
 	$Questions.add_child(new_answer)
 	new_answer.delete_pressed.connect(_on_answer_delete_pressed)
+	new_answer.set_text(text)
 	new_answer.grab_text_focus()
 	for child in $Questions.get_children():
 		child.can_delete($Questions.get_child_count())

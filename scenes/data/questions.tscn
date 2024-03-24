@@ -1,12 +1,14 @@
-[gd_scene load_steps=28 format=3 uid="uid://d11bo78dwoh5x"]
+[gd_scene load_steps=32 format=3 uid="uid://d11bo78dwoh5x"]
 
 [ext_resource type="Script" path="res://scenes/data/questions.gd" id="1_qdrcd"]
+[ext_resource type="PackedScene" uid="uid://s4fp255ba262" path="res://scenes/data/parent.tscn" id="2_3qjvt"]
 [ext_resource type="Texture2D" uid="uid://usvm3mhvakq3" path="res://graphics/icons/triangle.svg" id="2_hv0in"]
 [ext_resource type="Theme" uid="uid://ddpx351m2ye8v" path="res://themes/fe_font.tres" id="3_43xrh"]
-[ext_resource type="Theme" uid="uid://dphjscf0acfaw" path="res://themes/general.tres" id="4_jud6d"]
+[ext_resource type="PackedScene" uid="uid://d4lj4kxjym0np" path="res://scenes/data/tag.tscn" id="3_438s2"]
 [ext_resource type="Script" path="res://scenes/data/questions_manager.gd" id="4_u841u"]
 [ext_resource type="PackedScene" uid="uid://35bn8nw6fdpd" path="res://scenes/data/questions/question.tscn" id="5_5n8c8"]
 [ext_resource type="Script" path="res://scenes/data/questions/answers_manager.gd" id="6_alkfu"]
+[ext_resource type="Texture2D" uid="uid://cts7s8dis43d" path="res://graphics/icons/plus.svg" id="7_evpu8"]
 [ext_resource type="PackedScene" uid="uid://d1krru41ftoe8" path="res://scenes/data/questions/answer_open.tscn" id="7_my641"]
 [ext_resource type="Script" path="res://scenes/data/questiongrid.gd" id="9_5ef4l"]
 [ext_resource type="Script" path="res://addons/SmoothScroll/SmoothScrollContainer.gd" id="9_fantj"]
@@ -46,6 +48,10 @@ keycode = 4194305
 events = [SubResource("InputEventKey_2yunt")]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_832b4"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
 bg_color = Color(0.207843, 0.67451, 0.690196, 1)
 
 [sub_resource type="InputEventKey" id="InputEventKey_vumdo"]
@@ -57,9 +63,6 @@ unicode = 43
 [sub_resource type="Shortcut" id="Shortcut_k7u18"]
 events = [SubResource("InputEventKey_vumdo")]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bp14y"]
-bg_color = Color(0.207843, 0.67451, 0.690196, 1)
-
 [sub_resource type="InputEventKey" id="InputEventKey_efklp"]
 device = -1
 ctrl_pressed = true
@@ -68,6 +71,21 @@ unicode = 43
 
 [sub_resource type="Shortcut" id="Shortcut_ywsnw"]
 events = [SubResource("InputEventKey_efklp")]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kvkhd"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="InputEventKey" id="InputEventKey_w1cao"]
+device = -1
+alt_pressed = true
+keycode = 61
+
+[sub_resource type="Shortcut" id="Shortcut_pydcf"]
+events = [SubResource("InputEventKey_w1cao")]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p8ig8"]
 bg_color = Color(0.00784314, 0.313726, 0.768627, 1)
@@ -98,9 +116,12 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = 53.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_qdrcd")
+question_parent_node = ExtResource("2_3qjvt")
+question_tag_node = ExtResource("3_438s2")
 
 [node name="Editables" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -108,7 +129,7 @@ anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 10.0
-offset_top = 54.0
+offset_top = 2.0
 offset_right = -553.0
 offset_bottom = -9.0
 
@@ -195,7 +216,9 @@ shortcut_context = NodePath("../Questions")
 theme = ExtResource("3_43xrh")
 theme_override_styles/normal = SubResource("StyleBoxFlat_832b4")
 shortcut = SubResource("Shortcut_k7u18")
-text = "+"
+icon = ExtResource("7_evpu8")
+icon_alignment = 1
+expand_icon = true
 
 [node name="AnswersManager" type="VBoxContainer" parent="Editables/QuestionDetails/Details/Components"]
 layout_mode = 2
@@ -216,9 +239,11 @@ layout_mode = 2
 custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
 focus_mode = 1
-theme_override_styles/normal = SubResource("StyleBoxFlat_bp14y")
+theme_override_styles/normal = SubResource("StyleBoxFlat_832b4")
 shortcut = SubResource("Shortcut_ywsnw")
-text = "+"
+icon = ExtResource("7_evpu8")
+icon_alignment = 1
+expand_icon = true
 
 [node name="Types" type="HBoxContainer" parent="Editables/QuestionDetails/Details/Components/AnswersManager"]
 layout_mode = 2
@@ -227,19 +252,36 @@ alignment = 1
 [node name="Parents" type="FlowContainer" parent="Editables/QuestionDetails/Details/Components"]
 layout_mode = 2
 
-[node name="Tags" type="GridContainer" parent="Editables/QuestionDetails/Details/Components"]
-visible = false
+[node name="TagInput" type="HBoxContainer" parent="Editables/QuestionDetails/Details/Components"]
 layout_mode = 2
 
-[node name="TagInput" type="TextEdit" parent="Editables/QuestionDetails/Details/Components"]
-visible = false
+[node name="Input" type="LineEdit" parent="Editables/QuestionDetails/Details/Components/TagInput"]
 custom_minimum_size = Vector2(100, 35)
 layout_mode = 2
-theme = ExtResource("4_jud6d")
+size_flags_horizontal = 3
+theme = ExtResource("3_43xrh")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_placeholder_color = Color(0, 0, 1, 0.341176)
+theme_override_colors/caret_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_kvkhd")
 placeholder_text = "Insert the question's tags"
-wrap_mode = 1
-scroll_smooth = true
-scroll_v_scroll_speed = 40.0
+caret_blink = true
+
+[node name="TagSubmit" type="Button" parent="Editables/QuestionDetails/Details/Components/TagInput" node_paths=PackedStringArray("shortcut_context")]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+focus_mode = 1
+shortcut_context = NodePath("..")
+theme = ExtResource("3_43xrh")
+theme_override_constants/outline_size = 1
+theme_override_styles/normal = SubResource("StyleBoxFlat_832b4")
+shortcut = SubResource("Shortcut_pydcf")
+text = "Add Tag"
+icon_alignment = 1
+expand_icon = true
+
+[node name="Tags" type="FlowContainer" parent="Editables/QuestionDetails/Details/Components"]
+layout_mode = 2
 
 [node name="Submit" type="Button" parent="Editables/QuestionDetails/Details/Components"]
 custom_minimum_size = Vector2(50, 30.005)
@@ -286,10 +328,10 @@ script = ExtResource("9_5ef4l")
 
 [node name="Reset" type="Button" parent="." node_paths=PackedStringArray("shortcut_context")]
 layout_mode = 0
-offset_left = 18.0
-offset_top = -47.0
-offset_right = 78.0
-offset_bottom = -17.0
+offset_left = -80.0
+offset_top = -54.0
+offset_right = -20.0
+offset_bottom = -23.0
 shortcut_context = NodePath("../Editables/QuestionDetails")
 shortcut = SubResource("Shortcut_wimpp")
 text = "Reset"
@@ -299,8 +341,6 @@ text = "Reset"
 [connection signal="delete_pressed" from="Editables/QuestionDetails/Details/Components/QuestionsManager/Questions/Question" to="Editables/QuestionDetails/Details/Components/QuestionsManager" method="_on_answer_delete_pressed"]
 [connection signal="pressed" from="Editables/QuestionDetails/Details/Components/QuestionsManager/AddAnswerButton" to="Editables/QuestionDetails/Details/Components/QuestionsManager" method="_on_add_answer_button_pressed"]
 [connection signal="pressed" from="Editables/QuestionDetails/Details/Components/AnswersManager/AnswerBox/Add" to="Editables/QuestionDetails/Details/Components/AnswersManager" method="_on_add_pressed"]
+[connection signal="pressed" from="Editables/QuestionDetails/Details/Components/TagInput/TagSubmit" to="." method="_on_tag_submit_pressed"]
 [connection signal="pressed" from="Editables/QuestionDetails/Details/Components/Submit" to="." method="_on_submit_pressed"]
-[connection signal="delete_pressed" from="Editables/ScrollContainer/GridContainer" to="." method="_on_grid_container_delete_pressed"]
-[connection signal="edit_pressed" from="Editables/ScrollContainer/GridContainer" to="." method="_on_grid_container_edit_pressed"]
-[connection signal="parent_pressed" from="Editables/ScrollContainer/GridContainer" to="." method="_on_grid_container_parent_pressed"]
 [connection signal="pressed" from="Reset" to="." method="_on_reset_pressed"]

@@ -12,6 +12,9 @@ func _on_delete_pressed():
 func grab_text_focus():
 	$Text.grab_focus()
 
+func set_text(text: String = ""):
+	$Text.text = text
+
 func can_delete(count: int):
 	if count > 1: 
 		$Delete.show()

@@ -30,8 +30,6 @@ func correct():
 		if answers.has(value):
 			$HBoxContainer/Value/Button.modulate = Color.GREEN
 			$HBoxContainer/Value.add_theme_color_override("default_color", Color(0, 0.1, 0))
-			is_correct = true
-			Global.emit_signal("grade", grade)
 		else:
 			$HBoxContainer/Value/Button.modulate = Color.RED
 			$HBoxContainer/Value.add_theme_color_override("default_color", Color(0.1, 0, 0))
@@ -41,3 +39,10 @@ func correct():
 
 func _on_button_pressed():
 	pressed = $HBoxContainer/Value/Button.button_pressed
+	# print(pressed)
+
+
+func _on_button_toggled(toggled_on):
+	# print(toggled_on)
+	if toggled_on == true:
+		BGM.pump_might(5.0)

@@ -1,6 +1,10 @@
 extends Node
 
 signal finished
+signal data_questions_edit_button_pressed(resource: Resource)
+signal data_questions_parent_button_pressed(id: int)
+signal data_questions_delete_button_pressed(resource: Resource)
+signal data_questions_is_editing_question(id: int)
 
 var subjects := {}
 var questions := {}
@@ -18,4 +22,10 @@ func _ready():
 
 func save_stats():
 	ResourceSaver.save(stats, "user://stats.res", ResourceSaver.FLAG_COMPRESS)
+
+func get_quiz(id: int):
+	return ResourceLoader.load("user://quizzes/" + str(id) + '.res')
+
+func get_last_quiz():
+	return get_quiz(stats.last_quiz_id)
 

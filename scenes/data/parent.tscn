@@ -1,0 +1,85 @@
+[gd_scene load_steps=8 format=3 uid="uid://s4fp255ba262"]
+
+[ext_resource type="Script" path="res://scenes/data/parent.gd" id="1_57efu"]
+[ext_resource type="Texture2D" uid="uid://uep8oxvrbff1" path="res://graphics/icons/x.svg" id="2_h6how"]
+[ext_resource type="Texture2D" uid="uid://b0a3qeyva6nbp" path="res://graphics/icons/user-graduate.svg" id="3_it4qq"]
+[ext_resource type="Theme" uid="uid://ddpx351m2ye8v" path="res://themes/fe_font.tres" id="4_7v63o"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_314mc"]
+bg_color = Color(0.72549, 0.584314, 0, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.72549, 0.584314, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gfhk2"]
+bg_color = Color(0.858824, 0.517647, 0, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.858824, 0.517647, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gnkok"]
+content_margin_right = 5.0
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[node name="Parent" type="MarginContainer"]
+custom_minimum_size = Vector2(0, 35)
+offset_right = 107.0
+offset_bottom = 17.0
+script = ExtResource("1_57efu")
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_314mc")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_gfhk2")
+
+[node name="HElements" type="HBoxContainer" parent="."]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="MarginX" type="MarginContainer" parent="HElements"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 6
+theme_override_constants/margin_bottom = 6
+
+[node name="X" type="TextureRect" parent="HElements/MarginX"]
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("2_h6how")
+expand_mode = 2
+
+[node name="MarginParent" type="MarginContainer" parent="HElements"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 3
+
+[node name="ParentIcon" type="TextureRect" parent="HElements/MarginParent"]
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("3_it4qq")
+expand_mode = 2
+
+[node name="Text" type="Label" parent="HElements"]
+layout_mode = 2
+theme = ExtResource("4_7v63o")
+theme_override_styles/normal = SubResource("StyleBoxFlat_gnkok")
+text = "####"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
