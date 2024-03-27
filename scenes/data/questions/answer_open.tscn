@@ -60,7 +60,7 @@ alternative_scene = ExtResource("2_54hp2")
 [node name="Main" type="HBoxContainer" parent="."]
 layout_mode = 2
 
-[node name="Text" type="LineEdit" parent="Main"]
+[node name="Text" type="TextEdit" parent="Main"]
 custom_minimum_size = Vector2(100, 35)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -75,6 +75,8 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_ckep3")
 theme_override_styles/focus = SubResource("StyleBoxFlat_y56ji")
 theme_override_styles/read_only = SubResource("StyleBoxFlat_2fwei")
 placeholder_text = "What should be typed to answer the question?"
+wrap_mode = 1
+scroll_fit_content_height = true
 caret_blink = true
 
 [node name="Delete" type="Button" parent="Main" node_paths=PackedStringArray("shortcut_context")]

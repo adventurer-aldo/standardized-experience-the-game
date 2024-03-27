@@ -5,6 +5,8 @@ signal data_questions_edit_button_pressed(resource: Resource)
 signal data_questions_parent_button_pressed(id: int)
 signal data_questions_delete_button_pressed(resource: Resource)
 signal data_questions_is_editing_question(id: int)
+signal data_questions_parent_was_deleted(id: String)
+signal data_questions_question_was_submitted(resource: Resource)
 
 var subjects := {}
 var questions := {}

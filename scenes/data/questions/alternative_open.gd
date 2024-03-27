@@ -32,5 +32,5 @@ func clean():
 	$Text.text = ""
 	text = ""
 
-func _on_text_text_changed(new_text):
+func _on_text_text_changed():
 	text = $Text.text

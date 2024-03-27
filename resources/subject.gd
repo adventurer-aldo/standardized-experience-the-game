@@ -9,6 +9,7 @@ extends Resource
 @export var starred := false
 @export var level := 1
 @export var experience := 0.0
+@export var last_time_edited = 0
 
 func save():
 	ResourceSaver.save(self, "user://subjects/" + str(id) + ".res", ResourceSaver.FLAG_COMPRESS)

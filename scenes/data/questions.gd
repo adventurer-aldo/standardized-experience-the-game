@@ -31,6 +31,7 @@ func _on_submit_pressed():
 	new_question.open = true
 	new_question.parents = parents
 	new_question.id = key
+	print(key)
 	new_question.level = level
 	new_question.tags = tags
 	new_question.subject_id = subject
@@ -38,8 +39,12 @@ func _on_submit_pressed():
 	if key == Global.stats.last_question_id: 
 		Global.stats.last_question_id += 1
 		emit_signal("submitted", key)
+		SFX.autoplay("submitted_question")
+	else:
+		unedit()
 	key = Global.stats.last_question_id
 	Global.save_stats()
+	Global.emit_signal("data_questions_question_was_submitted", new_question)
 	$Editables/QuestionDetails/Details/Components/QuestionsManager/Questions.get_children()[0].grab_text_focus()
 
 func _ready():
@@ -54,11 +59,15 @@ func _ready():
 func _on_exit_pressed():
 	queue_free()
 
+func unedit():
+	$StateAnims.play("editing_to_normal")
+	$Editables/QuestionDetails/Details/Components/Submit/Margin/Label.text = "Create New Question"
+
 func _on_question_parent_pressed(id):
-	var par_id = parents.find(id)
-	if par_id != -1:
-		parents.remove_at(par_id)
-		$Editables/QuestionDetails/Details/Components/Parents.get_children()[par_id].queue_free()
+	if parents.has(id):
+		parents.erase(id)
+		for child in $Editables/QuestionDetails/Details/Components/Parents.get_children():
+			if child.tagtext == str(id): child.queue_free()
 	else:
 		parents.push_back(id)
 		var pop = question_parent_node.instantiate()
@@ -78,6 +87,14 @@ func add_tag(text: String):
 	$Editables/QuestionDetails/Details/Components/Tags.add_child(tag)
 	tag.delete_pressed.connect(_on_question_tag_deleted)
 
+func add_parent(text: String):
+	if text.strip_edges().length() < 1: return
+	tags.push_back(text.to_lower())
+	var parent = question_parent_node.instantiate()
+	parent.set_text(text.to_lower())
+	$Editables/QuestionDetails/Details/Components/Tags.add_child(parent)
+	parent.delete_pressed.connect(_on_question_parent_deleted)
+
 func _on_question_tag_deleted(tag_text):
 	tags.erase(tag_text)
 
@@ -88,6 +105,13 @@ func _on_question_delete_pressed(resource: Resource):
 	DirAccess.remove_absolute(resource.resource_path)
 
 func _on_question_edit_pressed(resource):
+	if resource.id == key:
+		unedit()
+		_on_reset_pressed()
+		return
+	if key != Global.stats.last_question_id:
+		$StateAnims.play("editing")
+	$Editables/QuestionDetails/Details/Components/Submit/Margin/Label.text = "Editing Question " + str(resource.id)
 	for i in $Editables/QuestionDetails/Details/Components/QuestionsManager/Questions.get_children():
 		i.queue_free()
 	for question_text in resource.question:
@@ -96,25 +120,27 @@ func _on_question_edit_pressed(resource):
 		i.queue_free()
 	for answer in resource.answers:
 		$Editables/QuestionDetails/Details/Components/AnswersManager._on_add_pressed(answer)
-	for i in $Editables/QuestionDetails/Details/Components/Parents.get_children():
-		i.queue_free()
-	parents = []
 	for i in $Editables/QuestionDetails/Details/Components/Tags.get_children():
 		i.queue_free()
+	tags = []
 	for tag in resource.tags:
 		add_tag(tag)
-	tags = []
 	key = resource.id
 
 
 func _on_reset_pressed():
+	unedit()
+	key = Global.stats.last_question_id
 	for child in $Editables/QuestionDetails/Details/Components/QuestionsManager/Questions.get_children():
 		if child.get_index() != 0:
 			child.queue_free()
+		else:
+			child.set_text("")
 	for child in $Editables/QuestionDetails/Details/Components/AnswersManager/AnswerBox/Answers.get_children():
 		if child.get_index() != 0: 
 			child.queue_free()
 		else:
+			child.set_text("")
 			for alternative in child.get_alternatives_nodes():
 				alternative.queue_free()
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cti6wqhe8hrdw"]
+[gd_scene load_steps=15 format=3 uid="uid://cti6wqhe8hrdw"]
 
 [ext_resource type="Script" path="res://scenes/data/question_column.gd" id="1_741s1"]
 [ext_resource type="Theme" uid="uid://ddpx351m2ye8v" path="res://themes/fe_font.tres" id="2_m0x2i"]
@@ -7,12 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://bitcbwjbsqpxy" path="res://graphics/icons/trash-can.svg" id="5_em74b"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mh88f"]
-bg_color = Color(1, 1, 1, 0.482353)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 5
-border_color = Color(0.8, 0.8, 0.8, 0.568627)
+bg_color = Color(1, 1, 1, 1)
 corner_radius_top_left = 15
 corner_radius_top_right = 15
 corner_radius_bottom_right = 15
@@ -45,6 +40,20 @@ content_margin_right = 5.0
 content_margin_bottom = 5.0
 bg_color = Color(0.0509804, 0.423529, 0.976471, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_560fp"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0.219608, 0.509804, 0.992157, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_liac8"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0.113725, 0.341176, 0.709804, 1)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7jnga"]
 content_margin_left = 5.0
 content_margin_top = 5.0
@@ -52,12 +61,21 @@ content_margin_right = 5.0
 content_margin_bottom = 5.0
 bg_color = Color(0.862745, 0.207843, 0.270588, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jyifa"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_npr8x"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e5hwj"]
 content_margin_left = 5.0
 content_margin_top = 5.0
 content_margin_right = 5.0
 content_margin_bottom = 5.0
 bg_color = Color(0.0509804, 0.423529, 0.976471, 1)
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
 
 [node name="Question" type="MarginContainer"]
 script = ExtResource("1_741s1")
@@ -70,6 +88,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_mh88f")
 [node name="Elements" type="HBoxContainer" parent="."]
 custom_minimum_size = Vector2(0, 35)
 layout_mode = 2
+theme_override_constants/separation = 0
 
 [node name="Parent" type="Button" parent="Elements" groups=["data_question"]]
 custom_minimum_size = Vector2(40, 40)
@@ -89,6 +108,9 @@ layout_mode = 2
 mouse_filter = 1
 theme = ExtResource("2_m0x2i")
 theme_override_styles/normal = SubResource("StyleBoxFlat_tqt4p")
+theme_override_styles/hover = SubResource("StyleBoxFlat_560fp")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_liac8")
+theme_override_styles/focus = SubResource("StyleBoxFlat_tqt4p")
 icon = ExtResource("4_uceu4")
 icon_alignment = 1
 expand_icon = true
@@ -108,6 +130,13 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
 theme = ExtResource("2_m0x2i")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0.0941176, 0.164706, 0.309804, 1)
+theme_override_colors/font_hover_color = Color(0.0941176, 0.164706, 0.309804, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_npr8x")
+theme_override_styles/hover = SubResource("StyleBoxFlat_npr8x")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_npr8x")
+theme_override_styles/focus = SubResource("StyleBoxFlat_npr8x")
 text = "O que é uma proteína funcional? E o que essas proteínas funcionais fazem?"
 alignment = 0
 text_overrun_behavior = 3
@@ -115,7 +144,7 @@ text_overrun_behavior = 3
 [node name="Level" type="Button" parent="Elements"]
 layout_mode = 2
 mouse_filter = 1
-theme_override_styles/normal = SubResource("StyleBoxFlat_jyifa")
+theme_override_styles/normal = SubResource("StyleBoxFlat_e5hwj")
 text = "1st Test"
 
 [connection signal="pressed" from="Elements/Parent" to="." method="_on_parent_pressed"]

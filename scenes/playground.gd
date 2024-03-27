@@ -1,4 +1,4 @@
 extends ColorRect
 
 func _ready():
-	print(Global.get_last_quiz().get_grade())
+	print(Time.get_unix_time_from_system())

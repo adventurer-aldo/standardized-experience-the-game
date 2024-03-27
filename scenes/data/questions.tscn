@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://d11bo78dwoh5x"]
+[gd_scene load_steps=36 format=3 uid="uid://d11bo78dwoh5x"]
 
 [ext_resource type="Script" path="res://scenes/data/questions.gd" id="1_qdrcd"]
 [ext_resource type="PackedScene" uid="uid://s4fp255ba262" path="res://scenes/data/parent.tscn" id="2_3qjvt"]
@@ -52,7 +52,7 @@ content_margin_left = 5.0
 content_margin_top = 5.0
 content_margin_right = 5.0
 content_margin_bottom = 5.0
-bg_color = Color(0.207843, 0.67451, 0.690196, 1)
+bg_color = Color(0.00784314, 0.313726, 0.768627, 1)
 
 [sub_resource type="InputEventKey" id="InputEventKey_vumdo"]
 device = -1
@@ -110,6 +110,60 @@ unicode = 114
 [sub_resource type="Shortcut" id="Shortcut_wimpp"]
 events = [SubResource("InputEventKey_k8v2h")]
 
+[sub_resource type="Animation" id="Animation_6cb1h"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Editables/QuestionDetails/Details/Components/Submit:theme_override_styles/normal:bg_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.00784314, 0.313726, 0.768627, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_bc62r"]
+resource_name = "editing"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Editables/QuestionDetails/Details/Components/Submit:theme_override_styles/normal:bg_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.00784314, 0.313726, 0.768627, 1), Color(0.768627, 0.580392, 0.00784314, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_lumi6"]
+resource_name = "editing_to_normal"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Editables/QuestionDetails/Details/Components/Submit:theme_override_styles/normal:bg_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.768627, 0.580392, 0.00784314, 1), Color(0.00784314, 0.313726, 0.768627, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tdedf"]
+_data = {
+"RESET": SubResource("Animation_6cb1h"),
+"editing": SubResource("Animation_bc62r"),
+"editing_to_normal": SubResource("Animation_lumi6")
+}
+
 [node name="Questions" type="Control"]
 top_level = true
 layout_mode = 3
@@ -131,7 +185,6 @@ anchor_bottom = 1.0
 offset_left = 10.0
 offset_top = 2.0
 offset_right = -553.0
-offset_bottom = -9.0
 
 [node name="QuestionDetails" type="MarginContainer" parent="Editables"]
 layout_mode = 2
@@ -335,6 +388,11 @@ offset_bottom = -23.0
 shortcut_context = NodePath("../Editables/QuestionDetails")
 shortcut = SubResource("Shortcut_wimpp")
 text = "Reset"
+
+[node name="StateAnims" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_tdedf")
+}
 
 [connection signal="submitted" from="." to="Editables/ScrollContainer/GridContainer" method="_on_questions_submitted"]
 [connection signal="pressed" from="Editables/QuestionDetails/Details/Components/Exit" to="." method="_on_exit_pressed"]

@@ -9,15 +9,13 @@ func generate_quiz(subject_id: int, duration: int, level: int = 1):
 	quiz.subject_id = subject_id
 	quiz.level = level
 	quiz.id = Global.stats.last_quiz_id
-	var time = Time.get_datetime_dict_from_system()
-	quiz.start_time = time.second * time.minute * time.hour * time.day * time.month * time.year
-	quiz.end_time = quiz.start_time + duration
+	var time = Time.get_unix_time_from_system()
 	Global.save_stats()
 	quiz.save()
 	return quiz
 
 func _ready():
-	BGM.fade_out(1)
+	BGM.fade_out()
 	Global.finished.connect(finish)
 	if subject_key == 0:
 		for i in Global.subjects.keys():

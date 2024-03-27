@@ -36,7 +36,7 @@ script = ExtResource("1_muj0h")
 [node name="Lister" type="TextureRect" parent="."]
 layout_mode = 2
 
-[node name="Text" type="LineEdit" parent="."]
+[node name="Text" type="TextEdit" parent="."]
 custom_minimum_size = Vector2(100, 35)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -47,6 +47,8 @@ theme_override_colors/caret_color = Color(0, 0, 1, 1)
 theme_override_constants/caret_width = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_0w20y")
 placeholder_text = "What's an alternative for the above answer?"
+wrap_mode = 1
+scroll_fit_content_height = true
 caret_blink = true
 
 [node name="Delete" type="Button" parent="." node_paths=PackedStringArray("shortcut_context")]

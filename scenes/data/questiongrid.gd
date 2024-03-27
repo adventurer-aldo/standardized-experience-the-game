@@ -37,12 +37,9 @@ func load_questions():
 
 func prepare_question(template, object):
 	var loaded_question = template.instantiate()
-	loaded_question.id = object.id
 	loaded_question.questions = object.question
-	loaded_question.types = object.get_types()
-	loaded_question.tags = object.tags
-	loaded_question.level = object.level
 	loaded_question.resource = object
+	Global.data_questions_question_was_submitted.connect(loaded_question.check_if_was_edited_question)
 	return loaded_question
 
 func _on_questions_submitted(id):
