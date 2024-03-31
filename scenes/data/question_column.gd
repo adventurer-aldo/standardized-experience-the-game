@@ -4,6 +4,7 @@ signal parent_pressed(id)
 signal delete_pressed(id)
 signal edit_pressed(id)
 
+var id: int
 var questions := []
 var parenting = false
 var resource: Resource
@@ -17,10 +18,7 @@ func _ready():
 	Global.data_questions_parent_was_deleted.connect(check_if_deleted_parent_is_self)
 
 func check_if_was_edited_question(submitted_question):
-	var matcher = submitted_question.id == resource.id
-	print(matcher)
-	if matcher:
-		reload(submitted_question)
+	if submitted_question.id == id: reload(submitted_question)
 
 func reload(data: Resource):
 	questions = data.question

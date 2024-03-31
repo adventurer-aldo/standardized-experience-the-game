@@ -8,3 +8,8 @@ script = ExtResource("1_5v4c6")
 
 [node name="SFX_alt" type="AudioStreamPlayer" parent="."]
 bus = &"SFX_alt"
+
+[node name="Voice" type="AudioStreamPlayer" parent="."]
+bus = &"SFX_alt"
+
+[connection signal="finished" from="Voice" to="." method="_on_voice_finished"]

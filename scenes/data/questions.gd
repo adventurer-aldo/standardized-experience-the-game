@@ -16,6 +16,16 @@ var level := 1
 var subject := 1
 var subject_name := ""
 
+func _ready():
+	SFX.speak("you_want_to_create_new_questions")
+	$Editables/QuestionDetails/Details/Components/Exit/Margin/HBoxContainer/SubjectName.text = subject_name
+	$Editables/ScrollContainer/GridContainer.subject_id = subject
+	$Editables/ScrollContainer/GridContainer.load_questions()
+	$Editables/QuestionDetails/Details/Components/QuestionsManager/Questions/Question/Text.grab_focus()
+	Global.data_questions_delete_button_pressed.connect(_on_question_delete_pressed)
+	Global.data_questions_edit_button_pressed.connect(_on_question_edit_pressed)
+	Global.data_questions_parent_button_pressed.connect(_on_question_parent_pressed)
+
 func _on_submit_pressed():
 	var submitted_questions = get_tree().get_nodes_in_group("question").map(func i(node): return node.text)
 	var submitted_answers = get_tree().get_nodes_in_group("answer").map(func i(node): return node.get_array(false))
@@ -31,7 +41,6 @@ func _on_submit_pressed():
 	new_question.open = true
 	new_question.parents = parents
 	new_question.id = key
-	print(key)
 	new_question.level = level
 	new_question.tags = tags
 	new_question.subject_id = subject
@@ -39,22 +48,13 @@ func _on_submit_pressed():
 	if key == Global.stats.last_question_id: 
 		Global.stats.last_question_id += 1
 		emit_signal("submitted", key)
-		SFX.autoplay("submitted_question")
+		SFX.effect("submitted_question")
 	else:
 		unedit()
 	key = Global.stats.last_question_id
 	Global.save_stats()
 	Global.emit_signal("data_questions_question_was_submitted", new_question)
 	$Editables/QuestionDetails/Details/Components/QuestionsManager/Questions.get_children()[0].grab_text_focus()
-
-func _ready():
-	$Editables/QuestionDetails/Details/Components/Exit/Margin/HBoxContainer/SubjectName.text = subject_name
-	$Editables/ScrollContainer/GridContainer.subject_id = subject
-	$Editables/ScrollContainer/GridContainer.load_questions()
-	$Editables/QuestionDetails/Details/Components/QuestionsManager/Questions/Question/Text.grab_focus()
-	Global.data_questions_delete_button_pressed.connect(_on_question_delete_pressed)
-	Global.data_questions_edit_button_pressed.connect(_on_question_edit_pressed)
-	Global.data_questions_parent_button_pressed.connect(_on_question_parent_pressed)
 
 func _on_exit_pressed():
 	queue_free()

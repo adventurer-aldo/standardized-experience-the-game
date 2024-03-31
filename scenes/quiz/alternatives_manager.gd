@@ -1,7 +1,5 @@
 extends VBoxContainer
 
-signal button_toggled
-
 var current_choice: String
 
 func _on_button_toggled(button_pressed):

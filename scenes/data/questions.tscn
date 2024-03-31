@@ -212,11 +212,11 @@ size_flags_vertical = 3
 [node name="Exit" type="Button" parent="Editables/QuestionDetails/Details/Components"]
 custom_minimum_size = Vector2(50, 30.005)
 layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_3y7u8")
+theme_override_styles/focus = SubResource("StyleBoxFlat_3y7u8")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_3y7u8")
 theme_override_styles/hover = SubResource("StyleBoxFlat_ieu3a")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_cd3yd")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_3y7u8")
-theme_override_styles/focus = SubResource("StyleBoxFlat_3y7u8")
+theme_override_styles/normal = SubResource("StyleBoxFlat_3y7u8")
 shortcut = SubResource("Shortcut_8d77r")
 
 [node name="Margin" type="MarginContainer" parent="Editables/QuestionDetails/Details/Components/Exit"]
@@ -313,9 +313,9 @@ custom_minimum_size = Vector2(100, 35)
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("3_43xrh")
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_placeholder_color = Color(0, 0, 1, 0.341176)
 theme_override_colors/caret_color = Color(0, 0, 0, 1)
+theme_override_colors/font_placeholder_color = Color(0, 0, 1, 0.341176)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_styles/normal = SubResource("StyleBoxFlat_kvkhd")
 placeholder_text = "Insert the question's tags"
 caret_blink = true

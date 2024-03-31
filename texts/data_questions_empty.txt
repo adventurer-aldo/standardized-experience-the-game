@@ -1,0 +1,4 @@
+oh_theres_no_questions
+this_is_empty
+write_your_first_question
+do_you_want_to_create_new_questions

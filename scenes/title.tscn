@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://djourm2ce5j3h"]
+[gd_scene load_steps=24 format=3 uid="uid://djourm2ce5j3h"]
 
 [ext_resource type="Texture2D" uid="uid://j804wvsw4kul" path="res://logo.png" id="2_37hhe"]
 [ext_resource type="Script" path="res://scenes/title.gd" id="2_e4613"]
@@ -75,6 +75,74 @@ tracks/1/keys = {
 _data = {
 "RESET": SubResource("Animation_yl0gf"),
 "zooms": SubResource("Animation_me537")
+}
+
+[sub_resource type="Animation" id="Animation_u6puw"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_h0mky"]
+resource_name = "blacken"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_mxdbe"]
+resource_name = "mid_blacken"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 0.498039)]
+}
+
+[sub_resource type="Animation" id="Animation_dt15n"]
+resource_name = "unmid_blacken"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0.498039), Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2jpl3"]
+_data = {
+"RESET": SubResource("Animation_u6puw"),
+"blacken": SubResource("Animation_h0mky"),
+"mid_blacken": SubResource("Animation_mxdbe"),
+"unmid_blacken": SubResource("Animation_dt15n")
 }
 
 [node name="Title" type="TextureRect"]
@@ -371,6 +439,21 @@ omni_attenuation = 0.594604
 
 [node name="Library" parent="Node3D" instance=ExtResource("11_iynvp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.1133, 0, -33.7205)
+
+[node name="Blackscreen" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0)
+
+[node name="Transition" type="AnimationPlayer" parent="Blackscreen"]
+libraries = {
+"": SubResource("AnimationLibrary_2jpl3")
+}
 
 [connection signal="pressed" from="ScrollContainer/ActionsContainer/Subjects" to="." method="_on_subjects_pressed"]
 [connection signal="pressed" from="ScrollContainer/ActionsContainer/Download" to="." method="_on_download_pressed"]

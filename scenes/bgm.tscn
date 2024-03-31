@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://c7g7codw6qsbu"]
+[gd_scene load_steps=10 format=3 uid="uid://c7g7codw6qsbu"]
 
 [ext_resource type="Script" path="res://scenes/bgm.gd" id="1_bdg3m"]
+[ext_resource type="AudioStream" uid="uid://od4x58itdfkk" path="res://scenes/default_bgm_stream.tres" id="1_n1w36"]
 
 [sub_resource type="Animation" id="Animation_xrxhf"]
 length = 0.001
@@ -19,23 +20,47 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("BGM_Might:volume_db")
+tracks/1/path = NodePath(".:stream:stream_0/volume")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:stream:stream_1/volume")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-60.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Rush:volume_db")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
 "values": [-60.0]
 }
 
-[sub_resource type="Animation" id="Animation_pajrr"]
+[sub_resource type="Animation" id="Animation_dq35q"]
 resource_name = "demight"
 length = 5.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:volume_db")
+tracks/0/path = NodePath(".:stream:stream_0/volume")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -47,7 +72,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("BGM_Might:volume_db")
+tracks/1/path = NodePath(".:stream:stream_1/volume")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -86,6 +111,18 @@ tracks/0/keys = {
 "update": 0,
 "values": [0.0, -60.0]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Rush:volume_db")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, -60.0]
+}
 
 [sub_resource type="Animation" id="Animation_8gd1a"]
 resource_name = "might"
@@ -93,7 +130,7 @@ length = 5.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:volume_db")
+tracks/0/path = NodePath(".:stream:stream_0/volume")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -105,7 +142,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("BGM_Might:volume_db")
+tracks/1/path = NodePath(".:stream:stream_1/volume")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -115,22 +152,50 @@ tracks/1/keys = {
 "values": [-60.0, 0.0]
 }
 
+[sub_resource type="Animation" id="Animation_xvph7"]
+resource_name = "rush"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:volume_db")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, -60.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Rush:volume_db")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-60.0, 0.0]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_1sxmi"]
 _data = {
 "RESET": SubResource("Animation_xrxhf"),
-"demight": SubResource("Animation_pajrr"),
+"demight": SubResource("Animation_dq35q"),
 "fade_in": SubResource("Animation_ygkeu"),
 "fade_out": SubResource("Animation_71dg3"),
-"might": SubResource("Animation_8gd1a")
+"might": SubResource("Animation_8gd1a"),
+"rush": SubResource("Animation_xvph7")
 }
 
 [node name="BGM" type="AudioStreamPlayer"]
+stream = ExtResource("1_n1w36")
 bus = &"BGM"
 script = ExtResource("1_bdg3m")
 
-[node name="BGM_Might" type="AudioStreamPlayer" parent="."]
+[node name="Rush" type="AudioStreamPlayer" parent="."]
 volume_db = -60.0
-bus = &"BGM_rush"
 
 [node name="MightTimer" type="Timer" parent="."]
 one_shot = true

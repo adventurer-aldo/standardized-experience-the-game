@@ -1,3 +1,5 @@
+@tool
+class_name Quiz
 extends Resource
 
 signal questions_generated
@@ -6,31 +8,13 @@ signal questions_generated
 @export var subject_id := 0
 @export var start_time: int
 @export var end_time: int
+@export var completed_grade: float
 @export var negative_grades := false
 @export var username := ""
 @export var surname := ""
 @export var level := 0
 
-func save():
-	ResourceSaver.save(self, "user://quizzes/" + str(id) + ".res")
-	DirAccess.make_dir_absolute("user://quizzes/" + str(id))
-
-func get_subject():
-	return ResourceLoader.load("user://subjects/" + str(subject_id) + ".res")
-
-func get_answers():
-	return Array(DirAccess.get_files_at("user://quizzes/" + str(id))).map(func i(answer):
-		return ResourceLoader.load("user://quizzes/" + str(id) + '/'+ answer)
-	)
-
-func get_grade():
-	var grade = 0.0
-	for answer in get_answers():
-		print(answer.is_correct())
-		if answer.is_correct(): grade += answer.grade
-	return grade
-
-func generate_answers(min_answers := 3, max_answers := 5):
+func generate_answers(min_answers := 3, max_answers := 5) -> void:
 	var questions = Array(DirAccess.get_files_at("user://subjects/{subj}/".format({"subj": subject_id}))).map(func i(question):
 		return ResourceLoader.load("user://subjects/" + str(subject_id) + "/" + question)
 	).filter(func i(question): return question.are_parents_won())
@@ -45,7 +29,8 @@ func generate_answers(min_answers := 3, max_answers := 5):
 		return question_a.hit_streak > question_b.hit_streak
 	)
 	questions.resize(clamp(randi_range(min_answers, max_answers), 0, questions.size()))
-	# questions.shuffle()
+	randomize()
+	questions.shuffle()
 	var answer_resource = load("res://resources/answer.tres")
 	var index_count = -1
 	for question in questions:
@@ -80,3 +65,24 @@ func generate_answers(min_answers := 3, max_answers := 5):
 				answer.choice_indexes = choices
 		answer.save()
 	emit_signal("questions_generated")
+
+func get_subject():
+	return ResourceLoader.load("user://subjects/" + str(subject_id) + ".res")
+
+func get_answers() -> Array:
+	return Array(DirAccess.get_files_at("user://quizzes/" + str(id))).map(func i(answer):
+		return ResourceLoader.load("user://quizzes/" + str(id) + '/'+ answer)
+	)
+
+func get_grade() -> float:
+	var grade = 0.0
+	for answer in get_answers():
+		if answer.is_correct(): grade += answer.grade
+	if !completed_grade:
+		completed_grade = grade
+		save()
+	return grade
+
+func save():
+	ResourceSaver.save(self, "user://quizzes/" + str(id) + ".res")
+	DirAccess.make_dir_absolute("user://quizzes/" + str(id))

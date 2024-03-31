@@ -2,16 +2,34 @@ extends AudioStreamPlayer
 
 signal fade_in_finished
 
-func autoplay(trackname: String, rush: String = ""):
-	$MightTimer.stop()
-	stream = load("res://audio/tracks/{name}.ogg".format({"name": trackname}))
+var can_rush := false
+
+func autoplay(trackname: String, might:= "", mighty_start := false, rush:= ""):
 	$Transitions.play("RESET")
-	if rush == "":
-		$BGM_Might.stream = null
+	await $Transitions.animation_finished
+	stop_rush()
+	if might == "":
+		stream.set_sync_stream(1, null)
 	else:
-		$BGM_Might.stream = load("res://audio/tracks/{name}.ogg".format({"name": rush}))
-		$BGM_Might.play()
+		stream.set_sync_stream(1, load("res://audio/tracks/{name}.ogg".format({"name": might})))
+	stream.set_sync_stream(0, load("res://audio/tracks/{name}.ogg".format({"name": trackname})))
+	if mighty_start == true && might != "":
+		$MightTimer.wait_time = 20.0
+		stream.set_sync_stream_volume(0, -60)
+		stream.set_sync_stream_volume(1, 0)
+		$MightTimer.start()
+	else:
+		$MightTimer.stop()
+	if rush == "":
+		$Rush.stop()
+		can_rush = false
+	else:
+		can_rush = true
+		$Rush.stream = load("res://audio/tracks/{name}.ogg".format({"name": rush}))
 	play()
+
+func stop_rush():
+	$Rush.stop()
 
 func fade_out():
 	$Transitions.play("fade_out")
@@ -19,15 +37,24 @@ func fade_out():
 	emit_signal("fade_in_finished")
 
 func pump_might(amount := 1.0):
-	$MightTimer.wait_time = clampf($MightTimer.time_left + amount, 0.1, 21.0)
-	$MightTimer.start()
-	if $MightTimer.wait_time >= 20.0:
-		might()
+	if $Rush.is_playing():
+		return
+	else:
+		if can_rush:
+			rush()
+		$MightTimer.wait_time = clampf($MightTimer.time_left + amount, 0.1, 21.0)
+		$MightTimer.start()
+		if $MightTimer.wait_time >= 20.0:
+			might()
+
+func rush():
+	$Rush.play()
+	$Transitions.play("rush")
 
 func might():
-	if $BGM_Might.volume_db != -60: return
+	if stream.get_sync_stream_volume(1) != -60: return
 	$Transitions.play("might")
 
 func _on_might_timer_timeout():
-	if volume_db != -60: return
+	if stream.get_sync_stream_volume(0) != -60: return
 	$Transitions.play("demight")

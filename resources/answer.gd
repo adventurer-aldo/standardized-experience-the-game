@@ -1,3 +1,5 @@
+@tool
+class_name Answer
 extends Resource
 
 @export var index = 0
@@ -8,6 +10,7 @@ extends Resource
 @export var question_sample: int
 @export var choice_indexes := []
 @export var type := "open"
+@export var hidden := false
 @export var quiz_id: int
 
 func respond(response):
@@ -20,6 +23,7 @@ func respond(response):
 			get_question().hit_up()
 		else: 
 			get_question().miss_up()
+		print(get_question().id)
 	save()
 
 func is_correct():

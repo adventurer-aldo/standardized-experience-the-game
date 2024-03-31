@@ -13,16 +13,6 @@ corner_radius_top_right = 15
 corner_radius_bottom_right = 15
 corner_radius_bottom_left = 15
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2v743"]
-bg_color = Color(0.729412, 0.729412, 0.729412, 1)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 5
-border_color = Color(0.729412, 0.729412, 0.729412, 1)
-corner_radius_top_left = 5
-corner_radius_bottom_left = 5
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_krue6"]
 bg_color = Color(0.72549, 0.584314, 0, 1)
 border_width_left = 5
@@ -30,6 +20,16 @@ border_width_top = 5
 border_width_right = 5
 border_width_bottom = 5
 border_color = Color(0.72549, 0.584314, 0, 1)
+corner_radius_top_left = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2v743"]
+bg_color = Color(0.729412, 0.729412, 0.729412, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.729412, 0.729412, 0.729412, 1)
 corner_radius_top_left = 5
 corner_radius_bottom_left = 5
 
@@ -95,8 +95,8 @@ custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 mouse_filter = 1
 theme = ExtResource("2_m0x2i")
-theme_override_styles/normal = SubResource("StyleBoxFlat_2v743")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_krue6")
+theme_override_styles/normal = SubResource("StyleBoxFlat_2v743")
 toggle_mode = true
 icon = ExtResource("3_kad04")
 icon_alignment = 1
@@ -107,10 +107,10 @@ custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 mouse_filter = 1
 theme = ExtResource("2_m0x2i")
-theme_override_styles/normal = SubResource("StyleBoxFlat_tqt4p")
+theme_override_styles/focus = SubResource("StyleBoxFlat_tqt4p")
 theme_override_styles/hover = SubResource("StyleBoxFlat_560fp")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_liac8")
-theme_override_styles/focus = SubResource("StyleBoxFlat_tqt4p")
+theme_override_styles/normal = SubResource("StyleBoxFlat_tqt4p")
 icon = ExtResource("4_uceu4")
 icon_alignment = 1
 expand_icon = true
@@ -133,10 +133,10 @@ theme = ExtResource("2_m0x2i")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0.0941176, 0.164706, 0.309804, 1)
 theme_override_colors/font_hover_color = Color(0.0941176, 0.164706, 0.309804, 1)
-theme_override_styles/normal = SubResource("StyleBoxFlat_npr8x")
+theme_override_styles/focus = SubResource("StyleBoxFlat_npr8x")
 theme_override_styles/hover = SubResource("StyleBoxFlat_npr8x")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_npr8x")
-theme_override_styles/focus = SubResource("StyleBoxFlat_npr8x")
+theme_override_styles/normal = SubResource("StyleBoxFlat_npr8x")
 text = "O que é uma proteína funcional? E o que essas proteínas funcionais fazem?"
 alignment = 0
 text_overrun_behavior = 3
@@ -144,6 +144,7 @@ text_overrun_behavior = 3
 [node name="Level" type="Button" parent="Elements"]
 layout_mode = 2
 mouse_filter = 1
+theme = ExtResource("2_m0x2i")
 theme_override_styles/normal = SubResource("StyleBoxFlat_e5hwj")
 text = "1st Test"
 

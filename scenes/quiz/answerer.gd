@@ -23,8 +23,8 @@ func setup():
 		for i in answer.choice_indexes:
 			var new_choice = cho.instantiate()
 			var whole_answer = []
-			for answer in question.answers:
-				whole_answer += Array(answer)
+			for answere in question.answers:
+				whole_answer += Array(answere)
 			new_choice.answers = whole_answer
 			var text = question.choices[i].texts[0]
 			new_choice.value = text

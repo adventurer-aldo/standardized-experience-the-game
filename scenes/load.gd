@@ -45,6 +45,7 @@ func _on_spin_animation_finished(_anim_name):
 	$CircleSpin/Spin.play("spin")
 
 func _on_data_loaded():
+	Global.emit_signal("subjects_loaded")
 	# await get_tree().create_timer(52.0).timeout
 	# get_tree().change_scene_to_file("res://scenes/data/subjects.tscn")
 	# get_tree().change_scene_to_file("res://scenes/data/questions.tscn")
