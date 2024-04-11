@@ -1,9 +1,8 @@
 extends ColorRect
 
+@export var subj_node: PackedScene
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	var subj_node = load("res://scenes/data/subject.tscn") as PackedScene
 	var subjs = Global.subjects.keys()
 	subjs.sort_custom(sorter)
 	for i in subjs:
@@ -15,9 +14,8 @@ func _ready():
 		dup.resource = Global.subjects[i]
 		$GridContainer2/GridContainer.add_child(dup)
 
-func sorter(subj_a, subj_b): 
+func sorter(subj_a: Subject, subj_b: Subject): 
 	return Global.subjects[subj_a].last_time_edited > Global.subjects[subj_b].last_time_edited
-
 
 func _on_button_pressed():
 	queue_free()

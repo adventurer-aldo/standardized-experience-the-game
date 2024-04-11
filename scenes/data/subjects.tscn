@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://njcan8xh86nx"]
+[gd_scene load_steps=10 format=3 uid="uid://njcan8xh86nx"]
 
 [ext_resource type="Script" path="res://scenes/data/subjects.gd" id="1_itp3r"]
+[ext_resource type="PackedScene" uid="uid://djdokvbtmxqkc" path="res://scenes/data/subject.tscn" id="2_qduy0"]
 [ext_resource type="Theme" uid="uid://ddpx351m2ye8v" path="res://themes/fe_font.tres" id="3_ev04e"]
 [ext_resource type="Script" path="res://addons/SmoothScroll/SmoothScrollContainer.gd" id="4_evhab"]
 [ext_resource type="Texture2D" uid="uid://usvm3mhvakq3" path="res://graphics/icons/triangle.svg" id="4_fgr48"]
@@ -77,6 +78,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0)
 script = ExtResource("1_itp3r")
+subj_node = ExtResource("2_qduy0")
 
 [node name="GridContainer2" type="ScrollContainer" parent="."]
 clip_contents = false
