@@ -13,6 +13,11 @@ var types := ["open"]  # "open" is included by default
 var parents := []
 var tags := []
 var level := 1
+var hits := 0
+var misses := 0
+var hit_streak := 0
+var miss_streak := 0
+var spaced_level := 1
 var subject := 1
 var subject_name := ""
 
@@ -44,6 +49,11 @@ func _on_submit_pressed():
 	new_question.level = level
 	new_question.tags = tags
 	new_question.subject_id = subject
+	new_question.hits = hits
+	new_question.hit_streak = hit_streak
+	new_question.misses = misses
+	new_question.miss_streak = miss_streak
+	new_question.spaced_level = spaced_level
 	new_question.save()
 	if key == Global.stats.last_question_id: 
 		Global.stats.last_question_id += 1
@@ -52,6 +62,11 @@ func _on_submit_pressed():
 	else:
 		unedit()
 	key = Global.stats.last_question_id
+	hits = 0
+	hit_streak = 0
+	misses = 0
+	miss_streak = 0
+	spaced_level = 1
 	Global.save_stats()
 	Global.emit_signal("data_questions_question_was_submitted", new_question)
 	$Editables/QuestionDetails/Details/Components/QuestionsManager/Questions.get_children()[0].grab_text_focus()
@@ -64,6 +79,7 @@ func unedit():
 	$Editables/QuestionDetails/Details/Components/Submit/Margin/Label.text = "Create New Question"
 
 func _on_question_parent_pressed(id):
+	if id == key: return
 	if parents.has(id):
 		parents.erase(id)
 		for child in $Editables/QuestionDetails/Details/Components/Parents.get_children():
@@ -104,7 +120,7 @@ func _on_question_parent_deleted(tag_text):
 func _on_question_delete_pressed(resource: Resource):
 	DirAccess.remove_absolute(resource.resource_path)
 
-func _on_question_edit_pressed(resource):
+func _on_question_edit_pressed(resource: Question):
 	if resource.id == key:
 		unedit()
 		_on_reset_pressed()
@@ -126,6 +142,11 @@ func _on_question_edit_pressed(resource):
 	for tag in resource.tags:
 		add_tag(tag)
 	key = resource.id
+	hits = resource.hits
+	hit_streak = resource.hit_streak
+	misses = resource.misses
+	miss_streak = resource.miss_streak
+	spaced_level = resource.spaced_level
 
 
 func _on_reset_pressed():

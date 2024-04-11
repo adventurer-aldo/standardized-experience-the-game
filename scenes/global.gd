@@ -11,6 +11,7 @@ signal data_questions_question_was_submitted(resource: Resource)
 
 var subjects := {}
 var questions := {}
+var quiz
 var stats
 
 func _ready():
@@ -30,7 +31,7 @@ func save_stats():
 func get_subject(id: int):
 	return subjects[id]
 
-func get_question(subject_id: int, question_id: int):
+func get_question(_subject_id: int, _question_id: int):
 	return
 
 func get_quiz(id: int):

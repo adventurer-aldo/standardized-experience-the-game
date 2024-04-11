@@ -1,0 +1,355 @@
+[gd_scene load_steps=17 format=3 uid="uid://c25rd6dtbvuxc"]
+
+[ext_resource type="Script" path="res://scenes/quiz/results.gd" id="1_q5e4e"]
+[ext_resource type="Texture2D" uid="uid://dke4rp80nhy0n" path="res://graphics/testure_gray.png" id="2_ajwxi"]
+[ext_resource type="Texture2D" uid="uid://cv7j0f3tmkpis" path="res://graphics/paper.png" id="5_6ar4c"]
+[ext_resource type="Theme" uid="uid://bbkfe3x78ihvo" path="res://themes/times.tres" id="6_j1sgi"]
+[ext_resource type="FontFile" uid="uid://b34fgfhi138hl" path="res://fonts/learning_curve_regular_ot_tt.ttf" id="7_g5rvm"]
+[ext_resource type="PackedScene" uid="uid://dxouk8qy8oytm" path="res://scenes/scheduler.tscn" id="8_x2we0"]
+[ext_resource type="FontFile" uid="uid://drunskociit7h" path="res://fonts/FOT-RodinProN-L.otf" id="10_65yun"]
+[ext_resource type="Texture2D" uid="uid://bxunaysknjqil" path="res://graphics/glow.png" id="13_l1x0a"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nr8o8"]
+bg_color = Color(0, 0.523438, 0.992188, 1)
+border_width_bottom = 5
+border_color = Color(0.125, 0.167969, 0.3125, 1)
+corner_radius_top_left = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="Theme" id="Theme_4hcyd"]
+Button/styles/normal = SubResource("StyleBoxFlat_nr8o8")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_70cuw"]
+bg_color = Color(0.109804, 0.117647, 0.121569, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2eryl"]
+content_margin_right = 20.0
+
+[sub_resource type="Gradient" id="Gradient_vkmvf"]
+colors = PackedColorArray(0.435192, 0.435192, 0.435192, 1, 1, 1, 1, 0)
+
+[sub_resource type="Animation" id="Animation_hbs3a"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_gg0uo"]
+resource_name = "unblack"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_15hn8"]
+_data = {
+"RESET": SubResource("Animation_hbs3a"),
+"unblack": SubResource("Animation_gg0uo")
+}
+
+[node name="Quiz" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_q5e4e")
+
+[node name="TextureLoop" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_ajwxi")
+stretch_mode = 1
+
+[node name="Parallax2D" type="Parallax2D" parent="."]
+scroll_scale = Vector2(3.93, 3.93)
+
+[node name="Paper" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 155.0
+offset_top = -14.0
+offset_right = -155.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_6ar4c")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+clip_contents = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 156.0
+offset_top = 3.0
+offset_right = -155.0
+offset_bottom = -3.0
+grow_horizontal = 2
+grow_vertical = 2
+follow_focus = true
+horizontal_scroll_mode = 3
+vertical_scroll_mode = 3
+
+[node name="Elements" type="VBoxContainer" parent="ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Margin" type="MarginContainer" parent="ScrollContainer/Elements"]
+layout_mode = 2
+theme_override_constants/margin_top = 30
+
+[node name="BasicInformation" type="VBoxContainer" parent="ScrollContainer/Elements/Margin"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 13
+
+[node name="TextureRect" type="TextureRect" parent="ScrollContainer/Elements/Margin/BasicInformation"]
+layout_mode = 2
+
+[node name="Standardized" type="Label" parent="ScrollContainer/Elements/Margin/BasicInformation"]
+layout_mode = 2
+mouse_filter = 1
+theme = ExtResource("6_j1sgi")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "INSTITUTO SUPERIOR DE CIÊNCIAS E TECNOLOGIAS DE MOÇAMBIQUE"
+horizontal_alignment = 1
+
+[node name="Standardized2" type="Label" parent="ScrollContainer/Elements/Margin/BasicInformation"]
+layout_mode = 2
+mouse_filter = 1
+theme = ExtResource("6_j1sgi")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "ESCOLA DE CIÊNCIAS DE SAÚDE"
+horizontal_alignment = 1
+
+[node name="Standardized3" type="Label" parent="ScrollContainer/Elements/Margin/BasicInformation"]
+layout_mode = 2
+mouse_filter = 1
+theme = ExtResource("6_j1sgi")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "LICENCIATURA EM MEDICINA GERAL"
+horizontal_alignment = 1
+
+[node name="Control" type="Control" parent="ScrollContainer/Elements/Margin/BasicInformation"]
+layout_mode = 2
+mouse_filter = 1
+
+[node name="Trace" type="Label" parent="ScrollContainer/Elements/Margin/BasicInformation/Control"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 229.5
+offset_top = -24.0
+offset_right = 374.5
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 1
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "_____________________"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="ScrollContainer/Elements/Margin/BasicInformation/Control"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -261.0
+offset_top = -73.0
+offset_right = -116.0
+offset_bottom = 22.0
+grow_horizontal = 0
+grow_vertical = 0
+mouse_filter = 1
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_fonts/font = ExtResource("7_g5rvm")
+theme_override_font_sizes/font_size = 91
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="values" type="Label" parent="ScrollContainer/Elements/Margin/BasicInformation/Control"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 373.5
+offset_top = -23.0
+offset_right = 430.5
+offset_bottom = 3.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 1
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "valores"
+horizontal_alignment = 1
+
+[node name="Grade" type="Label" parent="ScrollContainer/Elements/Margin/BasicInformation/Control"]
+layout_mode = 0
+offset_left = 671.0
+offset_top = -23.0
+offset_right = 764.0
+offset_bottom = 3.0
+mouse_filter = 1
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Nota: "
+
+[node name="Level" type="Label" parent="ScrollContainer/Elements/Margin/BasicInformation"]
+layout_mode = 2
+mouse_filter = 1
+theme = ExtResource("6_j1sgi")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+horizontal_alignment = 1
+
+[node name="Duration" type="Label" parent="ScrollContainer/Elements/Margin/BasicInformation"]
+layout_mode = 2
+mouse_filter = 1
+theme = ExtResource("6_j1sgi")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Data: 04/02/2024"
+horizontal_alignment = 1
+
+[node name="Subject" type="Label" parent="ScrollContainer/Elements/Margin/BasicInformation"]
+layout_mode = 2
+mouse_filter = 1
+theme = ExtResource("6_j1sgi")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Subject Title"
+horizontal_alignment = 1
+
+[node name="Subject2" type="Label" parent="ScrollContainer/Elements/Margin/BasicInformation"]
+layout_mode = 2
+mouse_filter = 1
+theme = ExtResource("6_j1sgi")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Nome: _________________________________________________, Código: ________________
+Turma: _________"
+horizontal_alignment = 1
+
+[node name="Subject3" type="Label" parent="ScrollContainer/Elements/Margin/BasicInformation"]
+layout_mode = 2
+mouse_filter = 1
+theme = ExtResource("6_j1sgi")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "INSTRUÇÕES"
+horizontal_alignment = 1
+
+[node name="Subject4" type="Label" parent="ScrollContainer/Elements/Margin/BasicInformation"]
+layout_mode = 2
+mouse_filter = 1
+theme = ExtResource("6_j1sgi")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Escreva o seu Nome com Letras MAIÚSCULAS em todas as folhas que compõem o teste.
+
+O presente teste é constituído por 4 partes: I - Verdadeiro (V) e falso (F), II- Escolha múltipla, 
+III-Tabelas para Correspondência e IV- espaços em brano. Não é permitido conversar/sussurar, o uso de
+dispositivos eletrônicos e outros materiais de apoio para além das folhas do Teste. 
+A fraude académica é punida nos termos do regulamento do ISCTEM."
+horizontal_alignment = 1
+
+[node name="Questions" type="VBoxContainer" parent="ScrollContainer/Elements"]
+layout_mode = 2
+
+[node name="Time" type="Panel" parent="."]
+clip_contents = true
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 38.0
+grow_horizontal = 2
+mouse_filter = 1
+theme = SubResource("Theme_4hcyd")
+theme_override_styles/panel = SubResource("StyleBoxFlat_70cuw")
+
+[node name="Label" type="Label" parent="Time"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("10_65yun")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxEmpty_2eryl")
+text = "10s"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Redo" type="Button" parent="."]
+layout_mode = 1
+offset_right = 211.0
+offset_bottom = 37.0
+text = "Redo"
+
+[node name="ResultParticles" type="CPUParticles2D" parent="."]
+position = Vector2(635, 745)
+emitting = false
+texture = ExtResource("13_l1x0a")
+emission_shape = 3
+emission_rect_extents = Vector2(720, 1)
+direction = Vector2(2, 0)
+gravity = Vector2(0, -980)
+scale_amount_min = 0.07
+scale_amount_max = 0.25
+color = Color(1, 0.983333, 0, 1)
+color_ramp = SubResource("Gradient_vkmvf")
+
+[node name="Blackscreen" type="ColorRect" parent="."]
+auto_translate_mode = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+metadata/_edit_lock_ = true
+
+[node name="Transition" type="AnimationPlayer" parent="Blackscreen"]
+libraries = {
+"": SubResource("AnimationLibrary_15hn8")
+}
+
+[node name="Scheduler" parent="." instance=ExtResource("8_x2we0")]
+
+[connection signal="pressed" from="Redo" to="." method="_on_redo_pressed"]

@@ -1,0 +1,184 @@
+ - Que tipo de orgão é o coração e qual é a sua forma?
+Muscular oco com forma de cone
+
+
+ - Quais são os movimentos realizados pelo coração?
+Sístole
+Diástole
+
+
+ - A sístole é um movimento de?
+Contração
+
+
+ - A diástole é um movimento de?
+Relaxamento
+
+
+ - O coração é dividido em 4 câmaras. Mencione-as.
+2 ventrículos e 2 átrios
+
+
+ - O átrio direito comunica-se com o ventrículo direito. Que estrutura permite essa conexão?
+Válvula tricúspide
+
+
+ - O átrio esquerdo comunica-se com o ventrículo esquerdo. Que estrutura permite essa conexão?
+Válvula mitral
+
+
+ - O que é o pericárdio parietal?
+Saco seroso que cobre coração
+
+
+ - A função do líquido pericárdico é?
+Lubrificar faces do pericárdio, reduzindo atrito nos movimentos do coração
+
+
+ - Qual é a função do pericárdio visceral?
+Revestir externamente coração
+
+
+ - Qual é a função do endocárdio?
+Revestir internamente câmaras do coração
+
+
+ - Mencione as miofibrilas típicas do coração.
+Filamentos de miosina e actina
+
+
+ - Que caraterísticas tem as miofibrilas do coração?
+Unidas mecanicamente e eletricamente entre si
+Mecanismo de filamentos deslizantes
+
+
+ - O que o tipo de união das miofibrilas típicas cardíacas permite?
+Baixa resistência para condução de potenciais de ação
+
+
+ - O coração é formado por três tipos de tecidos que podem ser classificados de acordo com sua função. Mencione-os.
+Não contrátil
+Tecido contrátil
+Excito-condutor
+
+
+ - O tecido cardíaco não contrátil é formado por?
+Tecido conjuntivo associado a fibras elásticas e colágeno
+
+
+ - O que forma o tecido cardíaco contrátil?
+Fibras musculares estriadas cardíacas
+
+
+ - O tecido cardíaco excito-condutor é formado por?
+Fibras musculares estriadas cardíacas diferenciadas com capacidade de conduzir potenciais de ação
+
+
+ - Sistema de condução cardíaco é composto por:
+1 - Nódulo sinoatrial
+2 - Vias internodais
+3 - Nódulo de Aschoff-Tawara
+4 - Pausa de 0,1 segundo
+5 - Feixe de His
+6 - Fibras de Purkinje
+
+
+ - O nódulo sinusal é considerado como?
+Marca-passo do coração
+
+
+ - O que constitui as vias internodais?
+3 fibras nervosas, despolarização auricular e sua subsequente contração
+
+
+ - Como está organizado o feixe de His?
+Divide-se em ramo direito e esquerdo
+
+
+ - O ramo esquerdo do feixe de His possui ainda mais subdivisões. Mencione-as.
+Fascículo esquerdo anterior
+Fascículo esquerdo posterior
+
+
+ - Em relação ao potencial da membrana, os miócitos possuem dois estados. Quais são?
+Repouso
+Excitado
+
+
+ - Descreva o estado em repouso do miócito.
+Interior da célula negativo em relação ao exterior
+
+
+ - Descreva o estado excitado do miócito.
+Despolarização e repolarização acontecem até voltar ao estado de repouso
+
+
+ - O estado das cargas do estado de repouso do miócito tem outro nome. _________________
+Potencial de Repouso Transmembrana
+
+
+ - O estado das cargas do estado excitado do miócito tem outro nome. _________________
+Potencial de Ação Transmembrana
+
+
+ - A que corresponde o Potencial de Repouso Transmembrana (PRT)?
+Diástole elétrica celular
+
+
+ - Enumere as fases do potencial de membrana na eletrofisiologia dos miócitos.
+Fase 0
+Fase 1
+Fase 2
+Fase 3
+Fase 4
+
+
+ - O que ocorre na Fase 0 do potencial de membrana dos miócitos?
+Despolarização rápida
+
+
+ - O que ocorre na Fase 1 do potencial de membrana dos miócitos?
+Início de recuperação rápida
+
+
+ - O que ocorre na Fase 2 do potencial de membrana dos miócitos?
+Meseta
+
+
+ - O que ocorre na Fase 3 do potencial de membrana dos miócitos?
+Repolarização rápida
+
+
+ - O que ocorre na Fase 4 do potencial de membrana dos miócitos?
+Fase diastólica ou repouso
+
+
+ - Ritmos cardíacos fora do pacemaker fisiológico:
+Ritmos extrasinusais
+Pacemaker auricular, nodal ou ventricular
+
+
+ - Quais são os ritmos cardíacos?
+Sinusal
+Auricular
+Ventricular
+União ou Nodal
+
+
+ - Na fisiologica cardíaca, o que é o ciclo cardíaco?
+Eventos que acontecem desde início do batimento cardíaco até próximo
+
+
+ - O ciclo cardíaco é composto por duas fases, denominadas:
+Sístole
+Diástole
+
+
+ - O ciclo cardíaco é dividido em 5 etapas. Enumere-as.
+1 - Diástole atrial e ventricular
+2 - Sístole atrial
+3 - Contração ventricular isovolumétrica
+4 - Ejeção ventricular
+5 - Relaxamento ventricular
+
+

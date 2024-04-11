@@ -1,26 +1,28 @@
 extends AudioStreamPlayer
 
 signal fade_in_finished
+signal rush_time_started
 
 var can_rush := false
 
-func autoplay(trackname: String, might:= "", mighty_start := false, rush:= ""):
+func autoplay(trackname: String, mighty_start := false, with_rush:= ""):
 	$Transitions.play("RESET")
 	await $Transitions.animation_finished
 	stop_rush()
-	if might == "":
-		stream.set_sync_stream(1, null)
+	var might_exists = FileAccess.file_exists("res://audio/tracks/%s.ogg" % (trackname + '_might'))
+	if might_exists:
+		stream.set_sync_stream(1, load("res://audio/tracks/{name}_might.ogg".format({"name": trackname})))
 	else:
-		stream.set_sync_stream(1, load("res://audio/tracks/{name}.ogg".format({"name": might})))
+		stream.set_sync_stream(1, null)
 	stream.set_sync_stream(0, load("res://audio/tracks/{name}.ogg".format({"name": trackname})))
-	if mighty_start == true && might != "":
+	if mighty_start == true && might_exists:
 		$MightTimer.wait_time = 20.0
 		stream.set_sync_stream_volume(0, -60)
 		stream.set_sync_stream_volume(1, 0)
 		$MightTimer.start()
 	else:
 		$MightTimer.stop()
-	if rush == "":
+	if with_rush == "":
 		$Rush.stop()
 		can_rush = false
 	else:
@@ -34,14 +36,16 @@ func stop_rush():
 func fade_out():
 	$Transitions.play("fade_out")
 	await $Transitions.animation_finished
+	stop()
 	emit_signal("fade_in_finished")
 
 func pump_might(amount := 1.0):
-	if $Rush.is_playing():
+	if $Rush.is_playing() || (stream.get_sync_stream(1) == null && !can_rush):
 		return
 	else:
 		if can_rush:
 			rush()
+			return
 		$MightTimer.wait_time = clampf($MightTimer.time_left + amount, 0.1, 21.0)
 		$MightTimer.start()
 		if $MightTimer.wait_time >= 20.0:
@@ -50,6 +54,7 @@ func pump_might(amount := 1.0):
 func rush():
 	$Rush.play()
 	$Transitions.play("rush")
+	emit_signal("rush_time_started", "blink")
 
 func might():
 	if stream.get_sync_stream_volume(1) != -60: return

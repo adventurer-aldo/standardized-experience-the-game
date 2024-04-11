@@ -38,8 +38,6 @@ func _ready():
 	$CircleSpin/Spin.play("spin")
 	await get_tree().create_timer(2.0).timeout
 	get_tree().create_tween().tween_property($CircleSpin, "self_modulate", Color.WHITE, 1.0)
-	await get_tree().create_timer(5.0).timeout
-	get_tree().create_tween().tween_property($Background, "modulate", Color.WHITE, 3.0)
 
 func _on_spin_animation_finished(_anim_name):
 	$CircleSpin/Spin.play("spin")

@@ -17,16 +17,20 @@ signal questions_generated
 func generate_answers(min_answers := 3, max_answers := 5) -> void:
 	var questions = Array(DirAccess.get_files_at("user://subjects/{subj}/".format({"subj": subject_id}))).map(func i(question):
 		return ResourceLoader.load("user://subjects/" + str(subject_id) + "/" + question)
-	).filter(func i(question): return question.are_parents_won())
-	randomize()
-	questions.sort_custom(func i(question_a, question_b): 
+	).filter(func i(question: Question): 
+		return question.are_parents_won() || (question.are_parents_above_spaced_level(2) && question.are_parents_level_up_queued()))
+	print("%s questions are evaluable for the current subject ID %s." % [str(questions.size()), subject_id])
+	questions.sort_custom(func i(question_a: Question, question_b: Question): 
 		return question_a.appearances < question_b.appearances
 	)
-	questions.sort_custom(func i(question_a, question_b):
+	questions.sort_custom(func i(question_a: Question, question_b: Question):
+		return question_a.hit_streak > question_b.hit_streak
+	)
+	questions.sort_custom(func i(question_a: Question, question_b: Question):
 		return question_a.miss_streak > question_b.miss_streak
 	)
-	questions.sort_custom(func i(question_a, question_b):
-		return question_a.hit_streak > question_b.hit_streak
+	questions.sort_custom(func i(question_a: Question, question_b: Question):
+		return question_a.is_level_up_queued > question_b.is_level_up_queued
 	)
 	questions.resize(clamp(randi_range(min_answers, max_answers), 0, questions.size()))
 	randomize()

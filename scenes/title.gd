@@ -3,7 +3,7 @@ extends TextureRect
 func _ready():
 	SFX.speak(Text.start.pick_random())
 	$ScrollContainer/ActionsContainer/Subjects.grab_focus()
-	$Node3D/AnimationPlayer.play("zooms")
+	if Global.subjects.size() < 1: return
 	$Top/Middle/Label.text = "Your last test was of {subject_title}, with the grade {grade}.".format({
 		"subject_title": Global.subjects[Global.get_last_quiz().subject_id].title,
 		"grade": Global.get_formatted_grade(Global.get_last_quiz().completed_grade)

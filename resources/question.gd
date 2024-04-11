@@ -96,12 +96,14 @@ func queue_spaced_level_up(to_level: int, time: int = 1200) -> void: # Time is i
 
 func hit_up() -> void:
 	hits += 1
+	if is_level_up_queued: return
 	hit_streak += 1
 	miss_streak = 0
 	progress_level()
 
 func miss_up() -> void:
 	misses += 1
+	if is_level_up_queued: return
 	miss_streak += 1
 	hit_streak = 0
 	progress_level()
@@ -113,7 +115,13 @@ func get_parents() -> Array:
 	return found_parents
 
 func are_parents_won() -> bool:
-	return !get_parents().map(func i(parent): return parent.spaced_level > 2).has(false)
+	return !get_parents().map(func i(parent): return parent.spaced_level >= 3).has(false)
+
+func are_parents_above_spaced_level(with_level: int = 1) -> bool:
+	return !get_parents().map(func i(parent: Question): return parent.spaced_level > with_level).has(false)
+
+func are_parents_level_up_queued() -> bool:
+	return !get_parents().map(func i(parent: Question): return parent.is_level_up_queued).has(false)
 
 func delete() -> void:
 	DirAccess.remove_absolute("user://subjects/" + str(subject_id) + "/" + str(id) + ".res")

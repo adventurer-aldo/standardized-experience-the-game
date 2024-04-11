@@ -1,8 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://ukd4ge1kxf66"]
+[gd_scene load_steps=8 format=3 uid="uid://ukd4ge1kxf66"]
 
 [ext_resource type="Script" path="res://scenes/load.gd" id="1_wgumh"]
 [ext_resource type="Texture2D" uid="uid://dfvysekdfjhtn" path="res://graphics/title/download/circle_spin.png" id="2_e1em8"]
-[ext_resource type="PackedScene" uid="uid://cklpthhbe5lxb" path="res://scenes/background.tscn" id="2_wtd4y"]
 [ext_resource type="PackedScene" uid="uid://dxouk8qy8oytm" path="res://scenes/scheduler.tscn" id="4_54cop"]
 
 [sub_resource type="Animation" id="Animation_vipce"]
@@ -52,10 +51,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_wgumh")
-
-[node name="Background" parent="." instance=ExtResource("2_wtd4y")]
-modulate = Color(1, 1, 1, 0)
-layout_mode = 1
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 2.0

@@ -5,10 +5,10 @@
 [ext_resource type="Theme" uid="uid://ddpx351m2ye8v" path="res://themes/fe_font.tres" id="2_y44fm"]
 [ext_resource type="Texture2D" uid="uid://bitcbwjbsqpxy" path="res://graphics/icons/trash-can.svg" id="3_3lupj"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_joibv"]
-bg_color = Color(1, 1, 1, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_460mx"]
+bg_color = Color(0.0509804, 0.427451, 0.976471, 1)
 border_width_bottom = 5
-border_color = Color(0.635294, 0.686275, 0.690196, 1)
+border_color = Color(0.141176, 0.321569, 0.65098, 1)
 corner_radius_top_left = 15
 corner_radius_top_right = 15
 corner_radius_bottom_right = 15
@@ -23,10 +23,10 @@ corner_radius_top_right = 15
 corner_radius_bottom_right = 15
 corner_radius_bottom_left = 15
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_460mx"]
-bg_color = Color(0.0509804, 0.427451, 0.976471, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_joibv"]
+bg_color = Color(1, 1, 1, 1)
 border_width_bottom = 5
-border_color = Color(0.141176, 0.321569, 0.65098, 1)
+border_color = Color(0.635294, 0.686275, 0.690196, 1)
 corner_radius_top_left = 15
 corner_radius_top_right = 15
 corner_radius_bottom_right = 15
@@ -37,10 +37,10 @@ custom_minimum_size = Vector2(270, 170)
 offset_right = 270.0
 offset_bottom = 170.0
 mouse_filter = 1
-theme_override_styles/normal = SubResource("StyleBoxFlat_joibv")
+theme_override_styles/focus = SubResource("StyleBoxFlat_460mx")
 theme_override_styles/hover = SubResource("StyleBoxFlat_frj6p")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_460mx")
-theme_override_styles/focus = SubResource("StyleBoxFlat_460mx")
+theme_override_styles/normal = SubResource("StyleBoxFlat_joibv")
 script = ExtResource("1_kq76x")
 
 [node name="ActionSplitter" type="VBoxContainer" parent="."]

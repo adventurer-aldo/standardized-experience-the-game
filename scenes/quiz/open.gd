@@ -5,7 +5,7 @@ var id := 1
 @onready var prev_text = text # For m
 
 func _ready():
-	Global.finished.connect(correct)
+	pass # Global.finished.connect(correct)
 
 func correct(_strict := false):
 	if answers.map(func i(alternatives_array): 

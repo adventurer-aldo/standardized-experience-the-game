@@ -6,10 +6,10 @@
 [ext_resource type="Theme" uid="uid://ddpx351m2ye8v" path="res://themes/fe_font.tres" id="3_43xrh"]
 [ext_resource type="PackedScene" uid="uid://d4lj4kxjym0np" path="res://scenes/data/tag.tscn" id="3_438s2"]
 [ext_resource type="Script" path="res://scenes/data/questions_manager.gd" id="4_u841u"]
-[ext_resource type="PackedScene" uid="uid://35bn8nw6fdpd" path="res://scenes/data/questions/question.tscn" id="5_5n8c8"]
 [ext_resource type="Script" path="res://scenes/data/questions/answers_manager.gd" id="6_alkfu"]
 [ext_resource type="Texture2D" uid="uid://cts7s8dis43d" path="res://graphics/icons/plus.svg" id="7_evpu8"]
 [ext_resource type="PackedScene" uid="uid://d1krru41ftoe8" path="res://scenes/data/questions/answer_open.tscn" id="7_my641"]
+[ext_resource type="PackedScene" uid="uid://35bn8nw6fdpd" path="res://scenes/data/questions/question.tscn" id="8_1t5ws"]
 [ext_resource type="Script" path="res://scenes/data/questiongrid.gd" id="9_5ef4l"]
 [ext_resource type="Script" path="res://addons/SmoothScroll/SmoothScrollContainer.gd" id="9_fantj"]
 
@@ -184,7 +184,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 10.0
 offset_top = 2.0
-offset_right = -553.0
+offset_right = -11.0
 
 [node name="QuestionDetails" type="MarginContainer" parent="Editables"]
 layout_mode = 2
@@ -252,13 +252,13 @@ text_overrun_behavior = 3
 [node name="QuestionsManager" type="HBoxContainer" parent="Editables/QuestionDetails/Details/Components"]
 layout_mode = 2
 script = ExtResource("4_u841u")
-answer_package = ExtResource("5_5n8c8")
+answer_package = ExtResource("8_1t5ws")
 
 [node name="Questions" type="VBoxContainer" parent="Editables/QuestionDetails/Details/Components/QuestionsManager"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Question" parent="Editables/QuestionDetails/Details/Components/QuestionsManager/Questions" instance=ExtResource("5_5n8c8")]
+[node name="Question" parent="Editables/QuestionDetails/Details/Components/QuestionsManager/Questions" instance=ExtResource("8_1t5ws")]
 layout_mode = 2
 
 [node name="AddAnswerButton" type="Button" parent="Editables/QuestionDetails/Details/Components/QuestionsManager" node_paths=PackedStringArray("shortcut_context")]
@@ -368,7 +368,6 @@ vertical_alignment = 1
 layout_mode = 2
 size_flags_vertical = 3
 horizontal_scroll_mode = 3
-vertical_scroll_mode = 3
 script = ExtResource("9_fantj")
 
 [node name="GridContainer" type="VBoxContainer" parent="Editables/ScrollContainer"]

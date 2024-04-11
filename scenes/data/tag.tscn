@@ -4,18 +4,6 @@
 [ext_resource type="Script" path="res://scenes/data/parent.gd" id="1_vu0xa"]
 [ext_resource type="Theme" uid="uid://ddpx351m2ye8v" path="res://themes/fe_font.tres" id="4_2y74r"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vq6bl"]
-bg_color = Color(0, 0.584314, 0.847059, 1)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 5
-border_color = Color(0, 0.584314, 0.847059, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yyqc5"]
 bg_color = Color(0.243137, 0.721569, 1, 1)
 border_width_left = 5
@@ -23,6 +11,18 @@ border_width_top = 5
 border_width_right = 5
 border_width_bottom = 5
 border_color = Color(0.243137, 0.721569, 1, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vq6bl"]
+bg_color = Color(0, 0.584314, 0.847059, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0, 0.584314, 0.847059, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
@@ -40,8 +40,8 @@ script = ExtResource("1_vu0xa")
 
 [node name="Button" type="Button" parent="."]
 layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_vq6bl")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_yyqc5")
+theme_override_styles/normal = SubResource("StyleBoxFlat_vq6bl")
 
 [node name="HElements" type="HBoxContainer" parent="."]
 layout_mode = 2

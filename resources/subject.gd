@@ -13,6 +13,17 @@ extends Resource
 @export var experience := 0.0
 @export var last_time_edited = 0
 
+func export() -> void:
+	var text = ""
+	for file in DirAccess.get_files_at("user://subjects/%s" % id):
+		var question = load("user://subjects/%s/%s" % [id, file])
+		text += " - " + Array(question.question).pick_random()
+		text += "\n"
+		var mapped_ans = question.answers.map(func i(answer): return Array(answer).pick_random())
+		text += "\n".join(PackedStringArray(mapped_ans))
+		text += "\n\n\n"
+	FileAccess.open("res://export.txt", FileAccess.WRITE).store_string(text)
+
 func save() -> void:
 	ResourceSaver.save(self, "user://subjects/" + str(id) + ".res", ResourceSaver.FLAG_COMPRESS)
 

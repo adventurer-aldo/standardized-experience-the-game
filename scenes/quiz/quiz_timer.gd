@@ -4,11 +4,13 @@ signal rush_time_started
 
 var was_rush_signaled := false
 
+func _ready() -> void:
+	BGM.rush_time_started.connect(_on_blinking_animation_finished)
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	var minutes = int($Timer.time_left / 60)
 	var seconds = int(int($Timer.time_left) % 60)
-	print(str(minutes) + "-" + str(seconds))
 	$Label.text = (str(minutes) + "m "  if minutes > 0 else "") + str(seconds) + 's'
 	if was_rush_signaled == false:
 		if minutes == 2 && seconds == 30:
@@ -16,6 +18,8 @@ func _process(_delta):
 			$TimeAnims.play("show_up")
 			emit_signal("rush_time_started")
 
-
 func _on_rush_time_started() -> void:
 	$TimeAnims.play("show_up")
+
+func _on_blinking_animation_finished(_anim_name) -> void:
+	$Blinking.play("blink")

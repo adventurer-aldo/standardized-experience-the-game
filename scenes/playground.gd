@@ -1,5 +1,8 @@
 extends ColorRect
 
 func _ready():
-	print(Time.get_unix_time_from_system())
-	print(load("res://22.res").scheduled_time < Time.get_unix_time_from_system())
+	var e = [4,3,2,1,5]
+	print(e)
+	e.sort_custom(func e(a, b):
+		return a < b)
+	print(e)

@@ -1,81 +1,23 @@
-[gd_scene load_steps=24 format=3 uid="uid://djourm2ce5j3h"]
+[gd_scene load_steps=21 format=3 uid="uid://djourm2ce5j3h"]
 
 [ext_resource type="Texture2D" uid="uid://j804wvsw4kul" path="res://logo.png" id="2_37hhe"]
 [ext_resource type="Script" path="res://scenes/title.gd" id="2_e4613"]
+[ext_resource type="Texture2D" uid="uid://blp3hfiov8ca" path="res://graphics/pictures/Bg_GodRoom.png" id="2_qwkro"]
 [ext_resource type="Texture2D" uid="uid://bf0bckgxw37ki" path="res://title.png" id="3_0ljim"]
-[ext_resource type="Texture2D" uid="uid://b127o8gr3nds7" path="res://graphics/logo_blur.png" id="3_6s5hm"]
 [ext_resource type="Texture2D" uid="uid://dm1u7w2bu1hip" path="res://graphics/top_parallax_end.png" id="5_2hfl4"]
 [ext_resource type="Texture2D" uid="uid://c4rxmmjy8j2y7" path="res://graphics/top_parallax.png" id="6_1u5f8"]
-[ext_resource type="Texture2D" uid="uid://b4pssotffjjhi" path="res://graphics/button.png" id="7_a6sim"]
-[ext_resource type="Texture2D" uid="uid://bdco7ajgnxsfj" path="res://graphics/button_pressed.png" id="8_jhtqc"]
 [ext_resource type="Theme" uid="uid://bbkfe3x78ihvo" path="res://themes/times.tres" id="9_38fcd"]
 [ext_resource type="PackedScene" uid="uid://bxiw1dn02gy4g" path="res://scenes/title_action.tscn" id="11_4jxkd"]
-[ext_resource type="PackedScene" uid="uid://bj70dtoi5ugaq" path="res://models/library/model.glb" id="11_iynvp"]
 [ext_resource type="Script" path="res://addons/SmoothScroll/SmoothScrollContainer.gd" id="11_ya3re"]
 [ext_resource type="Texture2D" uid="uid://cx5jbdftuo6t0" path="res://graphics/icons/books.svg" id="12_o0jr2"]
 [ext_resource type="Texture2D" uid="uid://cqxafjycbkjco" path="res://graphics/icons/file-pen.svg" id="13_tgwoy"]
 [ext_resource type="Texture2D" uid="uid://dh61trwhnvcao" path="res://graphics/icons/person-from-portal.svg" id="14_g2bbi"]
 
-[sub_resource type="Animation" id="Animation_yl0gf"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(-14.2618, 2.29673, -14.5773)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_o74fe"]
 
-[sub_resource type="Animation" id="Animation_me537"]
-resource_name = "zooms"
-length = 29.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 26.4, 29),
-"transitions": PackedFloat32Array(0.965936, 0.353553, 1),
-"update": 0,
-"values": [Vector3(-14.2618, 2.29673, -14.5773), Vector3(-14.2618, 2.29673, -94.6157), Vector3(-14.2618, 10.3566, -91.9237)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 26.4, 29),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(-0.336849, 0, 0)]
-}
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_cmxa0"]
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_y817a"]
-_data = {
-"RESET": SubResource("Animation_yl0gf"),
-"zooms": SubResource("Animation_me537")
-}
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_yf4m6"]
 
 [sub_resource type="Animation" id="Animation_u6puw"]
 length = 0.001
@@ -154,6 +96,16 @@ grow_vertical = 2
 expand_mode = 2
 script = ExtResource("2_e4613")
 
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_qwkro")
+expand_mode = 2
+
 [node name="Logo2" type="TextureRect" parent="."]
 visible = false
 modulate = Color(0.0705882, 0, 0.709804, 0.490196)
@@ -198,7 +150,7 @@ offset_right = 594.0
 offset_bottom = 300.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("3_6s5hm")
+texture = SubResource("CompressedTexture2D_o74fe")
 
 [node name="Top" type="HBoxContainer" parent="."]
 layout_mode = 1
@@ -255,8 +207,8 @@ offset_right = 481.0
 offset_bottom = 144.0
 grow_horizontal = 2
 grow_vertical = 2
-texture_normal = ExtResource("7_a6sim")
-texture_pressed = ExtResource("8_jhtqc")
+texture_normal = SubResource("CompressedTexture2D_cmxa0")
+texture_pressed = SubResource("CompressedTexture2D_yf4m6")
 
 [node name="Label" type="Label" parent="Button"]
 layout_mode = 1
@@ -404,42 +356,6 @@ mouse_filter = 1
 mouse_filter = 1
 text = "Exit"
 
-[node name="Node3D" type="Node3D" parent="."]
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Node3D"]
-root_node = NodePath("../Camera3D")
-libraries = {
-"": SubResource("AnimationLibrary_y817a")
-}
-
-[node name="Camera3D" type="Camera3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.2618, 2.29673, -14.5773)
-current = true
-fov = 33.0
-
-[node name="OmniLight3D" type="OmniLight3D" parent="Node3D/Camera3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.195518, 0, -9.53201)
-light_color = Color(0.239216, 0.490196, 1, 1)
-light_energy = 8.055
-light_indirect_energy = 2.17
-light_volumetric_fog_energy = 1.71
-light_size = 6.58
-light_specular = 0.0
-omni_range = 14.736
-
-[node name="OmniLight3D2" type="OmniLight3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.0663, 39.7231, -122.232)
-light_color = Color(0.215686, 0.329412, 0.580392, 1)
-light_energy = 21.738
-light_volumetric_fog_energy = 15.233
-light_size = 50.0
-light_specular = 0.0
-omni_range = 4098.53
-omni_attenuation = 0.594604
-
-[node name="Library" parent="Node3D" instance=ExtResource("11_iynvp")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.1133, 0, -33.7205)
-
 [node name="Blackscreen" type="ColorRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
@@ -449,6 +365,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 0)
+metadata/_edit_lock_ = true
 
 [node name="Transition" type="AnimationPlayer" parent="Blackscreen"]
 libraries = {

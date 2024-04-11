@@ -17,4 +17,4 @@ func do_thing():
 	call_deferred("emit_signal", "queues_checked")
 
 func _exit_tree() -> void:
-	thr.wait_to_finish()
+	if thr.is_started(): thr.wait_to_finish()

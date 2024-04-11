@@ -1,4 +1,4 @@
-extends Control
+extends ColorRect
 
 signal img_processed
 
@@ -9,8 +9,14 @@ var host := "localhost"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	# get_tree().get_multiplayer().connected_to_server.connect(ongo)
+	OS.request_permissions()
 	load_size = $Load.size.x
 	$Host.text = host
+
+@rpc("any_peer", "call_local")
+func ongo():
+	color = Color.RED
 
 func start():
 	$Fade.hide()
@@ -120,9 +126,6 @@ func _on_spin_animation_finished(_anim_name):
 func _on_host_text_changed(new_text):
 	host = new_text
 
-func _on_go_pressed():
-	$Host.hide()
-	start()
 
 func generate_random_color_with_contrast():
 	var random_color = Color(randf_range(0.0, 1.0), randf_range(0.0, 1.0), randf_range(0.0, 1.0))
@@ -148,3 +151,54 @@ func generate_random_color_with_contrast():
 
 func _on_button_pressed():
 	get_tree().change_scene_to_file("res://scenes/title.tscn")
+
+func pin():
+	pass
+
+func _on_go_pressed():
+	var multiplayer_peer = ENetMultiplayerPeer.new()
+	multiplayer_peer.create_client("192.168.28.75", 3908)
+	get_tree().get_multiplayer().multiplayer_peer = multiplayer_peer
+	# $Host.hide()
+	# start()
+
+func _on_host_pressed() -> void:
+	var multiplayer_peer = ENetMultiplayerPeer.new()
+	multiplayer_peer.create_server(3908)
+	get_tree().get_multiplayer().multiplayer_peer = multiplayer_peer
+
+func export():
+	var subjects 
+
+@rpc("any_peer", "call_remote")
+func _on_button_2_pressed() -> void:
+	for c: Subject in Global.subjects.values():
+		rpc("save_subj", c.id, c.title, c.description, c.color.to_html(), c.allow_duplicate_questions, c.starred, c.level, c.experience, c.last_time_edited)
+
+@rpc("any_peer", "call_remote")
+func save_subj(id, title, description, image, color, allow_duplicate_questions, starred, level, experience, last_time_edited):
+	var subj = load("res://resources/subject.tres")
+	subj.id = id 
+	subj.title = title 
+	subj.description = description 
+	subj.color = Color(color)
+	subj.allow_duplicate_questions = allow_duplicate_questions 
+	subj.starred = starred 
+	subj.level = level 
+	subj.experience = experience 
+	subj.last_time_edited = last_time_edited 
+	subj.save()
+
+func _on_file_dialog_file_selected(path: String) -> void:
+	var data = load(path)
+	data.subjects[0].save()
+
+func _on_cop_pressed() -> void:
+	for file in DirAccess.get_files_at(OS.get_system_dir(OS.SYSTEM_DIR_DOWNLOADS) + "/subjects"):
+		load(OS.get_system_dir(OS.SYSTEM_DIR_DOWNLOADS) + "/subjects/" + file).save()
+	for subject in DirAccess.get_directories_at(OS.get_system_dir(OS.SYSTEM_DIR_DOWNLOADS) + "/subjects/"):
+		if !DirAccess.dir_exists_absolute("user://subjects/" + subject):
+			DirAccess.make_dir_absolute("user://subjects/" + subject)
+		for file in DirAccess.get_files_at(OS.get_system_dir(OS.SYSTEM_DIR_DOWNLOADS) + "/subjects/" + subject):
+			load(OS.get_system_dir(OS.SYSTEM_DIR_DOWNLOADS) + "/subjects/" + subject + "/" + file).save()
+	$Host2.text = "The deed is done."

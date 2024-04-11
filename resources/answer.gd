@@ -23,7 +23,6 @@ func respond(response):
 			get_question().hit_up()
 		else: 
 			get_question().miss_up()
-		print(get_question().id)
 	save()
 
 func is_correct():

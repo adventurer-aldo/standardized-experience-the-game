@@ -16,8 +16,6 @@ run/main_scene="res://scenes/load.tscn"
 config/use_custom_user_dir=true
 config/custom_user_dir_name="StandardizedExperience"
 config/features=PackedStringArray("4.3", "GL Compatibility")
-boot_splash/bg_color=Color(0, 0, 0, 1)
-boot_splash/show_image=false
 config/icon="res://logo.png"
 
 [autoload]
@@ -34,6 +32,7 @@ window/size/viewport_height=720
 window/size/mode=3
 window/size/resizable=false
 window/stretch/mode="canvas_items"
+window/handheld/orientation=1
 window/vsync/vsync_mode=0
 
 [dotnet]
@@ -67,5 +66,10 @@ ui_text_dedent={
 
 [rendering]
 
-renderer/rendering_method="mobile"
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
 textures/vram_compression/import_etc2_astc=true
+environment/ssao/quality=0
+environment/ssil/quality=0
+anti_aliasing/screen_space_roughness_limiter/enabled=false
+environment/subsurface_scattering/subsurface_scattering_quality=0
