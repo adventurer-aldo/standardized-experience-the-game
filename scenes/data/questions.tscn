@@ -178,6 +178,7 @@ question_parent_node = ExtResource("2_3qjvt")
 question_tag_node = ExtResource("3_438s2")
 
 [node name="Editables" type="VBoxContainer" parent="."]
+auto_translate_mode = 1
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -205,6 +206,7 @@ theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
 [node name="Components" type="VBoxContainer" parent="Editables/QuestionDetails/Details"]
+auto_translate_mode = 1
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -255,6 +257,7 @@ script = ExtResource("4_u841u")
 answer_package = ExtResource("8_1t5ws")
 
 [node name="Questions" type="VBoxContainer" parent="Editables/QuestionDetails/Details/Components/QuestionsManager"]
+auto_translate_mode = 1
 layout_mode = 2
 size_flags_horizontal = 3
 
@@ -274,6 +277,7 @@ icon_alignment = 1
 expand_icon = true
 
 [node name="AnswersManager" type="VBoxContainer" parent="Editables/QuestionDetails/Details/Components"]
+auto_translate_mode = 1
 layout_mode = 2
 script = ExtResource("6_alkfu")
 answer_open = ExtResource("7_my641")
@@ -282,10 +286,12 @@ answer_open = ExtResource("7_my641")
 layout_mode = 2
 
 [node name="Answers" type="VBoxContainer" parent="Editables/QuestionDetails/Details/Components/AnswersManager/AnswerBox"]
+auto_translate_mode = 1
 layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="Answer" parent="Editables/QuestionDetails/Details/Components/AnswersManager/AnswerBox/Answers" instance=ExtResource("7_my641")]
+auto_translate_mode = 1
 layout_mode = 2
 
 [node name="Add" type="Button" parent="Editables/QuestionDetails/Details/Components/AnswersManager/AnswerBox"]
@@ -301,6 +307,11 @@ expand_icon = true
 [node name="Types" type="HBoxContainer" parent="Editables/QuestionDetails/Details/Components/AnswersManager"]
 layout_mode = 2
 alignment = 1
+
+[node name="Level" type="Button" parent="Editables/QuestionDetails/Details/Components"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_832b4")
+text = "1st Test"
 
 [node name="Parents" type="FlowContainer" parent="Editables/QuestionDetails/Details/Components"]
 layout_mode = 2
@@ -371,6 +382,7 @@ horizontal_scroll_mode = 3
 script = ExtResource("9_fantj")
 
 [node name="GridContainer" type="VBoxContainer" parent="Editables/ScrollContainer"]
+auto_translate_mode = 1
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -398,6 +410,7 @@ libraries = {
 [connection signal="delete_pressed" from="Editables/QuestionDetails/Details/Components/QuestionsManager/Questions/Question" to="Editables/QuestionDetails/Details/Components/QuestionsManager" method="_on_answer_delete_pressed"]
 [connection signal="pressed" from="Editables/QuestionDetails/Details/Components/QuestionsManager/AddAnswerButton" to="Editables/QuestionDetails/Details/Components/QuestionsManager" method="_on_add_answer_button_pressed"]
 [connection signal="pressed" from="Editables/QuestionDetails/Details/Components/AnswersManager/AnswerBox/Add" to="Editables/QuestionDetails/Details/Components/AnswersManager" method="_on_add_pressed"]
+[connection signal="pressed" from="Editables/QuestionDetails/Details/Components/Level" to="." method="_on_level_pressed"]
 [connection signal="pressed" from="Editables/QuestionDetails/Details/Components/TagInput/TagSubmit" to="." method="_on_tag_submit_pressed"]
 [connection signal="pressed" from="Editables/QuestionDetails/Details/Components/Submit" to="." method="_on_submit_pressed"]
 [connection signal="pressed" from="Reset" to="." method="_on_reset_pressed"]

@@ -51,8 +51,8 @@ func correct():
 				new_choice.button_group = button_group
 
 func setup():
-	grade = answer.grade
 	var question = answer.get_question()
+	print(question.choices)
 	if question.image != null:
 		$Ratio/Margin/VContent/Image.texture = ImageTexture.create_from_image(question.image)
 	$Ratio/Margin/VContent/Question.text = question.question[answer.question_sample]
@@ -75,7 +75,7 @@ func setup():
 			var text = question.choices[i].texts[0]
 			new_choice.value = text
 			$Ratio/Margin/VContent/Choices.add_child(new_choice)
-			new_choice.grade = grade
+			print(question.choices)
 			if answer.type == 'choice' && answer.choice_indexes.filter(func n(k): return typeof(k) == TYPE_STRING).size() <= 1:
 				new_choice.button_group = button_group
 

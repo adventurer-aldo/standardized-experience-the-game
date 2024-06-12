@@ -2,6 +2,9 @@ extends AudioStreamPlayer
 
 signal speak_finished
 
+@onready var _alt = $SFX_alt
+@onready var voice = $Voice
+
 func effect(trackname: String, main: bool = true):
 	if main == true:
 		stream = load("res://audio/sfx/{name}.ogg".format({"name": trackname}))
@@ -18,4 +21,4 @@ func speak_stop():
 	$Voice.stop()
 
 func _on_voice_finished():
-	emit_signal("speak_finished")
+	speak_finished.emit()

@@ -20,7 +20,7 @@ func load_questions():
 		current_file = file
 		await file_loaded
 		Global.questions[int(file.replace(".res", ""))] = ResourceLoader.load_threaded_get("user://questions/{file}".format({"file": file}))
-	emit_signal("data_loaded")
+	data_loaded.emit()
 
 func load_subjects():
 	data_type = "subjects"
@@ -31,7 +31,7 @@ func load_subjects():
 		current_file = file
 		await file_loaded
 		Global.subjects[int(file.replace(".res", ""))] = ResourceLoader.load_threaded_get("user://subjects/{file}".format({"file": file}))
-	emit_signal("data_loaded")
+	data_loaded.emit()
 	
 func _ready():
 	load_subjects()

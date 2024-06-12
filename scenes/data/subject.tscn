@@ -78,6 +78,7 @@ grow_vertical = 2
 expand_mode = 2
 
 [node name="SubjectElements" type="VBoxContainer" parent="."]
+auto_translate_mode = 1
 layout_mode = 2
 theme_override_constants/separation = 0
 

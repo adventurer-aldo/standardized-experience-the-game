@@ -1,7 +1,5 @@
 extends HBoxContainer
 
-signal de
-
 var order = 1
 var text = ""
 

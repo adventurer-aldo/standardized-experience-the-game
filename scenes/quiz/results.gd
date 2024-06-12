@@ -5,7 +5,8 @@ var quiz = Global.quiz as Quiz
 var answerer_node: PackedScene = load("res://scenes/quiz/answerer.tscn")
 
 func _ready():
-	$ScrollContainer/Elements/Margin/BasicInformation/Subject.text = Global.subjects[quiz.subject_id].title
+	if quiz == null: quiz = Global.get_last_quiz()
+	$ScrollContainer/Elements/Margin/BasicInformation/Subject.text = quiz.get_subject().title
 	$ScrollContainer/Elements/Margin/BasicInformation/Level.text = ["Exercícios", "1º Teste",
 	"2º Teste", "Reposição", "Dissertação", "Exame Normal", "Exame de Recorrência",
 	"Exame Extraordinário"][quiz.level]
@@ -50,6 +51,7 @@ func result(grade):
 		get_tree().create_tween().tween_property($TextureLoop, "modulate", Color(1.0, 1.0, 0.0), 1.5)
 		return "results_victory_best"
 	elif grade >= 18.5:
+		get_tree().create_tween().tween_property($TextureLoop, "modulate", Color(0.0, 0.0, 1.0), 1.5)
 		return "results_victory_greatest"
 	elif grade >= 14.5:
 		return "results_victory_great"

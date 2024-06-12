@@ -22,6 +22,7 @@ var subject := 1
 var subject_name := ""
 
 func _ready():
+	print("Checking questions for ID %s - %s" % [subject, subject_name])
 	SFX.speak("you_want_to_create_new_questions")
 	$Editables/QuestionDetails/Details/Components/Exit/Margin/HBoxContainer/SubjectName.text = subject_name
 	$Editables/ScrollContainer/GridContainer.subject_id = subject
@@ -30,6 +31,10 @@ func _ready():
 	Global.data_questions_delete_button_pressed.connect(_on_question_delete_pressed)
 	Global.data_questions_edit_button_pressed.connect(_on_question_edit_pressed)
 	Global.data_questions_parent_button_pressed.connect(_on_question_parent_pressed)
+
+func _on_level_pressed() -> void:
+	$Editables/QuestionDetails/Details/Components/Level.text = ["1st Test", "2nd Test", "Dissertation", "Exam", "1st Test"][level]
+	level = [1, 2, 3, 4, 1][level]
 
 func _on_submit_pressed():
 	var submitted_questions = get_tree().get_nodes_in_group("question").map(func i(node): return node.text)
@@ -147,7 +152,8 @@ func _on_question_edit_pressed(resource: Question):
 	misses = resource.misses
 	miss_streak = resource.miss_streak
 	spaced_level = resource.spaced_level
-
+	$Editables/QuestionDetails/Details/Components/Level.text = ["1st Test", "2nd Test", "Dissertation", "Exam", "1st Test"][resource.level -1]
+	level = resource.level
 
 func _on_reset_pressed():
 	unedit()
@@ -164,4 +170,3 @@ func _on_reset_pressed():
 			child.set_text("")
 			for alternative in child.get_alternatives_nodes():
 				alternative.queue_free()
-

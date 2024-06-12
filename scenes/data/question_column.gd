@@ -1,9 +1,5 @@
 extends MarginContainer
 
-signal parent_pressed(id)
-signal delete_pressed(id)
-signal edit_pressed(id)
-
 var id: int
 var questions := []
 var parents := []

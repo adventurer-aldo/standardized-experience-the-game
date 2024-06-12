@@ -5,6 +5,9 @@ signal rush_time_started
 
 var can_rush := false
 
+func autoplay_rush(trackname: String):
+	autoplay(trackname + '_pre', false, trackname)
+
 func autoplay(trackname: String, mighty_start := false, with_rush:= ""):
 	$Transitions.play("RESET")
 	await $Transitions.animation_finished
@@ -27,7 +30,7 @@ func autoplay(trackname: String, mighty_start := false, with_rush:= ""):
 		can_rush = false
 	else:
 		can_rush = true
-		$Rush.stream = load("res://audio/tracks/{name}.ogg".format({"name": rush}))
+		$Rush.stream = load("res://audio/tracks/{name}.ogg".format({"name": with_rush}))
 	play()
 
 func stop_rush():
@@ -37,7 +40,7 @@ func fade_out():
 	$Transitions.play("fade_out")
 	await $Transitions.animation_finished
 	stop()
-	emit_signal("fade_in_finished")
+	fade_in_finished.emit()
 
 func pump_might(amount := 1.0):
 	if $Rush.is_playing() || (stream.get_sync_stream(1) == null && !can_rush):
@@ -54,7 +57,7 @@ func pump_might(amount := 1.0):
 func rush():
 	$Rush.play()
 	$Transitions.play("rush")
-	emit_signal("rush_time_started", "blink")
+	rush_time_started.emit("blink")
 
 func might():
 	if stream.get_sync_stream_volume(1) != -60: return

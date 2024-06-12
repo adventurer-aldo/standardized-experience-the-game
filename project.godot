@@ -12,6 +12,7 @@ config_version=5
 
 config/name="Standardized Experience"
 config/description="Level up your learning."
+config/tags=PackedStringArray("educational")
 run/main_scene="res://scenes/load.tscn"
 config/use_custom_user_dir=true
 config/custom_user_dir_name="StandardizedExperience"

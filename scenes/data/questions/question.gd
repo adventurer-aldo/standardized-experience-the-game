@@ -7,7 +7,7 @@ func _on_delete_pressed():
 		find_prev_valid_focus().grab_focus()
 	elif find_next_valid_focus():
 		find_next_valid_focus().grab_focus()
-	emit_signal("delete_pressed", self)
+	delete_pressed.emit(self)
 
 func grab_text_focus():
 	$Text.grab_focus()

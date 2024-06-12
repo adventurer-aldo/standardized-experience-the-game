@@ -23,6 +23,7 @@ func respond(response):
 			get_question().hit_up()
 		else: 
 			get_question().miss_up()
+	print("%s: %s consecutive hits, %s consecutive misses" % [Array(get_question().question).pick_random(), get_question().hit_streak, get_question().miss_streak])
 	save()
 
 func is_correct():
@@ -43,13 +44,13 @@ func is_correct():
 						).has(true)
 				).has(false) && attempt.size() > 0
 
-func get_quiz():
+func get_quiz() -> Quiz:
 	return ResourceLoader.load("user://quizzes/" + str(quiz_id) + ".res")
 
-func get_subject():
+func get_subject() -> Subject:
 	return get_quiz().get_subject()
 
-func get_question():
+func get_question() -> Question:
 	return ResourceLoader.load("user://subjects/" + str(get_quiz().subject_id) + "/" + str(question_id) + ".res")
 
 func save():

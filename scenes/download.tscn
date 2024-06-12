@@ -382,15 +382,13 @@ offset_right = 167.0
 offset_bottom = 49.0
 text = "Exit"
 
-[node name="FileDialog" type="FileDialog" parent="."]
-mode = 3
-title = "Open a File"
-position = Vector2i(302, 36)
-size = Vector2i(948, 623)
-visible = true
-ok_button_text = "Open"
-file_mode = 0
-access = 1
+[node name="Button2" type="Button" parent="."]
+layout_mode = 0
+offset_left = 637.0
+offset_top = 114.0
+offset_right = 828.0
+offset_bottom = 228.0
+text = "ggg"
 
 [connection signal="request_completed" from="HTTPRequest" to="." method="_on_http_request_request_completed"]
 [connection signal="request_completed" from="ImageRequest" to="." method="_on_image_request_request_completed"]
@@ -400,4 +398,4 @@ access = 1
 [connection signal="pressed" from="Host/Go" to="." method="_on_go_pressed"]
 [connection signal="pressed" from="cop" to="." method="_on_cop_pressed"]
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
-[connection signal="file_selected" from="FileDialog" to="." method="_on_file_dialog_file_selected"]
+[connection signal="pressed" from="Button2" to="." method="start"]

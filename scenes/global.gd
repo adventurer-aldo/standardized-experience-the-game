@@ -12,7 +12,7 @@ signal data_questions_question_was_submitted(resource: Resource)
 var subjects := {}
 var questions := {}
 var quiz
-var stats
+var stats: Stats
 
 func _ready():
 	for dir in ["subjects", "quizzes", "journeys", "queues"]:
@@ -43,3 +43,23 @@ func get_last_quiz():
 func get_formatted_grade(grade: float):
 	return String.num(grade, 2).replace(".", ",")
 
+func generate_random_color_with_contrast():
+	var random_color = Color(randf_range(0.0, 1.0), randf_range(0.0, 1.0), randf_range(0.0, 1.0))
+
+	# Calculate the luminance of the color
+	var luminance = 0.2126 * random_color.r + 0.7152 * random_color.g + 0.0722 * random_color.b
+
+	# Check if the luminance is too bright or too dark
+	if luminance > 0.5:
+		# If too bright, make the color darker
+		random_color.r = random_color.r * 0.7
+		random_color.g = random_color.g * 0.7
+		random_color.b = random_color.b * 0.7
+	else:
+		pass
+		# If too dark, make the color lighter
+		# random_color.r = random_color.r + (1 - random_color.r) * 0.3
+		# random_color.g = random_color.g + (1 - random_color.g) * 0.3
+		# random_color.b = random_color.b + (1 - random_color.b) * 0.3
+
+	return random_color

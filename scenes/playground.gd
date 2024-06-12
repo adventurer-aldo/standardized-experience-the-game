@@ -1,8 +1,8 @@
 extends ColorRect
 
 func _ready():
-	var e = [4,3,2,1,5]
-	print(e)
-	e.sort_custom(func e(a, b):
-		return a < b)
-	print(e)
+	var i = load("res://scenes/bgm.tscn") as PackedScene
+	i = i.instantiate()
+	DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_ENABLED)
+	
+	print(i.get_class())

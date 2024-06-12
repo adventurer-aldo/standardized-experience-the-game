@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://b1owkchsug7x4"]
+[gd_scene load_steps=40 format=3 uid="uid://b1owkchsug7x4"]
 
 [ext_resource type="Script" path="res://scenes/quiz/quiz.gd" id="1_8n255"]
 [ext_resource type="Script" path="res://scenes/quiz/texture_loop.gd" id="3_2i8ds"]
@@ -241,6 +241,8 @@ _data = {
 "show_up": SubResource("Animation_gl3cq")
 }
 
+[sub_resource type="ButtonGroup" id="ButtonGroup_snenn"]
+
 [sub_resource type="Animation" id="Animation_62pbd"]
 length = 0.001
 tracks/0/type = "value"
@@ -421,8 +423,8 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = 41368.0
-offset_bottom = 24080.0
+offset_right = 130968.0
+offset_bottom = 74480.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("3_ws1yj")
@@ -473,9 +475,9 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 156.0
-offset_top = 3.0
+offset_top = 61.0
 offset_right = -155.0
-offset_bottom = -3.0
+offset_bottom = -372.0
 grow_horizontal = 2
 grow_vertical = 2
 follow_focus = true
@@ -483,6 +485,7 @@ horizontal_scroll_mode = 3
 vertical_scroll_mode = 3
 
 [node name="Elements" type="VBoxContainer" parent="ScrollContainer"]
+auto_translate_mode = 1
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -492,6 +495,7 @@ layout_mode = 2
 theme_override_constants/margin_top = 30
 
 [node name="BasicInformation" type="VBoxContainer" parent="ScrollContainer/Elements/Margin"]
+auto_translate_mode = 1
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -650,6 +654,7 @@ A fraude académica é punida nos termos do regulamento do ISCTEM."
 horizontal_alignment = 1
 
 [node name="Questions" type="VBoxContainer" parent="ScrollContainer/Elements"]
+auto_translate_mode = 1
 layout_mode = 2
 
 [node name="GradientTop" type="TextureRect" parent="."]
@@ -657,7 +662,6 @@ modulate = Color(1, 1, 1, 0.498039)
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_right = 1280.0
 grow_horizontal = 2
 mouse_filter = 2
 texture = ExtResource("12_70ywo")
@@ -671,9 +675,6 @@ anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 720.0
-offset_right = 1280.0
-offset_bottom = 720.0
 grow_horizontal = 2
 grow_vertical = 0
 mouse_filter = 2
@@ -687,7 +688,6 @@ layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
 offset_top = -38.0
-offset_right = 1280.0
 grow_horizontal = 2
 mouse_filter = 1
 theme = SubResource("Theme_4hcyd")
@@ -771,11 +771,16 @@ color = Color(0, 0, 0, 0.490196)
 metadata/_edit_lock_ = true
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Discard"]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 offset_left = 156.0
 offset_top = 66.5
-offset_right = 996.0
-offset_bottom = 533.5
+offset_right = -284.0
+offset_bottom = -186.5
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Subjects" type="GridContainer" parent="Discard/ScrollContainer"]
 layout_mode = 2
@@ -792,6 +797,33 @@ size_flags_vertical = 3
 mouse_filter = 1
 mouse_default_cursor_shape = 2
 script = ExtResource("11_lkp24")
+
+[node name="Levels" type="HBoxContainer" parent="Discard"]
+layout_mode = 0
+offset_left = 136.0
+offset_top = 17.0
+offset_right = 176.0
+offset_bottom = 57.0
+
+[node name="Level1" type="Button" parent="Discard/Levels"]
+layout_mode = 2
+toggle_mode = true
+button_group = SubResource("ButtonGroup_snenn")
+text = "1st Test"
+
+[node name="Level2" type="Button" parent="Discard/Levels"]
+auto_translate_mode = 1
+layout_mode = 2
+toggle_mode = true
+button_group = SubResource("ButtonGroup_snenn")
+text = "2nd Test"
+
+[node name="Level4" type="Button" parent="Discard/Levels"]
+auto_translate_mode = 1
+layout_mode = 2
+toggle_mode = true
+button_group = SubResource("ButtonGroup_snenn")
+text = "Exam"
 
 [node name="GradientPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -836,3 +868,6 @@ libraries = {
 [connection signal="pressed" from="SubmitButton" to="." method="_on_submit_button_pressed"]
 [connection signal="pressed" from="Discard/ScrollContainer/Subjects/SubjectSelector" to="Discard/ScrollContainer/Subjects/SubjectSelector" method="_on_pressed"]
 [connection signal="subject_selected" from="Discard/ScrollContainer/Subjects/SubjectSelector" to="." method="_on_subject_selector_subject_selected"]
+[connection signal="toggled" from="Discard/Levels/Level1" to="." method="_on_level_1_toggled"]
+[connection signal="toggled" from="Discard/Levels/Level2" to="." method="_on_level_2_toggled"]
+[connection signal="toggled" from="Discard/Levels/Level4" to="." method="_on_level_4_toggled"]

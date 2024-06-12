@@ -24,7 +24,12 @@ func export() -> void:
 		text += "\n\n\n"
 	FileAccess.open("res://export.txt", FileAccess.WRITE).store_string(text)
 
+func create() -> void:
+	save()
+
 func save() -> void:
+	if !DirAccess.dir_exists_absolute("user://subjects/%s" % id):
+		DirAccess.make_dir_absolute("user://subjects/%s" % id)
 	ResourceSaver.save(self, "user://subjects/" + str(id) + ".res", ResourceSaver.FLAG_COMPRESS)
 
 func get_question(question_id: int) -> Question:

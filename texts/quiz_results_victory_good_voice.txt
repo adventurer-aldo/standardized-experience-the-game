@@ -1,7 +1,6 @@
 i_liked_it
 its_passable_try_improving
 youre_halfway_there
-way_above_average_perhaps_get_exempted
 youre_showing_me_some_results
 you_gotta_train
 good_job

@@ -116,6 +116,7 @@ horizontal_scroll_mode = 3
 vertical_scroll_mode = 3
 
 [node name="Elements" type="VBoxContainer" parent="ScrollContainer"]
+auto_translate_mode = 1
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -125,6 +126,7 @@ layout_mode = 2
 theme_override_constants/margin_top = 30
 
 [node name="BasicInformation" type="VBoxContainer" parent="ScrollContainer/Elements/Margin"]
+auto_translate_mode = 1
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -283,6 +285,7 @@ A fraude académica é punida nos termos do regulamento do ISCTEM."
 horizontal_alignment = 1
 
 [node name="Questions" type="VBoxContainer" parent="ScrollContainer/Elements"]
+auto_translate_mode = 1
 layout_mode = 2
 
 [node name="Time" type="Panel" parent="."]

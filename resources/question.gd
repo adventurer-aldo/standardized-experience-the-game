@@ -50,10 +50,10 @@ func get_parameters() -> PackedStringArray:
 	return output
 
 func is_won() -> bool:
-	return hit_streak >= 3
+	return hit_streak >= 2
 
 func is_lost() -> bool:
-	return miss_streak >= 6
+	return miss_streak >= 4
 
 func progress_level() -> void:
 	if is_level_up_queued: return
@@ -66,12 +66,12 @@ func progress_level() -> void:
 		spaced_level = clamp(spaced_level - 1, 1, 99)
 	if !(marked_level == spaced_level):
 		hit_streak = 0
-		miss_streak = 3
+		miss_streak = 2
 	save()
 
 func level_up_time(to_level: int) -> int:
 	match to_level:
-		2: return 20*60
+		2: return 30*60
 		3: return 1*60*60
 		4: return 2*60*60
 		5: return 8*60*60
@@ -93,6 +93,7 @@ func queue_spaced_level_up(to_level: int, time: int = 1200) -> void: # Time is i
 	Global.stats.last_queue_id = queue.id
 	Global.stats.save()
 	queue.save()
+	print(Array(question).pick_random() + ": has been marked for level up.")
 
 func hit_up() -> void:
 	hits += 1

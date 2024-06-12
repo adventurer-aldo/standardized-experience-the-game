@@ -16,7 +16,7 @@ func _process(_delta):
 		if minutes == 2 && seconds == 30:
 			was_rush_signaled = true
 			$TimeAnims.play("show_up")
-			emit_signal("rush_time_started")
+			rush_time_started.emit()
 
 func _on_rush_time_started() -> void:
 	$TimeAnims.play("show_up")
