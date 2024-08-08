@@ -9,7 +9,7 @@
 [ext_resource type="Theme" uid="uid://bbkfe3x78ihvo" path="res://themes/times.tres" id="9_38fcd"]
 [ext_resource type="PackedScene" uid="uid://bxiw1dn02gy4g" path="res://scenes/title_action.tscn" id="11_4jxkd"]
 [ext_resource type="Script" path="res://addons/SmoothScroll/SmoothScrollContainer.gd" id="11_ya3re"]
-[ext_resource type="Texture2D" uid="uid://cx5jbdftuo6t0" path="res://graphics/icons/books.svg" id="12_o0jr2"]
+[ext_resource type="Texture2D" uid="uid://cx5jbdftuo6t0" path="res://graphics/icons/subjects.svg" id="12_o0jr2"]
 [ext_resource type="Texture2D" uid="uid://cqxafjycbkjco" path="res://graphics/icons/file-pen.svg" id="13_tgwoy"]
 [ext_resource type="Texture2D" uid="uid://dh61trwhnvcao" path="res://graphics/icons/person-from-portal.svg" id="14_g2bbi"]
 
@@ -118,6 +118,7 @@ scale = Vector2(2.21875, 2.21875)
 texture = ExtResource("2_37hhe")
 
 [node name="Logo" type="TextureRect" parent="."]
+modulate = Color(100, 100, 100, 1)
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5

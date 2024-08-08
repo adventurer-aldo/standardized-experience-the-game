@@ -47,5 +47,5 @@ func _on_data_loaded():
 	# await get_tree().create_timer(52.0).timeout
 	# get_tree().change_scene_to_file("res://scenes/data/subjects.tscn")
 	# get_tree().change_scene_to_file("res://scenes/data/questions.tscn")
-	get_tree().change_scene_to_file("res://scenes/title.tscn")
+	get_tree().change_scene_to_file("res://scenes/playground.tscn")
 	

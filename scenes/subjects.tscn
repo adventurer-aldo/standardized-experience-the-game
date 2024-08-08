@@ -1,0 +1,187 @@
+[gd_scene load_steps=14 format=3 uid="uid://drly7vmek5i55"]
+
+[ext_resource type="Texture2D" uid="uid://cqgxfrgi53ka8" path="res://graphics/pictures/BGStudyRoom.jpg" id="1_neg4s"]
+[ext_resource type="Texture2D" uid="uid://b6nx0xw2y6jnb" path="res://graphics/pictures/LosTexture.jpg" id="2_6ca3s"]
+[ext_resource type="Script" path="res://scenes/subjects.gd" id="2_l5sjd"]
+[ext_resource type="Texture2D" uid="uid://cx5jbdftuo6t0" path="res://graphics/icons/subjects.svg" id="3_akdsa"]
+[ext_resource type="Theme" uid="uid://ddpx351m2ye8v" path="res://themes/fe_font.tres" id="4_yt5nv"]
+[ext_resource type="Texture2D" uid="uid://bdihavi1s2nir" path="res://graphics/pictures/esc.png" id="5_7r7qu"]
+[ext_resource type="Script" path="res://addons/SmoothScroll/SmoothScrollContainer.gd" id="6_wtibq"]
+[ext_resource type="Script" path="res://scenes/subjects_grid.gd" id="7_0ugd1"]
+[ext_resource type="PackedScene" uid="uid://c0wsl7i3w1i0p" path="res://scenes/subject_container.tscn" id="8_bebma"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8bdpg"]
+bg_color = Color(0, 0.541176, 0, 0.741176)
+skew = Vector2(0.8, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6tnbf"]
+bg_color = Color(0.2697, 0.62988, 0.87, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cb8me"]
+bg_color = Color(0, 0.509804, 1, 1)
+border_width_right = 5
+border_color = Color(0.0745098, 0.305882, 0.705882, 1)
+corner_radius_top_left = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xhblk"]
+bg_color = Color(1, 1, 1, 0.690196)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[node name="Subjects" type="TextureRect"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_neg4s")
+expand_mode = 1
+script = ExtResource("2_l5sjd")
+
+[node name="DotTexture" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = -2.0
+offset_right = -2.0
+offset_bottom = 101.0
+grow_horizontal = 2
+texture = ExtResource("2_6ca3s")
+stretch_mode = 1
+
+[node name="HBox" type="HBoxContainer" parent="DotTexture"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -39.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+
+[node name="AspectRatio" type="AspectRatioContainer" parent="DotTexture/HBox"]
+layout_mode = 2
+
+[node name="Green" type="Panel" parent="DotTexture/HBox/AspectRatio"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_8bdpg")
+
+[node name="SubjectsIcon" type="TextureRect" parent="DotTexture/HBox/AspectRatio"]
+layout_mode = 2
+texture = ExtResource("3_akdsa")
+expand_mode = 1
+
+[node name="GreenDivider" type="HBoxContainer" parent="DotTexture/HBox"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Panel" type="Panel" parent="DotTexture/HBox/GreenDivider"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_8bdpg")
+
+[node name="Panel2" type="Panel" parent="DotTexture/HBox/GreenDivider"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_8bdpg")
+
+[node name="SubjectsLabel" type="Label" parent="DotTexture/HBox"]
+layout_mode = 2
+theme = ExtResource("4_yt5nv")
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 46
+text = "SUBJECTS"
+
+[node name="Margin" type="MarginContainer" parent="DotTexture/HBox"]
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_constants/margin_right = 40
+
+[node name="TotalPanel" type="Panel" parent="DotTexture/HBox/Margin"]
+custom_minimum_size = Vector2(200, 75)
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_6tnbf")
+
+[node name="HBox" type="HBoxContainer" parent="DotTexture/HBox/Margin/TotalPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AddSubjectButton" type="Button" parent="DotTexture/HBox/Margin/TotalPanel/HBox"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_cb8me")
+text = "+"
+
+[node name="HBoxContainer" type="VBoxContainer" parent="DotTexture/HBox/Margin/TotalPanel/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Text" type="Label" parent="DotTexture/HBox/Margin/TotalPanel/HBox/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("4_yt5nv")
+theme_override_font_sizes/font_size = 21
+text = "TOTAL"
+horizontal_alignment = 1
+
+[node name="Amount" type="Label" parent="DotTexture/HBox/Margin/TotalPanel/HBox/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("4_yt5nv")
+theme_override_font_sizes/font_size = 21
+text = "20"
+horizontal_alignment = 1
+
+[node name="TextureButton" type="TextureButton" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 15.0
+offset_top = -79.0
+offset_right = 157.0
+offset_bottom = -6.0
+grow_vertical = 0
+texture_normal = ExtResource("5_7r7qu")
+
+[node name="ColorRect" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 14.0
+offset_top = 123.0
+offset_right = -14.0
+offset_bottom = -92.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_xhblk")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("6_wtibq")
+
+[node name="SubjectsGrid" type="GridContainer" parent="ColorRect/ScrollContainer"]
+layout_mode = 2
+columns = 2
+script = ExtResource("7_0ugd1")
+subject_scene = ExtResource("8_bebma")

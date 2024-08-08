@@ -13,6 +13,7 @@ var quiz_results = {
 		"best_voice": split_file_string("quiz_results_victory_best_voice")
 	}
 	}
+var questions_edit = split_file_string("data_questions_edit")
 var start = split_file_string("start_voice")
 var quiz = split_file_string("quiz_quiz_voice")
 var exit = split_file_string("exit_voice")

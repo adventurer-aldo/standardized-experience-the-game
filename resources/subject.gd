@@ -35,6 +35,15 @@ func save() -> void:
 func get_question(question_id: int) -> Question:
 	return ResourceLoader.load("user://subjects/" + str(id) + "/" + str(question_id) + ".res")
 
+func get_questions() -> Array:
+	var arr = []
+	for file in DirAccess.get_files_at("user://subjects/" + str(id) + "/"):
+		arr.push_back(ResourceLoader.load("user://subjects/" + str(id) + "/" + str(file)))
+	return arr
+
+func get_question_amount() -> int:
+	return Array(DirAccess.get_files_at("user://subjects/" + str(id))).size()
+
 # Gets the list of questions of a Subject sorted by ID and returns element positioned at requested index.
 func get_question_by_order(index: int) -> Question:
 	var array = DirAccess.get_files_at("user://subjects/" + str(id)) as PackedStringArray

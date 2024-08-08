@@ -423,8 +423,8 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = 130968.0
-offset_bottom = 74480.0
+offset_right = 133528.0
+offset_bottom = 75920.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("3_ws1yj")
@@ -477,7 +477,7 @@ anchor_bottom = 1.0
 offset_left = 156.0
 offset_top = 61.0
 offset_right = -155.0
-offset_bottom = -372.0
+offset_bottom = -358.0
 grow_horizontal = 2
 grow_vertical = 2
 follow_focus = true
@@ -864,8 +864,8 @@ libraries = {
 [connection signal="rush_time_started" from="Time" to="." method="_on_time_rush_time_started"]
 [connection signal="rush_time_started" from="Time" to="Time" method="_on_rush_time_started"]
 [connection signal="animation_finished" from="Time/Blinking" to="Time" method="_on_blinking_animation_finished"]
-[connection signal="timeout" from="Time/Timer" to="." method="_on_timer_timeout"]
-[connection signal="pressed" from="SubmitButton" to="." method="_on_submit_button_pressed"]
+[connection signal="timeout" from="Time/Timer" to="." method="finish"]
+[connection signal="pressed" from="SubmitButton" to="." method="finish"]
 [connection signal="pressed" from="Discard/ScrollContainer/Subjects/SubjectSelector" to="Discard/ScrollContainer/Subjects/SubjectSelector" method="_on_pressed"]
 [connection signal="subject_selected" from="Discard/ScrollContainer/Subjects/SubjectSelector" to="." method="_on_subject_selector_subject_selected"]
 [connection signal="toggled" from="Discard/Levels/Level1" to="." method="_on_level_1_toggled"]

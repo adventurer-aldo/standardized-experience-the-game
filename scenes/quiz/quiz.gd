@@ -22,7 +22,7 @@ func bgm_stuff() -> void:
 	await BGM.fade_in_finished
 	if SFX.voice.playing:
 		await SFX.speak_finished
-	BGM.autoplay("houses_level2")
+	BGM.autoplay("engage_level1")
 
 func _exit_tree() -> void:
 	if BGM.playing: BGM.fade_out()
@@ -100,12 +100,15 @@ func duration():
 func ost():
 	match quiz.level:
 		0: return "engage_practice"
-		1: return ["engage_test1_1", "engage_test1_2",# "engage_test2_0",
+		1: return ["engage_test1_0", "engage_test1_1", "engage_test1_2",# "engage_test2_0",
 		"engage_test1_4", "houses_test2_0"].pick_random()
 		2: return ["houses_test2_0", "engage_test2_hope", "engage_challenge1"].pick_random()
 		4: return ["houses_rec_0", "engage_extraordinary"].pick_random()
 
 func finish():
+	if !$Time/Timer.is_stopped():
+		$Time/Timer.paused = true
+	$SubmitButton.disabled = true
 	quiz.end_time = Time.get_unix_time_from_system()
 	quiz.save()
 	$RushParticles.emitting = false
@@ -173,7 +176,7 @@ func _on_subject_selector_subject_selected(id):
 		prepare()
 
 func _on_time_rush_time_started() -> void:
-	BGM.autoplay_rush("engage_rushexam_0")
+	BGM.autoplay_rush("engage_rush1_0")
 	$TextureLoop/LoopAnim.speed_scale = 0.5
 	$TextureLoop/RushFade.play("fade_in")
 	$GradientPlayer.play("appear")

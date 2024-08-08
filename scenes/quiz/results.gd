@@ -14,7 +14,7 @@ func _ready():
 	var minutes = int(duration / 60)
 	var seconds = int(duration % 60)
 	var grade = quiz.get_grade()
-	$ScrollContainer/Elements/Margin/BasicInformation/Control/Label.text = String.num(grade, 2).replace(".", ",")
+	# $ScrollContainer/Elements/Margin/BasicInformation/Control/Label.text = String.num(grade, 2).replace(".", ",")
 	$Time/Label.text = (str(minutes) + "m "  if minutes > 0 else "") + str(seconds) + 's'
 	var loaded_ques = answerer_node
 	for answer in quiz.get_answers():

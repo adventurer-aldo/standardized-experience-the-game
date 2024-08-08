@@ -74,3 +74,4 @@ environment/ssao/quality=0
 environment/ssil/quality=0
 anti_aliasing/screen_space_roughness_limiter/enabled=false
 environment/subsurface_scattering/subsurface_scattering_quality=0
+limits/global_shader_variables/buffer_size=4096

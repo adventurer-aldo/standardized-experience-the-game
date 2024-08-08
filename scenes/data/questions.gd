@@ -154,6 +154,7 @@ func _on_question_edit_pressed(resource: Question):
 	spaced_level = resource.spaced_level
 	$Editables/QuestionDetails/Details/Components/Level.text = ["1st Test", "2nd Test", "Dissertation", "Exam", "1st Test"][resource.level -1]
 	level = resource.level
+	SFX.speak(Text.questions_edit.pick_random())
 
 func _on_reset_pressed():
 	unedit()

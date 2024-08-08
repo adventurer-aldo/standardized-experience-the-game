@@ -28,16 +28,16 @@ func _ready():
 func save_stats():
 	ResourceSaver.save(stats, "user://stats.res", ResourceSaver.FLAG_COMPRESS)
 
-func get_subject(id: int):
+func get_subject(id: int) -> Subject:
 	return subjects[id]
 
-func get_question(_subject_id: int, _question_id: int):
+func get_question(_subject_id: int, _question_id: int) -> Question:
 	return
 
-func get_quiz(id: int):
+func get_quiz(id: int) -> Quiz:
 	return ResourceLoader.load("user://quizzes/" + str(id) + '.res')
 
-func get_last_quiz():
+func get_last_quiz() -> Quiz:
 	return get_quiz(stats.last_quiz_id)
 
 func get_formatted_grade(grade: float):
