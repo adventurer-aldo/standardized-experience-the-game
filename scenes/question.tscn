@@ -52,7 +52,6 @@ corner_radius_bottom_left = 10
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0qbjb"]
 bg_color = Color(0, 0.580392, 0.811765, 1)
-skew = Vector2(0.3, 0)
 border_width_left = 360
 border_width_right = 10
 border_color = Color(0.1881, 0.347225, 0.57, 1)
@@ -64,7 +63,6 @@ corner_radius_bottom_left = 10
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cp5vb"]
 bg_color = Color(0.1802, 0.233467, 0.34, 1)
-skew = Vector2(0.3, 0)
 border_width_right = 325
 border_color = Color(0.105706, 0.143815, 0.217377, 1)
 border_blend = true
@@ -75,7 +73,6 @@ corner_radius_bottom_left = 10
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_767oh"]
 bg_color = Color(0, 0.648, 0.81, 1)
-skew = Vector2(0.3, 0)
 corner_radius_top_left = 10
 corner_radius_bottom_left = 10
 
@@ -84,13 +81,11 @@ shader = ExtResource("6_yl8mv")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_suaeb"]
 bg_color = Color(0, 0.648, 0.81, 1)
-skew = Vector2(0.3, 0)
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_irwxc"]
 bg_color = Color(0.91, 0.644887, 0.2184, 1)
-skew = Vector2(0.3, 0)
 corner_radius_top_left = 10
 corner_radius_bottom_left = 10
 
@@ -99,11 +94,9 @@ shader = ExtResource("6_yl8mv")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rgdl3"]
 bg_color = Color(0.671738, 0.749881, 0.300363, 1)
-skew = Vector2(0.3, 0)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ds3ig"]
 bg_color = Color(0.196727, 0.470242, 0.436046, 1)
-skew = Vector2(0.3, 0)
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 
@@ -112,7 +105,6 @@ shader = ExtResource("6_yl8mv")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6m3gn"]
 bg_color = Color(0.733333, 0.176471, 0.231373, 1)
-skew = Vector2(0.3, 0)
 corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
@@ -123,7 +115,7 @@ custom_minimum_size = Vector2(673, 145)
 offset_left = 1.0
 offset_right = 674.0
 offset_bottom = 145.0
-theme_override_constants/margin_left = 15
+theme_override_constants/margin_left = 8
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 45
 script = ExtResource("1_7wijv")

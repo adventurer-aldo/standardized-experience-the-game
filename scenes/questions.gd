@@ -4,7 +4,7 @@ extends Control
 @export var subject_id: int
 
 func _ready() -> void:
-	# return
+	#return
 	for question in Global.get_subject(subject_id).get_questions():
 		var new_question = question_scene.instantiate()
 		new_question.question = question.question[0]

@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://cirpvf4uhbtw6"]
+
+[ext_resource type="Theme" uid="uid://b703ndr62kcne" path="res://themes/comf_font.tres" id="1_lx7ii"]
+[ext_resource type="StyleBox" uid="uid://dfl88aujavog1" path="res://scenes/questions/alt_question.tres" id="2_0djj0"]
+[ext_resource type="Script" path="res://scenes/questions/alt.gd" id="3_v2n6x"]
+
+[node name="Alt" type="TextEdit" groups=["alt", "question"]]
+custom_minimum_size = Vector2(0, 30)
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("1_lx7ii")
+theme_override_colors/font_placeholder_color = Color(0, 0.38, 0.69, 0.567)
+theme_override_colors/font_color = Color(2.64719e-07, 0.162824, 0.239937, 1)
+theme_override_styles/normal = ExtResource("2_0djj0")
+placeholder_text = "A different phrasing for the question..."
+script = ExtResource("3_v2n6x")
