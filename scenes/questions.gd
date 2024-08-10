@@ -10,4 +10,4 @@ func _ready() -> void:
 		new_question.question = question.question[0]
 		new_question.level = question.level
 		new_question.spaced_level = question.spaced_level
-		$ScrollContainer/GridContainer.add_child(new_question)
+		$QuestionsPart/Scroller/GridContainer.add_child(new_question)

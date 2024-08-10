@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://ckrcxqeye6wpn"]
+[gd_scene load_steps=27 format=3 uid="uid://ckrcxqeye6wpn"]
 
 [ext_resource type="Script" path="res://scenes/question.gd" id="1_7wijv"]
 [ext_resource type="StyleBox" uid="uid://ceknykhdxkrix" path="res://themes/questionpanel_normal.tres" id="2_nwfe6"]
@@ -11,6 +11,8 @@
 [ext_resource type="Texture2D" uid="uid://ctorn41mke8g0" path="res://graphics/icons/child.svg" id="9_epjsh"]
 [ext_resource type="Texture2D" uid="uid://tvskx1tk16o6" path="res://graphics/icons/children.svg" id="10_o8653"]
 [ext_resource type="Texture2D" uid="uid://bitcbwjbsqpxy" path="res://graphics/icons/trash-can.svg" id="11_d274n"]
+
+[sub_resource type="Theme" id="Theme_enwjd"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c6kaw"]
 bg_color = Color(0.638067, 0.895875, 0.969829, 1)
@@ -128,6 +130,7 @@ script = ExtResource("1_7wijv")
 
 [node name="QuestionButton" type="Button" parent="."]
 layout_mode = 2
+theme = SubResource("Theme_enwjd")
 theme_override_styles/focus = SubResource("StyleBoxFlat_c6kaw")
 theme_override_styles/hover = SubResource("StyleBoxFlat_w5ofu")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_plqqx")
@@ -139,6 +142,7 @@ offset_left = 13.0
 offset_top = 15.0
 offset_right = 672.0
 offset_bottom = 76.0
+mouse_filter = 1
 theme_override_styles/panel = ExtResource("2_nwfe6")
 
 [node name="Text" type="Label" parent="QuestionButton/Panel"]
