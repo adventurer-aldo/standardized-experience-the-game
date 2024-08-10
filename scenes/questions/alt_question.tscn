@@ -1,11 +1,21 @@
-[gd_scene load_steps=4 format=3 uid="uid://cirpvf4uhbtw6"]
+[gd_scene load_steps=7 format=3 uid="uid://cirpvf4uhbtw6"]
 
 [ext_resource type="Theme" uid="uid://b703ndr62kcne" path="res://themes/comf_font.tres" id="1_lx7ii"]
-[ext_resource type="StyleBox" uid="uid://dfl88aujavog1" path="res://scenes/questions/alt_question.tres" id="2_0djj0"]
+[ext_resource type="StyleBox" uid="uid://dfl88aujavog1" path="res://scenes/questions/alt.tres" id="2_0djj0"]
 [ext_resource type="Script" path="res://scenes/questions/alt.gd" id="3_v2n6x"]
+[ext_resource type="Material" uid="uid://dj573ymvvkvfg" path="res://shaders/whiten_shader_material.tres" id="4_7hgc5"]
+[ext_resource type="StyleBox" uid="uid://3ujccg7ukj2u" path="res://scenes/questions/alt_delete_last.tres" id="4_g6hfn"]
+[ext_resource type="Texture2D" uid="uid://bl60dwihfavlw" path="res://graphics/icons/minus.svg" id="5_rh0bl"]
 
-[node name="Alt" type="TextEdit" groups=["alt", "question"]]
+[node name="HBoxContainer" type="HBoxContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/separation = 0
+script = ExtResource("3_v2n6x")
+
+[node name="Alt" type="TextEdit" parent="." groups=["alt", "question"]]
 custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource("1_lx7ii")
@@ -13,4 +23,26 @@ theme_override_colors/font_placeholder_color = Color(0, 0.38, 0.69, 0.567)
 theme_override_colors/font_color = Color(2.64719e-07, 0.162824, 0.239937, 1)
 theme_override_styles/normal = ExtResource("2_0djj0")
 placeholder_text = "A different phrasing for the question..."
-script = ExtResource("3_v2n6x")
+
+[node name="Delete" type="Button" parent="."]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+theme_override_styles/normal = ExtResource("4_g6hfn")
+
+[node name="M" type="MarginContainer" parent="Delete"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 6
+
+[node name="Icon" type="TextureRect" parent="Delete/M"]
+material = ExtResource("4_7hgc5")
+layout_mode = 2
+texture = ExtResource("5_rh0bl")
+expand_mode = 1
