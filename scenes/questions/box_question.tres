@@ -1,0 +1,6 @@
+[gd_resource type="StyleBoxFlat" format=3 uid="uid://cx570bosjp4ai"]
+
+[resource]
+content_margin_left = 5.0
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_right = 10

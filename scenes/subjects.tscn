@@ -185,3 +185,5 @@ layout_mode = 2
 columns = 2
 script = ExtResource("7_0ugd1")
 subject_scene = ExtResource("8_bebma")
+
+[connection signal="pressed" from="TextureButton" to="." method="_on_texture_button_pressed"]

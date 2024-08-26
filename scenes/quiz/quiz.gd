@@ -22,7 +22,7 @@ func bgm_stuff() -> void:
 	await BGM.fade_in_finished
 	if SFX.voice.playing:
 		await SFX.speak_finished
-	BGM.autoplay("engage_level1")
+	BGM.autoplay("engage_level2")
 
 func _exit_tree() -> void:
 	if BGM.playing: BGM.fade_out()

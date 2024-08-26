@@ -60,6 +60,7 @@ corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
+expand_margin_bottom = 20.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cp5vb"]
 bg_color = Color(0.1802, 0.233467, 0.34, 1)
@@ -120,15 +121,20 @@ theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 45
 script = ExtResource("1_7wijv")
 
-[node name="QuestionButton" type="Button" parent="."]
+[node name="Elements" type="VBoxContainer" parent="."]
 layout_mode = 2
+
+[node name="QuestionButton" type="Button" parent="Elements"]
+custom_minimum_size = Vector2(673, 77)
+layout_mode = 2
+mouse_filter = 1
 theme = SubResource("Theme_enwjd")
 theme_override_styles/focus = SubResource("StyleBoxFlat_c6kaw")
 theme_override_styles/hover = SubResource("StyleBoxFlat_w5ofu")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_plqqx")
 theme_override_styles/normal = SubResource("StyleBoxFlat_0qbjb")
 
-[node name="Panel" type="Panel" parent="QuestionButton"]
+[node name="Panel" type="Panel" parent="Elements/QuestionButton"]
 layout_mode = 0
 offset_left = 13.0
 offset_top = 15.0
@@ -137,7 +143,7 @@ offset_bottom = 76.0
 mouse_filter = 1
 theme_override_styles/panel = ExtResource("2_nwfe6")
 
-[node name="Text" type="Label" parent="QuestionButton/Panel"]
+[node name="Text" type="Label" parent="Elements/QuestionButton/Panel"]
 layout_mode = 0
 offset_left = 7.0
 offset_top = 6.0
@@ -151,188 +157,192 @@ text = "A question can be this long, can't it? It really can, since that's a rea
 autowrap_mode = 2
 text_overrun_behavior = 3
 
-[node name="Actions" type="Panel" parent="QuestionButton"]
-custom_minimum_size = Vector2(60, 55)
-layout_mode = 0
-offset_left = -8.0
-offset_top = 89.0
-offset_right = 600.0
-offset_bottom = 144.0
+[node name="Actions" type="Panel" parent="Elements"]
+custom_minimum_size = Vector2(0, 55)
+layout_mode = 2
+mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_cp5vb")
 
-[node name="Container" type="HBoxContainer" parent="QuestionButton/Actions"]
+[node name="Container" type="HBoxContainer" parent="Elements/Actions"]
 layout_mode = 0
 offset_left = 7.0
-offset_right = 602.0
+offset_right = 672.0
 offset_bottom = 55.0
 
-[node name="Levels" type="HBoxContainer" parent="QuestionButton/Actions/Container"]
+[node name="Levels" type="HBoxContainer" parent="Elements/Actions/Container"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 0
 
-[node name="SRLevel" type="MarginContainer" parent="QuestionButton/Actions/Container/Levels"]
+[node name="SRLevel" type="MarginContainer" parent="Elements/Actions/Container/Levels"]
 layout_mode = 2
 
-[node name="Panel" type="Panel" parent="QuestionButton/Actions/Container/Levels/SRLevel"]
+[node name="Panel" type="Panel" parent="Elements/Actions/Container/Levels/SRLevel"]
 custom_minimum_size = Vector2(60, 55)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_767oh")
 
-[node name="SRLabelMargin" type="MarginContainer" parent="QuestionButton/Actions/Container/Levels/SRLevel"]
+[node name="SRLabelMargin" type="MarginContainer" parent="Elements/Actions/Container/Levels/SRLevel"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="HBoxContainer" type="HBoxContainer" parent="QuestionButton/Actions/Container/Levels/SRLevel/SRLabelMargin"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Elements/Actions/Container/Levels/SRLevel/SRLabelMargin"]
 layout_mode = 2
 
-[node name="Icon" type="TextureRect" parent="QuestionButton/Actions/Container/Levels/SRLevel/SRLabelMargin/HBoxContainer"]
+[node name="Icon" type="TextureRect" parent="Elements/Actions/Container/Levels/SRLevel/SRLabelMargin/HBoxContainer"]
 material = ExtResource("4_lut28")
 layout_mode = 2
 texture = ExtResource("5_povqj")
 expand_mode = 2
 
-[node name="SRLabel" type="Label" parent="QuestionButton/Actions/Container/Levels/SRLevel/SRLabelMargin/HBoxContainer"]
+[node name="SRLabel" type="Label" parent="Elements/Actions/Container/Levels/SRLevel/SRLabelMargin/HBoxContainer"]
 material = SubResource("ShaderMaterial_0bgd7")
 layout_mode = 2
 theme = ExtResource("3_4hhx7")
 theme_override_font_sizes/font_size = 21
 text = "SR01"
 
-[node name="Level" type="MarginContainer" parent="QuestionButton/Actions/Container/Levels"]
+[node name="Level" type="MarginContainer" parent="Elements/Actions/Container/Levels"]
 layout_mode = 2
 
-[node name="Button" type="Panel" parent="QuestionButton/Actions/Container/Levels/Level"]
+[node name="Button" type="Panel" parent="Elements/Actions/Container/Levels/Level"]
 custom_minimum_size = Vector2(60, 55)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_suaeb")
 
-[node name="MarginContainer" type="MarginContainer" parent="QuestionButton/Actions/Container/Levels/Level"]
+[node name="MarginContainer" type="MarginContainer" parent="Elements/Actions/Container/Levels/Level"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="HBoxContainer" type="HBoxContainer" parent="QuestionButton/Actions/Container/Levels/Level/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Elements/Actions/Container/Levels/Level/MarginContainer"]
 layout_mode = 2
 
-[node name="Icon" type="TextureRect" parent="QuestionButton/Actions/Container/Levels/Level/MarginContainer/HBoxContainer"]
+[node name="Icon" type="TextureRect" parent="Elements/Actions/Container/Levels/Level/MarginContainer/HBoxContainer"]
 material = ExtResource("4_lut28")
 layout_mode = 2
 texture = ExtResource("7_0ib2m")
 expand_mode = 2
 
-[node name="Label" type="Label" parent="QuestionButton/Actions/Container/Levels/Level/MarginContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="Elements/Actions/Container/Levels/Level/MarginContainer/HBoxContainer"]
 material = SubResource("ShaderMaterial_0bgd7")
 layout_mode = 2
 theme = ExtResource("3_4hhx7")
 theme_override_font_sizes/font_size = 21
 text = "Exam"
 
-[node name="Relationships" type="HBoxContainer" parent="QuestionButton/Actions/Container"]
+[node name="Relationships" type="HBoxContainer" parent="Elements/Actions/Container"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 0
 
-[node name="Parent" type="MarginContainer" parent="QuestionButton/Actions/Container/Relationships"]
+[node name="Parent" type="MarginContainer" parent="Elements/Actions/Container/Relationships"]
 layout_mode = 2
 
-[node name="ParentButton" type="Button" parent="QuestionButton/Actions/Container/Relationships/Parent"]
+[node name="ParentButton" type="Button" parent="Elements/Actions/Container/Relationships/Parent"]
 custom_minimum_size = Vector2(60, 55)
 layout_mode = 2
+mouse_force_pass_scroll_events = false
 theme_override_styles/normal = SubResource("StyleBoxFlat_irwxc")
 expand_icon = true
 
-[node name="IconContainer" type="MarginContainer" parent="QuestionButton/Actions/Container/Relationships/Parent"]
+[node name="IconContainer" type="MarginContainer" parent="Elements/Actions/Container/Relationships/Parent"]
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="Icon" type="TextureRect" parent="QuestionButton/Actions/Container/Relationships/Parent/IconContainer"]
+[node name="Icon" type="TextureRect" parent="Elements/Actions/Container/Relationships/Parent/IconContainer"]
 material = SubResource("ShaderMaterial_kadhw")
 layout_mode = 2
+mouse_filter = 2
 texture = ExtResource("8_nmy6d")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Child" type="MarginContainer" parent="QuestionButton/Actions/Container/Relationships"]
+[node name="Child" type="MarginContainer" parent="Elements/Actions/Container/Relationships"]
 layout_mode = 2
 
-[node name="ChildButton" type="Button" parent="QuestionButton/Actions/Container/Relationships/Child"]
+[node name="ChildButton" type="Button" parent="Elements/Actions/Container/Relationships/Child"]
 custom_minimum_size = Vector2(60, 55)
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_rgdl3")
 expand_icon = true
 
-[node name="IconContainer" type="MarginContainer" parent="QuestionButton/Actions/Container/Relationships/Child"]
+[node name="IconContainer" type="MarginContainer" parent="Elements/Actions/Container/Relationships/Child"]
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="Icon" type="TextureRect" parent="QuestionButton/Actions/Container/Relationships/Child/IconContainer"]
+[node name="Icon" type="TextureRect" parent="Elements/Actions/Container/Relationships/Child/IconContainer"]
 material = SubResource("ShaderMaterial_kadhw")
 layout_mode = 2
+mouse_filter = 2
 texture = ExtResource("9_epjsh")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Sibling" type="MarginContainer" parent="QuestionButton/Actions/Container/Relationships"]
+[node name="Sibling" type="MarginContainer" parent="Elements/Actions/Container/Relationships"]
 layout_mode = 2
 
-[node name="SiblingButton" type="Button" parent="QuestionButton/Actions/Container/Relationships/Sibling"]
+[node name="SiblingButton" type="Button" parent="Elements/Actions/Container/Relationships/Sibling"]
 custom_minimum_size = Vector2(60, 55)
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_ds3ig")
 expand_icon = true
 
-[node name="IconContainer" type="MarginContainer" parent="QuestionButton/Actions/Container/Relationships/Sibling"]
+[node name="IconContainer" type="MarginContainer" parent="Elements/Actions/Container/Relationships/Sibling"]
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="Icon" type="TextureRect" parent="QuestionButton/Actions/Container/Relationships/Sibling/IconContainer"]
+[node name="Icon" type="TextureRect" parent="Elements/Actions/Container/Relationships/Sibling/IconContainer"]
 material = SubResource("ShaderMaterial_3444v")
 layout_mode = 2
+mouse_filter = 2
 texture = ExtResource("10_o8653")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Delete" type="MarginContainer" parent="QuestionButton/Actions/Container"]
+[node name="Delete" type="MarginContainer" parent="Elements/Actions/Container"]
 layout_mode = 2
 metadata/_edit_group_ = true
 
-[node name="DeleteButton" type="Button" parent="QuestionButton/Actions/Container/Delete"]
+[node name="DeleteButton" type="Button" parent="Elements/Actions/Container/Delete"]
 custom_minimum_size = Vector2(60, 55)
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_6m3gn")
 expand_icon = true
 
-[node name="IconContainer" type="MarginContainer" parent="QuestionButton/Actions/Container/Delete"]
+[node name="IconContainer" type="MarginContainer" parent="Elements/Actions/Container/Delete"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="Icon" type="TextureRect" parent="QuestionButton/Actions/Container/Delete/IconContainer"]
+[node name="Icon" type="TextureRect" parent="Elements/Actions/Container/Delete/IconContainer"]
 layout_mode = 2
 texture = ExtResource("11_d274n")
 expand_mode = 1
 stretch_mode = 5
 
-[connection signal="focus_entered" from="QuestionButton" to="." method="_on_question_button_focus_entered"]
-[connection signal="focus_exited" from="QuestionButton" to="." method="_on_question_button_focus_exited"]
-[connection signal="pressed" from="QuestionButton/Actions/Container/Relationships/Parent/ParentButton" to="." method="_on_parent_button_pressed"]
-[connection signal="pressed" from="QuestionButton/Actions/Container/Relationships/Child/ChildButton" to="." method="_on_child_button_pressed"]
-[connection signal="pressed" from="QuestionButton/Actions/Container/Relationships/Sibling/SiblingButton" to="." method="_on_sibling_button_pressed"]
-[connection signal="pressed" from="QuestionButton/Actions/Container/Delete/DeleteButton" to="." method="_on_delete_button_pressed"]
+[connection signal="focus_entered" from="Elements/QuestionButton" to="." method="_on_question_button_focus_entered"]
+[connection signal="focus_exited" from="Elements/QuestionButton" to="." method="_on_question_button_focus_exited"]
+[connection signal="pressed" from="Elements/Actions/Container/Relationships/Parent/ParentButton" to="." method="_on_parent_button_pressed"]
+[connection signal="pressed" from="Elements/Actions/Container/Relationships/Child/ChildButton" to="." method="_on_child_button_pressed"]
+[connection signal="pressed" from="Elements/Actions/Container/Relationships/Sibling/SiblingButton" to="." method="_on_sibling_button_pressed"]
+[connection signal="pressed" from="Elements/Actions/Container/Delete/DeleteButton" to="." method="_on_delete_button_pressed"]

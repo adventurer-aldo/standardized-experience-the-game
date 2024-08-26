@@ -48,6 +48,10 @@ movie_writer/movie_file="C:/Users/KAVONA/Videos/Test.avi"
 
 import/fbx/enabled=false
 
+[global_group]
+
+question_box=""
+
 [input]
 
 ui_accept={

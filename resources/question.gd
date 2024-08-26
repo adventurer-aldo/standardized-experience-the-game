@@ -115,6 +115,9 @@ func get_parents() -> Array:
 		found_parents.push_back(load("user://subjects/{subject}/{parent}.res".format({"subject": subject_id, "parent": parent})))
 	return found_parents
 
+func get_subject() -> Subject:
+	return load("user://subjects/" + str(subject_id) + ".res")
+
 func are_parents_won() -> bool:
 	return !get_parents().map(func i(parent): return parent.spaced_level >= 3).has(false)
 

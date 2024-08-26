@@ -4,18 +4,32 @@
 [ext_resource type="PackedScene" uid="uid://ckrcxqeye6wpn" path="res://scenes/question.tscn" id="2_u2mnx"]
 [ext_resource type="Script" path="res://addons/SmoothScroll/SmoothScrollContainer.gd" id="3_scfgu"]
 [ext_resource type="Material" uid="uid://dj573ymvvkvfg" path="res://shaders/whiten_shader_material.tres" id="3_uwcgk"]
-[ext_resource type="Texture2D" uid="uid://d1ox1pwkctiyi" path="res://graphics/icons/a.svg" id="4_8suks"]
 [ext_resource type="Texture2D" uid="uid://bve3nc1spkmfl" path="res://graphics/icons/double-arrow-up.svg" id="4_ws1nm"]
 [ext_resource type="Texture2D" uid="uid://b27mj7mrqwt3v" path="res://graphics/icons/messages-question.svg" id="4_x5jm5"]
 [ext_resource type="Texture2D" uid="uid://w17x0ij5d2uk" path="res://graphics/icons/arrows-turn-right.svg" id="5_be78k"]
 [ext_resource type="Texture2D" uid="uid://cts7s8dis43d" path="res://graphics/icons/plus.svg" id="5_j72u3"]
 [ext_resource type="Texture2D" uid="uid://dwmf2l417rhp6" path="res://graphics/icons/image-landscape.svg" id="6_1obj1"]
 [ext_resource type="Texture2D" uid="uid://citebrfbsh67p" path="res://graphics/icons/speakers.svg" id="7_gs0co"]
-[ext_resource type="Texture2D" uid="uid://dsvqgd6a7lijv" path="res://graphics/icons/book-open-cover.svg" id="8_e7xut"]
 [ext_resource type="Theme" uid="uid://b703ndr62kcne" path="res://themes/comf_font.tres" id="9_0cdf6"]
 [ext_resource type="Texture2D" uid="uid://uep8oxvrbff1" path="res://graphics/icons/x.svg" id="12_avayv"]
 [ext_resource type="Texture2D" uid="uid://tobp5l3emc5" path="res://graphics/icons/c.svg" id="12_kh7ne"]
+[ext_resource type="PackedScene" uid="uid://cjxqqd6bx4v5e" path="res://scenes/questions/question_box.tscn" id="12_locw3"]
+[ext_resource type="PackedScene" uid="uid://dmxx1nm0wtkld" path="res://scenes/questions/parent.tscn" id="15_lqvl5"]
 [ext_resource type="Texture2D" uid="uid://c4dsaaq0mbb1h" path="res://graphics/exclamation.png" id="15_m2e8j"]
+[ext_resource type="Texture2D" uid="uid://bdihavi1s2nir" path="res://graphics/pictures/esc.png" id="16_g4c5h"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nco8m"]
+bg_color = Color(0.91, 0.644887, 0.2184, 1)
+corner_radius_top_left = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="InputEventKey" id="InputEventKey_mcelt"]
+device = -1
+ctrl_pressed = true
+keycode = 82
+
+[sub_resource type="Shortcut" id="Shortcut_t87q0"]
+events = [SubResource("InputEventKey_mcelt")]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rcbrp"]
 bg_color = Color(0, 0, 0, 0.5)
@@ -52,38 +66,6 @@ corner_radius_bottom_left = 10
 bg_color = Color(0, 0.380392, 0.690196, 1)
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jmske"]
-bg_color = Color(0, 0.3795, 0.69, 1)
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
-border_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 10
-corner_radius_bottom_left = 10
-anti_aliasing = false
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_56ss5"]
-content_margin_left = 5.0
-bg_color = Color(1, 1, 1, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jhcax"]
-content_margin_left = 5.0
-bg_color = Color(1, 1, 1, 1)
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yk01e"]
-bg_color = Color(0, 0.380392, 0.690196, 1)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 5
-border_color = Color(1, 1, 1, 1)
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-anti_aliasing = false
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2oxby"]
 bg_color = Color(0, 0.3795, 0.69, 1)
@@ -150,22 +132,13 @@ corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_486pq"]
-content_margin_left = 5.0
-content_margin_top = 5.0
-content_margin_right = 5.0
-content_margin_bottom = 5.0
-bg_color = Color(0.65203, 0.533392, 0, 1)
-corner_radius_top_left = 10
-corner_radius_bottom_left = 10
-anti_aliasing = false
+[sub_resource type="InputEventKey" id="InputEventKey_g4y4e"]
+device = -1
+ctrl_pressed = true
+keycode = 83
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v7q8x"]
-content_margin_right = 10.0
-bg_color = Color(0.65203, 0.533392, 0, 1)
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-anti_aliasing = false
+[sub_resource type="Shortcut" id="Shortcut_sofbb"]
+events = [SubResource("InputEventKey_g4y4e")]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mycyb"]
 content_margin_left = 5.0
@@ -194,6 +167,8 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_wepdh")
 question_scene = ExtResource("2_u2mnx")
+box = ExtResource("12_locw3")
+parent_scene = ExtResource("15_lqvl5")
 metadata/_edit_lock_ = true
 
 [node name="ColorRect" type="ColorRect" parent="."]
@@ -207,6 +182,16 @@ offset_bottom = 310.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.3)
+
+[node name="Reset" type="Button" parent="ColorRect"]
+custom_minimum_size = Vector2(60, 55)
+layout_mode = 0
+offset_left = -81.0
+offset_right = -21.0
+offset_bottom = 55.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_nco8m")
+shortcut = SubResource("Shortcut_t87q0")
+expand_icon = true
 
 [node name="QuestionsPart" type="MarginContainer" parent="."]
 layout_mode = 0
@@ -224,6 +209,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_rcbrp")
 [node name="Scroller" type="ScrollContainer" parent="QuestionsPart"]
 custom_minimum_size = Vector2(673, 145)
 layout_mode = 2
+follow_focus = true
 script = ExtResource("3_scfgu")
 
 [node name="GridContainer" type="VBoxContainer" parent="QuestionsPart/Scroller"]
@@ -240,33 +226,41 @@ offset_bottom = 621.0
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_rcbrp")
 
-[node name="Margin" type="MarginContainer" parent="NewQuestionPart"]
+[node name="ScrollContainer" type="ScrollContainer" parent="NewQuestionPart"]
 layout_mode = 2
+script = ExtResource("3_scfgu")
+
+[node name="Margin" type="MarginContainer" parent="NewQuestionPart/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="HBoxes" type="HBoxContainer" parent="NewQuestionPart/Margin"]
+[node name="HBoxes" type="HBoxContainer" parent="NewQuestionPart/ScrollContainer/Margin"]
 layout_mode = 2
 
-[node name="Types" type="VBoxContainer" parent="NewQuestionPart/Margin/HBoxes"]
+[node name="Types" type="VBoxContainer" parent="NewQuestionPart/ScrollContainer/Margin/HBoxes"]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="Open" type="Button" parent="NewQuestionPart/Margin/HBoxes/Types"]
+[node name="Open" type="Button" parent="NewQuestionPart/ScrollContainer/Margin/HBoxes/Types"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 size_flags_vertical = 3
+mouse_filter = 1
 theme_override_styles/normal = SubResource("StyleBoxFlat_dfdw3")
 icon = ExtResource("4_x5jm5")
 icon_alignment = 1
 expand_icon = true
 
-[node name="Choice" type="Button" parent="NewQuestionPart/Margin/HBoxes/Types"]
+[node name="Choice" type="Button" parent="NewQuestionPart/ScrollContainer/Margin/HBoxes/Types"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 size_flags_vertical = 3
+mouse_filter = 1
 theme_override_styles/pressed = SubResource("StyleBoxFlat_sjw8e")
 theme_override_styles/normal = SubResource("StyleBoxFlat_shf26")
 toggle_mode = true
@@ -275,18 +269,19 @@ icon = ExtResource("5_be78k")
 icon_alignment = 1
 expand_icon = true
 
-[node name="Details" type="VBoxContainer" parent="NewQuestionPart/Margin/HBoxes"]
+[node name="Details" type="VBoxContainer" parent="NewQuestionPart/ScrollContainer/Margin/HBoxes"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="LevelStuff" type="HBoxContainer" parent="NewQuestionPart/Margin/HBoxes/Details"]
+[node name="LevelStuff" type="HBoxContainer" parent="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details"]
 layout_mode = 2
 
-[node name="IncreaseLevel" type="Button" parent="NewQuestionPart/Margin/HBoxes/Details/LevelStuff"]
+[node name="IncreaseLevel" type="Button" parent="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details/LevelStuff"]
 custom_minimum_size = Vector2(25, 0)
 layout_mode = 2
+mouse_filter = 1
 
-[node name="M" type="MarginContainer" parent="NewQuestionPart/Margin/HBoxes/Details/LevelStuff/IncreaseLevel"]
+[node name="M" type="MarginContainer" parent="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details/LevelStuff/IncreaseLevel"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -300,22 +295,24 @@ offset_bottom = 11.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Icon" type="TextureRect" parent="NewQuestionPart/Margin/HBoxes/Details/LevelStuff/IncreaseLevel/M"]
+[node name="Icon" type="TextureRect" parent="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details/LevelStuff/IncreaseLevel/M"]
 layout_mode = 2
 texture = ExtResource("4_ws1nm")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="LevelLabel" type="Label" parent="NewQuestionPart/Margin/HBoxes/Details/LevelStuff"]
+[node name="LevelLabel" type="Label" parent="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details/LevelStuff"]
 layout_mode = 2
+mouse_filter = 1
 theme = ExtResource("9_0cdf6")
 text = "Level"
 
-[node name="DecreaseLevel" type="Button" parent="NewQuestionPart/Margin/HBoxes/Details/LevelStuff"]
+[node name="DecreaseLevel" type="Button" parent="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details/LevelStuff"]
 custom_minimum_size = Vector2(25, 0)
 layout_mode = 2
+mouse_filter = 1
 
-[node name="M" type="MarginContainer" parent="NewQuestionPart/Margin/HBoxes/Details/LevelStuff/DecreaseLevel"]
+[node name="M" type="MarginContainer" parent="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details/LevelStuff/DecreaseLevel"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -329,24 +326,25 @@ offset_bottom = 11.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Icon" type="TextureRect" parent="NewQuestionPart/Margin/HBoxes/Details/LevelStuff/DecreaseLevel/M"]
+[node name="Icon" type="TextureRect" parent="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details/LevelStuff/DecreaseLevel/M"]
 layout_mode = 2
 texture = ExtResource("4_ws1nm")
 expand_mode = 1
 stretch_mode = 4
 flip_v = true
 
-[node name="AddOns" type="HBoxContainer" parent="NewQuestionPart/Margin/HBoxes/Details"]
+[node name="AddOns" type="HBoxContainer" parent="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details"]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="ImageButton" type="Button" parent="NewQuestionPart/Margin/HBoxes/Details/AddOns"]
+[node name="ImageButton" type="Button" parent="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details/AddOns"]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 theme_override_styles/normal = SubResource("StyleBoxFlat_mdboc")
 
-[node name="M" type="MarginContainer" parent="NewQuestionPart/Margin/HBoxes/Details/AddOns/ImageButton"]
+[node name="M" type="MarginContainer" parent="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details/AddOns/ImageButton"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -356,10 +354,10 @@ offset_right = -101.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Icons" type="HBoxContainer" parent="NewQuestionPart/Margin/HBoxes/Details/AddOns/ImageButton/M"]
+[node name="Icons" type="HBoxContainer" parent="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details/AddOns/ImageButton/M"]
 layout_mode = 2
 
-[node name="Plus" type="TextureRect" parent="NewQuestionPart/Margin/HBoxes/Details/AddOns/ImageButton/M/Icons"]
+[node name="Plus" type="TextureRect" parent="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details/AddOns/ImageButton/M/Icons"]
 material = ExtResource("3_uwcgk")
 layout_mode = 2
 size_flags_horizontal = 3
@@ -367,7 +365,7 @@ texture = ExtResource("5_j72u3")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="Img" type="TextureRect" parent="NewQuestionPart/Margin/HBoxes/Details/AddOns/ImageButton/M/Icons"]
+[node name="Img" type="TextureRect" parent="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details/AddOns/ImageButton/M/Icons"]
 material = ExtResource("3_uwcgk")
 layout_mode = 2
 size_flags_horizontal = 3
@@ -376,19 +374,20 @@ texture = ExtResource("6_1obj1")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="Amount" type="Label" parent="NewQuestionPart/Margin/HBoxes/Details/AddOns/ImageButton/M/Icons/Img"]
+[node name="Amount" type="Label" parent="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details/AddOns/ImageButton/M/Icons/Img"]
 layout_mode = 0
 offset_left = 31.0
 offset_top = -5.0
 offset_right = 49.0
 offset_bottom = 14.0
+mouse_filter = 1
 theme = ExtResource("9_0cdf6")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Panel" type="Panel" parent="NewQuestionPart/Margin/HBoxes/Details/AddOns/ImageButton/M/Icons/Img/Amount"]
+[node name="Panel" type="Panel" parent="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details/AddOns/ImageButton/M/Icons/Img/Amount"]
 show_behind_parent = true
 layout_mode = 1
 anchors_preset = 15
@@ -400,14 +399,16 @@ offset_right = 4.0
 offset_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_d7yns")
 
-[node name="SoundButton" type="Button" parent="NewQuestionPart/Margin/HBoxes/Details/AddOns"]
+[node name="SoundButton" type="Button" parent="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details/AddOns"]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 theme_override_styles/normal = SubResource("StyleBoxFlat_38onx")
 
-[node name="M" type="MarginContainer" parent="NewQuestionPart/Margin/HBoxes/Details/AddOns/SoundButton"]
+[node name="M" type="MarginContainer" parent="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details/AddOns/SoundButton"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -419,10 +420,10 @@ offset_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Icons" type="HBoxContainer" parent="NewQuestionPart/Margin/HBoxes/Details/AddOns/SoundButton/M"]
+[node name="Icons" type="HBoxContainer" parent="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details/AddOns/SoundButton/M"]
 layout_mode = 2
 
-[node name="Plus" type="TextureRect" parent="NewQuestionPart/Margin/HBoxes/Details/AddOns/SoundButton/M/Icons"]
+[node name="Plus" type="TextureRect" parent="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details/AddOns/SoundButton/M/Icons"]
 material = ExtResource("3_uwcgk")
 layout_mode = 2
 size_flags_horizontal = 3
@@ -430,7 +431,7 @@ texture = ExtResource("5_j72u3")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="Snd" type="TextureRect" parent="NewQuestionPart/Margin/HBoxes/Details/AddOns/SoundButton/M/Icons"]
+[node name="Snd" type="TextureRect" parent="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details/AddOns/SoundButton/M/Icons"]
 material = ExtResource("3_uwcgk")
 layout_mode = 2
 size_flags_horizontal = 3
@@ -438,19 +439,20 @@ texture = ExtResource("7_gs0co")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="Amount" type="Label" parent="NewQuestionPart/Margin/HBoxes/Details/AddOns/SoundButton/M/Icons/Snd"]
+[node name="Amount" type="Label" parent="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details/AddOns/SoundButton/M/Icons/Snd"]
 layout_mode = 0
 offset_left = 31.0
 offset_top = -5.0
 offset_right = 49.0
 offset_bottom = 14.0
+mouse_filter = 1
 theme = ExtResource("9_0cdf6")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Panel" type="Panel" parent="NewQuestionPart/Margin/HBoxes/Details/AddOns/SoundButton/M/Icons/Snd/Amount"]
+[node name="Panel" type="Panel" parent="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details/AddOns/SoundButton/M/Icons/Snd/Amount"]
 show_behind_parent = true
 layout_mode = 1
 anchors_preset = 15
@@ -462,190 +464,46 @@ offset_right = 4.0
 offset_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_d7yns")
 
-[node name="Questions" type="HBoxContainer" parent="NewQuestionPart/Margin/HBoxes/Details"]
+[node name="Question" parent="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details" groups=["question"] instance=ExtResource("12_locw3")]
+layout_mode = 2
+
+[node name="AddAlt" parent="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details/Question" index="0"]
+mouse_filter = 1
+
+[node name="Text" parent="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details/Question/Editables/MainElement" index="0"]
+mouse_filter = 1
+
+[node name="Delete" parent="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details/Question/Editables/MainElement" index="1"]
+mouse_filter = 1
+
+[node name="AddSiblingQuestion" parent="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details/Question" index="2"]
+mouse_filter = 1
+
+[node name="Answers" type="VBoxContainer" parent="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details"]
+layout_mode = 2
+
+[node name="Answer" parent="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details/Answers" instance=ExtResource("12_locw3")]
+layout_mode = 2
+data_type = 1
+
+[node name="Choices" type="VBoxContainer" parent="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details"]
+layout_mode = 2
+
+[node name="Choice" type="HBoxContainer" parent="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details/Choices"]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="Button" type="Button" parent="NewQuestionPart/Margin/HBoxes/Details/Questions"]
+[node name="AltAnsButton" type="Button" parent="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details/Choices/Choice"]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 size_flags_vertical = 0
-theme_override_styles/normal = SubResource("StyleBoxFlat_jmske")
-
-[node name="M" type="MarginContainer" parent="NewQuestionPart/Margin/HBoxes/Details/Questions/Button"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 8
-theme_override_constants/margin_top = 6
-theme_override_constants/margin_right = 6
-theme_override_constants/margin_bottom = 6
-
-[node name="Icon" type="TextureRect" parent="NewQuestionPart/Margin/HBoxes/Details/Questions/Button/M"]
-material = ExtResource("3_uwcgk")
-layout_mode = 2
-texture = ExtResource("8_e7xut")
-expand_mode = 1
-
-[node name="VBoxContainer" type="VBoxContainer" parent="NewQuestionPart/Margin/HBoxes/Details/Questions"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/separation = 0
-
-[node name="Text" type="TextEdit" parent="NewQuestionPart/Margin/HBoxes/Details/Questions/VBoxContainer" groups=["question"]]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-size_flags_horizontal = 3
-theme = ExtResource("9_0cdf6")
-theme_override_colors/font_placeholder_color = Color(0, 0.38, 0.69, 0.567)
-theme_override_colors/font_color = Color(2.64719e-07, 0.162824, 0.239937, 1)
-theme_override_styles/normal = SubResource("StyleBoxFlat_56ss5")
-placeholder_text = "What will be the question?"
-
-[node name="Alternatives" type="VBoxContainer" parent="NewQuestionPart/Margin/HBoxes/Details/Questions/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 0
-
-[node name="Alt" type="TextEdit" parent="NewQuestionPart/Margin/HBoxes/Details/Questions/VBoxContainer/Alternatives" groups=["question"]]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme = ExtResource("9_0cdf6")
-theme_override_colors/font_placeholder_color = Color(0, 0.38, 0.69, 0.567)
-theme_override_colors/font_color = Color(2.64719e-07, 0.162824, 0.239937, 1)
-theme_override_styles/normal = SubResource("StyleBoxFlat_jhcax")
-placeholder_text = "A different phrasing for the question..."
-
-[node name="AddAltQuestion" type="Button" parent="NewQuestionPart/Margin/HBoxes/Details/Questions"]
-custom_minimum_size = Vector2(30, 30)
-layout_mode = 2
-size_flags_vertical = 0
-theme_override_styles/normal = SubResource("StyleBoxFlat_yk01e")
-
-[node name="M" type="MarginContainer" parent="NewQuestionPart/Margin/HBoxes/Details/Questions/AddAltQuestion"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 6
-theme_override_constants/margin_top = 6
-theme_override_constants/margin_right = 8
-theme_override_constants/margin_bottom = 6
-
-[node name="Icon" type="TextureRect" parent="NewQuestionPart/Margin/HBoxes/Details/Questions/AddAltQuestion/M"]
-material = ExtResource("3_uwcgk")
-layout_mode = 2
-texture = ExtResource("5_j72u3")
-expand_mode = 1
-
-[node name="Answers" type="VBoxContainer" parent="NewQuestionPart/Margin/HBoxes/Details"]
-layout_mode = 2
-
-[node name="Answer" type="HBoxContainer" parent="NewQuestionPart/Margin/HBoxes/Details/Answers"]
-layout_mode = 2
-theme_override_constants/separation = 0
-
-[node name="AltAnsButton" type="Button" parent="NewQuestionPart/Margin/HBoxes/Details/Answers/Answer"]
-custom_minimum_size = Vector2(30, 30)
-layout_mode = 2
-size_flags_vertical = 0
-theme_override_styles/normal = SubResource("StyleBoxFlat_jmske")
-
-[node name="M" type="MarginContainer" parent="NewQuestionPart/Margin/HBoxes/Details/Answers/Answer/AltAnsButton"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 8
-theme_override_constants/margin_top = 6
-theme_override_constants/margin_right = 6
-theme_override_constants/margin_bottom = 6
-
-[node name="Icon" type="TextureRect" parent="NewQuestionPart/Margin/HBoxes/Details/Answers/Answer/AltAnsButton/M"]
-material = ExtResource("3_uwcgk")
-layout_mode = 2
-texture = ExtResource("4_8suks")
-expand_mode = 1
-
-[node name="TextEdit" type="VBoxContainer" parent="NewQuestionPart/Margin/HBoxes/Details/Answers/Answer"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/separation = 0
-
-[node name="Main" type="TextEdit" parent="NewQuestionPart/Margin/HBoxes/Details/Answers/Answer/TextEdit"]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme = ExtResource("9_0cdf6")
-theme_override_colors/font_placeholder_color = Color(0, 0.38, 0.69, 0.567)
-theme_override_colors/font_color = Color(2.64719e-07, 0.162824, 0.239937, 1)
-theme_override_styles/normal = SubResource("StyleBoxFlat_56ss5")
-placeholder_text = "What will be an answer?"
-
-[node name="Alternatives" type="VBoxContainer" parent="NewQuestionPart/Margin/HBoxes/Details/Answers/Answer/TextEdit"]
-layout_mode = 2
-theme_override_constants/separation = 0
-
-[node name="Alt" type="TextEdit" parent="NewQuestionPart/Margin/HBoxes/Details/Answers/Answer/TextEdit/Alternatives"]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme = ExtResource("9_0cdf6")
-theme_override_colors/font_placeholder_color = Color(0, 0.38, 0.69, 0.567)
-theme_override_colors/font_color = Color(2.64719e-07, 0.162824, 0.239937, 1)
-theme_override_styles/normal = SubResource("StyleBoxFlat_jhcax")
-placeholder_text = "What is an alternative for the answer?"
-
-[node name="Button2" type="Button" parent="NewQuestionPart/Margin/HBoxes/Details/Answers/Answer"]
-custom_minimum_size = Vector2(30, 30)
-layout_mode = 2
-size_flags_vertical = 0
-theme_override_styles/normal = SubResource("StyleBoxFlat_yk01e")
-
-[node name="MarginContainer" type="MarginContainer" parent="NewQuestionPart/Margin/HBoxes/Details/Answers/Answer/Button2"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 6
-theme_override_constants/margin_top = 6
-theme_override_constants/margin_right = 8
-theme_override_constants/margin_bottom = 6
-
-[node name="TextureRect" type="TextureRect" parent="NewQuestionPart/Margin/HBoxes/Details/Answers/Answer/Button2/MarginContainer"]
-material = ExtResource("3_uwcgk")
-layout_mode = 2
-texture = ExtResource("5_j72u3")
-expand_mode = 1
-
-[node name="Choices" type="VBoxContainer" parent="NewQuestionPart/Margin/HBoxes/Details"]
-layout_mode = 2
-
-[node name="Choice" type="HBoxContainer" parent="NewQuestionPart/Margin/HBoxes/Details/Choices"]
-layout_mode = 2
-theme_override_constants/separation = 0
-
-[node name="AltAnsButton" type="Button" parent="NewQuestionPart/Margin/HBoxes/Details/Choices/Choice"]
-custom_minimum_size = Vector2(30, 30)
-layout_mode = 2
-size_flags_vertical = 0
+mouse_filter = 1
 theme_override_styles/normal = SubResource("StyleBoxFlat_2oxby")
 
-[node name="M" type="MarginContainer" parent="NewQuestionPart/Margin/HBoxes/Details/Choices/Choice/AltAnsButton"]
+[node name="M" type="MarginContainer" parent="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details/Choices/Choice/AltAnsButton"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -657,50 +515,53 @@ theme_override_constants/margin_top = 6
 theme_override_constants/margin_right = 6
 theme_override_constants/margin_bottom = 6
 
-[node name="Icon" type="TextureRect" parent="NewQuestionPart/Margin/HBoxes/Details/Choices/Choice/AltAnsButton/M"]
+[node name="Icon" type="TextureRect" parent="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details/Choices/Choice/AltAnsButton/M"]
 material = ExtResource("3_uwcgk")
 layout_mode = 2
 texture = ExtResource("12_kh7ne")
 expand_mode = 1
 
-[node name="TextEdit" type="VBoxContainer" parent="NewQuestionPart/Margin/HBoxes/Details/Choices/Choice"]
+[node name="TextEdit" type="VBoxContainer" parent="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details/Choices/Choice"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 0
 
-[node name="Main" type="TextEdit" parent="NewQuestionPart/Margin/HBoxes/Details/Choices/Choice/TextEdit"]
+[node name="Main" type="TextEdit" parent="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details/Choices/Choice/TextEdit"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+mouse_filter = 1
 theme = ExtResource("9_0cdf6")
 theme_override_colors/font_placeholder_color = Color(0.5, 0, 0, 0.568627)
 theme_override_colors/font_color = Color(0.33, 0, 0, 1)
 theme_override_styles/normal = SubResource("StyleBoxFlat_8h77s")
 placeholder_text = "What will be a decoy answer?"
 
-[node name="Alternatives" type="VBoxContainer" parent="NewQuestionPart/Margin/HBoxes/Details/Choices/Choice/TextEdit"]
+[node name="Alternatives" type="VBoxContainer" parent="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details/Choices/Choice/TextEdit"]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="Alt" type="TextEdit" parent="NewQuestionPart/Margin/HBoxes/Details/Choices/Choice/TextEdit/Alternatives"]
+[node name="Alt" type="TextEdit" parent="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details/Choices/Choice/TextEdit/Alternatives"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+mouse_filter = 1
 theme = ExtResource("9_0cdf6")
 theme_override_colors/font_placeholder_color = Color(0.5, 0, 0, 0.568627)
 theme_override_colors/font_color = Color(0.33, 0, 0, 1)
 theme_override_styles/normal = SubResource("StyleBoxFlat_lhiy6")
 placeholder_text = "What is an alternative for that decoy?"
 
-[node name="Button2" type="Button" parent="NewQuestionPart/Margin/HBoxes/Details/Choices/Choice"]
+[node name="Button2" type="Button" parent="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details/Choices/Choice"]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 size_flags_vertical = 0
+mouse_filter = 1
 theme_override_styles/normal = SubResource("StyleBoxFlat_v5q1a")
 
-[node name="MarginContainer" type="MarginContainer" parent="NewQuestionPart/Margin/HBoxes/Details/Choices/Choice/Button2"]
+[node name="MarginContainer" type="MarginContainer" parent="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details/Choices/Choice/Button2"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -712,51 +573,54 @@ theme_override_constants/margin_top = 6
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 6
 
-[node name="TextureRect" type="TextureRect" parent="NewQuestionPart/Margin/HBoxes/Details/Choices/Choice/Button2/MarginContainer"]
+[node name="TextureRect" type="TextureRect" parent="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details/Choices/Choice/Button2/MarginContainer"]
 material = ExtResource("3_uwcgk")
 layout_mode = 2
 texture = ExtResource("5_j72u3")
 expand_mode = 1
 
-[node name="Tags" type="HBoxContainer" parent="NewQuestionPart/Margin/HBoxes/Details"]
+[node name="Tags" type="HBoxContainer" parent="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details"]
 layout_mode = 2
 
-[node name="TagEdit" type="TextEdit" parent="NewQuestionPart/Margin/HBoxes/Details/Tags"]
+[node name="TagEdit" type="TextEdit" parent="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details/Tags"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 theme_override_colors/font_placeholder_color = Color(0.58699, 0.387535, 0.106703, 1)
 theme_override_colors/font_color = Color(0.344513, 0.231241, 0.00842437, 1)
 theme_override_styles/normal = SubResource("StyleBoxFlat_e2n72")
 placeholder_text = "Implement a question tag"
 
-[node name="ScrollTags" type="ScrollContainer" parent="NewQuestionPart/Margin/HBoxes/Details/Tags"]
+[node name="ScrollTags" type="ScrollContainer" parent="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details/Tags"]
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 
-[node name="PrevTags" type="HFlowContainer" parent="NewQuestionPart/Margin/HBoxes/Details/Tags/ScrollTags"]
+[node name="PrevTags" type="HFlowContainer" parent="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details/Tags/ScrollTags"]
 layout_mode = 2
 
-[node name="MarginContainer2" type="MarginContainer" parent="NewQuestionPart/Margin/HBoxes/Details"]
+[node name="MarginContainer2" type="MarginContainer" parent="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details"]
 layout_mode = 2
 
-[node name="Panel" type="Panel" parent="NewQuestionPart/Margin/HBoxes/Details/MarginContainer2"]
+[node name="Panel" type="Panel" parent="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details/MarginContainer2"]
 layout_mode = 2
+mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_1ug0g")
 
-[node name="MarginContainer" type="MarginContainer" parent="NewQuestionPart/Margin/HBoxes/Details/MarginContainer2"]
+[node name="MarginContainer" type="MarginContainer" parent="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details/MarginContainer2"]
 layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="CurrentTags" type="HFlowContainer" parent="NewQuestionPart/Margin/HBoxes/Details/MarginContainer2/MarginContainer"]
+[node name="CurrentTags" type="HFlowContainer" parent="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details/MarginContainer2/MarginContainer"]
 layout_mode = 2
 
-[node name="Button" type="Button" parent="NewQuestionPart/Margin/HBoxes/Details/MarginContainer2/MarginContainer/CurrentTags"]
+[node name="Button" type="Button" parent="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details/MarginContainer2/MarginContainer/CurrentTags"]
 custom_minimum_size = Vector2(35, 25)
 layout_mode = 2
+mouse_filter = 1
 theme = ExtResource("9_0cdf6")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
@@ -764,18 +628,20 @@ theme_override_constants/outline_size = 1
 theme_override_styles/normal = SubResource("StyleBoxFlat_m76jl")
 text = "Subject Tag"
 
-[node name="SubmitButton" type="Button" parent="NewQuestionPart/Margin/HBoxes/Details"]
+[node name="SubmitButton" type="Button" parent="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details"]
 custom_minimum_size = Vector2(250, 50)
 layout_mode = 2
 size_flags_horizontal = 4
+mouse_filter = 1
 theme = ExtResource("9_0cdf6")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 2
 theme_override_font_sizes/font_size = 26
 theme_override_styles/normal = SubResource("StyleBoxFlat_h78ve")
+shortcut = SubResource("Shortcut_sofbb")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="NewQuestionPart/Margin/HBoxes/Details/SubmitButton"]
+[node name="HBoxContainer" type="HBoxContainer" parent="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details/SubmitButton"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -785,9 +651,10 @@ offset_right = -18.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="NewQuestionPart/Margin/HBoxes/Details/SubmitButton/HBoxContainer"]
+[node name="Label" type="Label" parent="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details/SubmitButton/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 10
+mouse_filter = 1
 theme = ExtResource("9_0cdf6")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
@@ -796,80 +663,64 @@ theme_override_font_sizes/font_size = 36
 text = "Create"
 horizontal_alignment = 2
 
-[node name="TextureRect" type="TextureRect" parent="NewQuestionPart/Margin/HBoxes/Details/SubmitButton/HBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details/SubmitButton/HBoxContainer"]
 material = ExtResource("3_uwcgk")
 layout_mode = 2
 texture = ExtResource("15_m2e8j")
 expand_mode = 2
 stretch_mode = 4
 
-[node name="Border" type="ColorRect" parent="NewQuestionPart/Margin/HBoxes/Details"]
+[node name="Border" type="ColorRect" parent="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details"]
 custom_minimum_size = Vector2(0, 2.5)
 layout_mode = 2
+mouse_filter = 1
 color = Color(0, 0, 0, 1)
 
-[node name="ParentsLabel" type="Label" parent="NewQuestionPart/Margin/HBoxes/Details"]
+[node name="ParentsLabel" type="Label" parent="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details"]
 layout_mode = 2
+mouse_filter = 1
 theme = ExtResource("9_0cdf6")
 text = "Parents:"
 
-[node name="M" type="MarginContainer" parent="NewQuestionPart/Margin/HBoxes/Details"]
+[node name="M" type="MarginContainer" parent="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details"]
 layout_mode = 2
 
-[node name="Background" type="Panel" parent="NewQuestionPart/Margin/HBoxes/Details/M"]
+[node name="Background" type="Panel" parent="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details/M"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
+mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_rcbrp")
 
-[node name="Parents" type="HFlowContainer" parent="NewQuestionPart/Margin/HBoxes/Details/M"]
+[node name="Parents" type="HFlowContainer" parent="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details/M"]
 layout_mode = 2
 
-[node name="Parent" type="HBoxContainer" parent="NewQuestionPart/Margin/HBoxes/Details/M/Parents"]
-custom_minimum_size = Vector2(40, 20)
+[node name="ChildrenLabel" type="Label" parent="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details"]
 layout_mode = 2
-theme_override_constants/separation = 0
-
-[node name="Button" type="Button" parent="NewQuestionPart/Margin/HBoxes/Details/M/Parents/Parent"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme = ExtResource("9_0cdf6")
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
-theme_override_constants/outline_size = 1
-theme_override_styles/normal = SubResource("StyleBoxFlat_486pq")
-text = "#1175"
-
-[node name="Button2" type="Button" parent="NewQuestionPart/Margin/HBoxes/Details/M/Parents/Parent"]
-custom_minimum_size = Vector2(25, 0)
-layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_v7q8x")
-icon = ExtResource("12_avayv")
-expand_icon = true
-
-[node name="ChildrenLabel" type="Label" parent="NewQuestionPart/Margin/HBoxes/Details"]
-layout_mode = 2
+mouse_filter = 1
 theme = ExtResource("9_0cdf6")
 text = "Children:"
 
-[node name="M2" type="MarginContainer" parent="NewQuestionPart/Margin/HBoxes/Details"]
+[node name="M2" type="MarginContainer" parent="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details"]
 layout_mode = 2
 
-[node name="Background" type="Panel" parent="NewQuestionPart/Margin/HBoxes/Details/M2"]
+[node name="Background" type="Panel" parent="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details/M2"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
+mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_rcbrp")
 
-[node name="Children" type="HFlowContainer" parent="NewQuestionPart/Margin/HBoxes/Details/M2"]
+[node name="Children" type="HFlowContainer" parent="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details/M2"]
 layout_mode = 2
 
-[node name="Child" type="HBoxContainer" parent="NewQuestionPart/Margin/HBoxes/Details/M2/Children"]
+[node name="Child" type="HBoxContainer" parent="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details/M2/Children"]
 custom_minimum_size = Vector2(40, 20)
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="Button" type="Button" parent="NewQuestionPart/Margin/HBoxes/Details/M2/Children/Child"]
+[node name="Button" type="Button" parent="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details/M2/Children/Child"]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 theme = ExtResource("9_0cdf6")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
@@ -877,9 +728,30 @@ theme_override_constants/outline_size = 1
 theme_override_styles/normal = SubResource("StyleBoxFlat_mycyb")
 text = "#1758"
 
-[node name="Button2" type="Button" parent="NewQuestionPart/Margin/HBoxes/Details/M2/Children/Child"]
+[node name="Button2" type="Button" parent="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details/M2/Children/Child"]
 custom_minimum_size = Vector2(25, 0)
 layout_mode = 2
+mouse_filter = 1
 theme_override_styles/normal = SubResource("StyleBoxFlat_hp7ab")
 icon = ExtResource("12_avayv")
 expand_icon = true
+
+[node name="TextureButton" type="TextureButton" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 15.0
+offset_top = -79.0
+offset_right = 157.0
+offset_bottom = -6.0
+grow_vertical = 0
+texture_normal = ExtResource("16_g4c5h")
+
+[connection signal="pressed" from="ColorRect/Reset" to="." method="_on_reset_pressed"]
+[connection signal="add_pressed" from="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details/Answers/Answer" to="." method="answer_add_pressed"]
+[connection signal="delete_pressed" from="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details/Answers/Answer" to="." method="_on_answer_delete_pressed"]
+[connection signal="pressed" from="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details/SubmitButton" to="." method="_on_submit_button_pressed"]
+[connection signal="pressed" from="TextureButton" to="." method="_on_texture_button_pressed"]
+
+[editable path="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details/Question"]
