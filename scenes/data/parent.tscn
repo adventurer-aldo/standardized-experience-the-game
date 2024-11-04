@@ -5,18 +5,6 @@
 [ext_resource type="Texture2D" uid="uid://b0a3qeyva6nbp" path="res://graphics/icons/user-graduate.svg" id="3_it4qq"]
 [ext_resource type="Theme" uid="uid://ddpx351m2ye8v" path="res://themes/fe_font.tres" id="4_7v63o"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_314mc"]
-bg_color = Color(0.72549, 0.584314, 0, 1)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 5
-border_color = Color(0.72549, 0.584314, 0, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gfhk2"]
 bg_color = Color(0.858824, 0.517647, 0, 1)
 border_width_left = 5
@@ -24,6 +12,18 @@ border_width_top = 5
 border_width_right = 5
 border_width_bottom = 5
 border_color = Color(0.858824, 0.517647, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_314mc"]
+bg_color = Color(0.72549, 0.584314, 0, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.72549, 0.584314, 0, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
@@ -41,8 +41,8 @@ script = ExtResource("1_57efu")
 
 [node name="Button" type="Button" parent="."]
 layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_314mc")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_gfhk2")
+theme_override_styles/normal = SubResource("StyleBoxFlat_314mc")
 
 [node name="HElements" type="HBoxContainer" parent="."]
 layout_mode = 2

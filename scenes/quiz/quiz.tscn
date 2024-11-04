@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://b1owkchsug7x4"]
+[gd_scene load_steps=41 format=3 uid="uid://b1owkchsug7x4"]
 
 [ext_resource type="Script" path="res://scenes/quiz/quiz.gd" id="1_8n255"]
 [ext_resource type="Script" path="res://scenes/quiz/texture_loop.gd" id="3_2i8ds"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" path="res://scenes/quiz/selector_temp.gd" id="11_lkp24"]
 [ext_resource type="Texture2D" uid="uid://bd47j41ajwye0" path="res://graphics/gradient.png" id="12_70ywo"]
 [ext_resource type="Texture2D" uid="uid://bxunaysknjqil" path="res://graphics/glow.png" id="13_vferw"]
+[ext_resource type="Texture2D" uid="uid://b00myqbjmr7gv" path="res://graphics/bloodsplash.png" id="14_ovirl"]
 
 [sub_resource type="Animation" id="Animation_5kkck"]
 length = 0.001
@@ -419,6 +420,7 @@ grow_vertical = 2
 script = ExtResource("1_8n255")
 
 [node name="TextureLoop" type="TextureRect" parent="."]
+modulate = Color(0, 0.94, 0.517, 1)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -859,6 +861,35 @@ metadata/_edit_lock_ = true
 libraries = {
 "": SubResource("AnimationLibrary_ec32c")
 }
+
+[node name="Bloodsplash" type="TextureRect" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 1070.0
+offset_top = 20.0
+offset_right = 1326.0
+offset_bottom = 276.0
+texture = ExtResource("14_ovirl")
+
+[node name="Bloodsplash2" type="TextureRect" parent="Bloodsplash"]
+layout_mode = 0
+offset_left = -1110.0
+offset_top = 392.0
+offset_right = -854.0
+offset_bottom = 648.0
+texture = ExtResource("14_ovirl")
+flip_h = true
+flip_v = true
+
+[node name="Bloodsplash3" type="TextureRect" parent="Bloodsplash"]
+layout_mode = 0
+offset_left = -517.0
+offset_top = -243.0
+offset_right = -285.0
+offset_bottom = 19.0
+rotation = 1.09956
+texture = ExtResource("14_ovirl")
+expand_mode = 1
 
 [connection signal="animation_finished" from="TextureLoop/LoopAnim" to="TextureLoop" method="_on_loop_anim_animation_finished"]
 [connection signal="rush_time_started" from="Time" to="." method="_on_time_rush_time_started"]

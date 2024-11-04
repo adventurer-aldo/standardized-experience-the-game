@@ -567,6 +567,36 @@ size_flags_horizontal = 3
 [node name="StoryGroup" parent="ChoicesScroll/Choices" instance=ExtResource("7_8hw7l")]
 layout_mode = 2
 
+[node name="ExtrasPivot" parent="ChoicesScroll/Choices/StoryGroup" index="0"]
+mouse_filter = 1
+
+[node name="ButtonTitle" parent="ChoicesScroll/Choices/StoryGroup/ExtrasPivot" index="0"]
+mouse_filter = 1
+
+[node name="Label" parent="ChoicesScroll/Choices/StoryGroup/ExtrasPivot/ButtonTitle" index="0"]
+mouse_filter = 1
+
+[node name="ButtonShadow" parent="ChoicesScroll/Choices/StoryGroup/ExtrasPivot" index="1"]
+mouse_filter = 1
+
+[node name="Glow" parent="ChoicesScroll/Choices/StoryGroup" index="1"]
+mouse_filter = 1
+
+[node name="ButtonMask" parent="ChoicesScroll/Choices/StoryGroup" index="2"]
+mouse_filter = 1
+
+[node name="Texture" parent="ChoicesScroll/Choices/StoryGroup/ButtonMask" index="0"]
+mouse_filter = 1
+
+[node name="Shade" parent="ChoicesScroll/Choices/StoryGroup/ButtonMask/Texture" index="0"]
+mouse_filter = 1
+
+[node name="Icon" parent="ChoicesScroll/Choices/StoryGroup/ButtonMask" index="1"]
+mouse_filter = 1
+
+[node name="IconShadow" parent="ChoicesScroll/Choices/StoryGroup/ButtonMask/Icon" index="0"]
+mouse_filter = 1
+
 [node name="SubjectsGroup" parent="ChoicesScroll/Choices" instance=ExtResource("7_8hw7l")]
 layout_mode = 2
 
@@ -574,6 +604,10 @@ layout_mode = 2
 mouse_filter = 1
 
 [node name="ButtonTitle" parent="ChoicesScroll/Choices/SubjectsGroup/ExtrasPivot" index="0"]
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
 mouse_filter = 1
 
 [node name="Label" parent="ChoicesScroll/Choices/SubjectsGroup/ExtrasPivot/ButtonTitle" index="0"]
@@ -581,6 +615,10 @@ mouse_filter = 1
 text = "	Subjects"
 
 [node name="ButtonShadow" parent="ChoicesScroll/Choices/SubjectsGroup/ExtrasPivot" index="1"]
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
 mouse_filter = 1
 
 [node name="Glow" parent="ChoicesScroll/Choices/SubjectsGroup" index="1"]
@@ -590,6 +628,8 @@ mouse_filter = 1
 mouse_filter = 1
 
 [node name="Texture" parent="ChoicesScroll/Choices/SubjectsGroup/ButtonMask" index="0"]
+offset_left = 0.0
+offset_right = 0.0
 mouse_filter = 1
 texture = ExtResource("9_a8q66")
 
@@ -611,6 +651,10 @@ layout_mode = 2
 mouse_filter = 1
 
 [node name="ButtonTitle" parent="ChoicesScroll/Choices/PracticeGroup/ExtrasPivot" index="0"]
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
 mouse_filter = 1
 
 [node name="Label" parent="ChoicesScroll/Choices/PracticeGroup/ExtrasPivot/ButtonTitle" index="0"]
@@ -618,6 +662,10 @@ mouse_filter = 1
 text = "	Practice"
 
 [node name="ButtonShadow" parent="ChoicesScroll/Choices/PracticeGroup/ExtrasPivot" index="1"]
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
 mouse_filter = 1
 
 [node name="Glow" parent="ChoicesScroll/Choices/PracticeGroup" index="1"]
@@ -627,6 +675,8 @@ mouse_filter = 1
 mouse_filter = 1
 
 [node name="Texture" parent="ChoicesScroll/Choices/PracticeGroup/ButtonMask" index="0"]
+offset_left = 0.0
+offset_right = 0.0
 mouse_filter = 1
 texture = ExtResource("11_dtp5k")
 
@@ -648,6 +698,10 @@ layout_mode = 2
 mouse_filter = 1
 
 [node name="ButtonTitle" parent="ChoicesScroll/Choices/DownloadGroup/ExtrasPivot" index="0"]
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
 mouse_filter = 1
 
 [node name="Label" parent="ChoicesScroll/Choices/DownloadGroup/ExtrasPivot/ButtonTitle" index="0"]
@@ -655,6 +709,10 @@ mouse_filter = 1
 text = "	Download"
 
 [node name="ButtonShadow" parent="ChoicesScroll/Choices/DownloadGroup/ExtrasPivot" index="1"]
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
 mouse_filter = 1
 
 [node name="Glow" parent="ChoicesScroll/Choices/DownloadGroup" index="1"]
@@ -664,6 +722,8 @@ mouse_filter = 1
 mouse_filter = 1
 
 [node name="Texture" parent="ChoicesScroll/Choices/DownloadGroup/ButtonMask" index="0"]
+offset_left = 0.0
+offset_right = 0.0
 mouse_filter = 1
 texture = ExtResource("12_yhug7")
 
@@ -685,6 +745,10 @@ layout_mode = 2
 mouse_filter = 1
 
 [node name="ButtonTitle" parent="ChoicesScroll/Choices/SettingsGroup/ExtrasPivot" index="0"]
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
 mouse_filter = 1
 
 [node name="Label" parent="ChoicesScroll/Choices/SettingsGroup/ExtrasPivot/ButtonTitle" index="0"]
@@ -692,6 +756,10 @@ mouse_filter = 1
 text = "	Settings"
 
 [node name="ButtonShadow" parent="ChoicesScroll/Choices/SettingsGroup/ExtrasPivot" index="1"]
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
 mouse_filter = 1
 
 [node name="Glow" parent="ChoicesScroll/Choices/SettingsGroup" index="1"]
@@ -701,6 +769,8 @@ mouse_filter = 1
 mouse_filter = 1
 
 [node name="Texture" parent="ChoicesScroll/Choices/SettingsGroup/ButtonMask" index="0"]
+offset_left = 0.0
+offset_right = 0.0
 mouse_filter = 1
 texture = ExtResource("14_vwhfq")
 
@@ -796,12 +866,15 @@ mesh = ExtResource("13_u6828")
 [node name="Sketchfab_Scene" parent="." instance=ExtResource("14_6wt50")]
 transform = Transform3D(0.916397, -0.829349, 0.316842, 0.36819, 2.31265, -0.221435, -0.157014, 0.582629, 1.32996, 0.349, 13.008, -0.91)
 
+[node name="JourneyBegin" type="AnimationPlayer" parent="."]
+
 [connection signal="pressed" from="PressEnter" to="." method="_on_press_enter_pressed"]
 [connection signal="animation_finished" from="PressEnter/EnterAnimation" to="." method="_on_enter_animation_animation_finished"]
 [connection signal="pressed" from="ChoicesScroll/Choices/SubjectsGroup/ButtonMask" to="." method="_on_subjects_pressed"]
 [connection signal="pressed" from="ChoicesScroll/Choices/PracticeGroup/ButtonMask" to="." method="_on_practice_pressed"]
 [connection signal="animation_finished" from="SpinDome" to="." method="_on_spin_dome_animation_finished"]
 
+[editable path="ChoicesScroll/Choices/StoryGroup"]
 [editable path="ChoicesScroll/Choices/SubjectsGroup"]
 [editable path="ChoicesScroll/Choices/PracticeGroup"]
 [editable path="ChoicesScroll/Choices/DownloadGroup"]

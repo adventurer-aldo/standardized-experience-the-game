@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://c8q8numekxu7s"]
+[gd_scene load_steps=39 format=3 uid="uid://c8q8numekxu7s"]
 
 [ext_resource type="Script" path="res://scenes/questions.gd" id="1_wepdh"]
 [ext_resource type="PackedScene" uid="uid://ckrcxqeye6wpn" path="res://scenes/question.tscn" id="2_u2mnx"]
@@ -12,16 +12,10 @@
 [ext_resource type="Texture2D" uid="uid://citebrfbsh67p" path="res://graphics/icons/speakers.svg" id="7_gs0co"]
 [ext_resource type="Theme" uid="uid://b703ndr62kcne" path="res://themes/comf_font.tres" id="9_0cdf6"]
 [ext_resource type="Texture2D" uid="uid://uep8oxvrbff1" path="res://graphics/icons/x.svg" id="12_avayv"]
-[ext_resource type="Texture2D" uid="uid://tobp5l3emc5" path="res://graphics/icons/c.svg" id="12_kh7ne"]
 [ext_resource type="PackedScene" uid="uid://cjxqqd6bx4v5e" path="res://scenes/questions/question_box.tscn" id="12_locw3"]
 [ext_resource type="PackedScene" uid="uid://dmxx1nm0wtkld" path="res://scenes/questions/parent.tscn" id="15_lqvl5"]
 [ext_resource type="Texture2D" uid="uid://c4dsaaq0mbb1h" path="res://graphics/exclamation.png" id="15_m2e8j"]
 [ext_resource type="Texture2D" uid="uid://bdihavi1s2nir" path="res://graphics/pictures/esc.png" id="16_g4c5h"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nco8m"]
-bg_color = Color(0.91, 0.644887, 0.2184, 1)
-corner_radius_top_left = 10
-corner_radius_bottom_left = 10
 
 [sub_resource type="InputEventKey" id="InputEventKey_mcelt"]
 device = -1
@@ -50,10 +44,29 @@ corner_radius_bottom_left = 10
 bg_color = Color(0, 0.380392, 0.690196, 1)
 corner_radius_bottom_left = 10
 
+[sub_resource type="InputEventKey" id="InputEventKey_d8jxq"]
+device = -1
+alt_pressed = true
+keycode = 67
+
+[sub_resource type="Shortcut" id="Shortcut_8pem7"]
+events = [SubResource("InputEventKey_d8jxq")]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jiafl"]
+bg_color = Color(1, 0.250096, 0.647043, 1)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mdboc"]
 bg_color = Color(0, 0.380392, 0.690196, 1)
 corner_radius_top_left = 10
 corner_radius_bottom_left = 10
+
+[sub_resource type="InputEventKey" id="InputEventKey_85ttx"]
+device = -1
+alt_pressed = true
+keycode = 73
+
+[sub_resource type="Shortcut" id="Shortcut_0qc1y"]
+events = [SubResource("InputEventKey_85ttx")]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d7yns"]
 bg_color = Color(1, 1, 1, 1)
@@ -66,38 +79,6 @@ corner_radius_bottom_left = 10
 bg_color = Color(0, 0.380392, 0.690196, 1)
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2oxby"]
-bg_color = Color(0, 0.3795, 0.69, 1)
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
-border_color = Color(1, 0.68, 0.68, 1)
-corner_radius_top_left = 10
-corner_radius_bottom_left = 10
-anti_aliasing = false
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8h77s"]
-content_margin_left = 5.0
-bg_color = Color(1, 0.68, 0.68, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lhiy6"]
-content_margin_left = 5.0
-bg_color = Color(1, 0.68, 0.68, 1)
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v5q1a"]
-bg_color = Color(0, 0.380392, 0.690196, 1)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 5
-border_color = Color(1, 0.68, 0.68, 1)
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-anti_aliasing = false
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e2n72"]
 content_margin_left = 10.0
@@ -189,7 +170,6 @@ layout_mode = 0
 offset_left = -81.0
 offset_right = -21.0
 offset_bottom = 55.0
-theme_override_styles/normal = SubResource("StyleBoxFlat_nco8m")
 shortcut = SubResource("Shortcut_t87q0")
 expand_icon = true
 
@@ -265,6 +245,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_sjw8e")
 theme_override_styles/normal = SubResource("StyleBoxFlat_shf26")
 toggle_mode = true
 button_pressed = true
+shortcut = SubResource("Shortcut_8pem7")
 icon = ExtResource("5_be78k")
 icon_alignment = 1
 expand_icon = true
@@ -307,6 +288,22 @@ mouse_filter = 1
 theme = ExtResource("9_0cdf6")
 text = "Level"
 
+[node name="Level" type="Label" parent="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details/LevelStuff"]
+layout_mode = 2
+mouse_filter = 1
+text = "1"
+
+[node name="BGPanel" type="Panel" parent="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details/LevelStuff/Level"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_jiafl")
+
 [node name="DecreaseLevel" type="Button" parent="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details/LevelStuff"]
 custom_minimum_size = Vector2(25, 0)
 layout_mode = 2
@@ -343,6 +340,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
 theme_override_styles/normal = SubResource("StyleBoxFlat_mdboc")
+shortcut = SubResource("Shortcut_0qc1y")
 
 [node name="M" type="MarginContainer" parent="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details/AddOns/ImageButton"]
 layout_mode = 1
@@ -467,6 +465,10 @@ grow_vertical = 2
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_d7yns")
 
+[node name="Image" type="TextureRect" parent="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details"]
+layout_mode = 2
+expand_mode = 4
+
 [node name="Question" parent="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details" groups=["question"] instance=ExtResource("12_locw3")]
 layout_mode = 2
 
@@ -491,93 +493,6 @@ data_type = 1
 
 [node name="Choices" type="VBoxContainer" parent="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details"]
 layout_mode = 2
-
-[node name="Choice" type="HBoxContainer" parent="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details/Choices"]
-layout_mode = 2
-theme_override_constants/separation = 0
-
-[node name="AltAnsButton" type="Button" parent="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details/Choices/Choice"]
-custom_minimum_size = Vector2(30, 30)
-layout_mode = 2
-size_flags_vertical = 0
-mouse_filter = 1
-theme_override_styles/normal = SubResource("StyleBoxFlat_2oxby")
-
-[node name="M" type="MarginContainer" parent="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details/Choices/Choice/AltAnsButton"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 8
-theme_override_constants/margin_top = 6
-theme_override_constants/margin_right = 6
-theme_override_constants/margin_bottom = 6
-
-[node name="Icon" type="TextureRect" parent="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details/Choices/Choice/AltAnsButton/M"]
-material = ExtResource("3_uwcgk")
-layout_mode = 2
-texture = ExtResource("12_kh7ne")
-expand_mode = 1
-
-[node name="TextEdit" type="VBoxContainer" parent="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details/Choices/Choice"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/separation = 0
-
-[node name="Main" type="TextEdit" parent="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details/Choices/Choice/TextEdit"]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-mouse_filter = 1
-theme = ExtResource("9_0cdf6")
-theme_override_colors/font_placeholder_color = Color(0.5, 0, 0, 0.568627)
-theme_override_colors/font_color = Color(0.33, 0, 0, 1)
-theme_override_styles/normal = SubResource("StyleBoxFlat_8h77s")
-placeholder_text = "What will be a decoy answer?"
-
-[node name="Alternatives" type="VBoxContainer" parent="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details/Choices/Choice/TextEdit"]
-layout_mode = 2
-theme_override_constants/separation = 0
-
-[node name="Alt" type="TextEdit" parent="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details/Choices/Choice/TextEdit/Alternatives"]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-mouse_filter = 1
-theme = ExtResource("9_0cdf6")
-theme_override_colors/font_placeholder_color = Color(0.5, 0, 0, 0.568627)
-theme_override_colors/font_color = Color(0.33, 0, 0, 1)
-theme_override_styles/normal = SubResource("StyleBoxFlat_lhiy6")
-placeholder_text = "What is an alternative for that decoy?"
-
-[node name="Button2" type="Button" parent="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details/Choices/Choice"]
-custom_minimum_size = Vector2(30, 30)
-layout_mode = 2
-size_flags_vertical = 0
-mouse_filter = 1
-theme_override_styles/normal = SubResource("StyleBoxFlat_v5q1a")
-
-[node name="MarginContainer" type="MarginContainer" parent="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details/Choices/Choice/Button2"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 6
-theme_override_constants/margin_top = 6
-theme_override_constants/margin_right = 8
-theme_override_constants/margin_bottom = 6
-
-[node name="TextureRect" type="TextureRect" parent="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details/Choices/Choice/Button2/MarginContainer"]
-material = ExtResource("3_uwcgk")
-layout_mode = 2
-texture = ExtResource("5_j72u3")
-expand_mode = 1
 
 [node name="Tags" type="HBoxContainer" parent="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details"]
 layout_mode = 2
@@ -749,6 +664,9 @@ grow_vertical = 0
 texture_normal = ExtResource("16_g4c5h")
 
 [connection signal="pressed" from="ColorRect/Reset" to="." method="_on_reset_pressed"]
+[connection signal="pressed" from="NewQuestionPart/ScrollContainer/Margin/HBoxes/Types/Choice" to="." method="_on_choice_pressed"]
+[connection signal="pressed" from="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details/LevelStuff/IncreaseLevel" to="." method="_on_increase_level_pressed"]
+[connection signal="pressed" from="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details/AddOns/ImageButton" to="." method="_on_image_button_pressed"]
 [connection signal="add_pressed" from="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details/Answers/Answer" to="." method="answer_add_pressed"]
 [connection signal="delete_pressed" from="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details/Answers/Answer" to="." method="_on_answer_delete_pressed"]
 [connection signal="pressed" from="NewQuestionPart/ScrollContainer/Margin/HBoxes/Details/SubmitButton" to="." method="_on_submit_button_pressed"]

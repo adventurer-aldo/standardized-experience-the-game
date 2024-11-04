@@ -14,7 +14,7 @@ func _ready():
 	var minutes = int(duration / 60)
 	var seconds = int(duration % 60)
 	var grade = quiz.get_grade()
-	# $ScrollContainer/Elements/Margin/BasicInformation/Control/Label.text = String.num(grade, 2).replace(".", ",")
+	$ScrollContainer/Elements/Margin/BasicInformation/Control/Label.text = String.num(grade, 2).replace(".", ",")
 	$Time/Label.text = (str(minutes) + "m "  if minutes > 0 else "") + str(seconds) + 's'
 	var loaded_ques = answerer_node
 	for answer in quiz.get_answers():
@@ -25,8 +25,17 @@ func _ready():
 	# BGM.fade_out()
 	SFX.speak(result_speak(grade))
 	await SFX.speak_finished
+	if grade < 10:
+		$RedoBar.show()
+		$RedoBar/RedoTimer.start()
+	else:
+		$RedoBar/RedoButton.show()
 	$Blackscreen/Transition.play("unblack")
-	BGM.autoplay(result(quiz.get_grade()))
+	# BGM.autoplay(result(quiz.get_grade()))
+
+func _process(delta: float) -> void:
+	if !$RedoBar/RedoTimer.is_stopped():
+		$RedoBar.value = (($RedoBar/RedoTimer.time_left - 60) * (0 - 1)) / 60 * 100
 
 func result_speak(grade):
 	randomize()
@@ -67,4 +76,8 @@ func result(grade):
 		return "results_defeat_terrible"
 
 func _on_redo_pressed() -> void:
+	get_tree().change_scene_to_file("res://scenes/quiz/quiz.tscn")
+
+func _on_redo_timer_timeout() -> void:
+	Global.redo = quiz.subject_id
 	get_tree().change_scene_to_file("res://scenes/quiz/quiz.tscn")

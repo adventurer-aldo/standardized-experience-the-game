@@ -1,7 +1,7 @@
 extends Control
 
 func _ready():
-	BGM.autoplay("title")
+	# BGM.autoplay("title")
 	$SpinDome.play("spin")
 	await get_tree().create_timer(0.2).timeout
 	SFX.speak(Text.start.pick_random())

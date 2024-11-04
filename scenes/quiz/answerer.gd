@@ -46,7 +46,14 @@ func correct():
 			var text = question.choices[i].texts[0]
 			new_choice.value = text
 			$Ratio/Margin/VContent/Choices.add_child(new_choice)
-			new_choice.grade = grade
+			# new_choice.grade = grade
+			if intersects(answer.attempt, answer.get_question().choices[i].texts):
+				if intersects(answer.get_question().answers[0], answer.get_question().choices[i].texts):
+					new_choice.green()
+				else:
+					new_choice.red()
+			elif intersects(answer.get_question().answers[0], answer.get_question().choices[i].texts):
+				new_choice.orange()
 			if answer.type == 'choice' && answer.choice_indexes.filter(func n(k): return typeof(k) == TYPE_STRING).size() <= 1:
 				new_choice.button_group = button_group
 
@@ -100,3 +107,13 @@ func _on_button_pressed() -> void:
 	pop.subject_name = answer.get_subject().title
 	add_child(pop)
 	Global.emit_signal("data_questions_edit_button_pressed", answer.get_question())
+
+func intersects(arr1, arr2):
+	var arr2_dict = {}
+	for v in arr2:
+		arr2_dict[v] = true
+
+	for v in arr1:
+		if arr2_dict.get(v, false):
+			return true
+	return false

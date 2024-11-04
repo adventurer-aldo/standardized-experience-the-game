@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://dsvqgd6a7lijv" path="res://graphics/icons/book-open-cover.svg" id="3_ea8a3"]
 [ext_resource type="Theme" uid="uid://b703ndr62kcne" path="res://themes/comf_font.tres" id="4_ygtqm"]
 [ext_resource type="StyleBox" uid="uid://c68d545dipf37" path="res://scenes/questions/alt_delete.tres" id="5_6vy7g"]
+[ext_resource type="StyleBox" uid="uid://cpywaae1frr6s" path="res://scenes/questions/question_box_text_normal.tres" id="5_dqcot"]
 [ext_resource type="Texture2D" uid="uid://bl60dwihfavlw" path="res://graphics/icons/minus.svg" id="6_55nng"]
 [ext_resource type="Texture2D" uid="uid://cts7s8dis43d" path="res://graphics/icons/plus.svg" id="7_2j5ug"]
 
@@ -28,10 +29,6 @@ keycode = 61
 
 [sub_resource type="Shortcut" id="Shortcut_i75uc"]
 events = [SubResource("InputEventKey_yyh1r")]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_56ss5"]
-content_margin_left = 5.0
-bg_color = Color(1, 1, 1, 1)
 
 [sub_resource type="InputEventKey" id="InputEventKey_ir0m2"]
 device = -1
@@ -108,7 +105,7 @@ size_flags_horizontal = 3
 theme = ExtResource("4_ygtqm")
 theme_override_colors/font_placeholder_color = Color(0, 0.38, 0.69, 0.567)
 theme_override_colors/font_color = Color(2.64719e-07, 0.162824, 0.239937, 1)
-theme_override_styles/normal = SubResource("StyleBoxFlat_56ss5")
+theme_override_styles/normal = ExtResource("5_dqcot")
 placeholder_text = "What will be the question?"
 wrap_mode = 1
 scroll_fit_content_height = true

@@ -29,6 +29,7 @@ script = ExtResource("1_d5rhu")
 [node name="ID" type="Button" parent="."]
 layout_mode = 2
 size_flags_horizontal = 3
+focus_mode = 0
 mouse_filter = 1
 theme = ExtResource("2_du246")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
@@ -40,6 +41,7 @@ text = "#1175"
 [node name="Erase" type="Button" parent="."]
 custom_minimum_size = Vector2(25, 0)
 layout_mode = 2
+focus_mode = 0
 mouse_filter = 1
 theme_override_styles/normal = SubResource("StyleBoxFlat_v7q8x")
 icon = ExtResource("3_e6ja8")

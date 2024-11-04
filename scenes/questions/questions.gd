@@ -24,6 +24,8 @@ func _ready() -> void:
 		2:
 			$AddAlt/M/Icon.texture = load("res://graphics/icons/c.svg")
 			
+			var textbox_delete = load("res://scenes/questions/question_box_text_delete.tres")
+			$Editables/MainElement/Text.add_theme_stylebox_override("normal", textbox_delete)
 			$Editables/MainElement/Text.placeholder_text = "What will be a decoy answer?"
 
 func _on_add_sibling_pressed() -> void:
@@ -34,6 +36,8 @@ func _on_alt_button_pressed() -> void:
 	match data_type:
 		1:
 			new_alt.placeholder_text = "What is an alternative for that answer?"
+		2:
+			new_alt.placeholder_text = "What is an alternative for that choice?"
 	$Editables/Alternatives.add_child(new_alt)
 	new_alt.grab_text_focus()
 	for alt_thing in get_tree().get_nodes_in_group("alt"):
@@ -61,6 +65,9 @@ func get_alts() -> Array:
 
 func get_all_strings() -> Array:
 	return [$Editables/MainElement/Text.text] + get_alts()
+
+func get_first_string() -> String:
+	return $Editables/MainElement/Text.text
 
 func grab_text_focus() -> void:
 	$Editables/MainElement/Text.grab_focus()

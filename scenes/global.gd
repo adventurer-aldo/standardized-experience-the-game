@@ -12,6 +12,7 @@ signal data_questions_question_was_submitted(resource: Resource)
 var subjects := {}
 var questions := {}
 var quiz
+var redo = 0
 var stats: Stats
 
 func _ready():

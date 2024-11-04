@@ -28,14 +28,23 @@ func correct():
 	if $HBoxContainer/Value/Button.button_pressed == true:
 		relevant = true
 		if answers.has(value):
-			$HBoxContainer/Value/Button.modulate = Color.GREEN
-			$HBoxContainer/Value.add_theme_color_override("default_color", Color(0, 0.1, 0))
+			green()
 		else:
-			$HBoxContainer/Value/Button.modulate = Color.RED
-			$HBoxContainer/Value.add_theme_color_override("default_color", Color(0.1, 0, 0))
+			red()
 	elif answers.has(value):
-		$HBoxContainer/Value/Button.modulate = Color.ORANGE
+		orange()
 
+func green():
+	$HBoxContainer/Value/Button.modulate = Color.GREEN
+	$HBoxContainer/Value.add_theme_color_override("default_color", Color(0, 0.1, 0))
+
+func red():
+	$HBoxContainer/Value/Button.modulate = Color.RED
+	$HBoxContainer/Value.add_theme_color_override("default_color", Color(0.1, 0, 0))
+
+func orange():
+	$HBoxContainer/Value/Button.modulate = Color.ORANGE
+	
 
 func _on_button_pressed():
 	pressed = $HBoxContainer/Value/Button.button_pressed
