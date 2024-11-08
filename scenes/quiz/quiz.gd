@@ -30,7 +30,7 @@ func _exit_tree() -> void:
 func _ready():
 	# print(Global.redo)
 	if Global.redo == 0: 
-		# bgm_stuff()
+		bgm_stuff()
 		SFX.speak(Text.quiz.pick_random())
 	Global.finished.connect(finish)
 	BGM.rush_time_started.connect(rush_started)
@@ -76,7 +76,7 @@ func prepare():
 	$Time/Timer.start()
 	$Time.process_mode = Node.PROCESS_MODE_INHERIT
 	var should_might = quiz.get_answers()[0].get_question().hit_streak > 0
-	# BGM.autoplay(ost(), should_might)
+	BGM.autoplay(ost(), should_might)
 	SFX.speak_stop()
 	$Discard.hide()
 
@@ -183,7 +183,7 @@ func _on_subject_selector_subject_selected(id):
 		prepare()
 
 func _on_time_rush_time_started() -> void:
-	BGM.autoplay_rush("engage_rushexam_0")
+	BGM.autoplay_rush("engage_rush1_0")
 	$TextureLoop/LoopAnim.speed_scale = 0.5
 	$TextureLoop/RushFade.play("fade_in")
 	$GradientPlayer.play("appear")

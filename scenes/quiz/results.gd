@@ -31,7 +31,7 @@ func _ready():
 	else:
 		$RedoBar/RedoButton.show()
 	$Blackscreen/Transition.play("unblack")
-	# BGM.autoplay(result(quiz.get_grade()))
+	BGM.autoplay(result(quiz.get_grade()))
 
 func _process(delta: float) -> void:
 	if !$RedoBar/RedoTimer.is_stopped():
