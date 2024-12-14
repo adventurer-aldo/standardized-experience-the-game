@@ -29,3 +29,7 @@ func _on_subjects_pressed() -> void:
 
 func _on_practice_pressed() -> void:
 	get_tree().change_scene_to_file("res://scenes/quiz/quiz.tscn")
+
+
+func _on_journey_pressed() -> void:
+	pass # Replace with function body.

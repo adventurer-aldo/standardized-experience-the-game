@@ -420,7 +420,7 @@ grow_vertical = 2
 script = ExtResource("1_8n255")
 
 [node name="TextureLoop" type="TextureRect" parent="."]
-modulate = Color(0, 0.94, 0.517, 1)
+modulate = Color(1, 0.69086, 0.750735, 1)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

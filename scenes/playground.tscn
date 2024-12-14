@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://6416t6k8eip1"]
+[gd_scene load_steps=52 format=3 uid="uid://6416t6k8eip1"]
 
 [ext_resource type="Script" path="res://scenes/playground.gd" id="1_7rcs3"]
 [ext_resource type="Texture2D" uid="uid://bf0bckgxw37ki" path="res://title.png" id="4_okq5s"]
@@ -19,6 +19,9 @@
 [ext_resource type="ArrayMesh" uid="uid://b4alopaoj3leq" path="res://models/Skydome.obj" id="13_u6828"]
 [ext_resource type="PackedScene" uid="uid://cdp7r2oxg5a16" path="res://models/school_building.glb" id="14_6wt50"]
 [ext_resource type="Texture2D" uid="uid://cnr8x5qybx80" path="res://graphics/pictures/settings.jpg" id="14_vwhfq"]
+[ext_resource type="Texture2D" uid="uid://cw8hpxmha46rp" path="res://graphics/pictures/journey_feet0.png" id="20_k0qg8"]
+[ext_resource type="Texture2D" uid="uid://d05gj8n57ccmh" path="res://graphics/pictures/journey_feet2.png" id="21_2jhvt"]
+[ext_resource type="Texture2D" uid="uid://dd8vmr5fgxv6i" path="res://graphics/pictures/journey_feet1.png" id="22_rt445"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_s7hap"]
 texture = ExtResource("11_3gi60")
@@ -442,6 +445,126 @@ _data = {
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rliun"]
 albedo_texture = ExtResource("12_81k5c")
 
+[sub_resource type="Animation" id="Animation_odr0y"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 192)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ColorRect:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1280, 264)]
+}
+
+[sub_resource type="Animation" id="Animation_wqqmg"]
+resource_name = "blackbar_show"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.183011, 0.101531),
+"update": 0,
+"values": [Vector2(0, 192), Vector2(1280, 192)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ColorRect:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.116629, 0.0915053),
+"update": 0,
+"values": [Vector2(1280, 264), Vector2(0, 264)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_eh0c8"]
+_data = {
+"RESET": SubResource("Animation_odr0y"),
+"blackbar_show": SubResource("Animation_wqqmg")
+}
+
+[sub_resource type="Animation" id="Animation_e811q"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_urgnc"]
+resource_name = "sho"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 20)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_165i6"]
+_data = {
+"RESET": SubResource("Animation_e811q"),
+"sho": SubResource("Animation_urgnc")
+}
+
 [node name="Title" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -691,6 +814,53 @@ texture = ExtResource("9_cgdyb")
 mouse_filter = 1
 texture = ExtResource("9_cgdyb")
 
+[node name="JourneyGroup" parent="ChoicesScroll/Choices" instance=ExtResource("7_8hw7l")]
+layout_mode = 2
+
+[node name="ExtrasPivot" parent="ChoicesScroll/Choices/JourneyGroup" index="0"]
+mouse_filter = 1
+
+[node name="ButtonTitle" parent="ChoicesScroll/Choices/JourneyGroup/ExtrasPivot" index="0"]
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
+mouse_filter = 1
+
+[node name="Label" parent="ChoicesScroll/Choices/JourneyGroup/ExtrasPivot/ButtonTitle" index="0"]
+mouse_filter = 1
+text = "	Practice"
+
+[node name="ButtonShadow" parent="ChoicesScroll/Choices/JourneyGroup/ExtrasPivot" index="1"]
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
+mouse_filter = 1
+
+[node name="Glow" parent="ChoicesScroll/Choices/JourneyGroup" index="1"]
+mouse_filter = 1
+
+[node name="ButtonMask" parent="ChoicesScroll/Choices/JourneyGroup" index="2"]
+mouse_filter = 1
+
+[node name="Texture" parent="ChoicesScroll/Choices/JourneyGroup/ButtonMask" index="0"]
+offset_left = 0.0
+offset_right = 0.0
+mouse_filter = 1
+texture = ExtResource("11_dtp5k")
+
+[node name="Shade" parent="ChoicesScroll/Choices/JourneyGroup/ButtonMask/Texture" index="0"]
+mouse_filter = 1
+
+[node name="Icon" parent="ChoicesScroll/Choices/JourneyGroup/ButtonMask" index="1"]
+mouse_filter = 1
+texture = ExtResource("9_cgdyb")
+
+[node name="IconShadow" parent="ChoicesScroll/Choices/JourneyGroup/ButtonMask/Icon" index="0"]
+mouse_filter = 1
+texture = ExtResource("9_cgdyb")
+
 [node name="DownloadGroup" parent="ChoicesScroll/Choices" instance=ExtResource("7_8hw7l")]
 layout_mode = 2
 
@@ -867,16 +1037,141 @@ mesh = ExtResource("13_u6828")
 transform = Transform3D(0.916397, -0.829349, 0.316842, 0.36819, 2.31265, -0.221435, -0.157014, 0.582629, 1.32996, 0.349, 13.008, -0.91)
 
 [node name="JourneyBegin" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_eh0c8")
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 1280.0
+offset_top = -96.0
+offset_bottom = 96.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.0936, 0.1058, 0.24, 0.654902)
+
+[node name="0" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 53.0
+offset_top = 286.0
+offset_right = 93.0
+offset_bottom = 326.0
+
+[node name="JourneyFeet0" type="TextureRect" parent="0"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_right = 476.0
+offset_bottom = 391.0
+scale = Vector2(0.553708, 0.553708)
+mouse_filter = 2
+texture = ExtResource("20_k0qg8")
+
+[node name="Show" type="AnimationPlayer" parent="0/JourneyFeet0"]
+libraries = {
+"": SubResource("AnimationLibrary_165i6")
+}
+
+[node name="1" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 349.0
+offset_top = 315.0
+offset_right = 349.0
+offset_bottom = 315.0
+
+[node name="JourneyFeet1" type="TextureRect" parent="1"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_right = 352.0
+offset_bottom = 289.0
+scale = Vector2(0.553708, 0.553708)
+mouse_filter = 2
+texture = ExtResource("21_2jhvt")
+
+[node name="Show" type="AnimationPlayer" parent="1/JourneyFeet1"]
+libraries = {
+"": SubResource("AnimationLibrary_165i6")
+}
+
+[node name="2" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 561.0
+offset_top = 324.0
+offset_right = 561.0
+offset_bottom = 324.0
+
+[node name="JourneyFeet2" type="TextureRect" parent="2"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_right = 352.0
+offset_bottom = 289.0
+scale = Vector2(0.553708, 0.553708)
+mouse_filter = 2
+texture = ExtResource("22_rt445")
+
+[node name="Show" type="AnimationPlayer" parent="2/JourneyFeet2"]
+libraries = {
+"": SubResource("AnimationLibrary_165i6")
+}
+
+[node name="3" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 768.0
+offset_top = 327.0
+offset_right = 768.0
+offset_bottom = 327.0
+
+[node name="JourneyFeet3" type="TextureRect" parent="3"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_right = 352.0
+offset_bottom = 289.0
+scale = Vector2(0.553708, 0.553708)
+mouse_filter = 2
+texture = ExtResource("21_2jhvt")
+
+[node name="Show" type="AnimationPlayer" parent="3/JourneyFeet3"]
+libraries = {
+"": SubResource("AnimationLibrary_165i6")
+}
+
+[node name="4" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 986.0
+offset_top = 346.0
+offset_right = 986.0
+offset_bottom = 346.0
+
+[node name="JourneyFeet4" type="TextureRect" parent="4"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_right = 352.0
+offset_bottom = 289.0
+rotation = -0.465024
+scale = Vector2(0.553708, 0.553708)
+mouse_filter = 2
+texture = ExtResource("22_rt445")
+
+[node name="Show" type="AnimationPlayer" parent="4/JourneyFeet4"]
+libraries = {
+"": SubResource("AnimationLibrary_165i6")
+}
 
 [connection signal="pressed" from="PressEnter" to="." method="_on_press_enter_pressed"]
 [connection signal="animation_finished" from="PressEnter/EnterAnimation" to="." method="_on_enter_animation_animation_finished"]
 [connection signal="pressed" from="ChoicesScroll/Choices/SubjectsGroup/ButtonMask" to="." method="_on_subjects_pressed"]
 [connection signal="pressed" from="ChoicesScroll/Choices/PracticeGroup/ButtonMask" to="." method="_on_practice_pressed"]
+[connection signal="pressed" from="ChoicesScroll/Choices/JourneyGroup/ButtonMask" to="." method="_on_journey_pressed"]
 [connection signal="animation_finished" from="SpinDome" to="." method="_on_spin_dome_animation_finished"]
 
 [editable path="ChoicesScroll/Choices/StoryGroup"]
 [editable path="ChoicesScroll/Choices/SubjectsGroup"]
 [editable path="ChoicesScroll/Choices/PracticeGroup"]
+[editable path="ChoicesScroll/Choices/JourneyGroup"]
 [editable path="ChoicesScroll/Choices/DownloadGroup"]
 [editable path="ChoicesScroll/Choices/SettingsGroup"]
 [editable path="Sketchfab_Scene"]

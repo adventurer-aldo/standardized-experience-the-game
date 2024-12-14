@@ -22,7 +22,7 @@ func bgm_stuff() -> void:
 	await BGM.fade_in_finished
 	if SFX.voice.playing:
 		await SFX.speak_finished
-	BGM.autoplay("engage_journey2")
+	BGM.autoplay("engage_level4")
 
 func _exit_tree() -> void:
 	if BGM.playing: BGM.fade_out()
@@ -105,12 +105,13 @@ func duration():
 func ost():
 	match quiz.level:
 		0: return "engage_practice"
-		2: return ["engage_test1_0", "engage_test1_1", "engage_test1_2", "engage_test2_hope",
+		1: return ["engage_test1_0", "engage_test1_1", "engage_test1_2", "engage_test2_hope",
 		"engage_test1_4", "houses_test2_0"].pick_random()
-		1: return ["fates_exam_0", "fates_test1_0", "awakening_exam", "awakening_practice",
+		2: return ["fates_exam_0", "fates_test1_0", "awakening_exam", "awakening_practice",
 		"awakening_test1_0", "awakening_test2_0", "awakening_test2_1"].pick_random()
 		#2: return ["houses_test1_0", "engage_test2_hope", "engage_challenge1", "houses_rec_0"].pick_random()
-		4: return ["houses_rec_0", "engage_extraordinary"].pick_random()
+		# 4: return ["houses_rec_0", "engage_extraordinary"].pick_random()
+		4: return ["engage_exam0"].pick_random()
 
 func finish():
 	if !$Time/Timer.is_stopped():
@@ -183,7 +184,7 @@ func _on_subject_selector_subject_selected(id):
 		prepare()
 
 func _on_time_rush_time_started() -> void:
-	BGM.autoplay_rush("engage_rush1_0")
+	BGM.autoplay_rush("engage_rush4_0")
 	$TextureLoop/LoopAnim.speed_scale = 0.5
 	$TextureLoop/RushFade.play("fade_in")
 	$GradientPlayer.play("appear")

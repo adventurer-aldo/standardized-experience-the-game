@@ -145,6 +145,12 @@ func _on_choice_pressed() -> void:
 	if $NewQuestionPart/ScrollContainer/Margin/HBoxes/Details/Choices.get_child_count() < 1:
 		choice_add_pressed(0)
 
+func _on_veracity_pressed() -> void:
+	pass # Replace with function body.
+	
+	
+	
+
 func _on_increase_level_pressed() -> void:
 	level = [1, 2, 4, 0 , 1][level]
 	$NewQuestionPart/ScrollContainer/Margin/HBoxes/Details/LevelStuff/Level.text = str(level)
