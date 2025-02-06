@@ -1,10 +1,10 @@
 [gd_scene load_steps=52 format=3 uid="uid://6416t6k8eip1"]
 
-[ext_resource type="Script" path="res://scenes/playground.gd" id="1_7rcs3"]
+[ext_resource type="Script" uid="uid://csarbxrj8bfmg" path="res://scenes/playground.gd" id="1_7rcs3"]
 [ext_resource type="Texture2D" uid="uid://bf0bckgxw37ki" path="res://title.png" id="4_okq5s"]
 [ext_resource type="Texture2D" uid="uid://bxunaysknjqil" path="res://graphics/glow.png" id="5_eexrt"]
 [ext_resource type="PackedScene" uid="uid://d1x8vh7wd13f" path="res://title_button_group.tscn" id="7_8hw7l"]
-[ext_resource type="Script" path="res://addons/SmoothScroll/SmoothScrollContainer.gd" id="7_cy1je"]
+[ext_resource type="Script" uid="uid://n7dovepb76v1" path="res://addons/SmoothScroll/SmoothScrollContainer.gd" id="7_cy1je"]
 [ext_resource type="Texture2D" uid="uid://cx5jbdftuo6t0" path="res://graphics/icons/subjects.svg" id="8_prqk2"]
 [ext_resource type="Texture2D" uid="uid://0ygtw6vag5ln" path="res://graphics/pictures/subjects.jpg" id="9_a8q66"]
 [ext_resource type="Texture2D" uid="uid://cqxafjycbkjco" path="res://graphics/icons/file-pen.svg" id="9_cgdyb"]
@@ -158,10 +158,10 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_v146g"]
 _data = {
-"RESET": SubResource("Animation_qmo38"),
-"enter": SubResource("Animation_ly0pn"),
-"fade_in": SubResource("Animation_oj016"),
-"fade_out": SubResource("Animation_b4byg")
+&"RESET": SubResource("Animation_qmo38"),
+&"enter": SubResource("Animation_ly0pn"),
+&"fade_in": SubResource("Animation_oj016"),
+&"fade_out": SubResource("Animation_b4byg")
 }
 
 [sub_resource type="Animation" id="Animation_uwju8"]
@@ -249,9 +249,9 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_v80hh"]
 _data = {
-"RESET": SubResource("Animation_uwju8"),
-"enter": SubResource("Animation_ybf73"),
-"exit": SubResource("Animation_ynsaq")
+&"RESET": SubResource("Animation_uwju8"),
+&"enter": SubResource("Animation_ybf73"),
+&"exit": SubResource("Animation_ynsaq")
 }
 
 [sub_resource type="Animation" id="Animation_5jbpd"]
@@ -339,9 +339,9 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_lgisj"]
 _data = {
-"RESET": SubResource("Animation_5jbpd"),
-"enter": SubResource("Animation_y4p22"),
-"exit": SubResource("Animation_fy7ld")
+&"RESET": SubResource("Animation_5jbpd"),
+&"enter": SubResource("Animation_y4p22"),
+&"exit": SubResource("Animation_fy7ld")
 }
 
 [sub_resource type="Animation" id="Animation_fh1wp"]
@@ -377,8 +377,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_p5lj2"]
 _data = {
-"RESET": SubResource("Animation_fh1wp"),
-"spin": SubResource("Animation_nvfft")
+&"RESET": SubResource("Animation_fh1wp"),
+&"spin": SubResource("Animation_nvfft")
 }
 
 [sub_resource type="Animation" id="Animation_1s3on"]
@@ -438,8 +438,8 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_nab4j"]
 _data = {
-"RESET": SubResource("Animation_1s3on"),
-"fade_out": SubResource("Animation_g738e")
+&"RESET": SubResource("Animation_1s3on"),
+&"fade_out": SubResource("Animation_g738e")
 }
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rliun"]
@@ -501,8 +501,8 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_eh0c8"]
 _data = {
-"RESET": SubResource("Animation_odr0y"),
-"blackbar_show": SubResource("Animation_wqqmg")
+&"RESET": SubResource("Animation_odr0y"),
+&"blackbar_show": SubResource("Animation_wqqmg")
 }
 
 [sub_resource type="Animation" id="Animation_e811q"]
@@ -561,8 +561,8 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_165i6"]
 _data = {
-"RESET": SubResource("Animation_e811q"),
-"sho": SubResource("Animation_urgnc")
+&"RESET": SubResource("Animation_e811q"),
+&"sho": SubResource("Animation_urgnc")
 }
 
 [node name="Title" type="Control"]
@@ -642,7 +642,7 @@ expand_mode = 1
 
 [node name="EnterAnimation" type="AnimationPlayer" parent="PressEnter"]
 libraries = {
-"": SubResource("AnimationLibrary_v146g")
+&"": SubResource("AnimationLibrary_v146g")
 }
 
 [node name="TitleTexture" type="TextureRect" parent="."]
@@ -651,9 +651,9 @@ anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
 offset_left = -21.0
-offset_top = 38.0
+offset_top = 398.0
 offset_right = 635.0
-offset_bottom = 269.0
+offset_bottom = 629.0
 grow_vertical = 2
 mouse_filter = 2
 texture = ExtResource("4_okq5s")
@@ -661,13 +661,13 @@ expand_mode = 1
 
 [node name="EnterReactionAnimation" type="AnimationPlayer" parent="TitleTexture"]
 libraries = {
-"": SubResource("AnimationLibrary_v80hh")
+&"": SubResource("AnimationLibrary_v80hh")
 }
 
 [node name="ChoiceAnim" type="AnimationPlayer" parent="."]
 root_node = NodePath("../ChoicesScroll/Choices")
 libraries = {
-"": SubResource("AnimationLibrary_lgisj")
+&"": SubResource("AnimationLibrary_lgisj")
 }
 
 [node name="ChoicesScroll" type="ScrollContainer" parent="."]
@@ -1009,14 +1009,14 @@ grow_vertical = 2
 [node name="SpinDome" type="AnimationPlayer" parent="."]
 root_node = NodePath("../Skydome")
 libraries = {
-"": SubResource("AnimationLibrary_p5lj2")
+&"": SubResource("AnimationLibrary_p5lj2")
 }
 speed_scale = 0.25
 
 [node name="Fade" type="AnimationPlayer" parent="."]
 root_node = NodePath("../White")
 libraries = {
-"": SubResource("AnimationLibrary_nab4j")
+&"": SubResource("AnimationLibrary_nab4j")
 }
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
@@ -1038,7 +1038,7 @@ transform = Transform3D(0.916397, -0.829349, 0.316842, 0.36819, 2.31265, -0.2214
 
 [node name="JourneyBegin" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_eh0c8")
+&"": SubResource("AnimationLibrary_eh0c8")
 }
 
 [node name="ColorRect" type="ColorRect" parent="."]
@@ -1048,8 +1048,9 @@ anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
 offset_left = 1280.0
-offset_top = -96.0
-offset_bottom = 96.0
+offset_top = 264.0
+offset_right = 1280.0
+offset_bottom = 456.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
@@ -1073,7 +1074,7 @@ texture = ExtResource("20_k0qg8")
 
 [node name="Show" type="AnimationPlayer" parent="0/JourneyFeet0"]
 libraries = {
-"": SubResource("AnimationLibrary_165i6")
+&"": SubResource("AnimationLibrary_165i6")
 }
 
 [node name="1" type="Control" parent="."]
@@ -1094,7 +1095,7 @@ texture = ExtResource("21_2jhvt")
 
 [node name="Show" type="AnimationPlayer" parent="1/JourneyFeet1"]
 libraries = {
-"": SubResource("AnimationLibrary_165i6")
+&"": SubResource("AnimationLibrary_165i6")
 }
 
 [node name="2" type="Control" parent="."]
@@ -1115,7 +1116,7 @@ texture = ExtResource("22_rt445")
 
 [node name="Show" type="AnimationPlayer" parent="2/JourneyFeet2"]
 libraries = {
-"": SubResource("AnimationLibrary_165i6")
+&"": SubResource("AnimationLibrary_165i6")
 }
 
 [node name="3" type="Control" parent="."]
@@ -1136,7 +1137,7 @@ texture = ExtResource("21_2jhvt")
 
 [node name="Show" type="AnimationPlayer" parent="3/JourneyFeet3"]
 libraries = {
-"": SubResource("AnimationLibrary_165i6")
+&"": SubResource("AnimationLibrary_165i6")
 }
 
 [node name="4" type="Control" parent="."]
@@ -1158,7 +1159,7 @@ texture = ExtResource("22_rt445")
 
 [node name="Show" type="AnimationPlayer" parent="4/JourneyFeet4"]
 libraries = {
-"": SubResource("AnimationLibrary_165i6")
+&"": SubResource("AnimationLibrary_165i6")
 }
 
 [connection signal="pressed" from="PressEnter" to="." method="_on_press_enter_pressed"]

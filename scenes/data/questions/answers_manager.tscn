@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://c38tdjn0fngab"]
 
-[ext_resource type="Script" path="res://scenes/data/questions/answers_manager.gd" id="1_5jttr"]
+[ext_resource type="Script" uid="uid://d3csdief57y7e" path="res://scenes/data/questions/answers_manager.gd" id="1_5jttr"]
 [ext_resource type="Theme" uid="uid://dphjscf0acfaw" path="res://themes/general.tres" id="2_8pawt"]
 
 [node name="AnswersManager" type="VBoxContainer"]

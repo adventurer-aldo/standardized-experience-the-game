@@ -1,6 +1,6 @@
 [gd_scene load_steps=15 format=3 uid="uid://d1krru41ftoe8"]
 
-[ext_resource type="Script" path="res://scenes/data/questions/answer_open.gd" id="1_odajj"]
+[ext_resource type="Script" uid="uid://0wmoglfssw47" path="res://scenes/data/questions/answer_open.gd" id="1_odajj"]
 [ext_resource type="PackedScene" uid="uid://cfhwmxxwa7rw8" path="res://scenes/data/questions/alternative_open.tscn" id="2_54hp2"]
 [ext_resource type="Theme" uid="uid://ddpx351m2ye8v" path="res://themes/fe_font.tres" id="4_ghwx8"]
 [ext_resource type="Texture2D" uid="uid://bl60dwihfavlw" path="res://graphics/icons/minus.svg" id="4_yv7da"]
@@ -45,8 +45,7 @@ bg_color = Color(0.0509804, 0.423529, 0.976471, 1)
 [sub_resource type="InputEventKey" id="InputEventKey_n88h6"]
 device = -1
 alt_pressed = true
-keycode = 61
-unicode = 43
+keycode = 43
 
 [sub_resource type="Shortcut" id="Shortcut_8nowk"]
 events = [SubResource("InputEventKey_n88h6")]

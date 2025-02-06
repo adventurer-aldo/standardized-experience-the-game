@@ -16,7 +16,7 @@ config/tags=PackedStringArray("educational")
 run/main_scene="res://scenes/load.tscn"
 config/use_custom_user_dir=true
 config/custom_user_dir_name="StandardizedExperience"
-config/features=PackedStringArray("4.3", "GL Compatibility")
+config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://logo.png"
 
 [autoload]

@@ -1,8 +1,8 @@
 [gd_scene load_steps=39 format=3 uid="uid://c8q8numekxu7s"]
 
-[ext_resource type="Script" path="res://scenes/questions.gd" id="1_wepdh"]
+[ext_resource type="Script" uid="uid://2jl41n5pxpvq" path="res://scenes/questions.gd" id="1_wepdh"]
 [ext_resource type="PackedScene" uid="uid://ckrcxqeye6wpn" path="res://scenes/question.tscn" id="2_u2mnx"]
-[ext_resource type="Script" path="res://addons/SmoothScroll/SmoothScrollContainer.gd" id="3_scfgu"]
+[ext_resource type="Script" uid="uid://n7dovepb76v1" path="res://addons/SmoothScroll/SmoothScrollContainer.gd" id="3_scfgu"]
 [ext_resource type="Material" uid="uid://dj573ymvvkvfg" path="res://shaders/whiten_shader_material.tres" id="3_uwcgk"]
 [ext_resource type="Texture2D" uid="uid://bve3nc1spkmfl" path="res://graphics/icons/double-arrow-up.svg" id="4_ws1nm"]
 [ext_resource type="Texture2D" uid="uid://b27mj7mrqwt3v" path="res://graphics/icons/messages-question.svg" id="4_x5jm5"]
@@ -551,8 +551,8 @@ custom_minimum_size = Vector2(35, 25)
 layout_mode = 2
 mouse_filter = 1
 theme = ExtResource("9_0cdf6")
-theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 1
 theme_override_styles/normal = SubResource("StyleBoxFlat_m76jl")
 text = "Subject Tag"
@@ -563,8 +563,8 @@ layout_mode = 2
 size_flags_horizontal = 4
 mouse_filter = 1
 theme = ExtResource("9_0cdf6")
-theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 2
 theme_override_font_sizes/font_size = 26
 theme_override_styles/normal = SubResource("StyleBoxFlat_h78ve")
@@ -651,8 +651,8 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
 theme = ExtResource("9_0cdf6")
-theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 1
 theme_override_styles/normal = SubResource("StyleBoxFlat_mycyb")
 text = "#1758"

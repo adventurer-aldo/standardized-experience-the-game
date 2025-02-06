@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://cirpvf4uhbtw6"]
 
-[ext_resource type="Script" path="res://scenes/questions/alt.gd" id="1_wu5kx"]
+[ext_resource type="Script" uid="uid://bdd484h78lkgl" path="res://scenes/questions/alt.gd" id="1_wu5kx"]
 [ext_resource type="Theme" uid="uid://b703ndr62kcne" path="res://themes/comf_font.tres" id="2_h1sf8"]
 [ext_resource type="StyleBox" uid="uid://dfl88aujavog1" path="res://scenes/questions/alt.tres" id="3_jjjrq"]
 [ext_resource type="StyleBox" uid="uid://3ujccg7ukj2u" path="res://scenes/questions/alt_delete_last.tres" id="4_u5vlx"]

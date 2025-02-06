@@ -5,7 +5,7 @@ extends Resource
 @export var id:= 0
 @export var ost:= "engage"
 @export var level := 1
-@export var start_time := 0
+@export var start_time := Time.get_unix_time_from_system()
 @export var end_time := 0
 
 func get_chairs():

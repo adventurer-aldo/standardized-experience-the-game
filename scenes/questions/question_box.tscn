@@ -1,6 +1,6 @@
 [gd_scene load_steps=18 format=3 uid="uid://cjxqqd6bx4v5e"]
 
-[ext_resource type="Script" path="res://scenes/questions/questions.gd" id="1_uixsw"]
+[ext_resource type="Script" uid="uid://b22ylvow5011q" path="res://scenes/questions/questions.gd" id="1_uixsw"]
 [ext_resource type="Material" uid="uid://dj573ymvvkvfg" path="res://shaders/whiten_shader_material.tres" id="2_tw0i0"]
 [ext_resource type="Texture2D" uid="uid://dsvqgd6a7lijv" path="res://graphics/icons/book-open-cover.svg" id="3_ea8a3"]
 [ext_resource type="Theme" uid="uid://b703ndr62kcne" path="res://themes/comf_font.tres" id="4_ygtqm"]
@@ -25,7 +25,7 @@ anti_aliasing = false
 [sub_resource type="InputEventKey" id="InputEventKey_yyh1r"]
 device = -1
 alt_pressed = true
-keycode = 61
+keycode = 43
 
 [sub_resource type="Shortcut" id="Shortcut_i75uc"]
 events = [SubResource("InputEventKey_yyh1r")]
@@ -52,7 +52,7 @@ anti_aliasing = false
 [sub_resource type="InputEventKey" id="InputEventKey_0c3wx"]
 device = -1
 ctrl_pressed = true
-keycode = 61
+keycode = 43
 
 [sub_resource type="Shortcut" id="Shortcut_acjd7"]
 events = [SubResource("InputEventKey_0c3wx")]

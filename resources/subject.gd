@@ -11,6 +11,7 @@ extends Resource
 @export var starred := false
 @export var level := 1
 @export var experience := 0.0
+@export var maximum_experience := 0.0
 @export var last_time_edited = 0
 
 func export() -> void:
@@ -31,6 +32,9 @@ func save() -> void:
 	if !DirAccess.dir_exists_absolute("user://subjects/%s" % id):
 		DirAccess.make_dir_absolute("user://subjects/%s" % id)
 	ResourceSaver.save(self, "user://subjects/" + str(id) + ".res", ResourceSaver.FLAG_COMPRESS)
+
+func get_level() -> int:
+	return clampi(1 + int((float(experience) / float(maximum_experience)) * 9), 1, 10)
 
 func get_question(question_id: int) -> Question:
 	return ResourceLoader.load("user://subjects/" + str(id) + "/" + str(question_id) + ".res")

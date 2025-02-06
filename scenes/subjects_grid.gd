@@ -10,5 +10,9 @@ func _ready() -> void:
 	for subject in s:
 		var subj = subject_scene.instantiate()
 		subj.id = subject.id
+		var exp = subject.maximum_experience
+		var current_exp = subject.experience
+		subj.level = subject.get_level()
+		subj.xp = current_exp
 		subj.title = subject.title
 		add_child(subj)

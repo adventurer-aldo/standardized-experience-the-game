@@ -76,6 +76,7 @@ func _on_submit_button_pressed() -> void:
 	$QuestionsPart/Scroller/GridContainer.move_child(new_node, 0)
 	var subj = new_question.get_subject()
 	subj.last_time_edited = Time.get_unix_time_from_system()
+	subj.maximum_experience = float(DirAccess.get_files_at("user://subjects/" + str(subj.id)).size()) * 10.0
 	subj.save()
 	var line = question_milestone_voice()
 	if line != null: SFX.speak(question_milestone_voice())

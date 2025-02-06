@@ -62,8 +62,14 @@ func progress_level() -> void:
 		marked_level += 1
 		is_level_up_queued = true
 		queue_spaced_level_up(marked_level, level_up_time(marked_level))
+		var subj = get_subject()
+		subj.experience = clampf(subj.experience + 1.0, 0.0, subj.maximum_experience)
+		subj.save()
 	elif is_lost():
-		spaced_level = clamp(spaced_level - 1, 1, 99)
+		spaced_level = clamp(spaced_level - 1, 1, 11)
+		var subj = get_subject()
+		subj.experience = clampf(subj.experience - 1.0, 0.0, subj.maximum_experience)
+		subj.save()
 	if !(marked_level == spaced_level):
 		hit_streak = 0
 		miss_streak = 2

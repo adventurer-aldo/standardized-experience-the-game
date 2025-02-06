@@ -13,7 +13,9 @@ func _ready() -> void:
 	$SubjectButton/Name.text = title
 	$SubjectButton/Level.text = "Lv. " + str(level)
 	$SubjectButton/Experience.value = xp
-	$SubjectButton/AmountPanel/Amount.text = str(get_amount())
+	var amount = get_amount()
+	$SubjectButton/AmountPanel/Amount.text = str(amount)
+	$SubjectButton/Experience.value = xp / (amount * 10) * 100
 
 func get_amount():
 	return Array(DirAccess.get_files_at("user://subjects/" + str(id))).size()

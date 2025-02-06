@@ -1,14 +1,16 @@
-[gd_scene load_steps=14 format=3 uid="uid://drly7vmek5i55"]
+[gd_scene load_steps=16 format=3 uid="uid://drly7vmek5i55"]
 
 [ext_resource type="Texture2D" uid="uid://cqgxfrgi53ka8" path="res://graphics/pictures/BGStudyRoom.jpg" id="1_neg4s"]
 [ext_resource type="Texture2D" uid="uid://b6nx0xw2y6jnb" path="res://graphics/pictures/LosTexture.jpg" id="2_6ca3s"]
-[ext_resource type="Script" path="res://scenes/subjects.gd" id="2_l5sjd"]
+[ext_resource type="Script" uid="uid://c4ghvnjtnppbi" path="res://scenes/subjects.gd" id="2_l5sjd"]
 [ext_resource type="Texture2D" uid="uid://cx5jbdftuo6t0" path="res://graphics/icons/subjects.svg" id="3_akdsa"]
 [ext_resource type="Theme" uid="uid://ddpx351m2ye8v" path="res://themes/fe_font.tres" id="4_yt5nv"]
 [ext_resource type="Texture2D" uid="uid://bdihavi1s2nir" path="res://graphics/pictures/esc.png" id="5_7r7qu"]
-[ext_resource type="Script" path="res://addons/SmoothScroll/SmoothScrollContainer.gd" id="6_wtibq"]
-[ext_resource type="Script" path="res://scenes/subjects_grid.gd" id="7_0ugd1"]
+[ext_resource type="Script" uid="uid://n7dovepb76v1" path="res://addons/SmoothScroll/SmoothScrollContainer.gd" id="6_wtibq"]
+[ext_resource type="Script" uid="uid://gkr1a357o8i1" path="res://scenes/subjects_grid.gd" id="7_0ugd1"]
 [ext_resource type="PackedScene" uid="uid://c0wsl7i3w1i0p" path="res://scenes/subject_container.tscn" id="8_bebma"]
+[ext_resource type="Texture2D" uid="uid://bghlwh5wmojyx" path="res://graphics/banner_top.png" id="10_knqos"]
+[ext_resource type="Texture2D" uid="uid://cjhvtfrc66fv0" path="res://graphics/banner_bottom.png" id="11_suqxs"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8bdpg"]
 bg_color = Color(0, 0.541176, 0, 0.741176)
@@ -185,5 +187,25 @@ layout_mode = 2
 columns = 2
 script = ExtResource("7_0ugd1")
 subject_scene = ExtResource("8_bebma")
+
+[node name="Banner" type="TextureRect" parent="."]
+visible = false
+layout_mode = 1
+offset_right = 1920.0
+offset_bottom = 144.0
+scale = Vector2(0.670139, 0.670139)
+texture = ExtResource("10_knqos")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -443.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("11_suqxs")
 
 [connection signal="pressed" from="TextureButton" to="." method="_on_texture_button_pressed"]

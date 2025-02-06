@@ -1,7 +1,7 @@
 [gd_scene load_steps=41 format=3 uid="uid://b1owkchsug7x4"]
 
-[ext_resource type="Script" path="res://scenes/quiz/quiz.gd" id="1_8n255"]
-[ext_resource type="Script" path="res://scenes/quiz/texture_loop.gd" id="3_2i8ds"]
+[ext_resource type="Script" uid="uid://60s0hdcg2ocw" path="res://scenes/quiz/quiz.gd" id="1_8n255"]
+[ext_resource type="Script" uid="uid://t7mgnby6yri6" path="res://scenes/quiz/texture_loop.gd" id="3_2i8ds"]
 [ext_resource type="Texture2D" uid="uid://c08oykekb02jh" path="res://graphics/testure.png" id="3_ws1yj"]
 [ext_resource type="Texture2D" uid="uid://cdjmydk8qcbqp" path="res://graphics/testure_red.png" id="4_g3wto"]
 [ext_resource type="Theme" uid="uid://bbkfe3x78ihvo" path="res://themes/times.tres" id="5_putkc"]
@@ -9,8 +9,8 @@
 [ext_resource type="FontFile" uid="uid://b34fgfhi138hl" path="res://fonts/learning_curve_regular_ot_tt.ttf" id="7_eafx6"]
 [ext_resource type="Texture2D" uid="uid://bsnb8acrwa5ww" path="res://graphics/submit.png" id="7_eds0u"]
 [ext_resource type="FontFile" uid="uid://drunskociit7h" path="res://fonts/FOT-RodinProN-L.otf" id="8_j8lpl"]
-[ext_resource type="Script" path="res://scenes/quiz/quiz_timer.gd" id="10_itlsp"]
-[ext_resource type="Script" path="res://scenes/quiz/selector_temp.gd" id="11_lkp24"]
+[ext_resource type="Script" uid="uid://kaauxjclgiwe" path="res://scenes/quiz/quiz_timer.gd" id="10_itlsp"]
+[ext_resource type="Script" uid="uid://qlglwa6gf0k4" path="res://scenes/quiz/selector_temp.gd" id="11_lkp24"]
 [ext_resource type="Texture2D" uid="uid://bd47j41ajwye0" path="res://graphics/gradient.png" id="12_70ywo"]
 [ext_resource type="Texture2D" uid="uid://bxunaysknjqil" path="res://graphics/glow.png" id="13_vferw"]
 [ext_resource type="Texture2D" uid="uid://b00myqbjmr7gv" path="res://graphics/bloodsplash.png" id="14_ovirl"]
@@ -48,8 +48,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ptnf8"]
 _data = {
-"RESET": SubResource("Animation_5kkck"),
-"slow_loop": SubResource("Animation_vs8rd")
+&"RESET": SubResource("Animation_5kkck"),
+&"slow_loop": SubResource("Animation_vs8rd")
 }
 
 [sub_resource type="Animation" id="Animation_pbn88"]
@@ -100,9 +100,9 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_dqurd"]
 _data = {
-"RESET": SubResource("Animation_pbn88"),
-"fade_in": SubResource("Animation_mjcqc"),
-"fade_out": SubResource("Animation_hl2bb")
+&"RESET": SubResource("Animation_pbn88"),
+&"fade_in": SubResource("Animation_mjcqc"),
+&"fade_out": SubResource("Animation_hl2bb")
 }
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nr8o8"]
@@ -177,8 +177,8 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_labj8"]
 _data = {
-"RESET": SubResource("Animation_k8f2x"),
-"blink": SubResource("Animation_eilgd")
+&"RESET": SubResource("Animation_k8f2x"),
+&"blink": SubResource("Animation_eilgd")
 }
 
 [sub_resource type="Animation" id="Animation_b10nl"]
@@ -238,8 +238,8 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_geoky"]
 _data = {
-"RESET": SubResource("Animation_b10nl"),
-"show_up": SubResource("Animation_gl3cq")
+&"RESET": SubResource("Animation_b10nl"),
+&"show_up": SubResource("Animation_gl3cq")
 }
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_snenn"]
@@ -365,9 +365,9 @@ tracks/2/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_se0n3"]
 _data = {
-"RESET": SubResource("Animation_62pbd"),
-"appear": SubResource("Animation_da4n6"),
-"disappear": SubResource("Animation_vn420")
+&"RESET": SubResource("Animation_62pbd"),
+&"appear": SubResource("Animation_da4n6"),
+&"disappear": SubResource("Animation_vn420")
 }
 
 [sub_resource type="Gradient" id="Gradient_vkmvf"]
@@ -406,8 +406,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ec32c"]
 _data = {
-"RESET": SubResource("Animation_p1uik"),
-"black": SubResource("Animation_sawcf")
+&"RESET": SubResource("Animation_p1uik"),
+&"black": SubResource("Animation_sawcf")
 }
 
 [node name="Quiz" type="Control"]
@@ -425,8 +425,8 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = 133528.0
-offset_bottom = 75920.0
+offset_right = 141208.0
+offset_bottom = 80240.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("3_ws1yj")
@@ -448,13 +448,13 @@ stretch_mode = 1
 [node name="LoopAnim" type="AnimationPlayer" parent="TextureLoop"]
 root_node = NodePath("../RushFade")
 libraries = {
-"": SubResource("AnimationLibrary_ptnf8")
+&"": SubResource("AnimationLibrary_ptnf8")
 }
 
 [node name="RushFade" type="AnimationPlayer" parent="TextureLoop"]
 root_node = NodePath("../..")
 libraries = {
-"": SubResource("AnimationLibrary_dqurd")
+&"": SubResource("AnimationLibrary_dqurd")
 }
 
 [node name="Paper" type="TextureRect" parent="."]
@@ -664,6 +664,7 @@ modulate = Color(1, 1, 1, 0.498039)
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
+offset_right = 1280.0
 grow_horizontal = 2
 mouse_filter = 2
 texture = ExtResource("12_70ywo")
@@ -677,6 +678,9 @@ anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = 720.0
+offset_right = 1280.0
+offset_bottom = 720.0
 grow_horizontal = 2
 grow_vertical = 0
 mouse_filter = 2
@@ -690,6 +694,7 @@ layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
 offset_top = -38.0
+offset_right = 1280.0
 grow_horizontal = 2
 mouse_filter = 1
 theme = SubResource("Theme_4hcyd")
@@ -717,13 +722,13 @@ vertical_alignment = 1
 [node name="Blinking" type="AnimationPlayer" parent="Time"]
 root_node = NodePath("../TimeAnims")
 libraries = {
-"": SubResource("AnimationLibrary_labj8")
+&"": SubResource("AnimationLibrary_labj8")
 }
 
 [node name="TimeAnims" type="AnimationPlayer" parent="Time"]
 root_node = NodePath("../Timer")
 libraries = {
-"": SubResource("AnimationLibrary_geoky")
+&"": SubResource("AnimationLibrary_geoky")
 }
 
 [node name="Timer" type="Timer" parent="Time"]
@@ -829,7 +834,7 @@ text = "Exam"
 
 [node name="GradientPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_se0n3")
+&"": SubResource("AnimationLibrary_se0n3")
 }
 
 [node name="RushParticles" type="CPUParticles2D" parent="."]
@@ -859,7 +864,7 @@ metadata/_edit_lock_ = true
 
 [node name="Transition" type="AnimationPlayer" parent="Blackscreen"]
 libraries = {
-"": SubResource("AnimationLibrary_ec32c")
+&"": SubResource("AnimationLibrary_ec32c")
 }
 
 [node name="Bloodsplash" type="TextureRect" parent="."]

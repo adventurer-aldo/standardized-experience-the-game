@@ -1,6 +1,6 @@
 [gd_scene load_steps=24 format=3 uid="uid://c25rd6dtbvuxc"]
 
-[ext_resource type="Script" path="res://scenes/quiz/results.gd" id="1_q5e4e"]
+[ext_resource type="Script" uid="uid://cg8g8xtc4geux" path="res://scenes/quiz/results.gd" id="1_q5e4e"]
 [ext_resource type="Texture2D" uid="uid://dke4rp80nhy0n" path="res://graphics/testure_gray.png" id="2_ajwxi"]
 [ext_resource type="Texture2D" uid="uid://cv7j0f3tmkpis" path="res://graphics/paper.png" id="5_6ar4c"]
 [ext_resource type="Theme" uid="uid://bbkfe3x78ihvo" path="res://themes/times.tres" id="6_j1sgi"]
@@ -121,8 +121,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_15hn8"]
 _data = {
-"RESET": SubResource("Animation_hbs3a"),
-"unblack": SubResource("Animation_gg0uo")
+&"RESET": SubResource("Animation_hbs3a"),
+&"unblack": SubResource("Animation_gg0uo")
 }
 
 [node name="Results" type="Control"]
@@ -452,7 +452,7 @@ metadata/_edit_lock_ = true
 
 [node name="Transition" type="AnimationPlayer" parent="Blackscreen"]
 libraries = {
-"": SubResource("AnimationLibrary_15hn8")
+&"": SubResource("AnimationLibrary_15hn8")
 }
 
 [node name="Scheduler" parent="." instance=ExtResource("8_x2we0")]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://ukd4ge1kxf66"]
 
-[ext_resource type="Script" path="res://scenes/load.gd" id="1_wgumh"]
+[ext_resource type="Script" uid="uid://bs42tpc75qeo3" path="res://scenes/load.gd" id="1_wgumh"]
 [ext_resource type="Texture2D" uid="uid://dfvysekdfjhtn" path="res://graphics/title/download/circle_spin.png" id="2_e1em8"]
 [ext_resource type="PackedScene" uid="uid://dxouk8qy8oytm" path="res://scenes/scheduler.tscn" id="4_54cop"]
 
@@ -38,8 +38,8 @@ tracks/0/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_v22qi"]
 resource_local_to_scene = true
 _data = {
-"RESET": SubResource("Animation_vipce"),
-"spin": SubResource("Animation_qym84")
+&"RESET": SubResource("Animation_vipce"),
+&"spin": SubResource("Animation_qym84")
 }
 
 [sub_resource type="ImageTexture" id="ImageTexture_nwe6e"]
@@ -77,7 +77,7 @@ texture = ExtResource("2_e1em8")
 
 [node name="Spin" type="AnimationPlayer" parent="CircleSpin"]
 libraries = {
-"": SubResource("AnimationLibrary_v22qi")
+&"": SubResource("AnimationLibrary_v22qi")
 }
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
