@@ -1,6 +1,0 @@
-[gd_resource type="AudioStreamSynchronized" format=3 uid="uid://od4x58itdfkk"]
-
-[resource]
-stream_count = 2
-stream_0/volume = 0.0
-stream_1/volume = -60.0

@@ -13,18 +13,10 @@ config_version=5
 config/name="Standardized Experience"
 config/description="Level up your learning."
 config/tags=PackedStringArray("educational")
-run/main_scene="res://scenes/load.tscn"
+run/main_scene="uid://bltr5as1ppypj"
 config/use_custom_user_dir=true
 config/custom_user_dir_name="StandardizedExperience"
 config/features=PackedStringArray("4.4", "GL Compatibility")
-config/icon="res://logo.png"
-
-[autoload]
-
-Global="*res://scenes/global.gd"
-BGM="*res://scenes/bgm.tscn"
-SFX="*res://scenes/sfx.tscn"
-Text="*res://texts/text.gd"
 
 [display]
 
@@ -51,6 +43,11 @@ import/fbx/enabled=false
 [global_group]
 
 question_box=""
+data_table_cell=""
+
+[gui]
+
+theme/custom_font="uid://cg330vu00gosa"
 
 [input]
 

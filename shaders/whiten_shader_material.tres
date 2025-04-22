@@ -1,6 +1,0 @@
-[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://dj573ymvvkvfg"]
-
-[ext_resource type="Shader" uid="uid://da8kgx7jwgf8f" path="res://shaders/whiten.tres" id="1_lbfx1"]
-
-[resource]
-shader = ExtResource("1_lbfx1")

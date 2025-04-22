@@ -1,6 +1,0 @@
-[gd_resource type="Resource" load_steps=2 format=3 uid="uid://cag0dhylmxtyc"]
-
-[ext_resource type="Script" path="res://resources/data.gd" id="1_wriq8"]
-
-[resource]
-script = ExtResource("1_wriq8")
