@@ -17,6 +17,8 @@ content_margin_bottom = 10.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vwqmk"]
 bg_color = Color(1, 1, 1, 1)
+border_width_bottom = 5
+border_color = Color(0.607843, 0.784314, 0.87451, 1)
 
 [node name="Set" type="HBoxContainer"]
 size_flags_horizontal = 3
@@ -50,6 +52,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_vwqmk")
 
 [connection signal="pressed" from="DeleteAlt" to="." method="_on_delete_alt_pressed"]

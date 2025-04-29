@@ -1,19 +1,28 @@
-[gd_scene load_steps=13 format=3 uid="uid://bd634eo063jbr"]
+[gd_scene load_steps=22 format=3 uid="uid://bd634eo063jbr"]
 
 [ext_resource type="Script" uid="uid://b0qderfii5a6j" path="res://scenes/data_question.gd" id="1_0rm0x"]
 [ext_resource type="PackedScene" uid="uid://7f5d1bwwjuu0" path="res://scenes/DataQuestion/question_row.tscn" id="2_ve1ap"]
+[ext_resource type="Texture2D" uid="uid://db346kse756h0" path="res://graphics/icons/image-polaroid.svg" id="3_q43th"]
 [ext_resource type="PackedScene" uid="uid://dy4w0xtd2ieoi" path="res://scenes/DataQuestion/table.tscn" id="3_vwqmk"]
 [ext_resource type="PackedScene" uid="uid://bdgmtw2gpw4ag" path="res://scenes/DataQuestion/opens.tscn" id="3_xarco"]
 [ext_resource type="PackedScene" uid="uid://c2ryyfuf6o40q" path="res://scenes/DataQuestion/match.tscn" id="4_cgyq5"]
+[ext_resource type="Texture2D" uid="uid://i5rro15s5p5n" path="res://graphics/icons/volume.svg" id="4_ejm1d"]
+[ext_resource type="Texture2D" uid="uid://dl0q3py1kbiyw" path="res://graphics/icons/pen-line.svg" id="8_3hpxg"]
+[ext_resource type="Texture2D" uid="uid://cajba7ppnetc1" path="res://graphics/icons/mask.svg" id="9_m1sgt"]
+[ext_resource type="Texture2D" uid="uid://bbel83glxkp0g" path="res://graphics/icons/table.svg" id="10_i8tj4"]
+[ext_resource type="Texture2D" uid="uid://c5au6fpvjeqee" path="res://graphics/icons/arrow-right-arrow-left.svg" id="11_xqlgg"]
+[ext_resource type="Texture2D" uid="uid://dlqk2jdwkwi31" path="res://graphics/icons/star-shooting.svg" id="12_pdx67"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cgyq5"]
 content_margin_left = 3.0
 content_margin_top = 3.0
 content_margin_right = 3.0
 content_margin_bottom = 3.0
-bg_color = Color(0.00784314, 0.313726, 0.764706, 1)
+bg_color = Color(1, 0.713726, 0, 1)
+corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eoayo"]
 bg_color = Color(0.00784314, 0.313726, 0.764706, 1)
@@ -43,8 +52,20 @@ content_margin_top = 3.0
 content_margin_right = 3.0
 content_margin_bottom = 3.0
 bg_color = Color(0.38, 0.646, 0.76, 1)
+corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ll8xw"]
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_py5sx"]
+bg_color = Color(1, 0.8895, 0.61, 1)
 
 [node name="DataQuestion" type="Control"]
 layout_mode = 3
@@ -64,19 +85,47 @@ offset_bottom = 392.0
 [node name="Resources" type="VBoxContainer" parent="Items"]
 layout_mode = 2
 
-[node name="Button3" type="Button" parent="Items/Resources"]
+[node name="Images" type="Button" parent="Items/Resources"]
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/normal = SubResource("StyleBoxFlat_cgyq5")
-text = "Img"
 
-[node name="Button2" type="Button" parent="Items/Resources"]
+[node name="ImgTexture" type="TextureRect" parent="Items/Resources/Images"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 3.0
+offset_top = 107.0
+offset_right = -3.0
+offset_bottom = -106.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_q43th")
+expand_mode = 4
+stretch_mode = 4
+
+[node name="Sounds" type="Button" parent="Items/Resources"]
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/normal = SubResource("StyleBoxFlat_cgyq5")
-text = "Aud"
+
+[node name="ImgTexture" type="TextureRect" parent="Items/Resources/Sounds"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 3.0
+offset_top = 107.0
+offset_right = -3.0
+offset_bottom = -106.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_ejm1d")
+expand_mode = 4
+stretch_mode = 4
 
 [node name="Data" type="VBoxContainer" parent="Items"]
 layout_mode = 2
@@ -276,74 +325,183 @@ layout_mode = 2
 [node name="Match" parent="Items/Data" instance=ExtResource("4_cgyq5")]
 layout_mode = 2
 
-[node name="Types" type="HFlowContainer" parent="Items/Data"]
+[node name="Types2" type="MarginContainer" parent="Items/Data"]
 layout_mode = 2
 
-[node name="Button2" type="Button" parent="Items/Data/Types"]
+[node name="M" type="MarginContainer" parent="Items/Data/Types2"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Items/Data/Types2/M"]
+layout_mode = 2
+
+[node name="Types2" type="HBoxContainer" parent="Items/Data/Types2/M/VBoxContainer"]
+layout_mode = 2
+
+[node name="Open" type="Button" parent="Items/Data/Types2/M/VBoxContainer/Types2"]
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_styles/normal = SubResource("StyleBoxFlat_cgyq5")
+text = "."
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Items/Data/Types2/M/VBoxContainer/Types2/Open"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 227.0
+offset_right = -226.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ImgTexture" type="TextureRect" parent="Items/Data/Types2/M/VBoxContainer/Types2/Open/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("8_3hpxg")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="Label" type="Label" parent="Items/Data/Types2/M/VBoxContainer/Types2/Open/HBoxContainer"]
+layout_mode = 2
 text = "Open"
 
-[node name="Button4" type="Button" parent="Items/Data/Types"]
+[node name="Choice" type="Button" parent="Items/Data/Types2/M/VBoxContainer/Types2"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_cgyq5")
+text = "."
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Items/Data/Types2/M/VBoxContainer/Types2/Choice"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 227.0
+offset_right = -226.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ImgTexture" type="TextureRect" parent="Items/Data/Types2/M/VBoxContainer/Types2/Choice/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("9_m1sgt")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="Label" type="Label" parent="Items/Data/Types2/M/VBoxContainer/Types2/Choice/HBoxContainer"]
+layout_mode = 2
+text = "Choice"
+
+[node name="Table" type="Button" parent="Items/Data/Types2/M/VBoxContainer/Types2"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_cgyq5")
+text = "."
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Items/Data/Types2/M/VBoxContainer/Types2/Table"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 227.0
+offset_right = -226.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ImgTexture" type="TextureRect" parent="Items/Data/Types2/M/VBoxContainer/Types2/Table/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("10_i8tj4")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="Label" type="Label" parent="Items/Data/Types2/M/VBoxContainer/Types2/Table/HBoxContainer"]
+layout_mode = 2
+text = "Table"
+
+[node name="Match" type="Button" parent="Items/Data/Types2/M/VBoxContainer/Types2"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_cgyq5")
+text = "."
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Items/Data/Types2/M/VBoxContainer/Types2/Match"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 227.0
+offset_right = -226.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ImgTexture" type="TextureRect" parent="Items/Data/Types2/M/VBoxContainer/Types2/Match/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("11_xqlgg")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="Label" type="Label" parent="Items/Data/Types2/M/VBoxContainer/Types2/Match/HBoxContainer"]
+layout_mode = 2
+text = "Match"
+
+[node name="Types" type="HFlowContainer" parent="Items/Data/Types2/M/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+reverse_fill = true
+
+[node name="Button4" type="Button" parent="Items/Data/Types2/M/VBoxContainer/Types"]
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_styles/normal = SubResource("StyleBoxFlat_xarco")
 text = "Ordered"
 
-[node name="Button6" type="Button" parent="Items/Data/Types"]
+[node name="Button6" type="Button" parent="Items/Data/Types2/M/VBoxContainer/Types"]
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_styles/normal = SubResource("StyleBoxFlat_xarco")
 text = "Strict"
 
-[node name="Button8" type="Button" parent="Items/Data/Types"]
+[node name="Button8" type="Button" parent="Items/Data/Types2/M/VBoxContainer/Types"]
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_styles/normal = SubResource("StyleBoxFlat_xarco")
 text = "Gap"
 
-[node name="Button3" type="Button" parent="Items/Data/Types"]
-custom_minimum_size = Vector2(40, 0)
-layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_cgyq5")
-text = "Choice"
-
-[node name="Button9" type="Button" parent="Items/Data/Types"]
+[node name="Button9" type="Button" parent="Items/Data/Types2/M/VBoxContainer/Types"]
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_styles/normal = SubResource("StyleBoxFlat_xarco")
 text = "Veracity"
 
-[node name="Button5" type="Button" parent="Items/Data/Types"]
-custom_minimum_size = Vector2(40, 0)
-layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_cgyq5")
-text = "Table"
-
-[node name="Button11" type="Button" parent="Items/Data/Types"]
+[node name="Button11" type="Button" parent="Items/Data/Types2/M/VBoxContainer/Types"]
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_styles/normal = SubResource("StyleBoxFlat_xarco")
 text = "Shuffle"
 
-[node name="Button7" type="Button" parent="Items/Data/Types"]
-custom_minimum_size = Vector2(40, 0)
-layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_cgyq5")
-text = "Match"
-
-[node name="Button10" type="Button" parent="Items/Data/Types"]
+[node name="Button10" type="Button" parent="Items/Data/Types2/M/VBoxContainer/Types"]
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_styles/normal = SubResource("StyleBoxFlat_xarco")
 text = "Shuffle"
+
+[node name="BG" type="Panel" parent="Items/Data/Types2"]
+show_behind_parent = true
+layout_mode = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_ll8xw")
 
 [node name="Topic" type="HBoxContainer" parent="Items/Data"]
 layout_mode = 2
@@ -372,6 +530,27 @@ grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_vwqmk")
 
 [node name="Submit" type="Button" parent="Items/Data"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_py5sx")
+text = "."
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Items/Data/Submit"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 227.0
+offset_right = -226.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ImgTexture" type="TextureRect" parent="Items/Data/Submit/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("12_pdx67")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="Label" type="Label" parent="Items/Data/Submit/HBoxContainer"]
 layout_mode = 2
 text = "Create!"
 
