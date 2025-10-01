@@ -1,3 +1,5 @@
+@tool
+class_name Statistics
 extends Resource
 
 @export var last_subject_id := 0
