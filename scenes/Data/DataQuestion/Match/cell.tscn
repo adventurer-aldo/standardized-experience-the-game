@@ -1,0 +1,68 @@
+[gd_scene load_steps=6 format=3 uid="uid://bx8owndv230rp"]
+
+[ext_resource type="Script" uid="uid://bgaxeomi57ep2" path="res://scenes/Data/DataQuestion/Match/cell.gd" id="1_xoyhw"]
+[ext_resource type="PackedScene" uid="uid://qep4fwsletuj" path="res://scenes/Data/DataQuestion/Match/text_alt.tscn" id="1_yxpg7"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0rm0x"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vwqmk"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xoyhw"]
+content_margin_left = 3.0
+content_margin_top = 3.0
+content_margin_right = 3.0
+content_margin_bottom = 3.0
+bg_color = Color(0.00759999, 0.43396, 0.76, 1)
+
+[node name="Cell" type="HBoxContainer"]
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 0
+script = ExtResource("1_xoyhw")
+alt_scene = ExtResource("1_yxpg7")
+
+[node name="Column" type="VBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+
+[node name="TextMain" type="TextEdit" parent="Column"]
+clip_contents = false
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_placeholder_color = Color(0.216, 0.1952, 0.32, 1)
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxEmpty_0rm0x")
+placeholder_text = "Match"
+scroll_fit_content_height = true
+
+[node name="Background" type="Panel" parent="Column/TextMain"]
+show_behind_parent = true
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_vwqmk")
+
+[node name="Alts" type="VBoxContainer" parent="Column"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="AddAlt" type="Button" parent="."]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_xoyhw")
+text = "Alt"
+
+[connection signal="pressed" from="AddAlt" to="." method="_on_add_alt_pressed"]

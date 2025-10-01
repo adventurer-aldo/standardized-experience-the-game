@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://bnpmo674alohx"]
+
+[ext_resource type="Script" uid="uid://clbulj65dnqr1" path="res://scenes/Data/DataSubject/subject.gd" id="1_1tp4j"]
+[ext_resource type="PackedScene" uid="uid://bd634eo063jbr" path="res://scenes/Data/data_question.tscn" id="2_svi1f"]
+
+[node name="Subject" type="Button"]
+size_flags_horizontal = 3
+text = "Subject Name"
+script = ExtResource("1_1tp4j")
+data_question_scene = ExtResource("2_svi1f")
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

@@ -1,0 +1,37 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://dec3vfeck51ty"]
+
+[ext_resource type="Script" uid="uid://dajxfsin1404i" path="res://resources/question.gd" id="1_ugqg3"]
+
+[resource]
+script = ExtResource("1_ugqg3")
+id = null
+subject_id = null
+created_at = null
+last_time_edited = null
+topic = null
+tags = null
+images = null
+sounds = null
+question = null
+answer = []
+choices = null
+columns = null
+match_a = null
+match_b = null
+variables = null
+level = 0
+is_open = false
+is_choice = null
+is_table = null
+is_label = null
+is_connect = null
+is_strict = null
+is_shuffle = null
+is_order = null
+learn_level = null
+experience = null
+is_level_up_queued = null
+hits = null
+misses = null
+hit_streak = null
+miss_streak = null

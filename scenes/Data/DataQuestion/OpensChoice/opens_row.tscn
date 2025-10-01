@@ -1,0 +1,126 @@
+[gd_scene load_steps=8 format=3 uid="uid://bcuq3veu0kx2k"]
+
+[ext_resource type="Script" uid="uid://sh2qms5hxqx3" path="res://scenes/Data/DataQuestion/OpensChoice/opens_row.gd" id="1_nbjlh"]
+[ext_resource type="PackedScene" uid="uid://caiqur14kros3" path="res://scenes/Data/DataQuestion/OpensChoice/opens_alt_set.tscn" id="2_arib2"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eoayo"]
+bg_color = Color(0.00784314, 0.313726, 0.764706, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0rm0x"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p870i"]
+bg_color = Color(1, 0.713726, 0, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vwqmk"]
+bg_color = Color(1, 1, 1, 1)
+border_width_bottom = 5
+border_color = Color(0.607843, 0.784314, 0.87451, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wgsi8"]
+content_margin_left = 3.0
+content_margin_top = 3.0
+content_margin_right = 3.0
+content_margin_bottom = 3.0
+bg_color = Color(0.76, 0.00759999, 0.00759999, 1)
+
+[node name="Row" type="HBoxContainer"]
+theme_override_constants/separation = 0
+script = ExtResource("1_nbjlh")
+alt_scene = ExtResource("2_arib2")
+
+[node name="Answer" type="VBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+
+[node name="Set" type="HBoxContainer" parent="Answer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+
+[node name="AddAlt" type="Button" parent="Answer/Set"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_eoayo")
+text = "Alt"
+
+[node name="Text" type="TextEdit" parent="Answer/Set"]
+clip_contents = false
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_placeholder_color = Color(0.216, 0.1952, 0.32, 1)
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxEmpty_0rm0x")
+placeholder_text = "An answer to that question."
+scroll_fit_content_height = true
+
+[node name="Order" type="Control" parent="Answer/Set/Text"]
+visible = false
+anchors_preset = 0
+offset_bottom = 51.0
+
+[node name="Text" type="Label" parent="Answer/Set/Text/Order"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -12.0
+offset_right = 20.0
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.0666667, 0.0784314, 0.101961, 1)
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Background" type="Panel" parent="Answer/Set/Text/Order/Text"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_p870i")
+
+[node name="Background" type="Panel" parent="Answer/Set/Text"]
+show_behind_parent = true
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_vwqmk")
+
+[node name="DeleteAnswer" type="Button" parent="Answer/Set"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_wgsi8")
+text = "-"
+
+[node name="Alts" type="VBoxContainer" parent="Answer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[connection signal="pressed" from="Answer/Set/AddAlt" to="." method="_on_add_alt_pressed"]
+[connection signal="pressed" from="Answer/Set/DeleteAnswer" to="." method="_on_delete_answer_pressed"]

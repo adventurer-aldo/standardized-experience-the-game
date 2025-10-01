@@ -1,0 +1,27 @@
+[gd_scene load_steps=2 format=3 uid="uid://ceo45d0daaeso"]
+
+[ext_resource type="Script" uid="uid://cajf5qx5ls6u5" path="res://scenes/Data/DataQuestion/Label/row.gd" id="1_fwjmu"]
+
+[node name="Row" type="HBoxContainer"]
+script = ExtResource("1_fwjmu")
+
+[node name="AddAlt" type="Button" parent="."]
+layout_mode = 2
+text = "+"
+
+[node name="Texts" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="MainText" type="TextEdit" parent="Texts"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Alts" type="VBoxContainer" parent="Texts"]
+layout_mode = 2
+
+[node name="Delete" type="Button" parent="."]
+layout_mode = 2
+text = "-"
+
+[connection signal="pressed" from="Delete" to="." method="_on_delete_pressed"]

@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://bp0vok38xq7by"]
+
+[ext_resource type="Script" uid="uid://c1l2oewuxvllc" path="res://scenes/Data/DataQuestion/tag.gd" id="1_46s3h"]
+
+[node name="Tag" type="HBoxContainer"]
+script = ExtResource("1_46s3h")
+
+[node name="TextButton" type="Button" parent="."]
+layout_mode = 2
+text = "Moderato"
+
+[node name="DeleteButton" type="Button" parent="."]
+layout_mode = 2
+text = "X"
+
+[connection signal="pressed" from="DeleteButton" to="." method="_on_delete_button_pressed"]

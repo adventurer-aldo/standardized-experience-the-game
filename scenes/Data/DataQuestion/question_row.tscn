@@ -1,0 +1,74 @@
+[gd_scene load_steps=7 format=3 uid="uid://7f5d1bwwjuu0"]
+
+[ext_resource type="Script" uid="uid://bga3vs0cwb1kt" path="res://scenes/Data/DataQuestion/question_row.gd" id="1_8qvhy"]
+[ext_resource type="Material" uid="uid://dj573ymvvkvfg" path="res://materials/whiten_shader_material.tres" id="2_7dl4p"]
+[ext_resource type="Texture2D" uid="uid://jera1onaenhu" path="res://graphics/icons/minus.svg" id="3_7dl4p"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0rm0x"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ve1ap"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ll8xw"]
+bg_color = Color(0.87, 0.101355, 0.0609, 1)
+border_width_top = 3
+border_width_bottom = 3
+border_color = Color(0.592157, 0.117647, 0, 1)
+
+[node name="QuestionRow" type="HBoxContainer"]
+theme_override_constants/separation = 0
+script = ExtResource("1_8qvhy")
+
+[node name="Text" type="TextEdit" parent="."]
+clip_contents = false
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_placeholder_color = Color(0.216, 0.1952, 0.32, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/caret_color = Color(0, 0, 1, 1)
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxEmpty_0rm0x")
+placeholder_text = "What will be the question?"
+scroll_fit_content_height = true
+
+[node name="Background" type="Panel" parent="Text"]
+show_behind_parent = true
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ve1ap")
+
+[node name="DeleteButton" type="Button" parent="."]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_ll8xw")
+
+[node name="M" type="MarginContainer" parent="DeleteButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 10
+
+[node name="Icon" type="TextureRect" parent="DeleteButton/M"]
+material = ExtResource("2_7dl4p")
+layout_mode = 2
+texture = ExtResource("3_7dl4p")
+expand_mode = 2
+
+[connection signal="pressed" from="DeleteButton" to="." method="_on_delete_button_pressed"]

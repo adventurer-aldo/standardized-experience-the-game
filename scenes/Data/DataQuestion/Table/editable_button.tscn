@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://sh843g04k0ge"]
+
+[ext_resource type="Script" uid="uid://bomdv5p3cvixw" path="res://scenes/Data/DataQuestion/Table/editable_button.gd" id="1_bgat0"]
+
+[node name="EditableButton" type="Button"]
+size_flags_vertical = 3
+toggle_mode = true
+text = "..."
+script = ExtResource("1_bgat0")
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

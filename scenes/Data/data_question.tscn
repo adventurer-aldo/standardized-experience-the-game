@@ -1,0 +1,598 @@
+[gd_scene load_steps=38 format=3 uid="uid://bd634eo063jbr"]
+
+[ext_resource type="Script" uid="uid://b0qderfii5a6j" path="res://scenes/Data/data_question.gd" id="1_0rm0x"]
+[ext_resource type="PackedScene" uid="uid://7f5d1bwwjuu0" path="res://scenes/Data/DataQuestion/question_row.tscn" id="2_ve1ap"]
+[ext_resource type="Texture2D" uid="uid://vfyw6tdp5mye" path="res://graphics/buttons/resource_pressed.png" id="3_awlwc"]
+[ext_resource type="Texture2D" uid="uid://db346kse756h0" path="res://graphics/icons/image-polaroid.svg" id="3_q43th"]
+[ext_resource type="PackedScene" uid="uid://dy4w0xtd2ieoi" path="res://scenes/Data/DataQuestion/Table/table.tscn" id="3_vwqmk"]
+[ext_resource type="PackedScene" uid="uid://bdgmtw2gpw4ag" path="res://scenes/Data/DataQuestion/OpensChoice/opens.tscn" id="3_xarco"]
+[ext_resource type="PackedScene" uid="uid://c2ryyfuf6o40q" path="res://scenes/Data/DataQuestion/Match/match.tscn" id="4_cgyq5"]
+[ext_resource type="Texture2D" uid="uid://i5rro15s5p5n" path="res://graphics/icons/volume.svg" id="4_ejm1d"]
+[ext_resource type="Texture2D" uid="uid://bo481k3nb4ltk" path="res://graphics/buttons/resource.png" id="4_kw14r"]
+[ext_resource type="Texture2D" uid="uid://dl0q3py1kbiyw" path="res://graphics/icons/pen-line.svg" id="8_3hpxg"]
+[ext_resource type="PackedScene" uid="uid://drbhvfghocv1u" path="res://scenes/Data/DataQuestion/type_button.tscn" id="8_pdx67"]
+[ext_resource type="Texture2D" uid="uid://bs2hklcs81hod" path="res://graphics/icons/check-to-slot.svg" id="9_m1sgt"]
+[ext_resource type="Texture2D" uid="uid://bbel83glxkp0g" path="res://graphics/icons/table.svg" id="10_i8tj4"]
+[ext_resource type="Texture2D" uid="uid://dluqto4pjdnyt" path="res://graphics/icons/diagram-project.svg" id="12_i8tj4"]
+[ext_resource type="Texture2D" uid="uid://dlqk2jdwkwi31" path="res://graphics/icons/star-shooting.svg" id="12_pdx67"]
+[ext_resource type="Texture2D" uid="uid://c0qx3mbdslr8m" path="res://graphics/icons/list-ol.svg" id="13_xqlgg"]
+[ext_resource type="Texture2D" uid="uid://b6bdoxexke0a0" path="res://graphics/icons/lock-a.svg" id="14_pdx67"]
+[ext_resource type="Texture2D" uid="uid://k0bete812k1r" path="res://graphics/icons/question.svg" id="15_pdx67"]
+[ext_resource type="Texture2D" uid="uid://dc42exi8q7l5a" path="res://graphics/icons/circle-half-stroke.svg" id="16_py5sx"]
+[ext_resource type="Texture2D" uid="uid://brmt8odyb0twp" path="res://graphics/icons/shuffle.svg" id="17_ctgcr"]
+[ext_resource type="Texture2D" uid="uid://dobusvgditles" path="res://graphics/buttons/submit_pressed.png" id="20_7uqtb"]
+[ext_resource type="PackedScene" uid="uid://wlnv0uajs0gk" path="res://scenes/Data/DataQuestion/Label/label.tscn" id="20_kw14r"]
+[ext_resource type="PackedScene" uid="uid://bp0vok38xq7by" path="res://scenes/Data/DataQuestion/tag.tscn" id="21_7uqtb"]
+[ext_resource type="Texture2D" uid="uid://bqs08qpv5mlf5" path="res://graphics/buttons/submit.png" id="21_l7njq"]
+[ext_resource type="Script" uid="uid://i41g3m3gb8lr" path="res://scenes/voice.gd" id="23_3rfw0"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gkyu1"]
+texture = ExtResource("4_kw14r")
+texture_margin_left = 12.0
+texture_margin_top = 12.0
+texture_margin_right = 12.0
+texture_margin_bottom = 12.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_i4w0a"]
+texture = ExtResource("3_awlwc")
+texture_margin_left = 12.0
+texture_margin_top = 12.0
+texture_margin_right = 12.0
+texture_margin_bottom = 12.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_eed2l"]
+texture = ExtResource("4_kw14r")
+texture_margin_left = 12.0
+texture_margin_top = 12.0
+texture_margin_right = 12.0
+texture_margin_bottom = 12.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lyehf"]
+texture = ExtResource("3_awlwc")
+texture_margin_left = 12.0
+texture_margin_top = 12.0
+texture_margin_right = 12.0
+texture_margin_bottom = 12.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eoayo"]
+bg_color = Color(0.00784314, 0.313726, 0.764706, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0rm0x"]
+bg_color = Color(0.00784314, 0.313726, 0.764706, 1)
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xarco"]
+content_margin_left = 3.0
+content_margin_top = 3.0
+content_margin_right = 3.0
+content_margin_bottom = 3.0
+bg_color = Color(0.38, 0.646, 0.76, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ll8xw"]
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0rm0x"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vwqmk"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pa0ux"]
+texture = ExtResource("21_l7njq")
+texture_margin_left = 12.0
+texture_margin_top = 12.0
+texture_margin_right = 12.0
+texture_margin_bottom = 12.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lsry1"]
+texture = ExtResource("20_7uqtb")
+texture_margin_left = 12.0
+texture_margin_top = 12.0
+texture_margin_right = 12.0
+texture_margin_bottom = 12.0
+
+[node name="DataQuestion" type="Control"]
+top_level = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_0rm0x")
+question_packed_scene = ExtResource("2_ve1ap")
+tag_packed_scene = ExtResource("21_7uqtb")
+
+[node name="Items" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_top = 76.0
+offset_right = 642.0
+offset_bottom = 468.0
+metadata/_edit_group_ = true
+
+[node name="Resources" type="VBoxContainer" parent="Items"]
+layout_mode = 2
+
+[node name="Images" type="Button" parent="Items/Resources"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/normal = SubResource("StyleBoxTexture_gkyu1")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_i4w0a")
+
+[node name="VBoxCenterer" type="VBoxContainer" parent="Items/Resources/Images"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ImgTexture" type="TextureRect" parent="Items/Resources/Images/VBoxCenterer"]
+custom_minimum_size = Vector2(35, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 6
+texture = ExtResource("3_q43th")
+expand_mode = 4
+stretch_mode = 4
+
+[node name="Sounds" type="Button" parent="Items/Resources"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/normal = SubResource("StyleBoxTexture_eed2l")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_lyehf")
+
+[node name="VBoxCenterer" type="VBoxContainer" parent="Items/Resources/Sounds"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ImgTexture2" type="TextureRect" parent="Items/Resources/Sounds/VBoxCenterer"]
+layout_mode = 2
+size_flags_vertical = 6
+texture = ExtResource("4_ejm1d")
+expand_mode = 4
+stretch_mode = 4
+
+[node name="Data" type="VBoxContainer" parent="Items"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Question" type="VBoxContainer" parent="Items/Data"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="GloballyRelevant" type="HBoxContainer" parent="Items/Data/Question"]
+layout_mode = 2
+
+[node name="Reset" type="Button" parent="Items/Data/Question/GloballyRelevant"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_eoayo")
+text = "? New Question..."
+
+[node name="IncreaseLevel" type="Button" parent="Items/Data/Question/GloballyRelevant"]
+custom_minimum_size = Vector2(171, 0)
+layout_mode = 2
+text = "."
+
+[node name="Elements" type="HBoxContainer" parent="Items/Data/Question/GloballyRelevant/IncreaseLevel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Icon" type="TextureRect" parent="Items/Data/Question/GloballyRelevant/IncreaseLevel/Elements"]
+layout_mode = 2
+texture = ExtResource("4_kw14r")
+expand_mode = 2
+
+[node name="Text" type="Label" parent="Items/Data/Question/GloballyRelevant/IncreaseLevel/Elements"]
+layout_mode = 2
+text = "Advanced Level"
+
+[node name="Texts" type="VBoxContainer" parent="Items/Data/Question"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="AddAlt" type="Button" parent="Items/Data/Question"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_0rm0x")
+text = "Alt+"
+
+[node name="Separator" type="ColorRect" parent="Items/Data"]
+custom_minimum_size = Vector2(0, 2.5)
+layout_mode = 2
+
+[node name="Types" type="MarginContainer" parent="Items/Data"]
+layout_mode = 2
+
+[node name="M" type="MarginContainer" parent="Items/Data/Types"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Items/Data/Types/M"]
+layout_mode = 2
+
+[node name="Types" type="HBoxContainer" parent="Items/Data/Types/M/VBoxContainer"]
+layout_mode = 2
+
+[node name="Open" parent="Items/Data/Types/M/VBoxContainer/Types" instance=ExtResource("8_pdx67")]
+layout_mode = 2
+
+[node name="ImgTexture" parent="Items/Data/Types/M/VBoxContainer/Types/Open/HBoxContainer" index="0"]
+texture = ExtResource("8_3hpxg")
+
+[node name="Label" parent="Items/Data/Types/M/VBoxContainer/Types/Open/HBoxContainer" index="1"]
+text = "Open"
+
+[node name="Choice" parent="Items/Data/Types/M/VBoxContainer/Types" instance=ExtResource("8_pdx67")]
+layout_mode = 2
+
+[node name="ImgTexture" parent="Items/Data/Types/M/VBoxContainer/Types/Choice/HBoxContainer" index="0"]
+texture = ExtResource("9_m1sgt")
+
+[node name="Label" parent="Items/Data/Types/M/VBoxContainer/Types/Choice/HBoxContainer" index="1"]
+text = "Choice"
+
+[node name="Match" parent="Items/Data/Types/M/VBoxContainer/Types" instance=ExtResource("8_pdx67")]
+layout_mode = 2
+
+[node name="Table" parent="Items/Data/Types/M/VBoxContainer/Types" instance=ExtResource("8_pdx67")]
+layout_mode = 2
+
+[node name="ImgTexture" parent="Items/Data/Types/M/VBoxContainer/Types/Table/HBoxContainer" index="0"]
+texture = ExtResource("10_i8tj4")
+
+[node name="Label" parent="Items/Data/Types/M/VBoxContainer/Types/Table/HBoxContainer" index="1"]
+text = "Table"
+
+[node name="Label" parent="Items/Data/Types/M/VBoxContainer/Types" instance=ExtResource("8_pdx67")]
+layout_mode = 2
+
+[node name="ImgTexture" parent="Items/Data/Types/M/VBoxContainer/Types/Label/HBoxContainer" index="0"]
+texture = ExtResource("12_i8tj4")
+
+[node name="Label" parent="Items/Data/Types/M/VBoxContainer/Types/Label/HBoxContainer" index="1"]
+text = "Label"
+
+[node name="Label2" parent="Items/Data/Types/M/VBoxContainer/Types" instance=ExtResource("8_pdx67")]
+custom_minimum_size = Vector2(111.475, 0)
+layout_mode = 2
+
+[node name="ImgTexture" parent="Items/Data/Types/M/VBoxContainer/Types/Label2/HBoxContainer" index="0"]
+texture = ExtResource("12_i8tj4")
+
+[node name="Label" parent="Items/Data/Types/M/VBoxContainer/Types/Label2/HBoxContainer" index="1"]
+text = "Scheme"
+
+[node name="Parameters" type="HFlowContainer" parent="Items/Data/Types/M/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+reverse_fill = true
+
+[node name="Ordered" type="Button" parent="Items/Data/Types/M/VBoxContainer/Parameters"]
+custom_minimum_size = Vector2(110, 0)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_xarco")
+text = "."
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Items/Data/Types/M/VBoxContainer/Parameters/Ordered"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 227.0
+offset_right = -226.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ImgTexture" type="TextureRect" parent="Items/Data/Types/M/VBoxContainer/Parameters/Ordered/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("13_xqlgg")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="Label" type="Label" parent="Items/Data/Types/M/VBoxContainer/Parameters/Ordered/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Ordered"
+
+[node name="Strict" type="Button" parent="Items/Data/Types/M/VBoxContainer/Parameters"]
+custom_minimum_size = Vector2(110, 0)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_xarco")
+text = "."
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Items/Data/Types/M/VBoxContainer/Parameters/Strict"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 227.0
+offset_right = -226.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ImgTexture" type="TextureRect" parent="Items/Data/Types/M/VBoxContainer/Parameters/Strict/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("14_pdx67")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="Label" type="Label" parent="Items/Data/Types/M/VBoxContainer/Parameters/Strict/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Strict"
+
+[node name="Gap" type="Button" parent="Items/Data/Types/M/VBoxContainer/Parameters"]
+custom_minimum_size = Vector2(70, 0)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_xarco")
+text = "."
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Items/Data/Types/M/VBoxContainer/Parameters/Gap"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 227.0
+offset_right = -226.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ImgTexture" type="TextureRect" parent="Items/Data/Types/M/VBoxContainer/Parameters/Gap/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("15_pdx67")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="Label" type="Label" parent="Items/Data/Types/M/VBoxContainer/Parameters/Gap/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Gap"
+
+[node name="Veracity" type="Button" parent="Items/Data/Types/M/VBoxContainer/Parameters"]
+custom_minimum_size = Vector2(105.14, 0)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_xarco")
+text = "."
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Items/Data/Types/M/VBoxContainer/Parameters/Veracity"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 227.0
+offset_right = -226.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ImgTexture" type="TextureRect" parent="Items/Data/Types/M/VBoxContainer/Parameters/Veracity/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("16_py5sx")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="Label" type="Label" parent="Items/Data/Types/M/VBoxContainer/Parameters/Veracity/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Veracity"
+
+[node name="Shuffle" type="Button" parent="Items/Data/Types/M/VBoxContainer/Parameters"]
+custom_minimum_size = Vector2(105.14, 0)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_xarco")
+text = "."
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Items/Data/Types/M/VBoxContainer/Parameters/Shuffle"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 227.0
+offset_right = -226.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ImgTexture" type="TextureRect" parent="Items/Data/Types/M/VBoxContainer/Parameters/Shuffle/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("17_ctgcr")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="Label" type="Label" parent="Items/Data/Types/M/VBoxContainer/Parameters/Shuffle/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Shuffle"
+
+[node name="BG" type="Panel" parent="Items/Data/Types"]
+show_behind_parent = true
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ll8xw")
+metadata/_edit_lock_ = true
+
+[node name="Opens" parent="Items/Data" instance=ExtResource("3_xarco")]
+visible = false
+layout_mode = 2
+true_veracity = true
+
+[node name="Choices" parent="Items/Data" instance=ExtResource("3_xarco")]
+visible = false
+layout_mode = 2
+choice_mode = true
+
+[node name="Match" parent="Items/Data" instance=ExtResource("4_cgyq5")]
+visible = false
+layout_mode = 2
+
+[node name="Table" parent="Items/Data" instance=ExtResource("3_vwqmk")]
+visible = false
+layout_mode = 2
+
+[node name="Label" parent="Items/Data" instance=ExtResource("20_kw14r")]
+visible = false
+layout_mode = 2
+
+[node name="TagsContainer" type="MarginContainer" parent="Items/Data"]
+layout_mode = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+
+[node name="Background" type="Panel" parent="Items/Data/TagsContainer"]
+layout_mode = 2
+
+[node name="TagsFlow" type="HFlowContainer" parent="Items/Data/TagsContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="Tag" type="HBoxContainer" parent="Items/Data"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Text" type="TextEdit" parent="Items/Data/Tag"]
+clip_contents = false
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/caret_color = Color(0.007843138, 0.3137255, 0.7647059, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_placeholder_color = Color(0.216, 0.1952, 0.32, 1)
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxEmpty_0rm0x")
+placeholder_text = "Which topic does it belong to?"
+scroll_fit_content_height = true
+
+[node name="Background" type="Panel" parent="Items/Data/Tag/Text"]
+show_behind_parent = true
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_vwqmk")
+
+[node name="AddTagButton" type="Button" parent="Items/Data/Tag"]
+layout_mode = 2
+text = "+"
+
+[node name="ParentsContainer" type="MarginContainer" parent="Items/Data"]
+layout_mode = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+
+[node name="Background" type="Panel" parent="Items/Data/ParentsContainer"]
+layout_mode = 2
+
+[node name="ParentsFlow" type="HFlowContainer" parent="Items/Data/ParentsContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="Button" type="Button" parent="Items/Data"]
+layout_mode = 2
+text = "test"
+
+[node name="Submit" type="Button" parent="Items/Data"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_pa0ux")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_lsry1")
+theme_override_styles/hover = SubResource("StyleBoxTexture_pa0ux")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_lsry1")
+theme_override_styles/focus = SubResource("StyleBoxTexture_lsry1")
+text = "."
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Items/Data/Submit"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 227.0
+offset_right = -226.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="ImgTexture" type="TextureRect" parent="Items/Data/Submit/HBoxContainer"]
+visible = false
+layout_mode = 2
+texture = ExtResource("12_pdx67")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="Label" type="Label" parent="Items/Data/Submit/HBoxContainer"]
+layout_mode = 2
+text = "Create!"
+
+[node name="Voice" type="AudioStreamPlayer" parent="."]
+bus = &"Voice"
+script = ExtResource("23_3rfw0")
+
+[node name="SubjectBar" type="ColorRect" parent="."]
+layout_mode = 0
+offset_top = 28.0
+offset_right = 1274.0
+offset_bottom = 67.0
+color = Color(0.007843138, 0.3137255, 0.7647059, 1)
+
+[node name="Title" type="Label" parent="SubjectBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Default Subject"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="Items/Data/Question/GloballyRelevant/IncreaseLevel" to="." method="_on_increase_level_pressed"]
+[connection signal="pressed" from="Items/Data/Question/AddAlt" to="." method="_on_add_question_alt_pressed"]
+[connection signal="pressed" from="Items/Data/Types/M/VBoxContainer/Types/Open" to="." method="_on_open_pressed"]
+[connection signal="pressed" from="Items/Data/Types/M/VBoxContainer/Types/Choice" to="." method="_on_choice_pressed"]
+[connection signal="pressed" from="Items/Data/Types/M/VBoxContainer/Types/Match" to="." method="_on_match_pressed"]
+[connection signal="pressed" from="Items/Data/Types/M/VBoxContainer/Types/Table" to="." method="_on_table_pressed"]
+[connection signal="pressed" from="Items/Data/Types/M/VBoxContainer/Types/Label" to="." method="_on_label_pressed"]
+[connection signal="pressed" from="Items/Data/Types/M/VBoxContainer/Types/Label2" to="." method="_on_label_pressed"]
+[connection signal="pressed" from="Items/Data/Tag/AddTagButton" to="." method="_on_add_tag_button_pressed"]
+[connection signal="pressed" from="Items/Data/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Items/Data/Submit" to="." method="_on_submit_pressed"]
+
+[editable path="Items/Data/Types/M/VBoxContainer/Types/Open"]
+[editable path="Items/Data/Types/M/VBoxContainer/Types/Choice"]
+[editable path="Items/Data/Types/M/VBoxContainer/Types/Table"]
+[editable path="Items/Data/Types/M/VBoxContainer/Types/Label"]
+[editable path="Items/Data/Types/M/VBoxContainer/Types/Label2"]

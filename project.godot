@@ -10,19 +10,20 @@ config_version=5
 
 [application]
 
-config/name="Standardized Experience"
+config/name="Standardized Experience 5"
 config/description="Level up your learning."
+config/version="5.0.0"
 config/tags=PackedStringArray("educational")
-run/main_scene="uid://bltr5as1ppypj"
+run/main_scene="uid://bd634eo063jbr"
 config/use_custom_user_dir=true
-config/custom_user_dir_name="StandardizedExperience"
-config/features=PackedStringArray("4.4", "GL Compatibility")
+config/custom_user_dir_name="StandardizedExperience5"
+config/features=PackedStringArray("4.5", "GL Compatibility")
+boot_splash/bg_color=Color(0, 0, 0, 1)
 
 [display]
 
 window/size/viewport_width=1280
 window/size/viewport_height=720
-window/size/mode=3
 window/size/resizable=false
 window/stretch/mode="canvas_items"
 window/handheld/orientation=1

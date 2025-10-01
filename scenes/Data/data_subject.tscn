@@ -1,0 +1,38 @@
+[gd_scene load_steps=4 format=3 uid="uid://cvbfhohv32pcb"]
+
+[ext_resource type="Script" uid="uid://c3mpixccswrpu" path="res://scenes/Data/data_subject.gd" id="1_wvhfd"]
+[ext_resource type="PackedScene" uid="uid://bnpmo674alohx" path="res://scenes/Data/DataSubject/subject.tscn" id="2_8o7ef"]
+[ext_resource type="Script" uid="uid://cfmywd6m7sh1q" path="res://scenes/Data/DataSubject/subjects_container.gd" id="2_k41un"]
+
+[node name="DataSubject" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_wvhfd")
+
+[node name="Elements" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="TitleLine" type="LineEdit" parent="Elements"]
+layout_mode = 2
+placeholder_text = "Title"
+
+[node name="DescriptionText" type="TextEdit" parent="Elements"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+placeholder_text = "Description"
+
+[node name="CreateButton" type="Button" parent="Elements"]
+layout_mode = 2
+text = "Create"
+
+[node name="SubjectsContainer" type="GridContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+columns = 3
+script = ExtResource("2_k41un")
+subject_packed_scene = ExtResource("2_8o7ef")
+
+[connection signal="pressed" from="Elements/CreateButton" to="." method="_on_create_button_pressed"]
