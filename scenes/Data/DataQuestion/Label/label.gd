@@ -7,6 +7,7 @@ var is_drawing: bool = false
 var start_pos: Vector2
 var polygon_points: Array[Vector2] = []
 
+var image: Image
 var labels: Dictionary = {}  # {id: Area2D}
 var current_label_id: int = -1
 var next_label_id: int = 0
@@ -67,7 +68,7 @@ func _on_add_label_pressed():
 
 	var row = open_row.instantiate()
 	row.delete_pressed.connect(_on_row_delete_pressed)
-	$MainElements/LabelsScroll/LabelRows.add_child(row)
+	$LabelRows.add_child(row)
 	drawing_mode = true
 	generate_unique_color()
 
@@ -106,7 +107,7 @@ func _input(event):
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT:
 			if event.pressed and $MainElements/Canvas.get_global_rect().has_point(event.position):
-				start_pos = event.position - $MainElements/Canvas.position
+				start_pos = event.position - $MainElements/Canvas.global_position
 				start_pos.x = clamp(start_pos.x, 0.0, $MainElements/Canvas.size.x)
 				start_pos.y = clamp(start_pos.y, 0.0, $MainElements/Canvas.size.y)
 
@@ -114,15 +115,15 @@ func _input(event):
 				polygon_points.append(start_pos)
 				is_drawing = true
 
-				live_line.points = [$MainElements/Canvas.position + start_pos]
-				live_poly.polygon = PackedVector2Array([$MainElements/Canvas.position + start_pos])
+				live_line.points = [$MainElements/Canvas.global_position + start_pos]
+				live_poly.polygon = PackedVector2Array([$MainElements/Canvas.global_position + start_pos])
 
 			elif is_drawing or (event.pressed and not $MainElements/Canvas.get_global_rect().has_point(event.position)):
 				_on_end_drawing_pressed()
 
 	elif event is InputEventMouseMotion and is_drawing:
 		var rect = $MainElements/Canvas.get_global_rect()
-		var p = event.position - $MainElements/Canvas.position
+		var p = event.position - $MainElements/Canvas.global_position
 		p.x = clamp(p.x, 0.0, rect.size.x)
 		p.y = clamp(p.y, 0.0, rect.size.y)
 
@@ -131,12 +132,12 @@ func _input(event):
 		# Update live line
 		live_line.points = []
 		for pp in polygon_points:
-			live_line.points.append($MainElements/Canvas.position + pp)
+			live_line.points.append($MainElements/Canvas.global_position + pp)
 
 		# Update live polygon
 		var poly_points: PackedVector2Array = PackedVector2Array()
 		for pp in polygon_points:
-			poly_points.append(pp + $MainElements/Canvas.position)
+			poly_points.append(pp + $MainElements/Canvas.global_position)
 		live_poly.polygon = poly_points
 
 # -----------------------
@@ -224,9 +225,15 @@ func _circle_to_polygon(center: Vector2, radius: float, sides: int) -> PackedVec
 	return pts
 
 func fetch() -> Array:
-	return $MainElements/LabelsScroll/LabelRows.get_children().map(func (text: Node): return {
-		"text": [text.text], "area": labels[text.get_index()]
+	return $LabelRows.get_children().map(func (row: Node): return {
+		"text": row.fetch(), "area": labels[row.get_index()]
 		})
 
 func _on_end_pressed() -> void:
 	drawing_mode = false
+
+
+func _on_get_image_pressed() -> void:
+	if DisplayServer.clipboard_has_image():
+		image = DisplayServer.clipboard_get_image()
+		$MainElements/Canvas.texture = ImageTexture.create_from_image(image)

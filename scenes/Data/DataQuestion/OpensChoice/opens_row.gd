@@ -9,7 +9,9 @@ func to_decoy() -> void:
 		$Answer/Set/Text.placeholder_text = "A wrong answer to that question."
 
 func _on_add_alt_pressed() -> void:
-	$Answer/Alts.add_child(alt_scene.instantiate())
+	var new_alt = alt_scene.instantiate()
+	$Answer/Alts.add_child(new_alt)
+	new_alt.get_focus()
 
 func _on_delete_answer_pressed() -> void:
 	delete_pressed.emit(get_index())
@@ -37,3 +39,13 @@ func show_order() -> void:
 
 func hide_order() -> void:
 	$Answer/Set/Text/Order.hide()
+
+func get_focus() -> void:
+	$Answer/Set/Text.grab_focus()
+
+func reset(full:= false) -> void:
+	$Answer/Set/Text.text = ""
+	if full:
+		$Answer/Alts.get_children().map(func (child): child.queue_free())
+	else:
+		$Answer/Alts.get_children().map(func (child): child.reset())

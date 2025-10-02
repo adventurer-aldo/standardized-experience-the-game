@@ -19,6 +19,7 @@ func _on_add_answer_pressed() -> void:
 	if !true_veracity && choice_mode: new_row.to_decoy()
 	if is_order_enabled: new_row.show_order()
 	$Rows.add_child(new_row)
+	new_row.get_focus()
 
 func show_orders() -> void:
 	$Rows.get_children().map(func (row): row.show_order())
@@ -33,3 +34,9 @@ func fetch(as_choices:= choice_mode, veracity:= true_veracity) -> Array:
 		)
 	else:
 		return $Rows.get_children().map(func (row): return row.fetch())
+
+func reset(full:= false):
+	$Rows.get_children().map(func (row):
+		if row.get_index() != 0: row.queue_free()
+		row.reset(false)
+	)

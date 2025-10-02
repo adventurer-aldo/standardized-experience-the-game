@@ -42,7 +42,7 @@ extends Resource
 @export var learn_level: int
 @export var experience: int = 0.0
 @export var is_level_up_queued: int
-@export_group("Name")
+@export_group("Streaks")
 @export var hits: int
 @export var misses: int
 @export var hit_streak: int

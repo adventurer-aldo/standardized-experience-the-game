@@ -5,3 +5,9 @@ func fetch() -> String:
 
 func _on_delete_alt_pressed() -> void:
 	queue_free()
+
+func get_focus() -> void:
+	$Text.grab_focus()
+
+func reset() -> void:
+	$Text.text = ""

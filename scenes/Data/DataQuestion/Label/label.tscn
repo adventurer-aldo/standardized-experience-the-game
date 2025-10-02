@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://wlnv0uajs0gk"]
+[gd_scene load_steps=6 format=3 uid="uid://wlnv0uajs0gk"]
 
 [ext_resource type="Script" uid="uid://rko5wynj0fn6" path="res://scenes/Data/DataQuestion/Label/label.gd" id="1_i3osk"]
 [ext_resource type="PackedScene" uid="uid://ceo45d0daaeso" path="res://scenes/Data/DataQuestion/Label/row.tscn" id="2_arwv5"]
+[ext_resource type="Texture2D" uid="uid://bp2l8unff6x5l" path="res://graphics/whitesquare.png" id="3_umb2v"]
 [ext_resource type="FontFile" uid="uid://cg330vu00gosa" path="res://fonts/Poppins-Regular.ttf" id="3_xkqyu"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ee4bf"]
@@ -28,13 +29,13 @@ open_row = ExtResource("2_arwv5")
 [node name="MainElements" type="HBoxContainer" parent="."]
 layout_mode = 2
 
-[node name="Canvas" type="ColorRect" parent="MainElements"]
+[node name="Canvas" type="TextureRect" parent="MainElements"]
 show_behind_parent = true
 custom_minimum_size = Vector2(0, 509.25)
 layout_mode = 2
 size_flags_horizontal = 3
-mouse_filter = 1
-color = Color(1, 1, 1, 0.619608)
+texture = ExtResource("3_umb2v")
+expand_mode = 2
 
 [node name="Markers" type="Control" parent="MainElements/Canvas"]
 layout_mode = 1
@@ -44,31 +45,32 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="LabelsScroll" type="ScrollContainer" parent="MainElements"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="LabelRows" type="VBoxContainer" parent="MainElements/LabelsScroll"]
-layout_mode = 2
-size_flags_horizontal = 3
-
 [node name="ActionButtons" type="HBoxContainer" parent="."]
 layout_mode = 2
 
 [node name="AddLabel" type="Button" parent="ActionButtons"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "AddLabel"
+text = "Add Label"
 
 [node name="End" type="Button" parent="ActionButtons"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "End"
+text = "End Labeling"
 
 [node name="Undo" type="Button" parent="ActionButtons"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Undo"
+
+[node name="GetImage" type="Button" parent="ActionButtons"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Fetch Image"
+
+[node name="LabelRows" type="VBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="Markers" type="Control" parent="."]
 visible = false
@@ -98,3 +100,4 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_ee4bf")
 [connection signal="pressed" from="ActionButtons/End" to="." method="_on_end_pressed"]
 [connection signal="pressed" from="ActionButtons/End" to="." method="_on_end_drawing_pressed"]
 [connection signal="pressed" from="ActionButtons/Undo" to="." method="_on_undo_pressed"]
+[connection signal="pressed" from="ActionButtons/GetImage" to="." method="_on_get_image_pressed"]

@@ -18,3 +18,6 @@ func _on_delete_button_pressed() -> void:
 
 func fetch() -> String:
 	return $Text.text
+
+func reset() -> void:
+	$Text.text = ""

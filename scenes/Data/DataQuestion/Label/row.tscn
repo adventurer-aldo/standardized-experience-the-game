@@ -1,9 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://ceo45d0daaeso"]
+[gd_scene load_steps=3 format=3 uid="uid://ceo45d0daaeso"]
 
 [ext_resource type="Script" uid="uid://cajf5qx5ls6u5" path="res://scenes/Data/DataQuestion/Label/row.gd" id="1_fwjmu"]
+[ext_resource type="PackedScene" uid="uid://b3l1tkdwurj8b" path="res://scenes/Data/DataQuestion/Label/alt.tscn" id="2_a7ll1"]
 
 [node name="Row" type="HBoxContainer"]
 script = ExtResource("1_fwjmu")
+alt_scene = ExtResource("2_a7ll1")
 
 [node name="AddAlt" type="Button" parent="."]
 layout_mode = 2
@@ -11,6 +13,7 @@ text = "+"
 
 [node name="Texts" type="VBoxContainer" parent="."]
 layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="MainText" type="TextEdit" parent="Texts"]
 custom_minimum_size = Vector2(0, 50)
@@ -24,4 +27,5 @@ layout_mode = 2
 layout_mode = 2
 text = "-"
 
+[connection signal="pressed" from="AddAlt" to="." method="_on_add_alt_pressed"]
 [connection signal="pressed" from="Delete" to="." method="_on_delete_pressed"]

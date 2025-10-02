@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://b3l1tkdwurj8b"]
+
+[ext_resource type="Script" uid="uid://dbrl5nvo6mj73" path="res://scenes/Data/DataQuestion/Label/alt.gd" id="1_ld46t"]
+
+[node name="Alt" type="HBoxContainer"]
+script = ExtResource("1_ld46t")
+
+[node name="MainText" type="TextEdit" parent="."]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="DeleteButton" type="Button" parent="."]
+layout_mode = 2
+text = "-"
+
+[connection signal="pressed" from="DeleteButton" to="." method="_on_delete_button_pressed"]

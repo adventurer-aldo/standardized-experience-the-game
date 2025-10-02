@@ -146,11 +146,22 @@ saved_question_packed_scene = ExtResource("27_3rfw0")
 tag_packed_scene = ExtResource("21_7uqtb")
 parent_packed_scene = ExtResource("23_i4w0a")
 
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0075999927, 0.30855986, 0.76, 0.24705882)
+
 [node name="Items" type="HBoxContainer" parent="."]
 layout_mode = 0
-offset_top = 76.0
-offset_right = 642.0
-offset_bottom = 468.0
+offset_top = 68.0
+offset_right = 645.0
+offset_bottom = 720.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
 [node name="Resources" type="VBoxContainer" parent="Items"]
 layout_mode = 2
@@ -201,18 +212,25 @@ texture = ExtResource("4_ejm1d")
 expand_mode = 4
 stretch_mode = 4
 
-[node name="Data" type="VBoxContainer" parent="Items"]
+[node name="ScrollData" type="ScrollContainer" parent="Items"]
 layout_mode = 2
 size_flags_horizontal = 3
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 3
 
-[node name="Question" type="VBoxContainer" parent="Items/Data"]
+[node name="Data" type="VBoxContainer" parent="Items/ScrollData"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Question" type="VBoxContainer" parent="Items/ScrollData/Data"]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="GloballyRelevant" type="HBoxContainer" parent="Items/Data/Question"]
+[node name="GloballyRelevant" type="HBoxContainer" parent="Items/ScrollData/Data/Question"]
 layout_mode = 2
 
-[node name="Reset" type="Button" parent="Items/Data/Question/GloballyRelevant"]
+[node name="Reset" type="Button" parent="Items/ScrollData/Data/Question/GloballyRelevant"]
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -220,12 +238,12 @@ focus_mode = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_eoayo")
 text = "? New Question..."
 
-[node name="IncreaseLevel" type="Button" parent="Items/Data/Question/GloballyRelevant"]
+[node name="IncreaseLevel" type="Button" parent="Items/ScrollData/Data/Question/GloballyRelevant"]
 custom_minimum_size = Vector2(171, 0)
 layout_mode = 2
 text = "."
 
-[node name="Elements" type="HBoxContainer" parent="Items/Data/Question/GloballyRelevant/IncreaseLevel"]
+[node name="Elements" type="HBoxContainer" parent="Items/ScrollData/Data/Question/GloballyRelevant/IncreaseLevel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -233,20 +251,20 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Icon" type="TextureRect" parent="Items/Data/Question/GloballyRelevant/IncreaseLevel/Elements"]
+[node name="Icon" type="TextureRect" parent="Items/ScrollData/Data/Question/GloballyRelevant/IncreaseLevel/Elements"]
 layout_mode = 2
 texture = ExtResource("4_kw14r")
 expand_mode = 2
 
-[node name="Text" type="Label" parent="Items/Data/Question/GloballyRelevant/IncreaseLevel/Elements"]
+[node name="Text" type="Label" parent="Items/ScrollData/Data/Question/GloballyRelevant/IncreaseLevel/Elements"]
 layout_mode = 2
 text = "Beginner Level"
 
-[node name="Texts" type="VBoxContainer" parent="Items/Data/Question"]
+[node name="Texts" type="VBoxContainer" parent="Items/ScrollData/Data/Question"]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="AddAlt" type="Button" parent="Items/Data/Question" node_paths=PackedStringArray("shortcut_context")]
+[node name="AddAlt" type="Button" parent="Items/ScrollData/Data/Question" node_paths=PackedStringArray("shortcut_context")]
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
 focus_mode = 0
@@ -255,88 +273,88 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_0rm0x")
 shortcut = SubResource("Shortcut_gkyu1")
 text = "Alt+"
 
-[node name="Separator" type="ColorRect" parent="Items/Data"]
+[node name="Separator" type="ColorRect" parent="Items/ScrollData/Data"]
 custom_minimum_size = Vector2(0, 2.5)
 layout_mode = 2
 
-[node name="Types" type="MarginContainer" parent="Items/Data"]
+[node name="Types" type="MarginContainer" parent="Items/ScrollData/Data"]
 layout_mode = 2
 
-[node name="M" type="MarginContainer" parent="Items/Data/Types"]
+[node name="M" type="MarginContainer" parent="Items/ScrollData/Data/Types"]
 layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Items/Data/Types/M"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Items/ScrollData/Data/Types/M"]
 layout_mode = 2
 
-[node name="Types" type="HBoxContainer" parent="Items/Data/Types/M/VBoxContainer"]
+[node name="Types" type="HBoxContainer" parent="Items/ScrollData/Data/Types/M/VBoxContainer"]
 layout_mode = 2
 
-[node name="Open" parent="Items/Data/Types/M/VBoxContainer/Types" instance=ExtResource("8_pdx67")]
+[node name="Open" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Types" instance=ExtResource("8_pdx67")]
 layout_mode = 2
 
-[node name="ImgTexture" parent="Items/Data/Types/M/VBoxContainer/Types/Open/HBoxContainer" index="0"]
+[node name="ImgTexture" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Types/Open/HBoxContainer" index="0"]
 texture = ExtResource("8_3hpxg")
 
-[node name="Label" parent="Items/Data/Types/M/VBoxContainer/Types/Open/HBoxContainer" index="1"]
+[node name="Label" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Types/Open/HBoxContainer" index="1"]
 text = "Open"
 
-[node name="Choice" parent="Items/Data/Types/M/VBoxContainer/Types" instance=ExtResource("8_pdx67")]
+[node name="Choice" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Types" instance=ExtResource("8_pdx67")]
 layout_mode = 2
 
-[node name="ImgTexture" parent="Items/Data/Types/M/VBoxContainer/Types/Choice/HBoxContainer" index="0"]
+[node name="ImgTexture" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Types/Choice/HBoxContainer" index="0"]
 texture = ExtResource("9_m1sgt")
 
-[node name="Label" parent="Items/Data/Types/M/VBoxContainer/Types/Choice/HBoxContainer" index="1"]
+[node name="Label" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Types/Choice/HBoxContainer" index="1"]
 text = "Choice"
 
-[node name="Match" parent="Items/Data/Types/M/VBoxContainer/Types" instance=ExtResource("8_pdx67")]
+[node name="Match" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Types" instance=ExtResource("8_pdx67")]
 layout_mode = 2
 
-[node name="Table" parent="Items/Data/Types/M/VBoxContainer/Types" instance=ExtResource("8_pdx67")]
+[node name="Table" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Types" instance=ExtResource("8_pdx67")]
 layout_mode = 2
 
-[node name="ImgTexture" parent="Items/Data/Types/M/VBoxContainer/Types/Table/HBoxContainer" index="0"]
+[node name="ImgTexture" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Types/Table/HBoxContainer" index="0"]
 texture = ExtResource("10_i8tj4")
 
-[node name="Label" parent="Items/Data/Types/M/VBoxContainer/Types/Table/HBoxContainer" index="1"]
+[node name="Label" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Types/Table/HBoxContainer" index="1"]
 text = "Table"
 
-[node name="Label" parent="Items/Data/Types/M/VBoxContainer/Types" instance=ExtResource("8_pdx67")]
+[node name="Label" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Types" instance=ExtResource("8_pdx67")]
 layout_mode = 2
 
-[node name="ImgTexture" parent="Items/Data/Types/M/VBoxContainer/Types/Label/HBoxContainer" index="0"]
+[node name="ImgTexture" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Types/Label/HBoxContainer" index="0"]
 texture = ExtResource("12_i8tj4")
 
-[node name="Label" parent="Items/Data/Types/M/VBoxContainer/Types/Label/HBoxContainer" index="1"]
+[node name="Label" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Types/Label/HBoxContainer" index="1"]
 text = "Label"
 
-[node name="Label2" parent="Items/Data/Types/M/VBoxContainer/Types" instance=ExtResource("8_pdx67")]
+[node name="Label2" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Types" instance=ExtResource("8_pdx67")]
 custom_minimum_size = Vector2(111.475, 0)
 layout_mode = 2
 
-[node name="ImgTexture" parent="Items/Data/Types/M/VBoxContainer/Types/Label2/HBoxContainer" index="0"]
+[node name="ImgTexture" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Types/Label2/HBoxContainer" index="0"]
 texture = ExtResource("12_i8tj4")
 
-[node name="Label" parent="Items/Data/Types/M/VBoxContainer/Types/Label2/HBoxContainer" index="1"]
+[node name="Label" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Types/Label2/HBoxContainer" index="1"]
 text = "Scheme"
 
-[node name="Parameters" type="HFlowContainer" parent="Items/Data/Types/M/VBoxContainer"]
+[node name="Parameters" type="HFlowContainer" parent="Items/ScrollData/Data/Types/M/VBoxContainer"]
 layout_mode = 2
 alignment = 1
 reverse_fill = true
 
-[node name="Ordered" type="Button" parent="Items/Data/Types/M/VBoxContainer/Parameters"]
+[node name="Ordered" type="Button" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters"]
 custom_minimum_size = Vector2(110, 0)
 layout_mode = 2
 focus_mode = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_xarco")
 text = "."
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Items/Data/Types/M/VBoxContainer/Parameters/Ordered"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters/Ordered"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -346,25 +364,25 @@ offset_right = -226.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ImgTexture" type="TextureRect" parent="Items/Data/Types/M/VBoxContainer/Parameters/Ordered/HBoxContainer"]
+[node name="ImgTexture" type="TextureRect" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters/Ordered/HBoxContainer"]
 layout_mode = 2
 texture = ExtResource("13_xqlgg")
 expand_mode = 3
 stretch_mode = 4
 
-[node name="Label" type="Label" parent="Items/Data/Types/M/VBoxContainer/Parameters/Ordered/HBoxContainer"]
+[node name="Label" type="Label" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters/Ordered/HBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Ordered"
 
-[node name="Strict" type="Button" parent="Items/Data/Types/M/VBoxContainer/Parameters"]
+[node name="Strict" type="Button" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters"]
 custom_minimum_size = Vector2(110, 0)
 layout_mode = 2
 focus_mode = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_xarco")
 text = "."
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Items/Data/Types/M/VBoxContainer/Parameters/Strict"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters/Strict"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -374,25 +392,25 @@ offset_right = -226.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ImgTexture" type="TextureRect" parent="Items/Data/Types/M/VBoxContainer/Parameters/Strict/HBoxContainer"]
+[node name="ImgTexture" type="TextureRect" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters/Strict/HBoxContainer"]
 layout_mode = 2
 texture = ExtResource("14_pdx67")
 expand_mode = 3
 stretch_mode = 4
 
-[node name="Label" type="Label" parent="Items/Data/Types/M/VBoxContainer/Parameters/Strict/HBoxContainer"]
+[node name="Label" type="Label" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters/Strict/HBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Strict"
 
-[node name="Gap" type="Button" parent="Items/Data/Types/M/VBoxContainer/Parameters"]
+[node name="Gap" type="Button" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters"]
 custom_minimum_size = Vector2(70, 0)
 layout_mode = 2
 focus_mode = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_xarco")
 text = "."
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Items/Data/Types/M/VBoxContainer/Parameters/Gap"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters/Gap"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -402,25 +420,25 @@ offset_right = -226.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ImgTexture" type="TextureRect" parent="Items/Data/Types/M/VBoxContainer/Parameters/Gap/HBoxContainer"]
+[node name="ImgTexture" type="TextureRect" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters/Gap/HBoxContainer"]
 layout_mode = 2
 texture = ExtResource("15_pdx67")
 expand_mode = 3
 stretch_mode = 4
 
-[node name="Label" type="Label" parent="Items/Data/Types/M/VBoxContainer/Parameters/Gap/HBoxContainer"]
+[node name="Label" type="Label" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters/Gap/HBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Gap"
 
-[node name="Veracity" type="Button" parent="Items/Data/Types/M/VBoxContainer/Parameters"]
+[node name="Veracity" type="Button" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters"]
 custom_minimum_size = Vector2(105.14, 0)
 layout_mode = 2
 focus_mode = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_xarco")
 text = "."
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Items/Data/Types/M/VBoxContainer/Parameters/Veracity"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters/Veracity"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -430,25 +448,25 @@ offset_right = -226.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ImgTexture" type="TextureRect" parent="Items/Data/Types/M/VBoxContainer/Parameters/Veracity/HBoxContainer"]
+[node name="ImgTexture" type="TextureRect" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters/Veracity/HBoxContainer"]
 layout_mode = 2
 texture = ExtResource("16_py5sx")
 expand_mode = 3
 stretch_mode = 4
 
-[node name="Label" type="Label" parent="Items/Data/Types/M/VBoxContainer/Parameters/Veracity/HBoxContainer"]
+[node name="Label" type="Label" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters/Veracity/HBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Veracity"
 
-[node name="Shuffle" type="Button" parent="Items/Data/Types/M/VBoxContainer/Parameters"]
+[node name="Shuffle" type="Button" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters"]
 custom_minimum_size = Vector2(105.14, 0)
 layout_mode = 2
 focus_mode = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_xarco")
 text = "."
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Items/Data/Types/M/VBoxContainer/Parameters/Shuffle"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters/Shuffle"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -458,65 +476,65 @@ offset_right = -226.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ImgTexture" type="TextureRect" parent="Items/Data/Types/M/VBoxContainer/Parameters/Shuffle/HBoxContainer"]
+[node name="ImgTexture" type="TextureRect" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters/Shuffle/HBoxContainer"]
 layout_mode = 2
 texture = ExtResource("17_ctgcr")
 expand_mode = 3
 stretch_mode = 4
 
-[node name="Label" type="Label" parent="Items/Data/Types/M/VBoxContainer/Parameters/Shuffle/HBoxContainer"]
+[node name="Label" type="Label" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters/Shuffle/HBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Shuffle"
 
-[node name="BG" type="Panel" parent="Items/Data/Types"]
+[node name="BG" type="Panel" parent="Items/ScrollData/Data/Types"]
 show_behind_parent = true
 layout_mode = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ll8xw")
 metadata/_edit_lock_ = true
 
-[node name="Opens" parent="Items/Data" instance=ExtResource("3_xarco")]
+[node name="Opens" parent="Items/ScrollData/Data" instance=ExtResource("3_xarco")]
 visible = false
 layout_mode = 2
 true_veracity = true
 
-[node name="Choices" parent="Items/Data" instance=ExtResource("3_xarco")]
+[node name="Choices" parent="Items/ScrollData/Data" instance=ExtResource("3_xarco")]
 visible = false
 layout_mode = 2
 choice_mode = true
 
-[node name="Match" parent="Items/Data" instance=ExtResource("4_cgyq5")]
+[node name="Match" parent="Items/ScrollData/Data" instance=ExtResource("4_cgyq5")]
 visible = false
 layout_mode = 2
 
-[node name="Table" parent="Items/Data" instance=ExtResource("3_vwqmk")]
+[node name="Table" parent="Items/ScrollData/Data" instance=ExtResource("3_vwqmk")]
 visible = false
 layout_mode = 2
 
-[node name="Label" parent="Items/Data" instance=ExtResource("20_kw14r")]
+[node name="Label" parent="Items/ScrollData/Data" instance=ExtResource("20_kw14r")]
 visible = false
 layout_mode = 2
 
-[node name="TagsContainer" type="MarginContainer" parent="Items/Data"]
+[node name="TagsContainer" type="MarginContainer" parent="Items/ScrollData/Data"]
 layout_mode = 2
 theme_override_constants/margin_left = 0
 theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 0
 theme_override_constants/margin_bottom = 0
 
-[node name="Background" type="Panel" parent="Items/Data/TagsContainer"]
+[node name="Background" type="Panel" parent="Items/ScrollData/Data/TagsContainer"]
 layout_mode = 2
 
-[node name="TagsFlow" type="HFlowContainer" parent="Items/Data/TagsContainer"]
+[node name="TagsFlow" type="HFlowContainer" parent="Items/ScrollData/Data/TagsContainer"]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 
-[node name="Tag" type="HBoxContainer" parent="Items/Data"]
+[node name="Tag" type="HBoxContainer" parent="Items/ScrollData/Data"]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="Text" type="TextEdit" parent="Items/Data/Tag"]
+[node name="Text" type="TextEdit" parent="Items/ScrollData/Data/Tag"]
 clip_contents = false
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
@@ -529,7 +547,7 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_0rm0x")
 placeholder_text = "Which topic does it belong to?"
 scroll_fit_content_height = true
 
-[node name="Background" type="Panel" parent="Items/Data/Tag/Text"]
+[node name="Background" type="Panel" parent="Items/ScrollData/Data/Tag/Text"]
 show_behind_parent = true
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 1
@@ -541,35 +559,35 @@ grow_vertical = 2
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_vwqmk")
 
-[node name="AddTagButton" type="Button" parent="Items/Data/Tag" node_paths=PackedStringArray("shortcut_context")]
+[node name="AddTagButton" type="Button" parent="Items/ScrollData/Data/Tag" node_paths=PackedStringArray("shortcut_context")]
 layout_mode = 2
 focus_mode = 0
 shortcut_context = NodePath("..")
 shortcut = SubResource("Shortcut_eed2l")
 text = "+"
 
-[node name="ParentsContainer" type="MarginContainer" parent="Items/Data"]
+[node name="ParentsContainer" type="MarginContainer" parent="Items/ScrollData/Data"]
 layout_mode = 2
 theme_override_constants/margin_left = 0
 theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 0
 theme_override_constants/margin_bottom = 0
 
-[node name="Background" type="Panel" parent="Items/Data/ParentsContainer"]
+[node name="Background" type="Panel" parent="Items/ScrollData/Data/ParentsContainer"]
 layout_mode = 2
 
-[node name="ParentsFlow" type="HFlowContainer" parent="Items/Data/ParentsContainer"]
+[node name="ParentsFlow" type="HFlowContainer" parent="Items/ScrollData/Data/ParentsContainer"]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 
-[node name="Button" type="Button" parent="Items/Data"]
+[node name="Button" type="Button" parent="Items/ScrollData/Data"]
 layout_mode = 2
 focus_mode = 0
 text = "test"
 
-[node name="Submit" type="Button" parent="Items/Data" node_paths=PackedStringArray("shortcut_context")]
+[node name="Submit" type="Button" parent="Items/ScrollData/Data" node_paths=PackedStringArray("shortcut_context")]
 layout_mode = 2
-shortcut_context = NodePath("../..")
+shortcut_context = NodePath("../../..")
 theme_override_styles/normal = SubResource("StyleBoxTexture_pa0ux")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_lsry1")
 theme_override_styles/hover = SubResource("StyleBoxTexture_pa0ux")
@@ -578,7 +596,7 @@ theme_override_styles/focus = SubResource("StyleBoxTexture_lsry1")
 shortcut = SubResource("Shortcut_lyehf")
 text = "."
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Items/Data/Submit"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Items/ScrollData/Data/Submit"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -589,14 +607,14 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
-[node name="ImgTexture" type="TextureRect" parent="Items/Data/Submit/HBoxContainer"]
+[node name="ImgTexture" type="TextureRect" parent="Items/ScrollData/Data/Submit/HBoxContainer"]
 visible = false
 layout_mode = 2
 texture = ExtResource("12_pdx67")
 expand_mode = 2
 stretch_mode = 4
 
-[node name="Label" type="Label" parent="Items/Data/Submit/HBoxContainer"]
+[node name="Label" type="Label" parent="Items/ScrollData/Data/Submit/HBoxContainer"]
 layout_mode = 2
 text = "Create!"
 
@@ -637,20 +655,19 @@ grow_horizontal = 0
 grow_vertical = 2
 columns = 2
 
-[connection signal="pressed" from="Items/Data/Question/GloballyRelevant/IncreaseLevel" to="." method="_on_increase_level_pressed"]
-[connection signal="pressed" from="Items/Data/Question/AddAlt" to="." method="_on_add_question_alt_pressed"]
-[connection signal="pressed" from="Items/Data/Types/M/VBoxContainer/Types/Open" to="." method="_on_open_pressed"]
-[connection signal="pressed" from="Items/Data/Types/M/VBoxContainer/Types/Choice" to="." method="_on_choice_pressed"]
-[connection signal="pressed" from="Items/Data/Types/M/VBoxContainer/Types/Match" to="." method="_on_match_pressed"]
-[connection signal="pressed" from="Items/Data/Types/M/VBoxContainer/Types/Table" to="." method="_on_table_pressed"]
-[connection signal="pressed" from="Items/Data/Types/M/VBoxContainer/Types/Label" to="." method="_on_label_pressed"]
-[connection signal="pressed" from="Items/Data/Types/M/VBoxContainer/Types/Label2" to="." method="_on_label_pressed"]
-[connection signal="pressed" from="Items/Data/Tag/AddTagButton" to="." method="_on_add_tag_button_pressed"]
-[connection signal="pressed" from="Items/Data/Button" to="." method="_on_button_pressed"]
-[connection signal="pressed" from="Items/Data/Submit" to="." method="_on_submit_pressed"]
+[connection signal="pressed" from="Items/ScrollData/Data/Question/GloballyRelevant/IncreaseLevel" to="." method="_on_increase_level_pressed"]
+[connection signal="pressed" from="Items/ScrollData/Data/Question/AddAlt" to="." method="_on_add_question_alt_pressed"]
+[connection signal="pressed" from="Items/ScrollData/Data/Types/M/VBoxContainer/Types/Open" to="." method="_on_open_pressed"]
+[connection signal="pressed" from="Items/ScrollData/Data/Types/M/VBoxContainer/Types/Choice" to="." method="_on_choice_pressed"]
+[connection signal="pressed" from="Items/ScrollData/Data/Types/M/VBoxContainer/Types/Match" to="." method="_on_match_pressed"]
+[connection signal="pressed" from="Items/ScrollData/Data/Types/M/VBoxContainer/Types/Table" to="." method="_on_table_pressed"]
+[connection signal="pressed" from="Items/ScrollData/Data/Types/M/VBoxContainer/Types/Label" to="." method="_on_label_pressed"]
+[connection signal="pressed" from="Items/ScrollData/Data/Types/M/VBoxContainer/Types/Label2" to="." method="_on_label_pressed"]
+[connection signal="pressed" from="Items/ScrollData/Data/Tag/AddTagButton" to="." method="_on_add_tag_button_pressed"]
+[connection signal="pressed" from="Items/ScrollData/Data/Submit" to="." method="_on_submit_pressed"]
 
-[editable path="Items/Data/Types/M/VBoxContainer/Types/Open"]
-[editable path="Items/Data/Types/M/VBoxContainer/Types/Choice"]
-[editable path="Items/Data/Types/M/VBoxContainer/Types/Table"]
-[editable path="Items/Data/Types/M/VBoxContainer/Types/Label"]
-[editable path="Items/Data/Types/M/VBoxContainer/Types/Label2"]
+[editable path="Items/ScrollData/Data/Types/M/VBoxContainer/Types/Open"]
+[editable path="Items/ScrollData/Data/Types/M/VBoxContainer/Types/Choice"]
+[editable path="Items/ScrollData/Data/Types/M/VBoxContainer/Types/Table"]
+[editable path="Items/ScrollData/Data/Types/M/VBoxContainer/Types/Label"]
+[editable path="Items/ScrollData/Data/Types/M/VBoxContainer/Types/Label2"]
