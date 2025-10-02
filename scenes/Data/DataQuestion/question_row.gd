@@ -6,7 +6,6 @@ func _ready() -> void:
 	refresh(get_parent().get_child_count())
 
 func refresh(amount) -> void:
-	print(amount)
 	if amount > 1:
 		$DeleteButton.show()
 	else:

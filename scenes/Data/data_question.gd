@@ -3,7 +3,9 @@ extends Control
 signal question_alt_changed
 
 @export var question_packed_scene: PackedScene
+@export var saved_question_packed_scene: PackedScene
 @export var tag_packed_scene: PackedScene
+@export var parent_packed_scene: PackedScene
 var subject_id: int
 var title = "Default Subject"
 var question = Question.new()
@@ -14,6 +16,21 @@ func _ready() -> void:
 	_on_add_question_alt_pressed()
 	$Items/Data/Types/M/VBoxContainer/Types/Open.button_pressed = true
 	_on_open_pressed()
+	set_container()
+
+func set_container() -> void:
+	question.get_subject().get_questions().map(func (saved_question):
+		add_question_to_container(saved_question)
+	)
+
+func add_question_to_container(saved_question: Question) -> void:
+	var question_to_add = saved_question_packed_scene.instantiate()
+	question_to_add.id = saved_question.id
+	question_to_add.set_text(saved_question.question[0])
+	question_to_add.name = str(saved_question.id)
+	question_to_add.parent_pressed.connect(on_parent_pressed)
+	$QuestionsContainer.add_child(question_to_add)
+	$QuestionsContainer.move_child(question_to_add, 0)
 
 func _on_add_question_alt_pressed() -> void:
 	var q_scene = question_packed_scene.instantiate()
@@ -29,23 +46,29 @@ func _on_question_delete_pressed() -> void:
 	question_alt_changed.emit($Items/Data/Question/Texts.get_child_count() - 1)
 
 func _on_open_pressed() -> void:
+	if question.get_types().size() == 1 && !question.is_open: return
 	question.is_open = !question.is_open
 	$Items/Data/Opens.visible = question.is_open
 
 func _on_choice_pressed() -> void:
+	if question.get_types().size() == 1 && !question.is_choice: return
 	question.is_choice = !question.is_choice
 	$Items/Data/Choices.visible = question.is_choice
 
 func _on_match_pressed() -> void:
+	if question.get_types().size() == 1 && !question.is_connect: return
 	question.is_connect = !question.is_connect
 	$Items/Data/Match.visible = question.is_connect
 
 func _on_table_pressed() -> void:
+	if question.get_types().size() == 1 && !question.is_table: return
 	question.is_table = !question.is_table
 	$Items/Data/Table.visible = question.is_table
 
 func _on_label_pressed() -> void:
+	if question.get_types().size() == 1 && !question.is_label: return
 	question.is_label = !question.is_label
+	$Items/Data/Match.visible = question.is_label
 
 func fetch_question_texts() -> PackedStringArray:
 	var strings = $Items/Data/Question/Texts.get_children().map(func (question_row):
@@ -53,21 +76,11 @@ func fetch_question_texts() -> PackedStringArray:
 	)
 	return PackedStringArray(strings)
 
-func _on_submit_pressed() -> void:
-	$Voice.random_play("questions_1")
-	# print(fetch_question_texts())
-	# print($Items/Data/Opens.fetch())
-	# print($Items/Data/Choices.fetch())
-	# print($Items/Data/Match.fetch())
-	print($Items/Data/Table.fetch())
-
-
 func _on_increase_level_pressed() -> void:
 	question.level = [1, 2, 3, 4, 1][question.level]
 	var tar = $Items/Data/Question/GloballyRelevant/IncreaseLevel/Elements/Text
 	var texts = ['Beginner Level', 'Advanced Level', 'Dissertation', 'Master Level']
 	tar.text = texts[question.level - 1]
-
 
 func _on_add_tag_button_pressed() -> void:
 	var text: String = $Items/Data/Tag/Text.text.strip_edges()
@@ -82,5 +95,36 @@ func _on_add_tag_button_pressed() -> void:
 func delete_tag(text: String) -> void:
 	question.tags.erase(text)
 
+func on_parent_pressed(id: int) -> void:
+	if question.parents.has(id):
+		question.parents.erase(id)
+		$Items/Data/ParentsContainer/ParentsFlow.get_node(str(id)).queue_free()
+	else:
+		question.parents.push_back(id)
+		var parent_scene = parent_packed_scene.instantiate()
+		parent_scene.delete_pressed.connect(on_parent_pressed)
+		parent_scene.id = id
+		$Items/Data/ParentsContainer/ParentsFlow.add_child(parent_scene)
+		parent_scene.name = str(id)
+
+func fetch_data() -> void:
+	question.question = $Items/Data/Question/Texts.get_children().map(func (question): return question.fetch())
+	question.created_at = Time.get_unix_time_from_system()
+	question.last_time_edited = question.created_at
+	question.answer = $Items/Data/Opens.fetch()
+	question.choices = $Items/Data/Choices.fetch()
+	question.columns = $Items/Data/Table.fetch()
+	var matches = $Items/Data/Match.fetch()
+	question.match_a = matches["a"]
+	question.match_b = matches["b"]
+	question.labels = $Items/Data/Label.fetch()
+
+func _on_submit_pressed() -> void:
+	$Voice.random_play("questions_1")
+	fetch_data()
+	question.create()
+	add_question_to_container(question)
+	$SFX.play_file("submit")
+
 func _on_button_pressed() -> void:
-	print(question.subject_id)
+	pass

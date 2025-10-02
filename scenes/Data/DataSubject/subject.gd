@@ -7,7 +7,6 @@ func _on_pressed() -> void:
 	var question_scene = data_question_scene.instantiate()
 	question_scene.subject_id = subject_id
 	question_scene.title = text
-	print(subject_id)
 	add_child(question_scene)
 
 func set_title(to: String) -> void:

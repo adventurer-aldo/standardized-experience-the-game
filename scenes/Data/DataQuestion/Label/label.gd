@@ -225,7 +225,7 @@ func _circle_to_polygon(center: Vector2, radius: float, sides: int) -> PackedVec
 
 func fetch() -> Array:
 	return $MainElements/LabelsScroll/LabelRows.get_children().map(func (text: Node): return {
-		"text": text.text, "area": labels[text.get_index()]
+		"text": [text.text], "area": labels[text.get_index()]
 		})
 
 func _on_end_pressed() -> void:

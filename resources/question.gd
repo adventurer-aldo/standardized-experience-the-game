@@ -7,7 +7,6 @@ extends Resource
 @export var subject_id: int
 @export var created_at: int
 @export var last_time_edited: int
-@export var topic: int
 @export var tags: PackedStringArray
 
 @export_category('Sensory Add-Ons')
@@ -18,30 +17,30 @@ extends Resource
 @export var question: PackedStringArray = []
 @export var answer = [""]
 @export var choices = {}
-# singular_choice = [{"bool": true, "texts": []}]
 @export var columns = {}
 @export var match_a = {}
 @export var match_b = {}
-@export var labels: PackedScene
+@export var labels:= []
 @export var variables = []
 
 @export var level: int = 1
 
 @export_category('Question Types')
-@export var is_open: bool = true
-@export var is_choice: bool
-@export var is_table: bool
-@export var is_label: bool
-@export var is_connect: bool
+@export var is_open: bool = false
+@export var is_choice: bool = false
+@export var is_table: bool = false
+@export var is_label: bool = false
+@export var is_connect: bool = false
 
 @export_category('Question Add-Ons')
-@export var is_strict: bool
-@export var is_shuffle: bool
-@export var is_order: bool
+@export var is_strict: bool = false
+@export var is_shuffle: bool = false
+@export var is_order: bool = false
 
 @export_category('Experience')
+@export var parents := []
 @export var learn_level: int
-@export var experience: int
+@export var experience: int = 0.0
 @export var is_level_up_queued: int
 @export_group("Name")
 @export var hits: int
@@ -64,6 +63,13 @@ func get_parameters() -> PackedStringArray:
 	if is_shuffle: parameters.push_back('shuffle')
 	if is_order: parameters.push_back('order')
 	return parameters
+
+func get_subject() -> Subject:
+	return ResourceLoader.load("user://subjects/" + str(subject_id).lpad(10, '0') + ".tres")
+
+func create() -> void:
+	id = Main.stats.next_question_id()
+	save()
 
 func save() -> void:
 	var subject_id_dir = str(subject_id).lpad(10, '0') + '/'

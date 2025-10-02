@@ -15,7 +15,14 @@ func get_file_path() -> String:
 func create() -> void:
 	if !DirAccess.dir_exists_absolute(get_file_path()):
 		DirAccess.make_dir_absolute(get_file_path())
+	id = Main.stats.next_subject_id()
 	save()
+
+func get_questions() -> Array:
+	var files = Array(DirAccess.get_files_at("user://subjects/" + str(id).lpad(10, '0')))
+	return files.map(func (question_filename):
+		return ResourceLoader.load("user://subjects/" + str(id).lpad(10, '0') + "/" + question_filename)
+	)
 
 func save() -> void:
 	ResourceSaver.save(self, get_file_path() + ".tres", ResourceSaver.FLAG_COMPRESS)

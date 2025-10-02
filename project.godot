@@ -14,11 +14,15 @@ config/name="Standardized Experience 5"
 config/description="Level up your learning."
 config/version="5.0.0"
 config/tags=PackedStringArray("educational")
-run/main_scene="uid://bd634eo063jbr"
+run/main_scene="uid://cvbfhohv32pcb"
 config/use_custom_user_dir=true
 config/custom_user_dir_name="StandardizedExperience5"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 boot_splash/bg_color=Color(0, 0, 0, 1)
+
+[autoload]
+
+Main="*res://scenes/autoload.tscn"
 
 [display]
 
