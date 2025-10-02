@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bcuq3veu0kx2k"]
+[gd_scene load_steps=12 format=3 uid="uid://bcuq3veu0kx2k"]
 
 [ext_resource type="Script" uid="uid://sh2qms5hxqx3" path="res://scenes/Data/DataQuestion/OpensChoice/opens_row.gd" id="1_nbjlh"]
 [ext_resource type="PackedScene" uid="uid://caiqur14kros3" path="res://scenes/Data/DataQuestion/OpensChoice/opens_alt_set.tscn" id="2_arib2"]
@@ -7,6 +7,14 @@
 bg_color = Color(0.00784314, 0.313726, 0.764706, 1)
 corner_radius_top_left = 10
 corner_radius_top_right = 10
+
+[sub_resource type="InputEventKey" id="InputEventKey_p870i"]
+device = -1
+alt_pressed = true
+keycode = 43
+
+[sub_resource type="Shortcut" id="Shortcut_826cn"]
+events = [SubResource("InputEventKey_p870i")]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0rm0x"]
 content_margin_left = 10.0
@@ -33,6 +41,14 @@ content_margin_right = 3.0
 content_margin_bottom = 3.0
 bg_color = Color(0.76, 0.00759999, 0.00759999, 1)
 
+[sub_resource type="InputEventKey" id="InputEventKey_2flm3"]
+device = -1
+alt_pressed = true
+keycode = 45
+
+[sub_resource type="Shortcut" id="Shortcut_kksar"]
+events = [SubResource("InputEventKey_2flm3")]
+
 [node name="Row" type="HBoxContainer"]
 theme_override_constants/separation = 0
 script = ExtResource("1_nbjlh")
@@ -48,15 +64,18 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 0
 
-[node name="AddAlt" type="Button" parent="Answer/Set"]
+[node name="AddAlt" type="Button" parent="Answer/Set" node_paths=PackedStringArray("shortcut_context")]
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
+focus_mode = 0
+shortcut_context = NodePath("../../..")
 theme_override_styles/normal = SubResource("StyleBoxFlat_eoayo")
+shortcut = SubResource("Shortcut_826cn")
 text = "Alt"
 
 [node name="Text" type="TextEdit" parent="Answer/Set"]
 clip_contents = false
-custom_minimum_size = Vector2(0, 50)
+custom_minimum_size = Vector2(100, 50)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -64,6 +83,7 @@ theme_override_colors/font_placeholder_color = Color(0.216, 0.1952, 0.32, 1)
 theme_override_font_sizes/font_size = 18
 theme_override_styles/normal = SubResource("StyleBoxEmpty_0rm0x")
 placeholder_text = "An answer to that question."
+wrap_mode = 1
 scroll_fit_content_height = true
 
 [node name="Order" type="Control" parent="Answer/Set/Text"]
@@ -111,11 +131,14 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_vwqmk")
 
-[node name="DeleteAnswer" type="Button" parent="Answer/Set"]
+[node name="DeleteAnswer" type="Button" parent="Answer/Set" node_paths=PackedStringArray("shortcut_context")]
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
 size_flags_vertical = 3
+focus_mode = 0
+shortcut_context = NodePath("../../..")
 theme_override_styles/normal = SubResource("StyleBoxFlat_wgsi8")
+shortcut = SubResource("Shortcut_kksar")
 text = "-"
 
 [node name="Alts" type="VBoxContainer" parent="Answer"]

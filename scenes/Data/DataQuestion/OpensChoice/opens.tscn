@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://bdgmtw2gpw4ag"]
+[gd_scene load_steps=6 format=3 uid="uid://bdgmtw2gpw4ag"]
 
 [ext_resource type="Script" uid="uid://cucom1fvn0dtj" path="res://scenes/Data/DataQuestion/OpensChoice/opens.gd" id="1_sjol5"]
 [ext_resource type="PackedScene" uid="uid://bcuq3veu0kx2k" path="res://scenes/Data/DataQuestion/OpensChoice/opens_row.tscn" id="2_sjol5"]
@@ -12,6 +12,14 @@ bg_color = Color(0.00784314, 0.313726, 0.764706, 1)
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 
+[sub_resource type="InputEventKey" id="InputEventKey_6sn6f"]
+device = -1
+ctrl_pressed = true
+keycode = 43
+
+[sub_resource type="Shortcut" id="Shortcut_sif78"]
+events = [SubResource("InputEventKey_6sn6f")]
+
 [node name="Opens" type="HBoxContainer"]
 theme_override_constants/separation = 0
 script = ExtResource("1_sjol5")
@@ -21,10 +29,12 @@ row_scene = ExtResource("2_sjol5")
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="AddAnswer" type="Button" parent="."]
+[node name="AddAnswer" type="Button" parent="." node_paths=PackedStringArray("shortcut_context")]
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
+shortcut_context = NodePath("..")
 theme_override_styles/normal = SubResource("StyleBoxFlat_sjol5")
+shortcut = SubResource("Shortcut_sif78")
 text = "+"
 
 [connection signal="pressed" from="AddAnswer" to="." method="_on_add_answer_pressed"]

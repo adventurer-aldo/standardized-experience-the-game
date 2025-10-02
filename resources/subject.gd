@@ -13,9 +13,9 @@ func get_file_path() -> String:
 	return "user://subjects/" + str(id).lpad(10, '0')
 
 func create() -> void:
+	id = Main.stats.next_subject_id()
 	if !DirAccess.dir_exists_absolute(get_file_path()):
 		DirAccess.make_dir_absolute(get_file_path())
-	id = Main.stats.next_subject_id()
 	save()
 
 func get_questions() -> Array:

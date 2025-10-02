@@ -2,23 +2,12 @@
 
 [ext_resource type="Texture2D" uid="uid://c5au6fpvjeqee" path="res://graphics/icons/arrow-right-arrow-left.svg" id="1_xgx6q"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xgx6q"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ie7vy"]
 content_margin_left = 3.0
 content_margin_top = 3.0
 content_margin_right = 3.0
 content_margin_bottom = 3.0
-bg_color = Color(0.8, 0.6708, 0.344, 1)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hfqrd"]
-content_margin_left = 3.0
-content_margin_top = 3.0
-content_margin_right = 3.0
-content_margin_bottom = 3.0
-bg_color = Color(0.86, 0.72928, 0.3698, 1)
+bg_color = Color(0.41, 0.36818, 0.2624, 1)
 corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
@@ -35,12 +24,23 @@ corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ie7vy"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hfqrd"]
 content_margin_left = 3.0
 content_margin_top = 3.0
 content_margin_right = 3.0
 content_margin_bottom = 3.0
-bg_color = Color(0.41, 0.36818, 0.2624, 1)
+bg_color = Color(0.86, 0.72928, 0.3698, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xgx6q"]
+content_margin_left = 3.0
+content_margin_top = 3.0
+content_margin_right = 3.0
+content_margin_bottom = 3.0
+bg_color = Color(0.8, 0.6708, 0.344, 1)
 corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
@@ -49,10 +49,11 @@ corner_radius_bottom_left = 10
 [node name="Match" type="Button"]
 custom_minimum_size = Vector2(40, 0)
 size_flags_horizontal = 3
-theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_xgx6q")
-theme_override_styles/hover = SubResource("StyleBoxFlat_hfqrd")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_cgyq5")
+focus_mode = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_ie7vy")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_cgyq5")
+theme_override_styles/hover = SubResource("StyleBoxFlat_hfqrd")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_xgx6q")
 toggle_mode = true
 text = "."
 

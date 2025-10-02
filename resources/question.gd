@@ -7,7 +7,7 @@ extends Resource
 @export var subject_id: int
 @export var created_at: int
 @export var last_time_edited: int
-@export var tags: PackedStringArray
+@export var tags:= []
 
 @export_category('Sensory Add-Ons')
 @export var images: Array[Image]

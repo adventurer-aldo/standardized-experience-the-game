@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://bd634eo063jbr"]
+[gd_scene load_steps=47 format=3 uid="uid://bd634eo063jbr"]
 
 [ext_resource type="Script" uid="uid://b0qderfii5a6j" path="res://scenes/Data/data_question.gd" id="1_0rm0x"]
 [ext_resource type="PackedScene" uid="uid://7f5d1bwwjuu0" path="res://scenes/Data/DataQuestion/question_row.tscn" id="2_ve1ap"]
@@ -67,6 +67,14 @@ bg_color = Color(0.00784314, 0.313726, 0.764706, 1)
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
+[sub_resource type="InputEventKey" id="InputEventKey_i4w0a"]
+device = -1
+alt_pressed = true
+keycode = 43
+
+[sub_resource type="Shortcut" id="Shortcut_gkyu1"]
+events = [SubResource("InputEventKey_i4w0a")]
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xarco"]
 content_margin_left = 3.0
 content_margin_top = 3.0
@@ -94,6 +102,14 @@ content_margin_bottom = 10.0
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vwqmk"]
 bg_color = Color(1, 1, 1, 1)
 
+[sub_resource type="InputEventKey" id="InputEventKey_lyehf"]
+device = -1
+alt_pressed = true
+keycode = 43
+
+[sub_resource type="Shortcut" id="Shortcut_eed2l"]
+events = [SubResource("InputEventKey_lyehf")]
+
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pa0ux"]
 texture = ExtResource("21_l7njq")
 texture_margin_left = 12.0
@@ -107,6 +123,14 @@ texture_margin_left = 12.0
 texture_margin_top = 12.0
 texture_margin_right = 12.0
 texture_margin_bottom = 12.0
+
+[sub_resource type="InputEventKey" id="InputEventKey_gkyu1"]
+device = -1
+alt_pressed = true
+keycode = 83
+
+[sub_resource type="Shortcut" id="Shortcut_lyehf"]
+events = [SubResource("InputEventKey_gkyu1")]
 
 [node name="DataQuestion" type="Control"]
 top_level = true
@@ -192,6 +216,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
 size_flags_horizontal = 3
+focus_mode = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_eoayo")
 text = "? New Question..."
 
@@ -221,10 +246,13 @@ text = "Beginner Level"
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="AddAlt" type="Button" parent="Items/Data/Question"]
+[node name="AddAlt" type="Button" parent="Items/Data/Question" node_paths=PackedStringArray("shortcut_context")]
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
+focus_mode = 0
+shortcut_context = NodePath("../Texts")
 theme_override_styles/normal = SubResource("StyleBoxFlat_0rm0x")
+shortcut = SubResource("Shortcut_gkyu1")
 text = "Alt+"
 
 [node name="Separator" type="ColorRect" parent="Items/Data"]
@@ -304,6 +332,7 @@ reverse_fill = true
 [node name="Ordered" type="Button" parent="Items/Data/Types/M/VBoxContainer/Parameters"]
 custom_minimum_size = Vector2(110, 0)
 layout_mode = 2
+focus_mode = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_xarco")
 text = "."
 
@@ -331,6 +360,7 @@ text = "Ordered"
 [node name="Strict" type="Button" parent="Items/Data/Types/M/VBoxContainer/Parameters"]
 custom_minimum_size = Vector2(110, 0)
 layout_mode = 2
+focus_mode = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_xarco")
 text = "."
 
@@ -358,6 +388,7 @@ text = "Strict"
 [node name="Gap" type="Button" parent="Items/Data/Types/M/VBoxContainer/Parameters"]
 custom_minimum_size = Vector2(70, 0)
 layout_mode = 2
+focus_mode = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_xarco")
 text = "."
 
@@ -385,6 +416,7 @@ text = "Gap"
 [node name="Veracity" type="Button" parent="Items/Data/Types/M/VBoxContainer/Parameters"]
 custom_minimum_size = Vector2(105.14, 0)
 layout_mode = 2
+focus_mode = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_xarco")
 text = "."
 
@@ -412,6 +444,7 @@ text = "Veracity"
 [node name="Shuffle" type="Button" parent="Items/Data/Types/M/VBoxContainer/Parameters"]
 custom_minimum_size = Vector2(105.14, 0)
 layout_mode = 2
+focus_mode = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_xarco")
 text = "."
 
@@ -508,8 +541,11 @@ grow_vertical = 2
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_vwqmk")
 
-[node name="AddTagButton" type="Button" parent="Items/Data/Tag"]
+[node name="AddTagButton" type="Button" parent="Items/Data/Tag" node_paths=PackedStringArray("shortcut_context")]
 layout_mode = 2
+focus_mode = 0
+shortcut_context = NodePath("..")
+shortcut = SubResource("Shortcut_eed2l")
 text = "+"
 
 [node name="ParentsContainer" type="MarginContainer" parent="Items/Data"]
@@ -528,15 +564,18 @@ layout_mode = 2
 
 [node name="Button" type="Button" parent="Items/Data"]
 layout_mode = 2
+focus_mode = 0
 text = "test"
 
-[node name="Submit" type="Button" parent="Items/Data"]
+[node name="Submit" type="Button" parent="Items/Data" node_paths=PackedStringArray("shortcut_context")]
 layout_mode = 2
+shortcut_context = NodePath("../..")
 theme_override_styles/normal = SubResource("StyleBoxTexture_pa0ux")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_lsry1")
 theme_override_styles/hover = SubResource("StyleBoxTexture_pa0ux")
 theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_lsry1")
 theme_override_styles/focus = SubResource("StyleBoxTexture_lsry1")
+shortcut = SubResource("Shortcut_lyehf")
 text = "."
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Items/Data/Submit"]

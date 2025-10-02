@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://caiqur14kros3"]
+[gd_scene load_steps=7 format=3 uid="uid://caiqur14kros3"]
 
 [ext_resource type="Script" uid="uid://davewbr533d4n" path="res://scenes/Data/DataQuestion/OpensChoice/opens_alt_set.gd" id="1_7dbdj"]
 
@@ -8,6 +8,14 @@ content_margin_top = 3.0
 content_margin_right = 3.0
 content_margin_bottom = 3.0
 bg_color = Color(0.76, 0.00759999, 0.00759999, 1)
+
+[sub_resource type="InputEventKey" id="InputEventKey_hst5p"]
+device = -1
+alt_pressed = true
+keycode = 45
+
+[sub_resource type="Shortcut" id="Shortcut_qkuhw"]
+events = [SubResource("InputEventKey_hst5p")]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0rm0x"]
 content_margin_left = 10.0
@@ -25,22 +33,27 @@ size_flags_horizontal = 3
 theme_override_constants/separation = 0
 script = ExtResource("1_7dbdj")
 
-[node name="DeleteAlt" type="Button" parent="."]
+[node name="DeleteAlt" type="Button" parent="." node_paths=PackedStringArray("shortcut_context")]
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
 size_flags_vertical = 3
+focus_mode = 0
+shortcut_context = NodePath("..")
 theme_override_styles/normal = SubResource("StyleBoxFlat_wgsi8")
+shortcut = SubResource("Shortcut_qkuhw")
 text = "-"
 
 [node name="Text" type="TextEdit" parent="."]
 clip_contents = false
-custom_minimum_size = Vector2(0, 50)
+custom_minimum_size = Vector2(100, 50)
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_placeholder_color = Color(0.216, 0.1952, 0.32, 1)
 theme_override_font_sizes/font_size = 18
 theme_override_styles/normal = SubResource("StyleBoxEmpty_0rm0x")
 placeholder_text = "An alternative to that answer."
+wrap_mode = 1
 scroll_fit_content_height = true
 
 [node name="Background" type="Panel" parent="Text"]
