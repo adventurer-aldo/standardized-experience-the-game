@@ -106,8 +106,8 @@ func _input(event):
 
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT:
-			if event.pressed and $MainElements/Canvas.get_global_rect().has_point(event.position):
-				start_pos = event.position - $MainElements/Canvas.global_position
+			if event.pressed and $MainElements/Canvas.get_global_rect().has_point(event.global_position):
+				start_pos = event.global_position - $MainElements/Canvas.global_position
 				start_pos.x = clamp(start_pos.x, 0.0, $MainElements/Canvas.size.x)
 				start_pos.y = clamp(start_pos.y, 0.0, $MainElements/Canvas.size.y)
 
@@ -118,12 +118,12 @@ func _input(event):
 				live_line.points = [$MainElements/Canvas.global_position + start_pos]
 				live_poly.polygon = PackedVector2Array([$MainElements/Canvas.global_position + start_pos])
 
-			elif is_drawing or (event.pressed and not $MainElements/Canvas.get_global_rect().has_point(event.position)):
+			elif is_drawing or (event.pressed and not $MainElements/Canvas.get_global_rect().has_point(event.global_position)):
 				_on_end_drawing_pressed()
 
 	elif event is InputEventMouseMotion and is_drawing:
 		var rect = $MainElements/Canvas.get_global_rect()
-		var p = event.position - $MainElements/Canvas.global_position
+		var p = event.global_position - $MainElements/Canvas.global_position
 		p.x = clamp(p.x, 0.0, rect.size.x)
 		p.y = clamp(p.y, 0.0, rect.size.y)
 
@@ -209,8 +209,8 @@ func _add_or_merge_collision(new_points: PackedVector2Array) -> Array:
 		$MainElements/Canvas/Markers.add_child(target_node)
 	else:
 		target_node = $MainElements/Canvas/Markers.get_child(current_label_id)
-	target_node.position.x = min_x
-	target_node.position.y = min_y
+	target_node.global_position.x = min_x
+	target_node.global_position.y = min_y
 	return created_nodes
 
 

@@ -33,6 +33,21 @@ func fetch() -> Array:
 	var main = $Answer/Set/Text.text
 	return [main] + $Answer/Alts.get_children().map(func (alt): return alt.fetch())
 
+func replicate(array: Array) -> void:
+	$Answer/Set/Text.text = array[0]
+	var alts = array.duplicate()
+	alts.remove_at(0)
+	var difference = alts.size() - $Answer/Alts.get_child_count()
+	print("The difference of alts is {diff}".format({"diff": difference}))
+	if difference > 0:
+		for i in range(difference):
+			_on_add_alt_pressed()
+	elif difference < 0:
+		for i in range(difference * -1):
+			$Answer/Alts.get_child((i * -1) -1).queue_free()
+	for i in range(alts.size()):
+		$Answer/Alts.get_child(i).set_text(alts[i])
+
 func show_order() -> void:
 	$Answer/Set/Text/Order.show()
 	$Answer/Set/Text/Order/Text.text = str(get_index() + 1)

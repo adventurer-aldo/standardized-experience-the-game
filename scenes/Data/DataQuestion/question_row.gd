@@ -21,3 +21,6 @@ func fetch() -> String:
 
 func reset() -> void:
 	$Text.text = ""
+
+func set_text(to: String) -> void:
+	$Text.text = to

@@ -38,5 +38,16 @@ func fetch(as_choices:= choice_mode, veracity:= true_veracity) -> Array:
 func reset(full:= false):
 	$Rows.get_children().map(func (row):
 		if row.get_index() != 0: row.queue_free()
-		row.reset(false)
+		row.reset(full)
 	)
+
+func replicate(array: Array) -> void:
+	var difference = array.size() - $Rows.get_child_count()
+	if difference > 0:
+		for i in range(difference):
+			_on_add_answer_pressed()
+	elif difference < 0:
+		for i in range((difference) * -1):
+			$Rows.get_child((i * -1) -1).queue_free()
+	for i in range(array.size()):
+		$Rows.get_child(i).replicate(array[i])

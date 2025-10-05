@@ -15,7 +15,7 @@ extends Resource
 
 @export_category('Data')
 @export var question: PackedStringArray = []
-@export var answer = [""]
+@export var answer = [[""]]
 @export var choices = {}
 @export var columns = {}
 @export var match_a = {}
@@ -40,7 +40,7 @@ extends Resource
 @export_category('Experience')
 @export var parents := []
 @export var learn_level: int
-@export var experience: int = 0.0
+@export var experience: float = 0.0
 @export var is_level_up_queued: int
 @export_group("Streaks")
 @export var hits: int

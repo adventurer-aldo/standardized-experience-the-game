@@ -27,7 +27,7 @@
 [ext_resource type="Script" uid="uid://i41g3m3gb8lr" path="res://scenes/voice.gd" id="23_3rfw0"]
 [ext_resource type="PackedScene" uid="uid://cnf1sdbyq6ptj" path="res://scenes/Data/DataQuestion/parent.tscn" id="23_i4w0a"]
 [ext_resource type="Script" uid="uid://cedu5shagyvc5" path="res://scenes/sfx.gd" id="25_l7njq"]
-[ext_resource type="PackedScene" uid="uid://cpdo7bx7xqye8" path="res://scenes/Data/DataQuestion/question.tscn" id="27_3rfw0"]
+[ext_resource type="PackedScene" uid="uid://cpdo7bx7xqye8" path="res://scenes/Data/DataQuestion/question_in_grid.tscn" id="27_3rfw0"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gkyu1"]
 texture = ExtResource("4_kw14r")

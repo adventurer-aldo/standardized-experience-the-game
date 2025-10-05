@@ -3,10 +3,19 @@
 [ext_resource type="Script" uid="uid://clbulj65dnqr1" path="res://scenes/Data/DataSubject/subject.gd" id="1_1tp4j"]
 [ext_resource type="PackedScene" uid="uid://bd634eo063jbr" path="res://scenes/Data/data_question.tscn" id="2_svi1f"]
 
-[node name="Subject" type="Button"]
-size_flags_horizontal = 3
-text = "Subject Name"
+[node name="HBoxContainer" type="HBoxContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
 script = ExtResource("1_1tp4j")
 data_question_scene = ExtResource("2_svi1f")
 
-[connection signal="pressed" from="." to="." method="_on_pressed"]
+[node name="Subject" type="Button" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Subject Name"
+
+[node name="Delete" type="Button" parent="."]
+layout_mode = 2
+text = "Delete"
+
+[connection signal="pressed" from="Subject" to="." method="_on_subject_pressed"]

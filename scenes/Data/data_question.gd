@@ -29,6 +29,7 @@ func add_question_to_container(saved_question: Question) -> void:
 	question_to_add.set_text(saved_question.question[0])
 	question_to_add.name = str(saved_question.id)
 	question_to_add.parent_pressed.connect(on_parent_pressed)
+	question_to_add.edit_pressed.connect(on_edit_pressed)
 	$QuestionsContainer.add_child(question_to_add)
 	$QuestionsContainer.move_child(question_to_add, 0)
 
@@ -107,8 +108,15 @@ func on_parent_pressed(id: int) -> void:
 		$Items/ScrollData/Data/ParentsContainer/ParentsFlow.add_child(parent_scene)
 		parent_scene.name = str(id)
 
+func on_edit_pressed(id: int) -> void:
+	var to_edit = question.get_subject().get_question(id)
+	$Items/ScrollData/Data/Question/Texts.get_child(0).set_text(to_edit.question[0])
+	var questions_difference = to_edit.question.size() - $Items/ScrollData/Data/Question/Texts.get_child_count()
+	
+	$Items/ScrollData/Data/Opens.replicate(to_edit.answer)
+
 func fetch_data() -> void:
-	question.question = $Items/ScrollData/Data/Question/Texts.get_children().map(func (question): return question.fetch())
+	question.question = $Items/ScrollData/Data/Question/Texts.get_children().map(func (question_row): return question_row.fetch())
 	question.created_at = Time.get_unix_time_from_system()
 	question.last_time_edited = question.created_at
 	question.answer = $Items/ScrollData/Data/Opens.fetch()
