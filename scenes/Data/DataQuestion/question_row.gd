@@ -11,6 +11,8 @@ func refresh(amount) -> void:
 	else:
 		$DeleteButton.hide()
 
+func get_focus() -> void:
+	$Text.grab_focus()
 
 func _on_delete_button_pressed() -> void:
 	queue_free()

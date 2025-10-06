@@ -32,6 +32,7 @@ size_flags_horizontal = 3
 [node name="AddAnswer" type="Button" parent="." node_paths=PackedStringArray("shortcut_context")]
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
+focus_mode = 0
 shortcut_context = NodePath("..")
 theme_override_styles/normal = SubResource("StyleBoxFlat_sjol5")
 shortcut = SubResource("Shortcut_sif78")

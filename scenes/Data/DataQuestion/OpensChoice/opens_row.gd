@@ -10,6 +10,7 @@ func to_decoy() -> void:
 
 func _on_add_alt_pressed() -> void:
 	var new_alt = alt_scene.instantiate()
+	if is_decoy: new_alt.to_decoy()
 	$Answer/Alts.add_child(new_alt)
 	new_alt.get_focus()
 

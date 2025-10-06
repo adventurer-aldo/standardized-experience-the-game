@@ -8,3 +8,6 @@ func set_text(text: String) -> void:
 func _on_delete_button_pressed() -> void:
 	delete_pressed.emit($TextButton.text)
 	queue_free()
+
+func fetch() -> String:
+	return $TextButton.text

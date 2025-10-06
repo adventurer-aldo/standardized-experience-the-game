@@ -4,7 +4,6 @@ signal question_alt_changed
 
 @export var question_packed_scene: PackedScene
 @export var saved_question_packed_scene: PackedScene
-@export var tag_packed_scene: PackedScene
 @export var parent_packed_scene: PackedScene
 var subject_id: int
 var title = "Default Subject"
@@ -12,11 +11,21 @@ var question = Question.new()
 
 func _ready() -> void:
 	question.subject_id = subject_id
+	question.id = Main.stats.next_question_id(false)
 	$SubjectBar/Title.text = title
 	_on_add_question_alt_pressed()
 	$Items/ScrollData/Data/Types/M/VBoxContainer/Types/Open.button_pressed = true
 	_on_open_pressed()
 	set_container()
+
+func _on_reset_pressed() -> void:
+	$Items/ScrollData/Data/Question/Texts.get_children().map(func (child): child.reset())
+	$Items/ScrollData/Data/Question/Texts.get_child(0).get_focus()
+	$Items/ScrollData/Data/Opens.reset(true)
+	
+	$Items/ScrollData/Data/ParentsContainer/ParentsFlow.reset()
+	$Items/ScrollData/Data/TagsContainer/TagsFlow.reset()
+	question.id = Main.stats.next_question_id(false)
 
 func set_container() -> void:
 	question.get_subject().get_questions().map(func (saved_question):
@@ -24,14 +33,18 @@ func set_container() -> void:
 	)
 
 func add_question_to_container(saved_question: Question) -> void:
-	var question_to_add = saved_question_packed_scene.instantiate()
-	question_to_add.id = saved_question.id
+	var question_to_add
+	if $QuestionsContainer.has_node(str(saved_question.id)):
+		question_to_add = $QuestionsContainer.get_node(str(saved_question.id))
+	else:
+		question_to_add = saved_question_packed_scene.instantiate()
+		$QuestionsContainer.add_child(question_to_add)
+		$QuestionsContainer.move_child(question_to_add, 0)
+		question_to_add.parent_pressed.connect(on_parent_pressed)
+		question_to_add.edit_pressed.connect(on_edit_pressed)
+		question_to_add.name = str(saved_question.id)
+		question_to_add.id = saved_question.id
 	question_to_add.set_text(saved_question.question[0])
-	question_to_add.name = str(saved_question.id)
-	question_to_add.parent_pressed.connect(on_parent_pressed)
-	question_to_add.edit_pressed.connect(on_edit_pressed)
-	$QuestionsContainer.add_child(question_to_add)
-	$QuestionsContainer.move_child(question_to_add, 0)
 
 func _on_add_question_alt_pressed() -> void:
 	var q_scene = question_packed_scene.instantiate()
@@ -39,11 +52,9 @@ func _on_add_question_alt_pressed() -> void:
 	question_alt_changed.emit($Items/ScrollData/Data/Question/Texts.get_child_count() + 1)
 	question_alt_changed.connect(q_scene.refresh)
 	q_scene.delete_pressed.connect(_on_question_delete_pressed)
-	# q_scene.tree_exited.connect(_on_question_delete_pressed)
 	
 func _on_question_delete_pressed() -> void:
 	print("Alt changed")
-	# await get_tree().create_timer(1).timeout
 	question_alt_changed.emit($Items/ScrollData/Data/Question/Texts.get_child_count() - 1)
 
 func _on_open_pressed() -> void:
@@ -78,42 +89,40 @@ func fetch_question_texts() -> PackedStringArray:
 	return PackedStringArray(strings)
 
 func _on_increase_level_pressed() -> void:
-	question.level = [1, 2, 3, 4, 1][question.level]
+	change_level([1, 2, 3, 4, 1][question.level])
+
+func change_level(to: int) -> void:
+	question.level = to
 	var tar = $Items/ScrollData/Data/Question/GloballyRelevant/IncreaseLevel/Elements/Text
 	var texts = ['Beginner Level', 'Advanced Level', 'Dissertation', 'Master Level']
-	tar.text = texts[question.level - 1]
+	tar.text = texts[to - 1]
 
 func _on_add_tag_button_pressed() -> void:
 	var text: String = $Items/ScrollData/Data/Tag/Text.text.strip_edges()
-	if !question.tags.map(func (string: String): return string.to_lower()).has(text.to_lower):
-		var tag_scene = tag_packed_scene.instantiate()
-		tag_scene.set_text(text)
-		tag_scene.delete_pressed.connect(delete_tag)
-		$Items/ScrollData/Data/TagsContainer/TagsFlow.add_child(tag_scene)
-		question.tags.push_back(text)
+	$Items/ScrollData/Data/TagsContainer/TagsFlow.add_tag(text)
 	$Items/ScrollData/Data/Tag/Text.text = ""
 
-func delete_tag(text: String) -> void:
-	question.tags.erase(text)
-
 func on_parent_pressed(id: int) -> void:
-	if question.parents.has(id):
-		question.parents.erase(id)
-		$Items/ScrollData/Data/ParentsContainer/ParentsFlow.get_node(str(id)).queue_free()
-	else:
-		question.parents.push_back(id)
-		var parent_scene = parent_packed_scene.instantiate()
-		parent_scene.delete_pressed.connect(on_parent_pressed)
-		parent_scene.id = id
-		$Items/ScrollData/Data/ParentsContainer/ParentsFlow.add_child(parent_scene)
-		parent_scene.name = str(id)
+	$Items/ScrollData/Data/ParentsContainer/ParentsFlow.add_parent(id)
 
 func on_edit_pressed(id: int) -> void:
 	var to_edit = question.get_subject().get_question(id)
-	$Items/ScrollData/Data/Question/Texts.get_child(0).set_text(to_edit.question[0])
 	var questions_difference = to_edit.question.size() - $Items/ScrollData/Data/Question/Texts.get_child_count()
-	
+	if questions_difference > 0:
+		for i in range(questions_difference):
+			_on_add_question_alt_pressed()
+	elif questions_difference < 0:
+		for i in range(questions_difference * -1):
+			$Items/ScrollData/Data/Question/Texts.get_child((i * -1) -1).queue_free()
+	for i in range(to_edit.question.size()):
+		$Items/ScrollData/Data/Question/Texts.get_child(0).set_text(to_edit.question[i])
+		
 	$Items/ScrollData/Data/Opens.replicate(to_edit.answer)
+	
+	$Items/ScrollData/Data/ParentsContainer/ParentsFlow.replicate(to_edit.parents)
+	$Items/ScrollData/Data/TagsContainer/TagsFlow.replicate(to_edit.tags)
+	question.id = id
+	change_level(to_edit.level)
 
 func fetch_data() -> void:
 	question.question = $Items/ScrollData/Data/Question/Texts.get_children().map(func (question_row): return question_row.fetch())
@@ -126,12 +135,28 @@ func fetch_data() -> void:
 	question.match_a = matches["a"]
 	question.match_b = matches["b"]
 	question.labels = $Items/ScrollData/Data/Label.fetch()
+	
+	question.tags = $Items/ScrollData/Data/TagsContainer/TagsFlow.fetch()
+	question.parents = $Items/ScrollData/Data/ParentsContainer/ParentsFlow.fetch()
+
+func play_submit_edit_voice() -> void:
+	if question.get_subject().has_question(question.id):
+		$Voice.random_play("questions_edit")
+	else:
+		if DirAccess.dir_exists_absolute("res://audio/voice/questions_" + str(question.get_subject().size())):
+			$Voice.random_play("questions_" + str(question.get_subject().size()))
+		else:
+			$Voice.random_play("questions_new")
 
 func _on_submit_pressed() -> void:
-	$Voice.random_play("questions_1")
+	play_submit_edit_voice()
 	fetch_data()
-	question.create()
+	if question.get_subject().has_question(question.id):
+		question.save()
+	else:
+		question.create()
 	add_question_to_container(question)
 	$SFX.play_file("submit")
 	$Items/ScrollData/Data/Question/Texts.get_children().map(func (child): child.reset())
+	$Items/ScrollData/Data/Question/Texts.get_child(0).get_focus()
 	$Items/ScrollData/Data/Opens.reset()

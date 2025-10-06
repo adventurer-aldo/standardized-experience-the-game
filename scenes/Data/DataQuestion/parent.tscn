@@ -7,10 +7,12 @@ script = ExtResource("1_g6myp")
 
 [node name="ID" type="Button" parent="."]
 layout_mode = 2
+focus_mode = 0
 text = "0000"
 
 [node name="Delete" type="Button" parent="."]
 layout_mode = 2
+focus_mode = 0
 text = "-"
 
 [connection signal="pressed" from="Delete" to="." method="_on_delete_pressed"]

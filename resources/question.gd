@@ -68,7 +68,7 @@ func get_subject() -> Subject:
 	return ResourceLoader.load("user://subjects/" + str(subject_id).lpad(10, '0') + ".tres")
 
 func create() -> void:
-	id = Main.stats.next_question_id()
+	id = Main.stats.next_question_id(true)
 	save()
 
 func save() -> void:

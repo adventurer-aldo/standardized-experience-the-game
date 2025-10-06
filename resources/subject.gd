@@ -9,18 +9,21 @@ extends Resource
 @export_category("Experience")
 @export var level := 0
 
-func get_file_path() -> String:
+func get_dir_path() -> String:
 	return "user://subjects/" + str(id).lpad(10, '0')
+
+func get_file_path() -> String:
+	return "user://subjects/" + str(id).lpad(10, '0') + ".tres"
 
 func create() -> void:
 	id = Main.stats.next_subject_id()
-	if !DirAccess.dir_exists_absolute(get_file_path()):
-		DirAccess.make_dir_absolute(get_file_path())
+	if !DirAccess.dir_exists_absolute(get_dir_path()):
+		DirAccess.make_dir_absolute(get_dir_path())
 	save()
 
 func erase() -> void:
 	DirAccess.remove_absolute(get_file_path())
-	Resource
+	DirAccess.remove_absolute(get_dir_path())
 
 func get_questions() -> Array:
 	var files = Array(DirAccess.get_files_at("user://subjects/" + str(id).lpad(10, '0')))
@@ -28,8 +31,14 @@ func get_questions() -> Array:
 		return ResourceLoader.load("user://subjects/" + str(id).lpad(10, '0') + "/" + question_filename)
 	)
 
+func has_question(question_id: int) -> bool:
+	return FileAccess.file_exists(get_dir_path() + "/" + str(question_id).lpad(10, '0') + ".tres")
+
+func size() -> int:
+	return DirAccess.get_files_at(get_dir_path()).size()
+
 func get_question(question_id: int) -> Question:
 	return ResourceLoader.load("user://subjects/" + str(id).lpad(10, '0') + "/" + str(question_id).lpad(10, '0') + ".tres")
 
 func save() -> void:
-	ResourceSaver.save(self, get_file_path() + ".tres", ResourceSaver.FLAG_COMPRESS)
+	ResourceSaver.save(self, get_file_path(), ResourceSaver.FLAG_COMPRESS)

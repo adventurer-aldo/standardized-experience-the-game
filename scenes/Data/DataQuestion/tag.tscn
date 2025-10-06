@@ -7,10 +7,12 @@ script = ExtResource("1_46s3h")
 
 [node name="TextButton" type="Button" parent="."]
 layout_mode = 2
+focus_mode = 0
 text = "Moderato"
 
 [node name="DeleteButton" type="Button" parent="."]
 layout_mode = 2
+focus_mode = 0
 text = "X"
 
 [connection signal="pressed" from="DeleteButton" to="." method="_on_delete_button_pressed"]

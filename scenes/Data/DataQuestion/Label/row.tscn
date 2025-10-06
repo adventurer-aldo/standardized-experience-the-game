@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://cajf5qx5ls6u5" path="res://scenes/Data/DataQuestion/Label/row.gd" id="1_fwjmu"]
 [ext_resource type="PackedScene" uid="uid://b3l1tkdwurj8b" path="res://scenes/Data/DataQuestion/Label/alt.tscn" id="2_a7ll1"]
 
-[node name="Row" type="HBoxContainer"]
+[node name="LabelRow" type="HBoxContainer"]
 script = ExtResource("1_fwjmu")
 alt_scene = ExtResource("2_a7ll1")
 

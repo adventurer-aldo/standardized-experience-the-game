@@ -9,3 +9,7 @@ func _ready() -> void:
 
 func _on_delete_pressed() -> void:
 	delete_pressed.emit(id)
+	queue_free()
+
+func fetch() -> int:
+	return int($ID.text)

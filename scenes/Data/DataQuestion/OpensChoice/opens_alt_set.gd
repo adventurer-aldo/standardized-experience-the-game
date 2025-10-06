@@ -14,3 +14,6 @@ func reset() -> void:
 
 func set_text(to: String) -> void:
 	$Text.text = to
+
+func to_decoy():
+	$Text.placeholder_text = "A paraphrasing of that wrong answer."
