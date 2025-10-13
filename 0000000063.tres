@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="Question" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://resources/question.gd" id="1_rgejf"]
+
+[resource]
+script = ExtResource("1_rgejf")
+id = 63
+subject_id = 5
+created_at = 1759785599
+last_time_edited = 1759785599
+tags = ["Patologia genital masculina"]
+question = PackedStringArray("Qual é o tratamento para a hérnia inguinal escrotal?")
+answer = [["Cirurgia"]]
+choices = [{
+"media": [],
+"texts": [""],
+"veracity": false
+}]
+columns = [[{
+"is_open": false,
+"text": ""
+}]]
+match_a = {
+0: PackedStringArray("")
+}
+match_b = {
+0: PackedStringArray("")
+}
+is_open = true
+parents = [55]

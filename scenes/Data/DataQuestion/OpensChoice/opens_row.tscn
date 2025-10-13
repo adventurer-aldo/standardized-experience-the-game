@@ -73,6 +73,10 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_eoayo")
 shortcut = SubResource("Shortcut_826cn")
 text = "Alt"
 
+[node name="AddImage" type="Button" parent="Answer/Set"]
+layout_mode = 2
+text = "Image"
+
 [node name="Text" type="TextEdit" parent="Answer/Set"]
 clip_contents = false
 custom_minimum_size = Vector2(100, 50)

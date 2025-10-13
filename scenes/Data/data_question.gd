@@ -4,7 +4,6 @@ signal question_alt_changed
 
 @export var question_packed_scene: PackedScene
 @export var saved_question_packed_scene: PackedScene
-@export var parent_packed_scene: PackedScene
 var subject_id: int
 var title = "Default Subject"
 var question = Question.new()
@@ -34,17 +33,19 @@ func set_container() -> void:
 
 func add_question_to_container(saved_question: Question) -> void:
 	var question_to_add
-	if $QuestionsContainer.has_node(str(saved_question.id)):
-		question_to_add = $QuestionsContainer.get_node(str(saved_question.id))
+	var container_node = $QuestionsScroll/QuestionsContainer
+	if container_node.has_node(str(saved_question.id)):
+		question_to_add = container_node.get_node(str(saved_question.id))
 	else:
 		question_to_add = saved_question_packed_scene.instantiate()
-		$QuestionsContainer.add_child(question_to_add)
-		$QuestionsContainer.move_child(question_to_add, 0)
+		container_node.add_child(question_to_add)
+		container_node.move_child(question_to_add, 0)
 		question_to_add.parent_pressed.connect(on_parent_pressed)
 		question_to_add.edit_pressed.connect(on_edit_pressed)
 		question_to_add.name = str(saved_question.id)
 		question_to_add.id = saved_question.id
 	question_to_add.set_text(saved_question.question[0])
+	$SubjectBar/AmountBar/Amount.text = str(container_node.get_child_count()).lpad(2, '0')
 
 func _on_add_question_alt_pressed() -> void:
 	var q_scene = question_packed_scene.instantiate()
@@ -141,12 +142,12 @@ func fetch_data() -> void:
 
 func play_submit_edit_voice() -> void:
 	if question.get_subject().has_question(question.id):
-		$Voice.random_play("questions_edit")
+		$Voice.random_play("questions_edit", 1.0)
 	else:
 		if DirAccess.dir_exists_absolute("res://audio/voice/questions_" + str(question.get_subject().size())):
-			$Voice.random_play("questions_" + str(question.get_subject().size()))
+			$Voice.random_play("questions_" + str(question.get_subject().size()), 1.0)
 		else:
-			$Voice.random_play("questions_new")
+			$Voice.random_play("questions_new", 1.0)
 
 func _on_submit_pressed() -> void:
 	play_submit_edit_voice()
@@ -160,3 +161,4 @@ func _on_submit_pressed() -> void:
 	$Items/ScrollData/Data/Question/Texts.get_children().map(func (child): child.reset())
 	$Items/ScrollData/Data/Question/Texts.get_child(0).get_focus()
 	$Items/ScrollData/Data/Opens.reset()
+	question.id = Main.stats.next_question_id(false)

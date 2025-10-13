@@ -153,7 +153,6 @@ grow_vertical = 2
 script = ExtResource("1_0rm0x")
 question_packed_scene = ExtResource("2_ve1ap")
 saved_question_packed_scene = ExtResource("27_3rfw0")
-parent_packed_scene = ExtResource("23_i4w0a")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
@@ -658,16 +657,42 @@ text = "Default Subject"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="QuestionsContainer" type="GridContainer" parent="."]
+[node name="AmountBar" type="ColorRect" parent="SubjectBar"]
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.5
+anchors_preset = 11
+anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 16.0
-offset_top = 68.0
+offset_left = -92.0
 grow_horizontal = 0
 grow_vertical = 2
+color = Color(0.0028604586, 0.19896105, 0.5100795, 1)
+
+[node name="Amount" type="Label" parent="SubjectBar/AmountBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "00"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="QuestionsScroll" type="ScrollContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 643.0
+offset_top = 69.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="QuestionsContainer" type="GridContainer" parent="QuestionsScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 columns = 2
 
 [connection signal="pressed" from="Items/ScrollData/Data/Question/GloballyRelevant/Reset" to="." method="_on_reset_pressed"]

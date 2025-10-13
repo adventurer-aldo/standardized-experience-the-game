@@ -10,7 +10,7 @@ script = ExtResource("1_nnuj0")
 layout_mode = 2
 text = "gggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg"
 clip_text = true
-text_overrun_behavior = 5
+text_overrun_behavior = 3
 
 [node name="Buttons" type="HBoxContainer" parent="."]
 layout_mode = 2
