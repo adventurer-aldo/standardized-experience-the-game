@@ -12,5 +12,8 @@ func _on_add_alt_pressed() -> void:
 	$Texts/Alts.add_child(alt_scene.instantiate())
 
 func fetch() -> Array:
-	var alts = $Alts.get_children().map(func (child): return child.fetch())
+	var alts = $Texts/Alts.get_children().map(func (child): return child.fetch())
 	return [$Texts/MainText.text] + alts
+
+func replicate(array) -> void:
+	$Texts/MainText.text = array[0]

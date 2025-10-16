@@ -28,6 +28,8 @@ func _on_reset_pressed() -> void:
 
 func set_container() -> void:
 	question.get_subject().get_questions().map(func (saved_question):
+		# var a = Thread.new()
+		# a.start(add_question_to_container.bind(saved_question))
 		add_question_to_container(saved_question)
 	)
 
@@ -83,6 +85,21 @@ func _on_label_pressed() -> void:
 	question.is_label = !question.is_label
 	$Items/ScrollData/Data/Label.visible = question.is_label
 
+func _on_ordered_pressed() -> void:
+	question.is_order = !question.is_order
+
+func _on_strict_pressed() -> void:
+	question.is_strict = !question.is_strict
+
+func _on_gap_pressed() -> void:
+	question.is_gap = !question.is_gap
+
+func _on_veracity_pressed() -> void:
+	question.is_veracity = !question.is_veracity
+
+func _on_shuffle_pressed() -> void:
+	question.is_shuffle = !question.is_shuffle
+
 func fetch_question_texts() -> PackedStringArray:
 	var strings = $Items/ScrollData/Data/Question/Texts.get_children().map(func (question_row):
 		return question_row.fetch()
@@ -117,7 +134,9 @@ func on_edit_pressed(id: int) -> void:
 			$Items/ScrollData/Data/Question/Texts.get_child((i * -1) -1).queue_free()
 	for i in range(to_edit.question.size()):
 		$Items/ScrollData/Data/Question/Texts.get_child(0).set_text(to_edit.question[i])
-		
+	
+	if !to_edit.media.is_empty():
+		$Items/ScrollData/Data/Question/Image.texture = to_edit.media[0]
 	$Items/ScrollData/Data/Opens.replicate(to_edit.answer)
 	
 	$Items/ScrollData/Data/ParentsContainer/ParentsFlow.replicate(to_edit.parents)
@@ -139,6 +158,8 @@ func fetch_data() -> void:
 	
 	question.tags = $Items/ScrollData/Data/TagsContainer/TagsFlow.fetch()
 	question.parents = $Items/ScrollData/Data/ParentsContainer/ParentsFlow.fetch()
+	var images = [$Items/ScrollData/Data/Question/Image.texture]
+	question.media = images.filter(func (img): return img != null)
 
 func play_submit_edit_voice() -> void:
 	if question.get_subject().has_question(question.id):
@@ -160,5 +181,13 @@ func _on_submit_pressed() -> void:
 	$SFX.play_file("submit")
 	$Items/ScrollData/Data/Question/Texts.get_children().map(func (child): child.reset())
 	$Items/ScrollData/Data/Question/Texts.get_child(0).get_focus()
+	$Items/ScrollData/Data/Question/Image.texture = null
 	$Items/ScrollData/Data/Opens.reset()
 	question.id = Main.stats.next_question_id(false)
+
+func _on_close_pressed() -> void:
+	queue_free()
+
+func _on_images_pressed() -> void:
+	var img = DisplayServer.clipboard_get_image()
+	$Items/ScrollData/Data/Question/Image.texture = ImageTexture.create_from_image(img)

@@ -17,10 +17,17 @@ func get_dir_path() -> String:
 	return "user://quizzes/" + str(id).lpad(10, '0')
 
 func get_file_path() -> String:
-	return "user://quizzes/" + str(id).lpad(10, '0') + '.tres'
+	return get_dir_path() + '.tres'
+
+func create() -> void:
+	DirAccess.make_dir_absolute(get_dir_path())
+	save()
 
 func save() -> void:
 	return ResourceSaver.save(self, get_file_path(), ResourceSaver.FLAG_COMPRESS)
 
 func generate() -> void:
+	randomize()
 	var questions = subject().get_questions()
+	questions.shuffle()
+	questions = questions.slice(0, 10)

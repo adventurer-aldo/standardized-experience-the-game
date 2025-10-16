@@ -10,7 +10,7 @@ extends Resource
 @export var tags:= []
 
 @export_category('Sensory Add-Ons')
-@export var images: Array[Image]
+@export var media: Array
 @export var sounds: Array[AudioStream]
 
 @export_category('Data')
@@ -33,9 +33,11 @@ extends Resource
 @export var is_connect: bool = false
 
 @export_category('Question Add-Ons')
-@export var is_strict: bool = false
-@export var is_shuffle: bool = false
 @export var is_order: bool = false
+@export var is_strict: bool = false
+@export var is_gap: bool = false
+@export var is_veracity: bool = false
+@export var is_shuffle: bool = false
 
 @export_category('Experience')
 @export var parents := []

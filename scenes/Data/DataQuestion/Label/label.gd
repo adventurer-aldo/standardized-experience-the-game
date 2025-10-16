@@ -226,12 +226,23 @@ func _circle_to_polygon(center: Vector2, radius: float, sides: int) -> PackedVec
 
 func fetch() -> Array:
 	return $LabelRows.get_children().map(func (row: Node): return {
-		"text": row.fetch(), "area": labels[row.get_index()]
+		"texts": row.fetch(), "area": labels[row.get_index()]
 		})
+
+func replicate(data) -> void:
+	var texts = data.map(func (dic): dic["texts"])
+	var difference = texts.size() - $LabelRows.get_child_count()
+	if difference > 0:
+		for i in difference:
+			_on_add_label_pressed()
+	elif difference < 0:
+		for i in (difference * -1):
+			$LabelRows.get_child((i * -1) -1).queue_free()
+
+	labels = data.map(func (dic): dic["label"])
 
 func _on_end_pressed() -> void:
 	drawing_mode = false
-
 
 func _on_get_image_pressed() -> void:
 	if DisplayServer.clipboard_has_image():

@@ -74,6 +74,7 @@ shortcut = SubResource("Shortcut_826cn")
 text = "Alt"
 
 [node name="AddImage" type="Button" parent="Answer/Set"]
+visible = false
 layout_mode = 2
 text = "Image"
 
