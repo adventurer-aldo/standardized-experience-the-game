@@ -1,9 +1,9 @@
 extends Node
 
-var stats: Statistics
+var data: Data
 
 func _ready() -> void:
-	if FileAccess.file_exists("user://stats.tres"):
-		stats = ResourceLoader.load("user://stats.tres")
+	if FileAccess.file_exists("user://data.tres"):
+		data = ResourceLoader.load("user://data.tres")
 	else:
-		stats = Statistics.new()
+		data = Data.new()

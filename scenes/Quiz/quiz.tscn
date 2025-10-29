@@ -1,14 +1,19 @@
-[gd_scene format=3 uid="uid://h8nysytvkxqo"]
+[gd_scene load_steps=3 format=3 uid="uid://h8nysytvkxqo"]
 
-[node name="Quiz" type="ColorRect"]
+[ext_resource type="Script" uid="uid://bvnuh150gond2" path="res://scenes/Quiz/quiz.gd" id="1_1ip8j"]
+[ext_resource type="PackedScene" uid="uid://do5cgc300pwx1" path="res://scenes/Quiz/open_attempt.tscn" id="2_3uwr7"]
+
+[node name="Quiz" type="ColorRect" unique_id=124219786]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.061499417, 0.3348835, 0.20926744, 1)
+script = ExtResource("1_1ip8j")
+open_attempt = ExtResource("2_3uwr7")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1699848435]
 layout_mode = 1
 anchors_preset = 13
 anchor_left = 0.5
@@ -18,3 +23,27 @@ offset_left = -458.0
 offset_right = 462.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="." unique_id=839189571]
+layout_mode = 0
+offset_left = 184.0
+offset_right = 1101.0
+offset_bottom = 718.0
+
+[node name="AttemptsContainer" type="VBoxContainer" parent="ScrollContainer" unique_id=2124893966]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Button" type="Button" parent="." unique_id=1345693557]
+layout_mode = 0
+offset_left = 108.0
+offset_top = 202.0
+offset_right = 166.0
+offset_bottom = 295.0
+focus_mode = 0
+text = "solve"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1027339420]
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

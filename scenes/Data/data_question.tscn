@@ -131,7 +131,7 @@ keycode = 83
 [sub_resource type="Shortcut" id="Shortcut_lyehf"]
 events = [SubResource("InputEventKey_gkyu1")]
 
-[node name="DataQuestion" type="Control"]
+[node name="DataQuestion" type="Control" unique_id=818269271]
 top_level = true
 layout_mode = 3
 anchors_preset = 15
@@ -143,7 +143,7 @@ script = ExtResource("1_0rm0x")
 question_packed_scene = ExtResource("2_ve1ap")
 saved_question_packed_scene = ExtResource("27_3rfw0")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="ColorRect" type="ColorRect" parent="." unique_id=753104734]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -152,7 +152,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.0075999927, 0.30855986, 0.76, 0.24705882)
 
-[node name="Items" type="HBoxContainer" parent="."]
+[node name="Items" type="HBoxContainer" parent="." unique_id=710176996]
 layout_mode = 0
 offset_top = 68.0
 offset_right = 645.0
@@ -160,17 +160,17 @@ offset_bottom = 720.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Resources" type="VBoxContainer" parent="Items"]
+[node name="Resources" type="VBoxContainer" parent="Items" unique_id=1799518807]
 layout_mode = 2
 
-[node name="Images" type="Button" parent="Items/Resources"]
+[node name="Images" type="Button" parent="Items/Resources" unique_id=590648307]
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/normal = SubResource("StyleBoxTexture_gkyu1")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_i4w0a")
 
-[node name="VBoxCenterer" type="VBoxContainer" parent="Items/Resources/Images"]
+[node name="VBoxCenterer" type="VBoxContainer" parent="Items/Resources/Images" unique_id=271812811]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -178,7 +178,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ImgTexture" type="TextureRect" parent="Items/Resources/Images/VBoxCenterer"]
+[node name="ImgTexture" type="TextureRect" parent="Items/Resources/Images/VBoxCenterer" unique_id=416411073]
 custom_minimum_size = Vector2(35, 0)
 layout_mode = 2
 size_flags_horizontal = 8
@@ -187,14 +187,14 @@ texture = ExtResource("3_q43th")
 expand_mode = 4
 stretch_mode = 4
 
-[node name="Sounds" type="Button" parent="Items/Resources"]
+[node name="Sounds" type="Button" parent="Items/Resources" unique_id=1017878510]
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/normal = SubResource("StyleBoxTexture_eed2l")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_lyehf")
 
-[node name="VBoxCenterer" type="VBoxContainer" parent="Items/Resources/Sounds"]
+[node name="VBoxCenterer" type="VBoxContainer" parent="Items/Resources/Sounds" unique_id=824659469]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -202,32 +202,32 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ImgTexture2" type="TextureRect" parent="Items/Resources/Sounds/VBoxCenterer"]
+[node name="ImgTexture2" type="TextureRect" parent="Items/Resources/Sounds/VBoxCenterer" unique_id=1148858269]
 layout_mode = 2
 size_flags_vertical = 6
 texture = ExtResource("4_ejm1d")
 expand_mode = 4
 stretch_mode = 4
 
-[node name="ScrollData" type="ScrollContainer" parent="Items"]
+[node name="ScrollData" type="ScrollContainer" parent="Items" unique_id=973784573]
 layout_mode = 2
 size_flags_horizontal = 3
 horizontal_scroll_mode = 0
 vertical_scroll_mode = 3
 
-[node name="Data" type="VBoxContainer" parent="Items/ScrollData"]
+[node name="Data" type="VBoxContainer" parent="Items/ScrollData" unique_id=260309284]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Question" type="VBoxContainer" parent="Items/ScrollData/Data"]
+[node name="Question" type="VBoxContainer" parent="Items/ScrollData/Data" unique_id=1091214904]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="GloballyRelevant" type="HBoxContainer" parent="Items/ScrollData/Data/Question"]
+[node name="GloballyRelevant" type="HBoxContainer" parent="Items/ScrollData/Data/Question" unique_id=390653557]
 layout_mode = 2
 
-[node name="Reset" type="Button" parent="Items/ScrollData/Data/Question/GloballyRelevant" node_paths=PackedStringArray("shortcut_context")]
+[node name="Reset" type="Button" parent="Items/ScrollData/Data/Question/GloballyRelevant" unique_id=392757520 node_paths=PackedStringArray("shortcut_context")]
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -237,12 +237,12 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_eoayo")
 shortcut = SubResource("Shortcut_lsry1")
 text = "? New Question..."
 
-[node name="IncreaseLevel" type="Button" parent="Items/ScrollData/Data/Question/GloballyRelevant"]
+[node name="IncreaseLevel" type="Button" parent="Items/ScrollData/Data/Question/GloballyRelevant" unique_id=1781100420]
 custom_minimum_size = Vector2(171, 0)
 layout_mode = 2
 text = "."
 
-[node name="Elements" type="HBoxContainer" parent="Items/ScrollData/Data/Question/GloballyRelevant/IncreaseLevel"]
+[node name="Elements" type="HBoxContainer" parent="Items/ScrollData/Data/Question/GloballyRelevant/IncreaseLevel" unique_id=790804650]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -250,24 +250,24 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Icon" type="TextureRect" parent="Items/ScrollData/Data/Question/GloballyRelevant/IncreaseLevel/Elements"]
+[node name="Icon" type="TextureRect" parent="Items/ScrollData/Data/Question/GloballyRelevant/IncreaseLevel/Elements" unique_id=465241502]
 layout_mode = 2
 texture = ExtResource("4_kw14r")
 expand_mode = 2
 
-[node name="Text" type="Label" parent="Items/ScrollData/Data/Question/GloballyRelevant/IncreaseLevel/Elements"]
+[node name="Text" type="Label" parent="Items/ScrollData/Data/Question/GloballyRelevant/IncreaseLevel/Elements" unique_id=1500039148]
 layout_mode = 2
 text = "Beginner Level"
 
-[node name="Image" type="TextureRect" parent="Items/ScrollData/Data/Question"]
+[node name="Image" type="TextureRect" parent="Items/ScrollData/Data/Question" unique_id=1298004993]
 layout_mode = 2
 expand_mode = 4
 
-[node name="Texts" type="VBoxContainer" parent="Items/ScrollData/Data/Question"]
+[node name="Texts" type="VBoxContainer" parent="Items/ScrollData/Data/Question" unique_id=1014758008]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="AddAlt" type="Button" parent="Items/ScrollData/Data/Question" node_paths=PackedStringArray("shortcut_context")]
+[node name="AddAlt" type="Button" parent="Items/ScrollData/Data/Question" unique_id=720344524 node_paths=PackedStringArray("shortcut_context")]
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
 focus_mode = 0
@@ -276,27 +276,27 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_0rm0x")
 shortcut = SubResource("Shortcut_gkyu1")
 text = "Alt+"
 
-[node name="Separator" type="ColorRect" parent="Items/ScrollData/Data"]
+[node name="Separator" type="ColorRect" parent="Items/ScrollData/Data" unique_id=723555406]
 custom_minimum_size = Vector2(0, 2.5)
 layout_mode = 2
 
-[node name="Types" type="MarginContainer" parent="Items/ScrollData/Data"]
+[node name="Types" type="MarginContainer" parent="Items/ScrollData/Data" unique_id=830563000]
 layout_mode = 2
 
-[node name="M" type="MarginContainer" parent="Items/ScrollData/Data/Types"]
+[node name="M" type="MarginContainer" parent="Items/ScrollData/Data/Types" unique_id=2118111960]
 layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Items/ScrollData/Data/Types/M"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Items/ScrollData/Data/Types/M" unique_id=1224557661]
 layout_mode = 2
 
-[node name="Types" type="HBoxContainer" parent="Items/ScrollData/Data/Types/M/VBoxContainer"]
+[node name="Types" type="HBoxContainer" parent="Items/ScrollData/Data/Types/M/VBoxContainer" unique_id=383315014]
 layout_mode = 2
 
-[node name="Open" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Types" instance=ExtResource("8_pdx67")]
+[node name="Open" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Types" unique_id=1345932875 instance=ExtResource("8_pdx67")]
 layout_mode = 2
 
 [node name="ImgTexture" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Types/Open/HBoxContainer" index="0"]
@@ -305,7 +305,7 @@ texture = ExtResource("8_3hpxg")
 [node name="Label" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Types/Open/HBoxContainer" index="1"]
 text = "Open"
 
-[node name="Choice" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Types" instance=ExtResource("8_pdx67")]
+[node name="Choice" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Types" unique_id=111077069 instance=ExtResource("8_pdx67")]
 layout_mode = 2
 
 [node name="ImgTexture" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Types/Choice/HBoxContainer" index="0"]
@@ -314,10 +314,10 @@ texture = ExtResource("9_m1sgt")
 [node name="Label" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Types/Choice/HBoxContainer" index="1"]
 text = "Choice"
 
-[node name="Match" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Types" instance=ExtResource("8_pdx67")]
+[node name="Match" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Types" unique_id=1355842694 instance=ExtResource("8_pdx67")]
 layout_mode = 2
 
-[node name="Table" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Types" instance=ExtResource("8_pdx67")]
+[node name="Table" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Types" unique_id=1812075391 instance=ExtResource("8_pdx67")]
 layout_mode = 2
 
 [node name="ImgTexture" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Types/Table/HBoxContainer" index="0"]
@@ -326,7 +326,7 @@ texture = ExtResource("10_i8tj4")
 [node name="Label" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Types/Table/HBoxContainer" index="1"]
 text = "Table"
 
-[node name="Label" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Types" instance=ExtResource("8_pdx67")]
+[node name="Label" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Types" unique_id=1785880109 instance=ExtResource("8_pdx67")]
 layout_mode = 2
 
 [node name="ImgTexture" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Types/Label/HBoxContainer" index="0"]
@@ -335,7 +335,7 @@ texture = ExtResource("12_i8tj4")
 [node name="Label" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Types/Label/HBoxContainer" index="1"]
 text = "Label"
 
-[node name="Label2" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Types" instance=ExtResource("8_pdx67")]
+[node name="Label2" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Types" unique_id=604036901 instance=ExtResource("8_pdx67")]
 custom_minimum_size = Vector2(111.475, 0)
 layout_mode = 2
 
@@ -345,15 +345,15 @@ texture = ExtResource("12_i8tj4")
 [node name="Label" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Types/Label2/HBoxContainer" index="1"]
 text = "Scheme"
 
-[node name="Parameters" type="HFlowContainer" parent="Items/ScrollData/Data/Types/M/VBoxContainer"]
+[node name="Parameters" type="HFlowContainer" parent="Items/ScrollData/Data/Types/M/VBoxContainer" unique_id=117426722]
 layout_mode = 2
 alignment = 1
 reverse_fill = true
 
-[node name="Ordered" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters" instance=ExtResource("13_lyehf")]
+[node name="Ordered" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters" unique_id=1768822944 instance=ExtResource("13_lyehf")]
 layout_mode = 2
 
-[node name="Strict" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters" instance=ExtResource("13_lyehf")]
+[node name="Strict" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters" unique_id=250698906 instance=ExtResource("13_lyehf")]
 layout_mode = 2
 
 [node name="ImgTexture" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters/Strict/HBoxContainer" index="0"]
@@ -362,7 +362,7 @@ texture = ExtResource("14_pdx67")
 [node name="Label" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters/Strict/HBoxContainer" index="1"]
 text = "Strict"
 
-[node name="Gap" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters" instance=ExtResource("13_lyehf")]
+[node name="Gap" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters" unique_id=1542786920 instance=ExtResource("13_lyehf")]
 layout_mode = 2
 
 [node name="ImgTexture" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters/Gap/HBoxContainer" index="0"]
@@ -371,7 +371,7 @@ texture = ExtResource("15_pdx67")
 [node name="Label" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters/Gap/HBoxContainer" index="1"]
 text = "Gap"
 
-[node name="Veracity" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters" instance=ExtResource("13_lyehf")]
+[node name="Veracity" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters" unique_id=675399262 instance=ExtResource("13_lyehf")]
 layout_mode = 2
 
 [node name="ImgTexture" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters/Veracity/HBoxContainer" index="0"]
@@ -380,7 +380,7 @@ texture = ExtResource("16_py5sx")
 [node name="Label" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters/Veracity/HBoxContainer" index="1"]
 text = "Veracity"
 
-[node name="Shuffle" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters" instance=ExtResource("13_lyehf")]
+[node name="Shuffle" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters" unique_id=1572357017 instance=ExtResource("13_lyehf")]
 layout_mode = 2
 
 [node name="ImgTexture" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters/Shuffle/HBoxContainer" index="0"]
@@ -389,57 +389,56 @@ texture = ExtResource("17_ctgcr")
 [node name="Label" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters/Shuffle/HBoxContainer" index="1"]
 text = "Shuffle"
 
-[node name="BG" type="Panel" parent="Items/ScrollData/Data/Types"]
+[node name="BG" type="Panel" parent="Items/ScrollData/Data/Types" unique_id=1082747649]
 show_behind_parent = true
 layout_mode = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ll8xw")
 metadata/_edit_lock_ = true
 
-[node name="Opens" parent="Items/ScrollData/Data" instance=ExtResource("3_xarco")]
+[node name="Opens" parent="Items/ScrollData/Data" unique_id=2064817078 instance=ExtResource("3_xarco")]
 visible = false
 layout_mode = 2
 true_veracity = true
 
-[node name="Choices" parent="Items/ScrollData/Data" instance=ExtResource("3_xarco")]
+[node name="Choices" parent="Items/ScrollData/Data" unique_id=1382037439 instance=ExtResource("3_xarco")]
 visible = false
 layout_mode = 2
 choice_mode = true
 
-[node name="Match" parent="Items/ScrollData/Data" instance=ExtResource("4_cgyq5")]
+[node name="Match" parent="Items/ScrollData/Data" unique_id=1575293593 instance=ExtResource("4_cgyq5")]
 visible = false
 layout_mode = 2
 
-[node name="Table" parent="Items/ScrollData/Data" instance=ExtResource("3_vwqmk")]
+[node name="Table" parent="Items/ScrollData/Data" unique_id=657099026 instance=ExtResource("3_vwqmk")]
 visible = false
 layout_mode = 2
 
-[node name="Label" parent="Items/ScrollData/Data" instance=ExtResource("20_kw14r")]
+[node name="Label" parent="Items/ScrollData/Data" unique_id=2018903514 instance=ExtResource("20_kw14r")]
 visible = false
 layout_mode = 2
 
-[node name="TagsContainer" type="MarginContainer" parent="Items/ScrollData/Data"]
+[node name="TagsContainer" type="MarginContainer" parent="Items/ScrollData/Data" unique_id=1920290847]
 layout_mode = 2
 theme_override_constants/margin_left = 0
 theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 0
 theme_override_constants/margin_bottom = 0
 
-[node name="Background" type="Panel" parent="Items/ScrollData/Data/TagsContainer"]
+[node name="Background" type="Panel" parent="Items/ScrollData/Data/TagsContainer" unique_id=226252401]
 layout_mode = 2
 
-[node name="TagsFlow" type="HFlowContainer" parent="Items/ScrollData/Data/TagsContainer"]
+[node name="TagsFlow" type="HFlowContainer" parent="Items/ScrollData/Data/TagsContainer" unique_id=1430181127]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 script = ExtResource("24_gkyu1")
 tag_packed_scene = ExtResource("21_7uqtb")
 
-[node name="Tag" type="HBoxContainer" parent="Items/ScrollData/Data"]
+[node name="Tag" type="HBoxContainer" parent="Items/ScrollData/Data" unique_id=653157995]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="Text" type="TextEdit" parent="Items/ScrollData/Data/Tag"]
-clip_contents = false
+[node name="Text" type="TextEdit" parent="Items/ScrollData/Data/Tag" unique_id=677048117]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -451,7 +450,7 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_0rm0x")
 placeholder_text = "Which topic does it belong to?"
 scroll_fit_content_height = true
 
-[node name="Background" type="Panel" parent="Items/ScrollData/Data/Tag/Text"]
+[node name="Background" type="Panel" parent="Items/ScrollData/Data/Tag/Text" unique_id=873175346]
 show_behind_parent = true
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 1
@@ -463,36 +462,36 @@ grow_vertical = 2
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_vwqmk")
 
-[node name="AddTagButton" type="Button" parent="Items/ScrollData/Data/Tag" node_paths=PackedStringArray("shortcut_context")]
+[node name="AddTagButton" type="Button" parent="Items/ScrollData/Data/Tag" unique_id=884858242 node_paths=PackedStringArray("shortcut_context")]
 layout_mode = 2
 focus_mode = 0
 shortcut_context = NodePath("..")
 shortcut = SubResource("Shortcut_eed2l")
 text = "+"
 
-[node name="ParentsContainer" type="MarginContainer" parent="Items/ScrollData/Data"]
+[node name="ParentsContainer" type="MarginContainer" parent="Items/ScrollData/Data" unique_id=1588194200]
 layout_mode = 2
 theme_override_constants/margin_left = 0
 theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 0
 theme_override_constants/margin_bottom = 0
 
-[node name="Background" type="Panel" parent="Items/ScrollData/Data/ParentsContainer"]
+[node name="Background" type="Panel" parent="Items/ScrollData/Data/ParentsContainer" unique_id=450743118]
 layout_mode = 2
 
-[node name="ParentsFlow" type="HFlowContainer" parent="Items/ScrollData/Data/ParentsContainer"]
+[node name="ParentsFlow" type="HFlowContainer" parent="Items/ScrollData/Data/ParentsContainer" unique_id=1542305048]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 script = ExtResource("25_lyehf")
 parent_packed_scene = ExtResource("23_i4w0a")
 
-[node name="Button" type="Button" parent="Items/ScrollData/Data"]
+[node name="Button" type="Button" parent="Items/ScrollData/Data" unique_id=678452022]
 visible = false
 layout_mode = 2
 focus_mode = 0
 text = "test"
 
-[node name="Submit" type="Button" parent="Items/ScrollData/Data" node_paths=PackedStringArray("shortcut_context")]
+[node name="Submit" type="Button" parent="Items/ScrollData/Data" unique_id=510749835 node_paths=PackedStringArray("shortcut_context")]
 layout_mode = 2
 shortcut_context = NodePath("../../..")
 theme_override_styles/normal = SubResource("StyleBoxTexture_pa0ux")
@@ -503,7 +502,7 @@ theme_override_styles/focus = SubResource("StyleBoxTexture_lsry1")
 shortcut = SubResource("Shortcut_lyehf")
 text = "."
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Items/ScrollData/Data/Submit"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Items/ScrollData/Data/Submit" unique_id=803289668]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -514,32 +513,32 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
-[node name="ImgTexture" type="TextureRect" parent="Items/ScrollData/Data/Submit/HBoxContainer"]
+[node name="ImgTexture" type="TextureRect" parent="Items/ScrollData/Data/Submit/HBoxContainer" unique_id=951147526]
 visible = false
 layout_mode = 2
 texture = ExtResource("12_pdx67")
 expand_mode = 2
 stretch_mode = 4
 
-[node name="Label" type="Label" parent="Items/ScrollData/Data/Submit/HBoxContainer"]
+[node name="Label" type="Label" parent="Items/ScrollData/Data/Submit/HBoxContainer" unique_id=994142780]
 layout_mode = 2
 text = "Create!"
 
-[node name="SFX" type="AudioStreamPlayer" parent="."]
+[node name="SFX" type="AudioStreamPlayer" parent="." unique_id=2072682145]
 script = ExtResource("25_l7njq")
 
-[node name="Voice" type="AudioStreamPlayer" parent="."]
+[node name="Voice" type="AudioStreamPlayer" parent="." unique_id=1457715769]
 bus = &"Voice"
 script = ExtResource("23_3rfw0")
 
-[node name="SubjectBar" type="ColorRect" parent="."]
+[node name="SubjectBar" type="ColorRect" parent="." unique_id=2035847169]
 layout_mode = 0
 offset_top = 28.0
 offset_right = 1274.0
 offset_bottom = 67.0
 color = Color(0.007843138, 0.3137255, 0.7647059, 1)
 
-[node name="Title" type="Label" parent="SubjectBar"]
+[node name="Title" type="Label" parent="SubjectBar" unique_id=899562740]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -550,7 +549,7 @@ text = "Default Subject"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="AmountBar" type="ColorRect" parent="SubjectBar"]
+[node name="AmountBar" type="ColorRect" parent="SubjectBar" unique_id=150234648]
 layout_mode = 1
 anchors_preset = 11
 anchor_left = 1.0
@@ -561,7 +560,7 @@ grow_horizontal = 0
 grow_vertical = 2
 color = Color(0.0028604586, 0.19896105, 0.5100795, 1)
 
-[node name="Amount" type="Label" parent="SubjectBar/AmountBar"]
+[node name="Amount" type="Label" parent="SubjectBar/AmountBar" unique_id=948132131]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -572,14 +571,14 @@ text = "00"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Close" type="Button" parent="SubjectBar"]
+[node name="Close" type="Button" parent="SubjectBar" unique_id=1038019989]
 layout_mode = 0
 offset_left = 1135.0
 offset_top = 3.0
 offset_right = 1184.0
 offset_bottom = 43.0
 
-[node name="QuestionsScroll" type="ScrollContainer" parent="."]
+[node name="QuestionsScroll" type="ScrollContainer" parent="." unique_id=154006331]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -589,7 +588,7 @@ offset_top = 69.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="QuestionsContainer" type="GridContainer" parent="QuestionsScroll"]
+[node name="QuestionsContainer" type="GridContainer" parent="QuestionsScroll" unique_id=473381989]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3

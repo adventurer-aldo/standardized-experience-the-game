@@ -16,9 +16,9 @@ func get_file_path() -> String:
 	return "user://subjects/" + str(id).lpad(10, '0') + ".tres"
 
 func create() -> void:
-	id = Main.stats.next_subject_id()
+	id = Main.data.next_subject_id()
 	if !DirAccess.dir_exists_absolute(get_dir_path()):
-		DirAccess.make_dir_absolute(get_dir_path())
+		DirAccess.make_dir_recursive_absolute(get_dir_path())
 	save()
 
 func erase() -> void:

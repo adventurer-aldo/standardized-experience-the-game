@@ -50,8 +50,13 @@ extends Resource
 @export var hit_streak: int
 @export var miss_streak: int
 
-func get_types() -> PackedStringArray:
-	var types = PackedStringArray([])
+@export_category("Quiz Answer")
+@export var attempt := []
+@export var formulated_variables := []
+@export var attempt_type: String
+
+func get_types() -> Array:
+	var types = []
 	if is_open: types.push_back('open')
 	if is_choice: types.push_back('choice')
 	if is_table: types.push_back('table')
@@ -59,8 +64,8 @@ func get_types() -> PackedStringArray:
 	if is_connect: types.push_back('connect')
 	return types
 
-func get_parameters() -> PackedStringArray:
-	var parameters = PackedStringArray([])
+func get_parameters() -> Array:
+	var parameters = []
 	if is_strict: parameters.push_back('strict')
 	if is_shuffle: parameters.push_back('shuffle')
 	if is_order: parameters.push_back('order')
@@ -70,10 +75,15 @@ func get_subject() -> Subject:
 	return ResourceLoader.load("user://subjects/" + str(subject_id).lpad(10, '0') + ".tres")
 
 func create() -> void:
-	id = Main.stats.next_question_id(true)
+	id = Main.data.next_question_id(true)
 	save()
 
 func save() -> void:
 	var subject_id_dir = str(subject_id).lpad(10, '0') + '/'
 	var id_filename = str(id).lpad(10, '0') + '.tres'
 	ResourceSaver.save(self, "user://subjects/" + subject_id_dir + id_filename, ResourceSaver.FLAG_COMPRESS)
+
+func save_to_quiz(quiz_id: int):
+	var quiz_id_dir = str(quiz_id).lpad(10, '0') + '/'
+	var id_filename = str(id).lpad(10, '0') + '.tres'
+	ResourceSaver.save(self, "user://quizzes/" + quiz_id_dir + id_filename, ResourceSaver.FLAG_COMPRESS)

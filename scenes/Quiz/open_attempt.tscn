@@ -1,0 +1,38 @@
+[gd_scene load_steps=3 format=3 uid="uid://do5cgc300pwx1"]
+
+[ext_resource type="Script" uid="uid://btdjogxpkgxak" path="res://scenes/Quiz/open_attempt.gd" id="1_0dpb1"]
+[ext_resource type="PackedScene" uid="uid://cddvp6f3qvlqn" path="res://scenes/Quiz/open_attempt_row.tscn" id="2_lysjw"]
+
+[node name="Attempt" type="VBoxContainer" unique_id=378380950]
+script = ExtResource("1_0dpb1")
+attempt_row_scene = ExtResource("2_lysjw")
+
+[node name="Description" type="Label" parent="." unique_id=295401568]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "test"
+
+[node name="OpensRow" type="VBoxContainer" parent="." unique_id=308595558]
+layout_mode = 2
+
+[node name="Attempt" parent="OpensRow" unique_id=1191986727 instance=ExtResource("2_lysjw")]
+layout_mode = 2
+
+[node name="AddRowButton" type="Button" parent="." unique_id=657333845]
+layout_mode = 2
+focus_mode = 0
+text = "+"
+
+[node name="Wrong" type="ColorRect" parent="." unique_id=2019638588]
+visible = false
+custom_minimum_size = Vector2(0, 33)
+layout_mode = 2
+color = Color(1, 0, 0, 1)
+
+[node name="Right" type="ColorRect" parent="." unique_id=540945158]
+visible = false
+custom_minimum_size = Vector2(0, 33)
+layout_mode = 2
+color = Color(0, 1, 0.2166667, 1)
+
+[connection signal="pressed" from="AddRowButton" to="." method="_on_add_row_button_pressed"]

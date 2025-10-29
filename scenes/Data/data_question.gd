@@ -10,7 +10,7 @@ var question = Question.new()
 
 func _ready() -> void:
 	question.subject_id = subject_id
-	question.id = Main.stats.next_question_id(false)
+	question.id = Main.data.next_question_id(false)
 	$SubjectBar/Title.text = title
 	_on_add_question_alt_pressed()
 	$Items/ScrollData/Data/Types/M/VBoxContainer/Types/Open.button_pressed = true
@@ -24,7 +24,7 @@ func _on_reset_pressed() -> void:
 	
 	$Items/ScrollData/Data/ParentsContainer/ParentsFlow.reset()
 	$Items/ScrollData/Data/TagsContainer/TagsFlow.reset()
-	question.id = Main.stats.next_question_id(false)
+	question.id = Main.data.next_question_id(false)
 
 func set_container() -> void:
 	question.get_subject().get_questions().map(func (saved_question):
@@ -183,7 +183,7 @@ func _on_submit_pressed() -> void:
 	$Items/ScrollData/Data/Question/Texts.get_child(0).get_focus()
 	$Items/ScrollData/Data/Question/Image.texture = null
 	$Items/ScrollData/Data/Opens.reset()
-	question.id = Main.stats.next_question_id(false)
+	question.id = Main.data.next_question_id(false)
 
 func _on_close_pressed() -> void:
 	queue_free()

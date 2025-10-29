@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="Data" load_steps=2 format=3 uid="uid://j0lgh5b3oeul"]
+
+[ext_resource type="Script" uid="uid://2hajpyivah1h" path="res://resources/data.gd" id="1_cdqnu"]
+
+[resource]
+script = ExtResource("1_cdqnu")
+last_subject_id = 7
+last_question_id = 326
+last_quiz_id = 1
