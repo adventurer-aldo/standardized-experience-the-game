@@ -53,7 +53,8 @@ func _on_button_pressed() -> void:
 		var truth = child.solve()
 		if truth: grade += 20.0 / amount_of_questions
 	$Grade.text = str(grade).replace('.', ',')
-	if grade >= 14.5: $BGM.stream = load("res://audio/tracks/score_great.ogg")
+	if grade >= 20.0: $BGM.stream = load("res://audio/tracks/score_greatest.ogg")
+	elif grade >= 14.5: $BGM.stream = load("res://audio/tracks/score_great.ogg")
 	elif grade >= 9.5: $BGM.stream = load("res://audio/tracks/score_good.ogg")
 	else: $BGM.stream = load("res://audio/tracks/score_defeat.ogg")
 	$BGM.play()
