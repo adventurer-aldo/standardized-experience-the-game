@@ -1,7 +1,141 @@
-[gd_scene load_steps=3 format=3 uid="uid://h8nysytvkxqo"]
+[gd_scene load_steps=11 format=3 uid="uid://h8nysytvkxqo"]
 
 [ext_resource type="Script" uid="uid://bvnuh150gond2" path="res://scenes/Quiz/quiz.gd" id="1_1ip8j"]
 [ext_resource type="PackedScene" uid="uid://do5cgc300pwx1" path="res://scenes/Quiz/open_attempt.tscn" id="2_3uwr7"]
+[ext_resource type="AudioStream" uid="uid://cj44th7n7eru8" path="res://audio/tracks/battle1_0_calm.ogg" id="3_4v0mc"]
+[ext_resource type="AudioStream" uid="uid://dgn82u5qamwj4" path="res://audio/tracks/battle1_0_might.ogg" id="5_4v0mc"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_6oeex"]
+device = -1
+ctrl_pressed = true
+keycode = 83
+
+[sub_resource type="Shortcut" id="Shortcut_cvutw"]
+events = [SubResource("InputEventKey_6oeex")]
+
+[sub_resource type="Animation" id="Animation_4v0mc"]
+resource_name = "might"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MightBGM:volume_db")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.55),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-60.0, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BGM:volume_db")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, -60.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:color")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.52),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.061499417, 0.3348835, 0.20926744, 1), Color(0.5235107, 0, 0.25391722, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_qqaln"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MightBGM:volume_db")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-60.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BGM:volume_db")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:color")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.061499417, 0.3348835, 0.20926744, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_cvnck"]
+resource_name = "calm"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MightBGM:volume_db")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, -60.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BGM:volume_db")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-60.0, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:color")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.49),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.5235107, 0, 0.25391722, 1), Color(0.061499417, 0.3348835, 0.20926744, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_emm6g"]
+_data = {
+&"RESET": SubResource("Animation_qqaln"),
+&"calm": SubResource("Animation_cvnck"),
+&"might": SubResource("Animation_4v0mc")
+}
 
 [node name="Quiz" type="ColorRect" unique_id=124219786]
 anchors_preset = 15
@@ -12,6 +146,8 @@ grow_vertical = 2
 color = Color(0.061499417, 0.3348835, 0.20926744, 1)
 script = ExtResource("1_1ip8j")
 open_attempt = ExtResource("2_3uwr7")
+battle_ost = ExtResource("3_4v0mc")
+might_ost = ExtResource("5_4v0mc")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1699848435]
 layout_mode = 1
@@ -27,8 +163,11 @@ grow_vertical = 2
 [node name="ScrollContainer" type="ScrollContainer" parent="." unique_id=839189571]
 layout_mode = 0
 offset_left = 184.0
+offset_top = 31.0
 offset_right = 1101.0
 offset_bottom = 718.0
+follow_focus = true
+horizontal_scroll_mode = 0
 
 [node name="AttemptsContainer" type="VBoxContainer" parent="ScrollContainer" unique_id=2124893966]
 layout_mode = 2
@@ -42,8 +181,69 @@ offset_top = 202.0
 offset_right = 166.0
 offset_bottom = 295.0
 focus_mode = 0
+shortcut = SubResource("Shortcut_cvutw")
 text = "solve"
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1027339420]
+[node name="BGM" type="AudioStreamPlayer" parent="." unique_id=1027339420]
+
+[node name="MightBGM" type="AudioStreamPlayer" parent="." unique_id=120394924]
+volume_db = -60.0
+
+[node name="TimeBar" type="ColorRect" parent="." unique_id=633418813]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 28.0
+grow_horizontal = 2
+color = Color(0, 0, 0, 1)
+
+[node name="TimeLabel" type="Label" parent="TimeBar" unique_id=164382430]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "1s"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Timer" type="Timer" parent="." unique_id=1426380253]
+wait_time = 120.0
+one_shot = true
+
+[node name="MightTimer" type="Timer" parent="." unique_id=1663592926]
+one_shot = true
+
+[node name="Grade" type="Label" parent="." unique_id=659474484]
+layout_mode = 0
+offset_left = 1133.0
+offset_top = 33.0
+offset_right = 1268.0
+offset_bottom = 158.0
+theme_override_font_sizes/font_size = 84
+
+[node name="EndBreak" type="Button" parent="." unique_id=298503426]
+visible = false
+layout_mode = 0
+offset_left = 65.0
+offset_top = 352.0
+offset_right = 154.0
+offset_bottom = 395.0
+focus_mode = 0
+text = "End Break"
+
+[node name="BreakTimer" type="Timer" parent="." unique_id=597885584]
+wait_time = 30.0
+one_shot = true
+
+[node name="MightTransition" type="AnimationPlayer" parent="." unique_id=984353511]
+libraries = {
+&"": SubResource("AnimationLibrary_emm6g")
+}
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="MightTimer" to="." method="_on_might_timer_timeout"]
+[connection signal="pressed" from="EndBreak" to="." method="_on_end_break_pressed"]
+[connection signal="timeout" from="BreakTimer" to="." method="stop_break"]

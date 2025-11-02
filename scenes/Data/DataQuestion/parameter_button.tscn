@@ -46,7 +46,7 @@ corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
-[node name="Ordered" type="Button"]
+[node name="Ordered" type="Button" unique_id=1587223789]
 custom_minimum_size = Vector2(110, 0)
 focus_mode = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_xarco")
@@ -60,7 +60,7 @@ theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxFlat_3is17")
 toggle_mode = true
 text = "."
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=844840613]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -70,13 +70,13 @@ offset_right = -226.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ImgTexture" type="TextureRect" parent="HBoxContainer"]
+[node name="ImgTexture" type="TextureRect" parent="HBoxContainer" unique_id=1880938025]
 layout_mode = 2
 texture = ExtResource("1_nh33j")
 expand_mode = 3
 stretch_mode = 4
 
-[node name="Label" type="Label" parent="HBoxContainer"]
+[node name="Label" type="Label" parent="HBoxContainer" unique_id=1614917766]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Ordered"

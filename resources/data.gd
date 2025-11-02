@@ -5,6 +5,7 @@ extends Resource
 @export var last_subject_id := 0
 @export var last_question_id := 0
 @export var last_quiz_id := 0
+@export var last_leveling_queue_id:= 0
 
 func increment_last_subject_id() -> void:
 	last_subject_id += 1
@@ -16,6 +17,10 @@ func increment_last_question_id() -> void:
 	
 func increment_last_quiz_id() -> void:
 	last_quiz_id += 1
+	save()
+
+func increment_last_leveling_queue_id() -> void:
+	last_leveling_queue_id += 1
 	save()
 
 func next_subject_id(should_save:= true) -> int:
@@ -46,6 +51,16 @@ func next_quiz_id(should_save:= true) -> int:
 		save()
 	else:
 		value_to_return = last_quiz_id + 1
+	return value_to_return
+
+func next_leveling_queue_id(should_save:= true) -> int:
+	var value_to_return = 0
+	if should_save:
+		last_leveling_queue_id += 1
+		value_to_return = last_leveling_queue_id
+		save()
+	else:
+		value_to_return = last_leveling_queue_id + 1
 	return value_to_return
 
 func get_subjects() -> Array[Subject]:

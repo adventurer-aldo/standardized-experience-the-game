@@ -1,16 +1,69 @@
-[gd_scene load_steps=3 format=3 uid="uid://do5cgc300pwx1"]
+[gd_scene load_steps=18 format=3 uid="uid://do5cgc300pwx1"]
 
 [ext_resource type="Script" uid="uid://btdjogxpkgxak" path="res://scenes/Quiz/open_attempt.gd" id="1_0dpb1"]
 [ext_resource type="PackedScene" uid="uid://cddvp6f3qvlqn" path="res://scenes/Quiz/open_attempt_row.tscn" id="2_lysjw"]
+[ext_resource type="PackedScene" uid="uid://bd634eo063jbr" path="res://scenes/Data/data_question.tscn" id="3_qbo3c"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_lysjw"]
+device = -1
+alt_pressed = true
+keycode = 43
+
+[sub_resource type="Shortcut" id="Shortcut_qbo3c"]
+events = [SubResource("InputEventKey_lysjw")]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lysjw"]
+bg_color = Color(1, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qbo3c"]
+bg_color = Color(1, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7jkrs"]
+bg_color = Color(1, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pdxsl"]
+bg_color = Color(1, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a2y3a"]
+bg_color = Color(1, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wgt7l"]
+bg_color = Color(1, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oethw"]
+bg_color = Color(1, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g0a7q"]
+bg_color = Color(1, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ijpm6"]
+bg_color = Color(1, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_48o7w"]
+bg_color = Color(1, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rwrnd"]
+bg_color = Color(1, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nyk8l"]
+bg_color = Color(0, 1, 0, 1)
 
 [node name="Attempt" type="VBoxContainer" unique_id=378380950]
+theme_override_constants/separation = 0
 script = ExtResource("1_0dpb1")
 attempt_row_scene = ExtResource("2_lysjw")
+edit_shortcut = ExtResource("3_qbo3c")
+
+[node name="Image" type="TextureRect" parent="." unique_id=1445611978]
+layout_mode = 2
+expand_mode = 2
 
 [node name="Description" type="Label" parent="." unique_id=295401568]
+custom_minimum_size = Vector2(1.92, 1.37)
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "test"
+autowrap_mode = 3
 
 [node name="OpensRow" type="VBoxContainer" parent="." unique_id=308595558]
 layout_mode = 2
@@ -18,21 +71,49 @@ layout_mode = 2
 [node name="Attempt" parent="OpensRow" unique_id=1191986727 instance=ExtResource("2_lysjw")]
 layout_mode = 2
 
-[node name="AddRowButton" type="Button" parent="." unique_id=657333845]
+[node name="AddRowButton" type="Button" parent="." unique_id=657333845 node_paths=PackedStringArray("shortcut_context")]
 layout_mode = 2
 focus_mode = 0
+shortcut_context = NodePath("..")
+shortcut = SubResource("Shortcut_qbo3c")
 text = "+"
 
-[node name="Wrong" type="ColorRect" parent="." unique_id=2019638588]
+[node name="Wrong" type="Button" parent="." unique_id=309994819]
 visible = false
 custom_minimum_size = Vector2(0, 33)
 layout_mode = 2
-color = Color(1, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_lysjw")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxFlat_qbo3c")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_7jkrs")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_pdxsl")
+theme_override_styles/hover = SubResource("StyleBoxFlat_a2y3a")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxFlat_wgt7l")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_oethw")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxFlat_g0a7q")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_ijpm6")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxFlat_48o7w")
+theme_override_styles/focus = SubResource("StyleBoxFlat_rwrnd")
+text = "Edit"
 
-[node name="Right" type="ColorRect" parent="." unique_id=540945158]
+[node name="Right" type="Button" parent="." unique_id=517578553]
 visible = false
 custom_minimum_size = Vector2(0, 33)
 layout_mode = 2
-color = Color(0, 1, 0.2166667, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_nyk8l")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxFlat_nyk8l")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_nyk8l")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_nyk8l")
+theme_override_styles/hover = SubResource("StyleBoxFlat_nyk8l")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxFlat_nyk8l")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_nyk8l")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxFlat_nyk8l")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_nyk8l")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxFlat_nyk8l")
+theme_override_styles/focus = SubResource("StyleBoxFlat_nyk8l")
+text = "Edit"
 
 [connection signal="pressed" from="AddRowButton" to="." method="_on_add_row_button_pressed"]
+[connection signal="pressed" from="Wrong" to="." method="edit"]
+[connection signal="pressed" from="Right" to="." method="edit"]

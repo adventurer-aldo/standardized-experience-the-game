@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cayq65pmuljdm"]
+
+[ext_resource type="Script" uid="uid://cv4hyclugn32w" path="res://scenes/leveling_queue_manager.gd" id="1_vdddl"]
+
+[node name="LevelingQueueManager" type="Node" unique_id=430511167]
+script = ExtResource("1_vdddl")

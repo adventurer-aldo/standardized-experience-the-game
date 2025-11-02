@@ -1,0 +1,6 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://8ee8uutkuksd"]
+
+[ext_resource type="Script" uid="uid://pmw3r5b57qkv" path="res://resources/level_up_queue.gd" id="1_2cwj5"]
+
+[resource]
+script = ExtResource("1_2cwj5")

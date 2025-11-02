@@ -24,12 +24,12 @@
 [ext_resource type="PackedScene" uid="uid://wlnv0uajs0gk" path="res://scenes/Data/DataQuestion/Label/label.tscn" id="20_kw14r"]
 [ext_resource type="PackedScene" uid="uid://bp0vok38xq7by" path="res://scenes/Data/DataQuestion/tag.tscn" id="21_7uqtb"]
 [ext_resource type="Texture2D" uid="uid://bqs08qpv5mlf5" path="res://graphics/buttons/submit.png" id="21_l7njq"]
-[ext_resource type="Script" uid="uid://i41g3m3gb8lr" path="res://scenes/voice.gd" id="23_3rfw0"]
 [ext_resource type="PackedScene" uid="uid://cnf1sdbyq6ptj" path="res://scenes/Data/DataQuestion/parent.tscn" id="23_i4w0a"]
 [ext_resource type="Script" uid="uid://lqnh7clkkqdx" path="res://scenes/Data/DataQuestion/tags_flow.gd" id="24_gkyu1"]
-[ext_resource type="Script" uid="uid://cedu5shagyvc5" path="res://scenes/sfx.gd" id="25_l7njq"]
 [ext_resource type="Script" uid="uid://c0n5i0ejfyt4h" path="res://scenes/Data/DataQuestion/parents_flow.gd" id="25_lyehf"]
 [ext_resource type="PackedScene" uid="uid://cpdo7bx7xqye8" path="res://scenes/Data/DataQuestion/question_in_grid.tscn" id="27_3rfw0"]
+[ext_resource type="PackedScene" uid="uid://d38wtvflj2mq6" path="res://scenes/sfx.tscn" id="29_lyehf"]
+[ext_resource type="PackedScene" uid="uid://dlr7qwhpdikn6" path="res://scenes/voice.tscn" id="30_eed2l"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gkyu1"]
 texture = ExtResource("4_kw14r")
@@ -524,12 +524,9 @@ stretch_mode = 4
 layout_mode = 2
 text = "Create!"
 
-[node name="SFX" type="AudioStreamPlayer" parent="." unique_id=2072682145]
-script = ExtResource("25_l7njq")
+[node name="SFX" parent="." unique_id=1701477107 instance=ExtResource("29_lyehf")]
 
-[node name="Voice" type="AudioStreamPlayer" parent="." unique_id=1457715769]
-bus = &"Voice"
-script = ExtResource("23_3rfw0")
+[node name="Voice" parent="." unique_id=572250213 instance=ExtResource("30_eed2l")]
 
 [node name="SubjectBar" type="ColorRect" parent="." unique_id=2035847169]
 layout_mode = 0

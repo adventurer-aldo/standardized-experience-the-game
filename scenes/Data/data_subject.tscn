@@ -4,7 +4,8 @@
 [ext_resource type="PackedScene" uid="uid://bnpmo674alohx" path="res://scenes/Data/DataSubject/subject.tscn" id="2_8o7ef"]
 [ext_resource type="Script" uid="uid://cfmywd6m7sh1q" path="res://scenes/Data/DataSubject/subjects_container.gd" id="2_k41un"]
 
-[node name="DataSubject" type="VBoxContainer"]
+[node name="DataSubject" type="Control" unique_id=1013457455]
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -12,27 +13,69 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_wvhfd")
 
-[node name="Elements" type="VBoxContainer" parent="."]
+[node name="DataSubject" type="VBoxContainer" parent="." unique_id=616288865]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 67.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Elements" type="VBoxContainer" parent="DataSubject" unique_id=407280567]
 layout_mode = 2
 
-[node name="TitleLine" type="LineEdit" parent="Elements"]
+[node name="TitleLine" type="LineEdit" parent="DataSubject/Elements" unique_id=1293323938]
 layout_mode = 2
 placeholder_text = "Title"
 
-[node name="DescriptionText" type="TextEdit" parent="Elements"]
+[node name="DescriptionText" type="TextEdit" parent="DataSubject/Elements" unique_id=1330644743]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 placeholder_text = "Description"
 
-[node name="CreateButton" type="Button" parent="Elements"]
+[node name="CreateButton" type="Button" parent="DataSubject/Elements" unique_id=897002850]
 layout_mode = 2
 text = "Create"
 
-[node name="SubjectsContainer" type="GridContainer" parent="."]
+[node name="SubjectsContainer" type="GridContainer" parent="DataSubject" unique_id=1599854834]
 layout_mode = 2
 size_flags_vertical = 3
 columns = 3
 script = ExtResource("2_k41un")
 subject_packed_scene = ExtResource("2_8o7ef")
 
-[connection signal="pressed" from="Elements/CreateButton" to="." method="_on_create_button_pressed"]
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1150753418]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 25.0
+offset_bottom = 54.0
+grow_horizontal = 2
+color = Color(1, 0.7254902, 0, 1)
+
+[node name="Label" type="Label" parent="ColorRect" unique_id=313957074]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -34.0
+offset_top = -12.0
+offset_right = 34.0
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0.05490196, 1)
+text = "Subjects"
+
+[node name="Exit" type="Button" parent="." unique_id=1858925833]
+layout_mode = 0
+offset_left = 1174.0
+offset_top = 22.0
+offset_right = 1211.0
+offset_bottom = 53.0
+
+[connection signal="pressed" from="DataSubject/Elements/CreateButton" to="DataSubject" method="_on_create_button_pressed"]
+[connection signal="pressed" from="Exit" to="." method="_on_exit_pressed"]

@@ -1,6 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://bdd44b24uttd2"]
+[gd_scene load_steps=3 format=3 uid="uid://cpwekjf6gc83c"]
 
 [ext_resource type="Script" uid="uid://c06qr8xmf27r2" path="res://scenes/autoload.gd" id="1_jjwjd"]
+[ext_resource type="PackedScene" uid="uid://cayq65pmuljdm" path="res://scenes/leveling_queue_manager.tscn" id="2_w43bn"]
 
-[node name="Main" type="Node" unique_id=1617581984]
+[node name="Autoload" type="Node" unique_id=293318875]
 script = ExtResource("1_jjwjd")
+
+[node name="LevelingQueueManager" parent="." unique_id=430511167 instance=ExtResource("2_w43bn")]

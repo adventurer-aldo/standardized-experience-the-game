@@ -41,9 +41,9 @@ extends Resource
 
 @export_category('Experience')
 @export var parents := []
-@export var learn_level: int
+@export var experience_level:= 1
 @export var experience: float = 0.0
-@export var is_level_up_queued: int
+@export var is_level_up_queued: bool
 @export_group("Streaks")
 @export var hits: int
 @export var misses: int
@@ -83,7 +83,65 @@ func save() -> void:
 	var id_filename = str(id).lpad(10, '0') + '.tres'
 	ResourceSaver.save(self, "user://subjects/" + subject_id_dir + id_filename, ResourceSaver.FLAG_COMPRESS)
 
-func save_to_quiz(quiz_id: int):
+func save_to_quiz(quiz_id: int, attempt_id:= id):
 	var quiz_id_dir = str(quiz_id).lpad(10, '0') + '/'
-	var id_filename = str(id).lpad(10, '0') + '.tres'
+	var id_filename = str(attempt_id).lpad(10, '0') + '.tres'
 	ResourceSaver.save(self, "user://quizzes/" + quiz_id_dir + id_filename, ResourceSaver.FLAG_COMPRESS)
+
+# ==============================================================================
+# LEVELING
+# ==============================================================================
+func hit() -> void:
+	hits += 1
+	hit_streak += 1
+	miss_streak = 0
+	if hit_streak > 1 && !is_level_up_queued:
+		var next_level = experience_level + 1
+		hit_streak = 0
+		experience_level = clampi(next_level, 1, 15)
+		queue_level_up(next_level)
+	save()
+
+func miss() -> void:
+	misses += 1
+	miss_streak += 1
+	hit_streak = 0
+	if miss_streak > 1 && !is_level_up_queued:
+		miss_streak = 0
+		experience_level = clampi(experience_level - 1, 1, 15)
+	save()
+
+func queue_level_up(to_level: int) -> void:
+	is_level_up_queued = true
+	var due_time:= 0.0
+	match to_level:
+		2: due_time = 10 * 60
+		3: due_time = 1 * 60 * 60
+		4: due_time = 8 * 60 * 60
+		5: due_time = 24 * 60 * 60
+		6: due_time = 3 * 24 * 60 * 60
+		7: due_time = 6 * 24 * 60 * 60
+		8: due_time = 12 * 24 * 60 * 60
+		9: due_time = 19 * 24 * 60 * 60
+		10: due_time = 31 * 24 * 60 * 60
+		11: due_time = 62 * 24 * 60 * 60
+		12: due_time = 124 * 24 * 60 * 60
+		13: due_time = 248 * 24 * 60 * 60
+		14: due_time = 365 * 24 * 60 * 60
+
+	var level_queue = LevelingQueue.new()
+	level_queue.id = Main.data.next_leveling_queue_id()
+	level_queue.subject_id = subject_id
+	level_queue.question_id = id
+	level_queue.due_time = due_time + Time.get_unix_time_from_system()
+	level_queue.save()
+# ==============================================================================
+# OTHERS
+# ==============================================================================
+func are_parents_decent() -> bool:
+	var subject = get_subject()
+	var verdicts:= parents.map(func (parent_id):
+		var parent = subject.get_question(parent_id)
+		return parent.experience_level > 3 || parent.is_level_up_queued
+	)
+	return !verdicts.has(false)

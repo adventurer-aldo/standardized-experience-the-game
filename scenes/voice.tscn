@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://dlr7qwhpdikn6"]
+
+[ext_resource type="Script" uid="uid://i41g3m3gb8lr" path="res://scenes/voice.gd" id="1_t2ips"]
+
+[node name="Voice" type="AudioStreamPlayer" unique_id=572250213]
+bus = &"Voice"
+script = ExtResource("1_t2ips")

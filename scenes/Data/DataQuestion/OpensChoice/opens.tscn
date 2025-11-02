@@ -20,16 +20,16 @@ keycode = 43
 [sub_resource type="Shortcut" id="Shortcut_sif78"]
 events = [SubResource("InputEventKey_6sn6f")]
 
-[node name="Opens" type="HBoxContainer"]
+[node name="Opens" type="HBoxContainer" unique_id=163235051]
 theme_override_constants/separation = 0
 script = ExtResource("1_sjol5")
 row_scene = ExtResource("2_sjol5")
 
-[node name="Rows" type="VBoxContainer" parent="."]
+[node name="Rows" type="VBoxContainer" parent="." unique_id=882650002]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="AddAnswer" type="Button" parent="." node_paths=PackedStringArray("shortcut_context")]
+[node name="AddAnswer" type="Button" parent="." unique_id=1709706139 node_paths=PackedStringArray("shortcut_context")]
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
 focus_mode = 0

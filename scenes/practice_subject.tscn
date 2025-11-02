@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://dnhptst0j74w3"]
+
+[ext_resource type="Script" uid="uid://p6q7m4bwxl0b" path="res://scenes/practice_subject.gd" id="1_d8ddg"]
+
+[node name="PracticeSubject" type="Button" unique_id=6530749]
+text = "name"
+script = ExtResource("1_d8ddg")
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]
