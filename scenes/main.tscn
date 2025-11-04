@@ -11,6 +11,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+color = Color(0.2784314, 0.2784314, 0.5529412, 1)
 script = ExtResource("1_sugp2")
 quiz_scene = ExtResource("2_sugp2")
 practice_subject = ExtResource("3_sugp2")
@@ -18,18 +19,18 @@ data_subject_scene = ExtResource("4_jyhfs")
 
 [node name="Subjects" type="Button" parent="." unique_id=446077092]
 layout_mode = 0
-offset_left = 179.0
-offset_top = 330.0
-offset_right = 350.0
-offset_bottom = 416.0
+offset_left = 91.0
+offset_top = 314.0
+offset_right = 343.0
+offset_bottom = 361.0
 text = "Subjects"
 
 [node name="Practice" type="Button" parent="." unique_id=202303619]
 layout_mode = 0
-offset_left = 172.0
-offset_top = 436.0
+offset_left = 91.0
+offset_top = 398.0
 offset_right = 343.0
-offset_bottom = 522.0
+offset_bottom = 456.0
 text = "Practice"
 
 [node name="GridContainer" type="GridContainer" parent="Practice" unique_id=1690756882]
@@ -41,5 +42,17 @@ offset_bottom = 4.0
 
 [node name="PracticeSubject" parent="Practice/GridContainer" unique_id=6530749 instance=ExtResource("3_sugp2")]
 layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1919938097]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -181.0
+offset_bottom = -106.0
+grow_horizontal = 2
+grow_vertical = 0
+color = Color(1, 0.69803923, 0.2627451, 1)
 
 [connection signal="pressed" from="Subjects" to="." method="_on_subjects_pressed"]

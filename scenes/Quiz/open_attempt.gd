@@ -6,7 +6,7 @@ extends VBoxContainer
 @export var question: Question
 @export var edit_shortcut: PackedScene
 
-signal add_to_rush
+signal add_to_rush(value: int)
 
 func _on_add_row_button_pressed() -> void:
 	var new_child = attempt_row_scene.instantiate()
@@ -14,8 +14,8 @@ func _on_add_row_button_pressed() -> void:
 	new_child.text_has_changed.connect(a_text_has_changed)
 	new_child.get_focus()
 
-func a_text_has_changed() -> void:
-	add_to_rush.emit()
+func a_text_has_changed(difference: int) -> void:
+	add_to_rush.emit(difference)
 
 func set_description(text: String) -> void:
 	$Description.text = text

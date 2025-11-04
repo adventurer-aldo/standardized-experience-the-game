@@ -114,6 +114,7 @@ theme_override_styles/disabled_mirrored = SubResource("StyleBoxFlat_nyk8l")
 theme_override_styles/focus = SubResource("StyleBoxFlat_nyk8l")
 text = "Edit"
 
+[connection signal="text_has_changed" from="OpensRow/Attempt" to="." method="a_text_has_changed"]
 [connection signal="pressed" from="AddRowButton" to="." method="_on_add_row_button_pressed"]
 [connection signal="pressed" from="Wrong" to="." method="edit"]
 [connection signal="pressed" from="Right" to="." method="edit"]

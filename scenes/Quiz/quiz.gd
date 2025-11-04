@@ -5,9 +5,13 @@ var quiz = Main.data.get_last_quiz()
 @export var open_attempt: PackedScene
 @export var battle_ost: AudioStream
 @export var might_ost: AudioStream
+var might_mode:= false
 
 func _process(_delta: float) -> void:
 	$TimeBar/TimeLabel.text = str(int($Timer.time_left)) + "s"
+	$DebugLabel.text = str($MightTimer.time_left)
+	$DebugLabel2.text = str($MightTimer.wait_time)
+
 func _ready() -> void:
 	redo()
 
@@ -18,12 +22,15 @@ func add_questions() -> void:
 		new_attempt.add_to_rush.connect(rush_increase)
 		$ScrollContainer/AttemptsContainer.add_child(new_attempt)
 
-func rush_increase() -> void:
-	$MightTimer.wait_time += 1.0
-	if $MightTimer.wait_time >= 20.0 && $MightTimer.is_stopped():
-		$MightTimer.wait_time = clamp($MightTimer.wait_time, 0.0, 20.0)
+func rush_increase(value: int) -> void:
+	var new_value = $MightTimer.time_left
+	new_value += value
+	$MightTimer.wait_time = clamp(new_value, 0.0, 20.1)
+	$MightTimer.start()
+	if !might_mode && $MightTimer.time_left > 20.0:
 		$MightTransition.play("might")
-		$MightTimer.start()
+		might_mode = true
+		
 
 func redo() -> void:
 	for child in $ScrollContainer/AttemptsContainer.get_children():
@@ -42,6 +49,7 @@ func hey():
 	quiz.generate()
 
 func _on_button_pressed() -> void:
+	might_mode = false
 	$Timer.stop()
 	if !$Timer.is_stopped(): return
 	$MightTimer.stop()
@@ -76,4 +84,7 @@ func _on_end_break_pressed() -> void:
 	$EndBreak.hide()
 
 func _on_might_timer_timeout() -> void:
-	$MightTransition.play("calm")
+	if might_mode:
+		$MightTransition.play("calm")
+		might_mode = false
+		$MightTimer.wait_time = 0.06
