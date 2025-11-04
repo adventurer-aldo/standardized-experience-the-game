@@ -23,10 +23,8 @@ func add_questions() -> void:
 		$ScrollContainer/AttemptsContainer.add_child(new_attempt)
 
 func rush_increase(value: int) -> void:
-	var new_value = $MightTimer.time_left
-	new_value += value
-	$MightTimer.wait_time = clamp(new_value, 0.0, 20.1)
-	$MightTimer.start()
+	var new_value = clamp($MightTimer.time_left + value, 0.0, 20.1)
+	$MightTimer.start(new_value)
 	if !might_mode && $MightTimer.time_left > 20.0:
 		$MightTransition.play("might")
 		might_mode = true

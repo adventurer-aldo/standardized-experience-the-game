@@ -1,8 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://cvbfhohv32pcb"]
+[gd_scene load_steps=6 format=3 uid="uid://cvbfhohv32pcb"]
 
 [ext_resource type="Script" uid="uid://c3mpixccswrpu" path="res://scenes/Data/data_subject.gd" id="1_wvhfd"]
 [ext_resource type="PackedScene" uid="uid://bnpmo674alohx" path="res://scenes/Data/DataSubject/subject.tscn" id="2_8o7ef"]
 [ext_resource type="Script" uid="uid://cfmywd6m7sh1q" path="res://scenes/Data/DataSubject/subjects_container.gd" id="2_k41un"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_k41un"]
+device = -1
+keycode = 4194305
+
+[sub_resource type="Shortcut" id="Shortcut_5kscr"]
+events = [SubResource("InputEventKey_k41un")]
 
 [node name="DataSubject" type="Control" unique_id=1013457455]
 layout_mode = 3
@@ -76,6 +83,8 @@ offset_left = 1174.0
 offset_top = 22.0
 offset_right = 1211.0
 offset_bottom = 53.0
+shortcut = SubResource("Shortcut_5kscr")
+text = "X"
 
-[connection signal="pressed" from="DataSubject/Elements/CreateButton" to="DataSubject" method="_on_create_button_pressed"]
+[connection signal="pressed" from="DataSubject/Elements/CreateButton" to="." method="_on_create_button_pressed"]
 [connection signal="pressed" from="Exit" to="." method="_on_exit_pressed"]

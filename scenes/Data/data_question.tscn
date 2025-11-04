@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=3 uid="uid://bd634eo063jbr"]
+[gd_scene load_steps=52 format=3 uid="uid://bd634eo063jbr"]
 
 [ext_resource type="Script" uid="uid://b0qderfii5a6j" path="res://scenes/Data/data_question.gd" id="1_0rm0x"]
 [ext_resource type="PackedScene" uid="uid://7f5d1bwwjuu0" path="res://scenes/Data/DataQuestion/question_row.tscn" id="2_ve1ap"]
@@ -130,6 +130,13 @@ keycode = 83
 
 [sub_resource type="Shortcut" id="Shortcut_lyehf"]
 events = [SubResource("InputEventKey_gkyu1")]
+
+[sub_resource type="InputEventKey" id="InputEventKey_lsry1"]
+device = -1
+keycode = 4194305
+
+[sub_resource type="Shortcut" id="Shortcut_pa0ux"]
+events = [SubResource("InputEventKey_lsry1")]
 
 [node name="DataQuestion" type="Control" unique_id=818269271]
 top_level = true
@@ -356,37 +363,37 @@ layout_mode = 2
 [node name="Strict" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters" unique_id=250698906 instance=ExtResource("13_lyehf")]
 layout_mode = 2
 
-[node name="ImgTexture" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters/Strict/HBoxContainer" index="0"]
+[node name="ImgTexture" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters/Strict/HBoxContainer" parent_id_path=PackedInt32Array(250698906, 844840613) index="0" unique_id=1880938025]
 texture = ExtResource("14_pdx67")
 
-[node name="Label" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters/Strict/HBoxContainer" index="1"]
+[node name="Label" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters/Strict/HBoxContainer" parent_id_path=PackedInt32Array(250698906, 844840613) index="1" unique_id=1614917766]
 text = "Strict"
 
 [node name="Gap" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters" unique_id=1542786920 instance=ExtResource("13_lyehf")]
 layout_mode = 2
 
-[node name="ImgTexture" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters/Gap/HBoxContainer" index="0"]
+[node name="ImgTexture" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters/Gap/HBoxContainer" parent_id_path=PackedInt32Array(1542786920, 844840613) index="0" unique_id=1880938025]
 texture = ExtResource("15_pdx67")
 
-[node name="Label" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters/Gap/HBoxContainer" index="1"]
+[node name="Label" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters/Gap/HBoxContainer" parent_id_path=PackedInt32Array(1542786920, 844840613) index="1" unique_id=1614917766]
 text = "Gap"
 
 [node name="Veracity" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters" unique_id=675399262 instance=ExtResource("13_lyehf")]
 layout_mode = 2
 
-[node name="ImgTexture" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters/Veracity/HBoxContainer" index="0"]
+[node name="ImgTexture" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters/Veracity/HBoxContainer" parent_id_path=PackedInt32Array(675399262, 844840613) index="0" unique_id=1880938025]
 texture = ExtResource("16_py5sx")
 
-[node name="Label" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters/Veracity/HBoxContainer" index="1"]
+[node name="Label" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters/Veracity/HBoxContainer" parent_id_path=PackedInt32Array(675399262, 844840613) index="1" unique_id=1614917766]
 text = "Veracity"
 
 [node name="Shuffle" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters" unique_id=1572357017 instance=ExtResource("13_lyehf")]
 layout_mode = 2
 
-[node name="ImgTexture" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters/Shuffle/HBoxContainer" index="0"]
+[node name="ImgTexture" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters/Shuffle/HBoxContainer" parent_id_path=PackedInt32Array(1572357017, 844840613) index="0" unique_id=1880938025]
 texture = ExtResource("17_ctgcr")
 
-[node name="Label" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters/Shuffle/HBoxContainer" index="1"]
+[node name="Label" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters/Shuffle/HBoxContainer" parent_id_path=PackedInt32Array(1572357017, 844840613) index="1" unique_id=1614917766]
 text = "Shuffle"
 
 [node name="BG" type="Panel" parent="Items/ScrollData/Data/Types" unique_id=1082747649]
@@ -574,6 +581,8 @@ offset_left = 1135.0
 offset_top = 3.0
 offset_right = 1184.0
 offset_bottom = 43.0
+shortcut = SubResource("Shortcut_pa0ux")
+text = "X"
 
 [node name="QuestionsScroll" type="ScrollContainer" parent="." unique_id=154006331]
 layout_mode = 1

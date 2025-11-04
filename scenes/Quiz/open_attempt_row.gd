@@ -16,6 +16,6 @@ func get_focus() -> void:
 	$Text.grab_focus()
 
 func _on_text_text_changed() -> void:
-	var diff = text.strip_edges().length() - $Text.text.strip_edges().length()
+	var diff = $Text.text.strip_edges().length() - text.strip_edges().length()
 	text = $Text.text
-	text_has_changed.emit(diff)
+	if diff!= 0: text_has_changed.emit(diff)
