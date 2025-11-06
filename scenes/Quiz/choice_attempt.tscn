@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://c7oufr7oa4s4k"]
+
+[ext_resource type="Script" uid="uid://c06lq3xix3dbf" path="res://scenes/Quiz/choice_attempt.gd" id="1_bem41"]
+
+[node name="ChoiceAttempt" type="VBoxContainer" unique_id=1240084012]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_bem41")

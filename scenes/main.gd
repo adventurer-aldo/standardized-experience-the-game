@@ -1,4 +1,4 @@
-extends ColorRect
+extends Panel
 
 @export var quiz_scene: PackedScene
 @export var practice_subject: PackedScene

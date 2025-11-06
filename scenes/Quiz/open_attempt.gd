@@ -41,7 +41,7 @@ func replicate() -> void:
 	for remainder in difference:
 		_on_add_row_button_pressed()
 	for i in range(question.answer.size()):
-		var ans = question.answer[i].duplicate()
+		var ans = question.answer[i]["texts"].duplicate()
 		ans.shuffle()
 		$OpensRow.get_child(i).set_text(ans[0])
 		# await get_tree().create_timer(10).timeout
@@ -57,7 +57,7 @@ func solve() -> bool:
 	var res = false
 	var attempts = fetch()
 	var answers = question.answer.map(func (answer):
-		var mapped = answer.map(map_string_to_lower)
+		var mapped = answer["texts"].map(map_string_to_lower)
 		# print(answer)
 		# print(mapped)
 		var a = attempts.map(map_string_to_lower).map(func (attempt): return mapped.has(attempt))

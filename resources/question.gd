@@ -15,8 +15,8 @@ extends Resource
 
 @export_category('Data')
 @export var question: PackedStringArray = []
-@export var answer = [[""]]
-@export var choices = {}
+@export var answer = [{"texts": [""]}]
+@export var choices:= []
 @export var columns = {}
 @export var match_a = {}
 @export var match_b = {}

@@ -34,9 +34,14 @@ func generate() -> bool:
 	questions.shuffle()
 	questions = questions.filter(func (question: Question):
 		return question.are_parents_decent()
-	).filter(func (question: Question): return question.is_open && !question.is_level_up_queued)
-	questions = questions.slice(0, 10)
+	).filter(func (question: Question): return (question.is_open || question.is_choice) && !question.is_level_up_queued)
+	questions = questions.slice(0, 20)
 	for question in questions:
+		var possible_types = question.get_types().filter(func (type: String): 
+			return ['choice', 'open'].has(type)
+		)
+		possible_types.shuffle()
+		question.attempt_type = possible_types[0]
 		move_question_to_quiz(question, questions.find(question))
 	return questions.size() > 0
 
@@ -47,7 +52,18 @@ func get_questions() -> Array:
 	)
 
 func move_question_to_quiz(question: Question, positioning: int) -> void:
+	randomize()
 	var types = question.get_types()
 	types.shuffle()
 	question.attempt_type = types[0]
+	match question.attempt_type:
+		"choice":
+			for i in question.answer:
+				var shuffled_ans: Array = i["texts"].duplicate()
+				shuffled_ans.shuffle()
+				question.formulated_variables.push_back(shuffled_ans[0])
+			var shuffled_choices: Array = question.choices.duplicate()
+			question.choices.shuffle()
+			for i in randi_range(0, shuffled_choices.size()):
+				question.formulated_variables.push_back(shuffled_choices[i])
 	question.save_to_quiz(id, positioning)

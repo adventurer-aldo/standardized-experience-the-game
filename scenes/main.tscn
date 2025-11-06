@@ -1,17 +1,23 @@
-[gd_scene load_steps=5 format=3 uid="uid://bpf0tt33ehi2y"]
+[gd_scene load_steps=6 format=3 uid="uid://bpf0tt33ehi2y"]
 
 [ext_resource type="Script" uid="uid://bdpus4w5vrgxp" path="res://scenes/main.gd" id="1_sugp2"]
 [ext_resource type="PackedScene" uid="uid://h8nysytvkxqo" path="res://scenes/Quiz/quiz.tscn" id="2_sugp2"]
 [ext_resource type="PackedScene" uid="uid://dnhptst0j74w3" path="res://scenes/practice_subject.tscn" id="3_sugp2"]
 [ext_resource type="PackedScene" uid="uid://cvbfhohv32pcb" path="res://scenes/Data/data_subject.tscn" id="4_jyhfs"]
 
-[node name="Main" type="ColorRect" unique_id=631785977]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jyhfs"]
+bg_color = Color(0.1612, 0.32942674, 0.62, 1)
+border_width_top = 333
+border_color = Color(0, 0.16033337, 0.37, 1)
+border_blend = true
+
+[node name="Main" type="Panel" unique_id=749532907]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.2784314, 0.2784314, 0.5529412, 1)
+theme_override_styles/panel = SubResource("StyleBoxFlat_jyhfs")
 script = ExtResource("1_sugp2")
 quiz_scene = ExtResource("2_sugp2")
 practice_subject = ExtResource("3_sugp2")

@@ -50,4 +50,4 @@ func replicate(array: Array) -> void:
 		for i in range((difference) * -1):
 			$Rows.get_child((i * -1) -1).queue_free()
 	for i in range(array.size()):
-		$Rows.get_child(i).replicate(array[i])
+		$Rows.get_child(i).replicate(array[i]["texts"])

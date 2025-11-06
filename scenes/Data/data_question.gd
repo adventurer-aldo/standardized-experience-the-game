@@ -68,6 +68,7 @@ func _on_open_pressed() -> void:
 func _on_choice_pressed() -> void:
 	if question.get_types().size() == 1 && question.is_choice: return
 	question.is_choice = !question.is_choice
+	$Items/ScrollData/Data/Opens.visible = (question.is_open || question.is_choice)
 	$Items/ScrollData/Data/Choices.visible = question.is_choice
 
 func _on_match_pressed() -> void:

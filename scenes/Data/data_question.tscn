@@ -406,6 +406,7 @@ metadata/_edit_lock_ = true
 [node name="Opens" parent="Items/ScrollData/Data" unique_id=2064817078 instance=ExtResource("3_xarco")]
 visible = false
 layout_mode = 2
+choice_mode = true
 true_veracity = true
 
 [node name="Choices" parent="Items/ScrollData/Data" unique_id=1382037439 instance=ExtResource("3_xarco")]

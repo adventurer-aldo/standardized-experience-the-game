@@ -5,12 +5,20 @@ var quiz = Main.data.get_last_quiz()
 @export var open_attempt: PackedScene
 @export var battle_ost: AudioStream
 @export var might_ost: AudioStream
+@export var rush_ost: AudioStream
 var might_mode:= false
+var rush_mode:= false
 
 func _process(_delta: float) -> void:
 	$TimeBar/TimeLabel.text = str(int($Timer.time_left)) + "s"
 	$DebugLabel.text = str($MightTimer.time_left)
 	$DebugLabel2.text = str($MightTimer.wait_time)
+	if $Timer.time_left <= 90 && !rush_mode && !$Timer.is_stopped():
+		rush_mode = true
+		$BGM.stream = rush_ost
+		$MightTransition.play("RESET")
+		$RushLoop.play("rush")
+		$BGM.play()
 
 func _ready() -> void:
 	redo()
@@ -23,9 +31,9 @@ func add_questions() -> void:
 		$ScrollContainer/AttemptsContainer.add_child(new_attempt)
 
 func rush_increase(value: int) -> void:
-	var new_value = clamp($MightTimer.time_left + value, 0.0, 20.1)
+	var new_value = clamp($MightTimer.time_left + value, 0.0, 30.1)
 	$MightTimer.start(new_value)
-	if !might_mode && $MightTimer.time_left > 20.0:
+	if !rush_mode && !might_mode && $MightTimer.time_left > 30.0:
 		$MightTransition.play("might")
 		might_mode = true
 		
@@ -38,7 +46,7 @@ func redo() -> void:
 	$MightBGM.stream = might_ost
 	$BGM.play()
 	$MightBGM.play()
-	$Timer.start(120.0)
+	$Timer.start()
 
 func hey():
 	quiz.id = Main.data.next_quiz_id()
@@ -48,6 +56,8 @@ func hey():
 
 func _on_button_pressed() -> void:
 	might_mode = false
+	rush_mode = false
+	$RushLoop.stop()
 	$Timer.stop()
 	if !$Timer.is_stopped(): return
 	$MightTimer.stop()
@@ -73,16 +83,20 @@ func _on_timer_timeout() -> void:
 
 func stop_break() -> void:
 	$Grade.text = ""
+	$EndBreak.hide()
 	hey()
 	redo()
 
 func _on_end_break_pressed() -> void:
 	$BreakTimer.stop()
 	$BreakTimer.timeout.emit()
-	$EndBreak.hide()
 
 func _on_might_timer_timeout() -> void:
-	if might_mode:
+	if might_mode && !rush_mode:
 		$MightTransition.play("calm")
 		might_mode = false
 		$MightTimer.wait_time = 0.06
+
+
+func _on_rush_loop_animation_finished(anim_name: StringName) -> void:
+	$RushLoop.play(anim_name)
