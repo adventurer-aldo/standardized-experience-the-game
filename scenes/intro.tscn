@@ -1,10 +1,9 @@
-[gd_scene load_steps=14 format=3 uid="uid://bltr5as1ppypj"]
+[gd_scene load_steps=13 format=3 uid="uid://bltr5as1ppypj"]
 
 [ext_resource type="Script" uid="uid://bcl6vllovp2a" path="res://scenes/intro.gd" id="1_wfs7u"]
 [ext_resource type="PackedScene" uid="uid://bpf0tt33ehi2y" path="res://scenes/main.tscn" id="2_0naf5"]
 [ext_resource type="Texture2D" uid="uid://2dx55lrhkwqm" path="res://graphics/LogoO.png" id="2_es01l"]
 [ext_resource type="PackedScene" uid="uid://dlr7qwhpdikn6" path="res://scenes/voice.tscn" id="3_0naf5"]
-[ext_resource type="AudioStream" uid="uid://43sirpclech5" path="res://audio/tracks/beginning.ogg" id="4_bu1yb"]
 [ext_resource type="AudioStream" uid="uid://cc2ond65mo0lq" path="res://audio/voice/pt/welcome.wav" id="5_t1qkj"]
 
 [sub_resource type="Animation" id="Animation_tefeu"]
@@ -210,9 +209,6 @@ texture = ExtResource("2_es01l")
 expand_mode = 5
 
 [node name="Voice" parent="." unique_id=572250213 instance=ExtResource("3_0naf5")]
-
-[node name="BGM" type="AudioStreamPlayer" parent="." unique_id=1816827854]
-stream = ExtResource("4_bu1yb")
 
 [node name="VC" type="AudioStreamPlayer" parent="." unique_id=2037369605]
 stream = ExtResource("5_t1qkj")

@@ -11,7 +11,6 @@ func welcome() -> void:
 	await $Voice.finished
 	$YellowLoop/ScrollAnim.play("move_in")
 	await $YellowLoop/ScrollAnim.animation_finished
-	$BGM.play()
 	await get_tree().create_timer(1).timeout
-	$EmblemAnim.add_sibling(main_scene.instantiate())
-	$YellowLoop/ScrollAnim.play("move_out")
+	# $EmblemAnim.add_sibling(main_scene.instantiate())
+	get_tree().change_scene_to_packed(main_scene)
