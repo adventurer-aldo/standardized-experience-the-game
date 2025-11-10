@@ -74,14 +74,20 @@ func get_parameters() -> Array:
 func get_subject() -> Subject:
 	return ResourceLoader.load("user://subjects/" + str(subject_id).lpad(10, '0') + ".tres")
 
+func get_file_path() -> String:
+	var subject_id_dir = str(subject_id).lpad(10, '0') + '/'
+	var id_filename = str(id).lpad(10, '0') + '.tres'
+	return "user://subjects/" + subject_id_dir + id_filename
+
 func create() -> void:
 	id = Main.data.next_question_id(true)
 	save()
 
+func erase() -> void:
+	DirAccess.remove_absolute(get_file_path())
+
 func save() -> void:
-	var subject_id_dir = str(subject_id).lpad(10, '0') + '/'
-	var id_filename = str(id).lpad(10, '0') + '.tres'
-	ResourceSaver.save(self, "user://subjects/" + subject_id_dir + id_filename, ResourceSaver.FLAG_COMPRESS)
+	ResourceSaver.save(self, get_file_path(), ResourceSaver.FLAG_COMPRESS)
 
 func save_to_quiz(quiz_id: int, attempt_id:= id):
 	var quiz_id_dir = str(quiz_id).lpad(10, '0') + '/'
@@ -106,7 +112,7 @@ func miss() -> void:
 	misses += 1
 	miss_streak += 1
 	hit_streak = 0
-	if miss_streak > 1 && !is_level_up_queued:
+	if miss_streak > 1 && !is_level_up_queued && experience_level > 1:
 		miss_streak = 0
 		experience_level = clampi(experience_level - 1, 1, 15)
 	save()

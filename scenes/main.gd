@@ -18,7 +18,7 @@ func _ready() -> void:
 	for subject in Main.data.get_subjects():
 		var new = practice_subject.instantiate()
 		new.subject_id = subject.id
-		new.set_title(subject.title)
+		new.set_title("Lv. " + str(subject.level) + ": " + subject.title)
 		new.subject_pressed.connect(subject_pressed)
 		$Practice/GridContainer.add_child(new)
 

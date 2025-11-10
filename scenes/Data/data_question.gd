@@ -44,6 +44,7 @@ func add_question_to_container(saved_question: Question) -> void:
 		container_node.move_child(question_to_add, 0)
 		question_to_add.parent_pressed.connect(on_parent_pressed)
 		question_to_add.edit_pressed.connect(on_edit_pressed)
+		question_to_add.delete_pressed.connect(on_grid_delete_pressed)
 		question_to_add.name = str(saved_question.id)
 		question_to_add.id = saved_question.id
 	question_to_add.set_text(saved_question.question[0])
@@ -123,6 +124,9 @@ func _on_add_tag_button_pressed() -> void:
 
 func on_parent_pressed(id: int) -> void:
 	$Items/ScrollData/Data/ParentsContainer/ParentsFlow.add_parent(id)
+
+func on_grid_delete_pressed(id: int) -> void:
+	question.get_subject().erase_question(id)
 
 func on_edit_pressed(id: int) -> void:
 	var to_edit = question.get_subject().get_question(id)

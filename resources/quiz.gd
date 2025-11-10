@@ -28,14 +28,15 @@ func save() -> void:
 
 func generate() -> bool:
 	randomize()
-	print(subject_id)
-	print(get_subject())
 	var questions = get_subject().get_questions()
-	questions.shuffle()
 	questions = questions.filter(func (question: Question):
 		return question.are_parents_decent()
 	).filter(func (question: Question): return (question.is_open || question.is_choice) && !question.is_level_up_queued)
-	questions = questions.slice(0, 20)
+	questions.sort_custom(func (question_a: Question, question_b: Question):
+		return question_a.miss_streak > question_b.miss_streak
+	)
+	questions.shuffle()
+	questions = questions.slice(0, randi() % 10 + 11)
 	for question in questions:
 		var possible_types = question.get_types().filter(func (type: String): 
 			return ['choice', 'open'].has(type)

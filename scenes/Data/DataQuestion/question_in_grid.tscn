@@ -2,33 +2,33 @@
 
 [ext_resource type="Script" uid="uid://dbgvllcy3psno" path="res://scenes/Data/DataQuestion/question_in_grid.gd" id="1_nnuj0"]
 
-[node name="Question" type="VBoxContainer"]
+[node name="Question" type="VBoxContainer" unique_id=1321837111]
 size_flags_horizontal = 3
 script = ExtResource("1_nnuj0")
 
-[node name="MainText" type="Label" parent="."]
+[node name="MainText" type="Label" parent="." unique_id=2142630910]
 layout_mode = 2
 text = "gggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg"
 clip_text = true
 text_overrun_behavior = 3
 
-[node name="Buttons" type="HBoxContainer" parent="."]
+[node name="Buttons" type="HBoxContainer" parent="." unique_id=541909795]
 layout_mode = 2
 
-[node name="ID" type="Button" parent="Buttons"]
+[node name="ID" type="Button" parent="Buttons" unique_id=1174256144]
 layout_mode = 2
 text = "ID: "
 
-[node name="Parent" type="Button" parent="Buttons"]
+[node name="Parent" type="Button" parent="Buttons" unique_id=1015523774]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Parent"
 
-[node name="Edit" type="Button" parent="Buttons"]
+[node name="Edit" type="Button" parent="Buttons" unique_id=1045236632]
 layout_mode = 2
 text = "Edit"
 
-[node name="Delete" type="Button" parent="Buttons"]
+[node name="Delete" type="Button" parent="Buttons" unique_id=993666606]
 layout_mode = 2
 text = "-"
 
