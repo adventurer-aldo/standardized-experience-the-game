@@ -18,7 +18,7 @@ func a_text_has_changed(difference: int) -> void:
 	add_to_rush.emit(difference)
 
 func set_description(text: String) -> void:
-	$Description.text = text
+	$Description.text = str(get_index() + 1) + ". " + text
 
 func prepare(with_question: Question):
 	question = with_question

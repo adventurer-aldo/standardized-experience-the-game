@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://dnhptst0j74w3" path="res://scenes/practice_subject.tscn" id="3_sugp2"]
 [ext_resource type="PackedScene" uid="uid://cvbfhohv32pcb" path="res://scenes/Data/data_subject.tscn" id="4_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://dlr7qwhpdikn6" path="res://scenes/voice.tscn" id="5_tbgi4"]
-[ext_resource type="AudioStream" uid="uid://43sirpclech5" path="res://audio/tracks/beginning.ogg" id="5_tefeu"]
+[ext_resource type="AudioStream" uid="uid://c6wr681lp6peq" path="res://audio/tracks/journey.ogg" id="5_tefeu"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jyhfs"]
 bg_color = Color(0.1612, 0.32942674, 0.62, 1)

@@ -15,3 +15,6 @@ func _ready() -> void:
 		DirAccess.make_dir_absolute("user://leveling_queues")
 	if !DirAccess.dir_exists_absolute("user://quizzes"):
 		DirAccess.make_dir_absolute("user://quizzes")
+	
+	for subject in data.get_subjects():
+		subject.update_experience()
