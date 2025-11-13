@@ -17,4 +17,7 @@ func _ready() -> void:
 		DirAccess.make_dir_absolute("user://quizzes")
 	
 	for subject in data.get_subjects():
-		subject.update_experience()
+		for question in subject.get_questions():
+			if question.media.size() > 0:
+				print("Question ID " + str(question.id) + "from " + str(subject.id) + " has media")
+				return

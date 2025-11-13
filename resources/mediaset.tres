@@ -1,0 +1,6 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://co8q1s0pxndk2"]
+
+[ext_resource type="Script" uid="uid://cyw6yiabv4h2b" path="res://resources/mediaset.gd" id="1_6rcjt"]
+
+[resource]
+script = ExtResource("1_6rcjt")

@@ -27,11 +27,13 @@ func erase() -> void:
 	DirAccess.remove_absolute(get_file_path())
 	DirAccess.remove_absolute(get_dir_path())
 
-func get_questions() -> Array:
+func get_questions() -> Array[Question]:
 	var files = Array(DirAccess.get_files_at("user://subjects/" + str(id).lpad(10, '0')))
-	return files.map(func (question_filename):
-		return ResourceLoader.load("user://subjects/" + str(id).lpad(10, '0') + "/" + question_filename)
-	)
+	var questions: Array[Question] = []
+	for question_filename in files:
+		var file_path = "user://subjects/" + str(id).lpad(10, '0') + "/" + question_filename
+		questions.push_back(ResourceLoader.load(file_path))
+	return questions
 
 func get_question(question_id: int) -> Question:
 	return ResourceLoader.load("user://subjects/" + str(id).lpad(10, '0') + "/" + str(question_id).lpad(10, '0') + ".tres")

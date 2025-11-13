@@ -11,6 +11,7 @@ extends Resource
 
 @export_category('Sensory Add-Ons')
 @export var media: Array
+@export var mediaset_id: int
 @export var sounds: Array[AudioStream]
 
 @export_category('Data')
