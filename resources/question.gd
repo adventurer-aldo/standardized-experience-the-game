@@ -10,9 +10,7 @@ extends Resource
 @export var tags:= []
 
 @export_category('Sensory Add-Ons')
-@export var media: Array
 @export var mediaset_id: int
-@export var sounds: Array[AudioStream]
 
 @export_category('Data')
 @export var question: PackedStringArray = []
@@ -74,6 +72,9 @@ func get_parameters() -> Array:
 
 func get_subject() -> Subject:
 	return ResourceLoader.load("user://subjects/" + str(subject_id).lpad(10, '0') + ".tres")
+
+func get_mediaset() -> Mediaset:
+	return ResourceLoader.load("user://mediasets/" + str(mediaset_id).lpad(10, '0') + ".tres")
 
 func get_file_path() -> String:
 	var subject_id_dir = str(subject_id).lpad(10, '0') + '/'

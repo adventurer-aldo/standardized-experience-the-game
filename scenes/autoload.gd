@@ -9,15 +9,11 @@ func _ready() -> void:
 		data = ResourceLoader.load("user://data.tres")
 	else:
 		data = Data.new()
+	if !DirAccess.dir_exists_absolute("user://mediasets"):
+		DirAccess.make_dir_absolute("user://mediasets")
 	if !DirAccess.dir_exists_absolute("user://subjects"):
 		DirAccess.make_dir_absolute("user://subjects")
 	if !DirAccess.dir_exists_absolute("user://leveling_queues"):
 		DirAccess.make_dir_absolute("user://leveling_queues")
 	if !DirAccess.dir_exists_absolute("user://quizzes"):
 		DirAccess.make_dir_absolute("user://quizzes")
-	
-	for subject in data.get_subjects():
-		for question in subject.get_questions():
-			if question.media.size() > 0:
-				print("Question ID " + str(question.id) + "from " + str(subject.id) + " has media")
-				return

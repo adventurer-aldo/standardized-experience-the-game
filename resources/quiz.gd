@@ -46,11 +46,12 @@ func generate() -> bool:
 		move_question_to_quiz(question, questions.find(question))
 	return questions.size() > 0
 
-func get_questions() -> Array:
+func get_questions() -> Array[Question]:
 	var files = Array(DirAccess.get_files_at("user://quizzes/" + str(id).lpad(10, '0')))
-	return files.map(func (question_filename):
-		return ResourceLoader.load("user://quizzes/" + str(id).lpad(10, '0') + "/" + question_filename)
-	)
+	var res: Array[Question] = []
+	for question_filename in files:
+		res.push_back(ResourceLoader.load("user://quizzes/" + str(id).lpad(10, '0') + "/" + question_filename))
+	return res
 
 func move_question_to_quiz(question: Question, positioning: int) -> void:
 	randomize()

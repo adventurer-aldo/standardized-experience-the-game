@@ -4,7 +4,7 @@ class_name Mediaset
 
 @export var id: int
 
-@export var images: Array[Image]
+@export var images: Array[ImageTexture]
 @export var sounds: Array[AudioStream]
 @export var videos: Array[VideoStream]
 
