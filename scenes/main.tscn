@@ -1,9 +1,9 @@
-[gd_scene load_steps=26 format=3 uid="uid://bpf0tt33ehi2y"]
+[gd_scene load_steps=27 format=3 uid="uid://bpf0tt33ehi2y"]
 
 [ext_resource type="Script" uid="uid://bdpus4w5vrgxp" path="res://scenes/main.gd" id="1_sugp2"]
-[ext_resource type="PackedScene" uid="uid://h8nysytvkxqo" path="res://scenes/Quiz/quiz.tscn" id="2_sugp2"]
+[ext_resource type="PackedScene" uid="uid://h8nysytvkxqo" path="res://scenes/quiz/quiz.tscn" id="2_sugp2"]
 [ext_resource type="PackedScene" uid="uid://dnhptst0j74w3" path="res://scenes/practice_subject.tscn" id="3_sugp2"]
-[ext_resource type="PackedScene" uid="uid://cvbfhohv32pcb" path="res://scenes/Data/data_subject.tscn" id="4_jyhfs"]
+[ext_resource type="PackedScene" uid="uid://cvbfhohv32pcb" path="res://scenes/data/data_subject.tscn" id="4_jyhfs"]
 [ext_resource type="Texture2D" uid="uid://ctcvpsm8bw2an" path="res://graphics/intro_overlay.png" id="5_o6xl0"]
 [ext_resource type="PackedScene" uid="uid://dlr7qwhpdikn6" path="res://scenes/voice.tscn" id="5_tbgi4"]
 [ext_resource type="AudioStream" uid="uid://c6wr681lp6peq" path="res://audio/tracks/journey.ogg" id="5_tefeu"]
@@ -12,12 +12,28 @@
 [ext_resource type="Texture2D" uid="uid://2dx55lrhkwqm" path="res://graphics/LogoO.png" id="8_choun"]
 [ext_resource type="Texture2D" uid="uid://cypf4kxrg0uou" path="res://graphics/decorline.png" id="8_ya4ey"]
 [ext_resource type="Texture2D" uid="uid://qsslr5p5he8x" path="res://graphics/mainarrow.png" id="10_eb6dy"]
+[ext_resource type="PackedScene" uid="uid://d07j4gkkx5bx7" path="res://scenes/main/notification_dim.tscn" id="13_trceg"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jyhfs"]
 bg_color = Color(0.1612, 0.32942674, 0.62, 1)
 border_width_top = 333
 border_color = Color(0, 0.16033337, 0.37, 1)
 border_blend = true
+
+[sub_resource type="Animation" id="Animation_ya4ey"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_choun"]
 resource_name = "scroll"
@@ -33,21 +49,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2(0, -1467), Vector2(-1079, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_ya4ey"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_eb6dy"]
@@ -117,6 +118,21 @@ _data = {
 &"move_out": SubResource("Animation_tipki")
 }
 
+[sub_resource type="Animation" id="Animation_a8y0u"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(166, 641)]
+}
+
 [sub_resource type="Animation" id="Animation_trceg"]
 resource_name = "downbob"
 length = 1.8
@@ -131,21 +147,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
 "update": 0,
 "values": [Vector2(166, 641), Vector2(166, 652), Vector2(166, 659), Vector2(166, 652), Vector2(166, 641), Vector2(166, 635), Vector2(166, 641)]
-}
-
-[sub_resource type="Animation" id="Animation_a8y0u"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(166, 641)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_jkv2x"]
@@ -315,19 +316,13 @@ grow_horizontal = 2
 scale = Vector2(0.6666667, 0.6666667)
 texture = ExtResource("8_ya4ey")
 
-[node name="Decorline2" type="TextureRect" parent="." unique_id=392823292]
-modulate = Color(1, 0.69803923, 0.2627451, 1)
+[node name="Decorline2" type="TextureRect" parent="Decorline" unique_id=392823292]
 layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = 492.0
-offset_top = 656.00006
-offset_right = 1965.0
-offset_bottom = 710.00006
-grow_horizontal = 2
+offset_left = 1473.0
+offset_top = 246.00003
+offset_right = 2946.0
+offset_bottom = 300.00003
 rotation = 3.1415927
-scale = Vector2(0.6666667, 0.6666667)
 texture = ExtResource("8_ya4ey")
 
 [node name="LogoO" type="TextureRect" parent="." unique_id=1163254591]
@@ -425,6 +420,14 @@ color = Color(0, 0, 0, 1)
 libraries = {
 &"": SubResource("AnimationLibrary_tipki")
 }
+
+[node name="ScreenDim" parent="." unique_id=135422224 instance=ExtResource("13_trceg")]
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+grow_horizontal = 1
+grow_vertical = 1
 
 [connection signal="animation_finished" from="Overlay/ScrollLoopAnim" to="." method="_on_scroll_loop_anim_animation_finished"]
 [connection signal="pressed" from="Subjects" to="." method="_on_subjects_pressed"]

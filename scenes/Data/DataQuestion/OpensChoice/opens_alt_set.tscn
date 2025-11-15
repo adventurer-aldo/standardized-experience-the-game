@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://caiqur14kros3"]
 
-[ext_resource type="Script" uid="uid://davewbr533d4n" path="res://scenes/Data/DataQuestion/OpensChoice/opens_alt_set.gd" id="1_7dbdj"]
+[ext_resource type="Script" uid="uid://davewbr533d4n" path="res://scenes/data/DataQuestion/OpensChoice/opens_alt_set.gd" id="1_7dbdj"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wgsi8"]
 content_margin_left = 3.0

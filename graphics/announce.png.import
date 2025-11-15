@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://pjebd083d5nx"
-path="res://.godot/imported/Untitled.jpg-97986eea854439d6f06d3b876ede0df9.ctex"
+uid="uid://b0yuxxopi0h2b"
+path="res://.godot/imported/announce.png-b747968b96be2639f6ee4f97107442a4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/data/DataQuestion/Match/Untitled.jpg"
-dest_files=["res://.godot/imported/Untitled.jpg-97986eea854439d6f06d3b876ede0df9.ctex"]
+source_file="res://graphics/announce.png"
+dest_files=["res://.godot/imported/announce.png-b747968b96be2639f6ee4f97107442a4.ctex"]
 
 [params]
 

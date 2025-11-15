@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cpdo7bx7xqye8"]
 
-[ext_resource type="Script" uid="uid://dbgvllcy3psno" path="res://scenes/Data/DataQuestion/question_in_grid.gd" id="1_nnuj0"]
+[ext_resource type="Script" uid="uid://dbgvllcy3psno" path="res://scenes/data/DataQuestion/question_in_grid.gd" id="1_nnuj0"]
 
 [node name="Question" type="VBoxContainer" unique_id=1321837111]
 size_flags_horizontal = 3

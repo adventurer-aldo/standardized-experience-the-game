@@ -30,6 +30,7 @@ func _on_subjects_pressed() -> void:
 
 func _on_exit_pressed() -> void:
 	$Exit/ExitScroll.play("scroll")
+	$ScreenDim.announce_text("You're about to leave, but we'll see you soon!")
 	$Voice.random_play("exit")
 	await $Voice.finished
 	get_tree().quit()

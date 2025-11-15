@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://7f5d1bwwjuu0"]
 
-[ext_resource type="Script" uid="uid://bga3vs0cwb1kt" path="res://scenes/Data/DataQuestion/question_row.gd" id="1_8qvhy"]
+[ext_resource type="Script" uid="uid://bga3vs0cwb1kt" path="res://scenes/data/DataQuestion/question_row.gd" id="1_8qvhy"]
 [ext_resource type="Material" uid="uid://dj573ymvvkvfg" path="res://materials/whiten_shader_material.tres" id="2_7dl4p"]
 [ext_resource type="Texture2D" uid="uid://jera1onaenhu" path="res://graphics/icons/minus.svg" id="3_7dl4p"]
 

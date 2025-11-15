@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=3 uid="uid://bcuq3veu0kx2k"]
 
-[ext_resource type="Script" uid="uid://sh2qms5hxqx3" path="res://scenes/Data/DataQuestion/OpensChoice/opens_row.gd" id="1_nbjlh"]
-[ext_resource type="PackedScene" uid="uid://caiqur14kros3" path="res://scenes/Data/DataQuestion/OpensChoice/opens_alt_set.tscn" id="2_arib2"]
+[ext_resource type="Script" uid="uid://sh2qms5hxqx3" path="res://scenes/data/DataQuestion/OpensChoice/opens_row.gd" id="1_nbjlh"]
+[ext_resource type="PackedScene" uid="uid://caiqur14kros3" path="res://scenes/data/DataQuestion/OpensChoice/opens_alt_set.tscn" id="2_arib2"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eoayo"]
 bg_color = Color(0.00784314, 0.313726, 0.764706, 1)

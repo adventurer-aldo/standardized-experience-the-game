@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://1pdiqydklbaw"]
 
-[ext_resource type="Script" uid="uid://rbdi5sltiij7" path="res://scenes/Data/DataQuestion/Schema/schema.gd" id="1_lpmhy"]
+[ext_resource type="Script" uid="uid://rbdi5sltiij7" path="res://scenes/data/DataQuestion/Schema/schema.gd" id="1_lpmhy"]
 
 [node name="Schema" type="Control"]
 layout_mode = 3

@@ -1,7 +1,7 @@
 [gd_scene load_steps=14 format=3 uid="uid://h8nysytvkxqo"]
 
-[ext_resource type="Script" uid="uid://bvnuh150gond2" path="res://scenes/Quiz/quiz.gd" id="1_1ip8j"]
-[ext_resource type="PackedScene" uid="uid://do5cgc300pwx1" path="res://scenes/Quiz/open_attempt.tscn" id="2_3uwr7"]
+[ext_resource type="Script" uid="uid://bvnuh150gond2" path="res://scenes/quiz/quiz.gd" id="1_1ip8j"]
+[ext_resource type="PackedScene" uid="uid://do5cgc300pwx1" path="res://scenes/quiz/open_attempt.tscn" id="2_3uwr7"]
 [ext_resource type="AudioStream" uid="uid://cj44th7n7eru8" path="res://audio/tracks/battle1_0_calm.ogg" id="3_4v0mc"]
 [ext_resource type="AudioStream" uid="uid://dgn82u5qamwj4" path="res://audio/tracks/battle1_0_might.ogg" id="5_4v0mc"]
 [ext_resource type="AudioStream" uid="uid://dww8txss11ypk" path="res://audio/tracks/rush.ogg" id="5_qqaln"]

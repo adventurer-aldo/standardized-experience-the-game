@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://bnhdcr2lihadc"]
 
-[ext_resource type="Script" uid="uid://bsdenptk6tr7t" path="res://scenes/Data/DataQuestion/Match/match_row.gd" id="1_1v5bw"]
-[ext_resource type="PackedScene" uid="uid://bx8owndv230rp" path="res://scenes/Data/DataQuestion/Match/cell.tscn" id="2_h3qpw"]
+[ext_resource type="Script" uid="uid://bsdenptk6tr7t" path="res://scenes/data/DataQuestion/Match/match_row.gd" id="1_1v5bw"]
+[ext_resource type="PackedScene" uid="uid://bx8owndv230rp" path="res://scenes/data/DataQuestion/Match/cell.tscn" id="2_h3qpw"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_estgy"]
 content_margin_left = 3.0

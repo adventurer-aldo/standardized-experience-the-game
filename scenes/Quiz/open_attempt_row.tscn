@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://cddvp6f3qvlqn"]
 
-[ext_resource type="Script" uid="uid://bhkvfsvq75ak3" path="res://scenes/Quiz/open_attempt_row.gd" id="1_v00ik"]
+[ext_resource type="Script" uid="uid://bhkvfsvq75ak3" path="res://scenes/quiz/open_attempt_row.gd" id="1_v00ik"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v00ik"]
 bg_color = Color(1, 1, 1, 1)

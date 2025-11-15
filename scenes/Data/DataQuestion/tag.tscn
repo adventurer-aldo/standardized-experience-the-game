@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bp0vok38xq7by"]
 
-[ext_resource type="Script" uid="uid://c1l2oewuxvllc" path="res://scenes/Data/DataQuestion/tag.gd" id="1_46s3h"]
+[ext_resource type="Script" uid="uid://c1l2oewuxvllc" path="res://scenes/data/DataQuestion/tag.gd" id="1_46s3h"]
 
 [node name="Tag" type="HBoxContainer"]
 script = ExtResource("1_46s3h")

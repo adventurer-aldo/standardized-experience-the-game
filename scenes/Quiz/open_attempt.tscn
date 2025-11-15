@@ -1,8 +1,8 @@
 [gd_scene load_steps=18 format=3 uid="uid://do5cgc300pwx1"]
 
-[ext_resource type="Script" uid="uid://btdjogxpkgxak" path="res://scenes/Quiz/open_attempt.gd" id="1_0dpb1"]
-[ext_resource type="PackedScene" uid="uid://cddvp6f3qvlqn" path="res://scenes/Quiz/open_attempt_row.tscn" id="2_lysjw"]
-[ext_resource type="PackedScene" uid="uid://bd634eo063jbr" path="res://scenes/Data/data_question.tscn" id="3_qbo3c"]
+[ext_resource type="Script" uid="uid://btdjogxpkgxak" path="res://scenes/quiz/open_attempt.gd" id="1_0dpb1"]
+[ext_resource type="PackedScene" uid="uid://cddvp6f3qvlqn" path="res://scenes/quiz/open_attempt_row.tscn" id="2_lysjw"]
+[ext_resource type="PackedScene" uid="uid://bd634eo063jbr" path="res://scenes/data/data_question.tscn" id="3_qbo3c"]
 
 [sub_resource type="InputEventKey" id="InputEventKey_lysjw"]
 device = -1

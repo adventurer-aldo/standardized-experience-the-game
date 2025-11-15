@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://qep4fwsletuj"]
 
-[ext_resource type="Script" uid="uid://4k55w61lfl6o" path="res://scenes/Data/DataQuestion/Match/text_alt.gd" id="1_uhntv"]
+[ext_resource type="Script" uid="uid://4k55w61lfl6o" path="res://scenes/data/DataQuestion/Match/text_alt.gd" id="1_uhntv"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0rm0x"]
 content_margin_left = 10.0

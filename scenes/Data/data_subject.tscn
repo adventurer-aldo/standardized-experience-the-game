@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://cvbfhohv32pcb"]
 
-[ext_resource type="Script" uid="uid://c3mpixccswrpu" path="res://scenes/Data/data_subject.gd" id="1_wvhfd"]
-[ext_resource type="PackedScene" uid="uid://bnpmo674alohx" path="res://scenes/Data/DataSubject/subject.tscn" id="2_8o7ef"]
-[ext_resource type="Script" uid="uid://cfmywd6m7sh1q" path="res://scenes/Data/DataSubject/subjects_container.gd" id="2_k41un"]
+[ext_resource type="Script" uid="uid://c3mpixccswrpu" path="res://scenes/data/data_subject.gd" id="1_wvhfd"]
+[ext_resource type="PackedScene" uid="uid://bnpmo674alohx" path="res://scenes/data/DataSubject/subject.tscn" id="2_8o7ef"]
+[ext_resource type="Script" uid="uid://cfmywd6m7sh1q" path="res://scenes/data/DataSubject/subjects_container.gd" id="2_k41un"]
 
 [sub_resource type="InputEventKey" id="InputEventKey_k41un"]
 device = -1

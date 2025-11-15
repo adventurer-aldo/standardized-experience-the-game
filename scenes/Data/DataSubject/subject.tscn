@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://bnpmo674alohx"]
 
-[ext_resource type="Script" uid="uid://clbulj65dnqr1" path="res://scenes/Data/DataSubject/subject.gd" id="1_1tp4j"]
-[ext_resource type="PackedScene" uid="uid://bd634eo063jbr" path="res://scenes/Data/data_question.tscn" id="2_svi1f"]
+[ext_resource type="Script" uid="uid://clbulj65dnqr1" path="res://scenes/data/DataSubject/subject.gd" id="1_1tp4j"]
+[ext_resource type="PackedScene" uid="uid://bd634eo063jbr" path="res://scenes/data/data_question.tscn" id="2_svi1f"]
 
 [node name="HBoxContainer" type="HBoxContainer"]
 offset_right = 40.0

@@ -1,0 +1,233 @@
+[gd_scene load_steps=13 format=3 uid="uid://d07j4gkkx5bx7"]
+
+[ext_resource type="Texture2D" uid="uid://dmtns8f7w6o8q" path="res://graphics/notification_gold.png" id="1_qrf0v"]
+[ext_resource type="Script" uid="uid://dypcse5v03a27" path="res://scenes/main/notification_dim.gd" id="1_tjixs"]
+[ext_resource type="Texture2D" uid="uid://b0yuxxopi0h2b" path="res://graphics/announce.png" id="2_7umri"]
+
+[sub_resource type="Animation" id="Animation_l5702"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Banner:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 144)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Banner:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_8goc7"]
+resource_name = "fade_in"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Banner:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 44), Vector2(0, 200)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Banner:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.33),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_r8f6q"]
+resource_name = "fade_out"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Banner:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 200), Vector2(0, 44)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Banner:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.03333333, 0.33),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1wi52"]
+_data = {
+&"RESET": SubResource("Animation_l5702"),
+&"fade_in": SubResource("Animation_8goc7"),
+&"fade_out": SubResource("Animation_r8f6q")
+}
+
+[sub_resource type="Animation" id="Animation_3ij7v"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_4v8fy"]
+resource_name = "dim"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 0.3647059)]
+}
+
+[sub_resource type="Animation" id="Animation_cm3m5"]
+resource_name = "undim"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.03333336, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0.3647059), Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lxo82"]
+_data = {
+&"RESET": SubResource("Animation_3ij7v"),
+&"dim": SubResource("Animation_4v8fy"),
+&"undim": SubResource("Animation_cm3m5")
+}
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u1b3j"]
+bg_color = Color(1, 1, 0.9098039, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 20
+border_color = Color(0.27058825, 0.19607843, 0.07058824, 0.4862745)
+border_blend = true
+
+[node name="ScreenDim" type="ColorRect" unique_id=135422224]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0)
+script = ExtResource("1_tjixs")
+
+[node name="SlideFade" type="AnimationPlayer" parent="." unique_id=323570401]
+libraries = {
+&"": SubResource("AnimationLibrary_1wi52")
+}
+
+[node name="Dim" type="AnimationPlayer" parent="." unique_id=1322493173]
+libraries = {
+&"": SubResource("AnimationLibrary_lxo82")
+}
+
+[node name="Banner" type="TextureRect" parent="." unique_id=712136473]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -640.0
+offset_top = -216.0
+offset_right = 640.0
+offset_bottom = 104.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_qrf0v")
+
+[node name="Announce" type="TextureRect" parent="Banner" unique_id=634158851]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -32.0
+offset_right = 32.0
+offset_bottom = 63.0
+grow_horizontal = 2
+texture = ExtResource("2_7umri")
+
+[node name="Panel" type="Panel" parent="Banner" unique_id=929727583]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 276.0
+offset_top = 55.0
+offset_right = -276.0
+offset_bottom = -55.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_u1b3j")
+
+[node name="Label" type="Label" parent="Banner" unique_id=1125749698]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 286.0
+offset_top = 64.0
+offset_right = -286.0
+offset_bottom = -72.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0.003921569, 1)
+text = "A new journey is about to begin."
+horizontal_alignment = 1
+vertical_alignment = 1

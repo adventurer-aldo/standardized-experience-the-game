@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://c7oufr7oa4s4k"]
 
-[ext_resource type="Script" uid="uid://c06lq3xix3dbf" path="res://scenes/Quiz/choice_attempt.gd" id="1_bem41"]
+[ext_resource type="Script" uid="uid://c06lq3xix3dbf" path="res://scenes/quiz/choice_attempt.gd" id="1_bem41"]
 
 [node name="ChoiceAttempt" type="VBoxContainer" unique_id=1240084012]
 anchors_preset = 15
