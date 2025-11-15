@@ -153,3 +153,6 @@ func are_parents_decent() -> bool:
 		return parent.experience_level > 3 || parent.is_level_up_queued
 	)
 	return !verdicts.has(false)
+
+func has_media() -> bool:
+	return ![0, null].has(mediaset_id)

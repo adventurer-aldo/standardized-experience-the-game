@@ -14,6 +14,7 @@ func subject_pressed(id: int) -> void:
 
 func _ready() -> void:
 	$BGM.play()
+	$Overlay/ScrollLoopAnim.play("scroll")
 	$YellowLoop/ScrollAnim.play("move_out")
 	for subject in Main.data.get_subjects():
 		var new = practice_subject.instantiate()
@@ -32,3 +33,7 @@ func _on_exit_pressed() -> void:
 	$Voice.random_play("exit")
 	await $Voice.finished
 	get_tree().quit()
+
+
+func _on_scroll_loop_anim_animation_finished(_anim_name: StringName) -> void:
+	$Overlay/ScrollLoopAnim.play("scroll")

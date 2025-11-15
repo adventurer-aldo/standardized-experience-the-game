@@ -23,7 +23,8 @@ func set_description(text: String) -> void:
 func prepare(with_question: Question):
 	question = with_question
 	question_id = with_question.id
-	if question.media.size() > 0: $Image.texture = question.media[0]
+	if question.has_media(): 
+		$Image.texture = question.get_mediaset().images[0]
 	randomize()
 	var questions = Array(with_question.question)
 	questions.shuffle()
