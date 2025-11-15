@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://bpf0tt33ehi2y"]
+[gd_scene load_steps=21 format=3 uid="uid://bpf0tt33ehi2y"]
 
 [ext_resource type="Script" uid="uid://bdpus4w5vrgxp" path="res://scenes/main.gd" id="1_sugp2"]
 [ext_resource type="PackedScene" uid="uid://h8nysytvkxqo" path="res://scenes/Quiz/quiz.tscn" id="2_sugp2"]
@@ -9,6 +9,7 @@
 [ext_resource type="AudioStream" uid="uid://c6wr681lp6peq" path="res://audio/tracks/journey.ogg" id="5_tefeu"]
 [ext_resource type="Texture2D" uid="uid://c84vifgxk83ta" path="res://graphics/smallicons/SpeechIcon.png" id="6_85g3d"]
 [ext_resource type="Script" uid="uid://beeh1u3slrs6d" path="res://scenes/main/quote.gd" id="7_choun"]
+[ext_resource type="Texture2D" uid="uid://2dx55lrhkwqm" path="res://graphics/LogoO.png" id="8_choun"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jyhfs"]
 bg_color = Color(0.1612, 0.32942674, 0.62, 1)
@@ -227,7 +228,35 @@ size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.4117647, 0.101960786, 0.101960786, 1)
 text = "\"We're unprepared for every challenge we meet for the first time.\""
 script = ExtResource("7_choun")
-quotes = PackedStringArray("We\'re unprepared for every challenge we meet for the first time.", "The early student learns sooner.")
+quotes = PackedStringArray("We\'re unprepared for every challenge we meet for the first time.", "The early student learns sooner.", "Each defeat is a step towards the ending.", "Don\'t wait for the challenge to get prepared for it.", "To err is to gain experience.", "With new knowledge, you don\'t study how you came to know it.", "Your own experienced knowledge is more valuable than words of others.", "Pacience and persistence are needed to create a solid mind.", "Learning is simple. We make it difficult.")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1919938097]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -181.0
+offset_bottom = -106.0
+grow_horizontal = 2
+grow_vertical = 0
+color = Color(1, 0.69803923, 0.2627451, 1)
+
+[node name="LogoO" type="TextureRect" parent="." unique_id=1163254591]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -342.00006
+offset_top = -356.00006
+offset_right = 533.0
+offset_bottom = 519.0
+grow_horizontal = 0
+grow_vertical = 0
+scale = Vector2(0.36171427, 0.37971425)
+texture = ExtResource("8_choun")
 
 [node name="BGM" type="AudioStreamPlayer" parent="." unique_id=1122383797]
 stream = ExtResource("5_tefeu")
@@ -259,21 +288,6 @@ offset_top = -351.0
 offset_right = 924.0
 offset_bottom = 4.0
 
-[node name="PracticeSubject" parent="Practice/GridContainer" unique_id=6530749 instance=ExtResource("3_sugp2")]
-layout_mode = 2
-
-[node name="ColorRect" type="ColorRect" parent="." unique_id=1919938097]
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -181.0
-offset_bottom = -106.0
-grow_horizontal = 2
-grow_vertical = 0
-color = Color(1, 0.69803923, 0.2627451, 1)
-
 [node name="Exit" type="Button" parent="." unique_id=1951728955]
 layout_mode = 0
 offset_left = 91.0
@@ -297,7 +311,6 @@ libraries = {
 }
 
 [node name="YellowLoop" type="ColorRect" parent="." unique_id=1512973753]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
