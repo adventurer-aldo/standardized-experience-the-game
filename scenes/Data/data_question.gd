@@ -140,8 +140,8 @@ func on_edit_pressed(id: int) -> void:
 	for i in range(to_edit.question.size()):
 		$Items/ScrollData/Data/Question/Texts.get_child(0).set_text(to_edit.question[i])
 	
-	if !to_edit.media.is_empty():
-		$Items/ScrollData/Data/Question/Image.texture = to_edit.media[0]
+	if to_edit.has_media():
+		$Items/ScrollData/Data/Question/Image.texture = to_edit.get_mediaset().images[0]
 	$Items/ScrollData/Data/Opens.replicate(to_edit.answer)
 	
 	$Items/ScrollData/Data/ParentsContainer/ParentsFlow.replicate(to_edit.parents)
@@ -164,7 +164,8 @@ func fetch_data() -> void:
 	question.tags = $Items/ScrollData/Data/TagsContainer/TagsFlow.fetch()
 	question.parents = $Items/ScrollData/Data/ParentsContainer/ParentsFlow.fetch()
 	var images = [$Items/ScrollData/Data/Question/Image.texture]
-	question.media = images.filter(func (img): return img != null)
+	for image in images.filter(func (img): return img != null):
+		question.get_or_create_mediaset().add_image(image)
 
 func play_submit_edit_voice() -> void:
 	if question.get_subject().has_question(question.id):

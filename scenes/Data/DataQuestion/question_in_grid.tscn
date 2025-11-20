@@ -1,8 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://cpdo7bx7xqye8"]
+[gd_scene load_steps=3 format=3 uid="uid://cpdo7bx7xqye8"]
 
 [ext_resource type="Script" uid="uid://dbgvllcy3psno" path="res://scenes/data/DataQuestion/question_in_grid.gd" id="1_nnuj0"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sdwmh"]
+bg_color = Color(0.8039216, 0.5764706, 0, 1)
+
 [node name="Question" type="VBoxContainer" unique_id=1321837111]
+offset_right = 200.0
+offset_bottom = 84.0
 size_flags_horizontal = 3
 script = ExtResource("1_nnuj0")
 
@@ -14,6 +19,7 @@ text_overrun_behavior = 3
 
 [node name="Buttons" type="HBoxContainer" parent="." unique_id=541909795]
 layout_mode = 2
+theme_override_constants/separation = 0
 
 [node name="ID" type="Button" parent="Buttons" unique_id=1174256144]
 layout_mode = 2
@@ -22,6 +28,7 @@ text = "ID: "
 [node name="Parent" type="Button" parent="Buttons" unique_id=1015523774]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_sdwmh")
 text = "Parent"
 
 [node name="Edit" type="Button" parent="Buttons" unique_id=1045236632]

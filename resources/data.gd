@@ -2,11 +2,24 @@
 class_name Data
 extends Resource
 
+@export_category("Player")
+@export var first_name:= ""
+@export var last_name:= ""
+@export var birthday:= 0.0
+@export_category("IDs")
 @export var last_subject_id := 0
 @export var last_question_id := 0
 @export var last_quiz_id := 0
 @export var last_leveling_queue_id:= 0
 @export var last_mediaset_id:= 0
+@export_category("Settings")
+@export var lenient:= true
+@export var skip_dissertation:= true
+@export var negative_points:= true
+@export var focus:= 0
+@export var theme:= NORMAL
+
+enum {NORMAL = 0, RED = 1, GREEN = 2, BLUE = 3}
 
 func increment_last_subject_id() -> void:
 	last_subject_id += 1

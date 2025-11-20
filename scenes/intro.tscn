@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bltr5as1ppypj"]
+[gd_scene load_steps=9 format=3 uid="uid://bltr5as1ppypj"]
 
 [ext_resource type="Script" uid="uid://bcl6vllovp2a" path="res://scenes/intro.gd" id="1_wfs7u"]
 [ext_resource type="PackedScene" uid="uid://bpf0tt33ehi2y" path="res://scenes/main.tscn" id="2_0naf5"]
@@ -91,96 +91,6 @@ _data = {
 &"splash": SubResource("Animation_tbgi4")
 }
 
-[sub_resource type="Animation" id="Animation_tipki"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:size")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1440, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(-440.44482, 313.55566)]
-}
-
-[sub_resource type="Animation" id="Animation_o6xl0"]
-resource_name = "move_in"
-length = 0.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:size")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(1440, 0), Vector2(1440, 1726)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(-440.44482, 313.55566), Vector2(-440.44482, 313.55566)]
-}
-
-[sub_resource type="Animation" id="Animation_wfs7u"]
-resource_name = "move_out"
-length = 0.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:size")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(1440, 1458.016), Vector2(1440, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(-396.50696, 357.49353), Vector2(634.46484, 1388.4678)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_85g3d"]
-_data = {
-&"RESET": SubResource("Animation_tipki"),
-&"move_in": SubResource("Animation_o6xl0"),
-&"move_out": SubResource("Animation_wfs7u")
-}
-
 [node name="Main" type="ColorRect" unique_id=464485588]
 anchors_preset = 15
 anchor_right = 1.0
@@ -216,23 +126,4 @@ stream = ExtResource("5_t1qkj")
 [node name="EmblemAnim" type="AnimationPlayer" parent="." unique_id=1655529034]
 libraries = {
 &"": SubResource("AnimationLibrary_o6xl0")
-}
-
-[node name="YellowLoop" type="ColorRect" parent="." unique_id=1975756126]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -440.44482
-offset_top = 313.55566
-offset_right = -280.44482
-offset_bottom = -406.44434
-grow_horizontal = 2
-grow_vertical = 2
-rotation = -0.785397
-color = Color(1, 0.713726, 0, 1)
-
-[node name="ScrollAnim" type="AnimationPlayer" parent="YellowLoop" unique_id=349066680]
-libraries = {
-&"": SubResource("AnimationLibrary_85g3d")
 }

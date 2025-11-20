@@ -9,8 +9,7 @@ func _ready() -> void:
 func welcome() -> void:
 	$Voice.random_play("welcome")
 	await $Voice.finished
-	$YellowLoop/ScrollAnim.play("move_in")
-	await $YellowLoop/ScrollAnim.animation_finished
+	Main.wipe_in()
+	await Main.wipe_finished
 	await get_tree().create_timer(1).timeout
-	# $EmblemAnim.add_sibling(main_scene.instantiate())
 	get_tree().change_scene_to_packed(main_scene)

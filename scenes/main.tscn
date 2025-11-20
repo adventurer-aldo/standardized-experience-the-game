@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://bpf0tt33ehi2y"]
+[gd_scene load_steps=29 format=3 uid="uid://bpf0tt33ehi2y"]
 
 [ext_resource type="Script" uid="uid://bdpus4w5vrgxp" path="res://scenes/main.gd" id="1_sugp2"]
 [ext_resource type="PackedScene" uid="uid://h8nysytvkxqo" path="res://scenes/quiz/quiz.tscn" id="2_sugp2"]
@@ -6,13 +6,18 @@
 [ext_resource type="PackedScene" uid="uid://cvbfhohv32pcb" path="res://scenes/data/data_subject.tscn" id="4_jyhfs"]
 [ext_resource type="Texture2D" uid="uid://ctcvpsm8bw2an" path="res://graphics/intro_overlay.png" id="5_o6xl0"]
 [ext_resource type="PackedScene" uid="uid://dlr7qwhpdikn6" path="res://scenes/voice.tscn" id="5_tbgi4"]
-[ext_resource type="AudioStream" uid="uid://c6wr681lp6peq" path="res://audio/tracks/journey.ogg" id="5_tefeu"]
 [ext_resource type="Texture2D" uid="uid://c84vifgxk83ta" path="res://graphics/smallicons/SpeechIcon.png" id="6_85g3d"]
 [ext_resource type="Script" uid="uid://beeh1u3slrs6d" path="res://scenes/main/quote.gd" id="7_choun"]
 [ext_resource type="Texture2D" uid="uid://2dx55lrhkwqm" path="res://graphics/LogoO.png" id="8_choun"]
 [ext_resource type="Texture2D" uid="uid://cypf4kxrg0uou" path="res://graphics/decorline.png" id="8_ya4ey"]
 [ext_resource type="Texture2D" uid="uid://qsslr5p5he8x" path="res://graphics/mainarrow.png" id="10_eb6dy"]
+[ext_resource type="AudioStream" uid="uid://c6wr681lp6peq" path="res://audio/tracks/journey.ogg" id="11_dp3eg"]
+[ext_resource type="Texture2D" uid="uid://3ao5bsq4sfls" path="res://graphics/mainbutton.png" id="13_dp3eg"]
 [ext_resource type="PackedScene" uid="uid://d07j4gkkx5bx7" path="res://scenes/main/notification_dim.tscn" id="13_trceg"]
+[ext_resource type="Texture2D" uid="uid://cgn578eue1yci" path="res://graphics/mainpressed.png" id="14_0ld40"]
+[ext_resource type="Texture2D" uid="uid://3trls00rs62t" path="res://graphics/mainbuttonhoover.png" id="15_gqmmt"]
+[ext_resource type="Texture2D" uid="uid://c0r6mlw36vfsd" path="res://graphics/mainbuttonhooverdisabled.png" id="16_yc10j"]
+[ext_resource type="Texture2D" uid="uid://ca8dovpktpoiu" path="res://graphics/mainselected.png" id="17_jscy8"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jyhfs"]
 bg_color = Color(0.1612, 0.32942674, 0.62, 1)
@@ -55,67 +60,6 @@ tracks/0/keys = {
 _data = {
 &"RESET": SubResource("Animation_ya4ey"),
 &"scroll": SubResource("Animation_choun")
-}
-
-[sub_resource type="Animation" id="Animation_85g3d"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:size")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1440, 1687.3286)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(-440.44482, 313.55566)]
-}
-
-[sub_resource type="Animation" id="Animation_tipki"]
-resource_name = "move_out"
-length = 0.52
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:size")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.52),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(1440, 1687.3286), Vector2(1440.0001, 155.89453)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.52),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(-440.44482, 313.55566), Vector2(642.4413, 1396.4443)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_choun"]
-_data = {
-&"RESET": SubResource("Animation_85g3d"),
-&"move_out": SubResource("Animation_tipki")
 }
 
 [sub_resource type="Animation" id="Animation_a8y0u"]
@@ -268,7 +212,7 @@ size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.4117647, 0.101960786, 0.101960786, 1)
 text = "\"We're unprepared for every challenge we meet for the first time.\""
 script = ExtResource("7_choun")
-quotes = PackedStringArray("We\'re unprepared for every challenge we meet for the first time.", "The early student learns sooner.", "Each defeat is a step towards the ending.", "Don\'t wait for the challenge to get prepared for it.", "To err is to gain experience.", "With new knowledge, you don\'t study how you came to know it.", "Your own experienced knowledge is more valuable than words of others.", "Pacience and persistence are needed to create a solid mind.", "Learning is simple. We make it difficult.")
+quotes = PackedStringArray("We\'re unprepared for every challenge we meet for the first time.", "The early student learns sooner.", "Each defeat is a step towards the ending.", "Don\'t wait for the challenge to get prepared for it.", "To err is to gain experience.", "With new knowledge, you don\'t study how you came to know it.", "Your own experienced knowledge is more valuable than words of others.", "Pacience and persistence are needed to create a solid mind.", "Learning is simple. We make it difficult.", "Incompetence is a feeling that can never be experienced again once you gain mastery.", "Humans are beings of knowledge and experience.", "To study is to train the mind.", "Experience is a cruel teacher. She gives the test first and the lesson afterwards.")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1919938097]
 layout_mode = 1
@@ -281,26 +225,6 @@ offset_bottom = -106.0
 grow_horizontal = 2
 grow_vertical = 0
 color = Color(1, 0.69803923, 0.2627451, 1)
-
-[node name="YellowLoop" type="ColorRect" parent="." unique_id=1512973753]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -440.44482
-offset_top = 313.55566
-offset_right = -280.44482
-offset_bottom = 1280.8843
-grow_horizontal = 2
-grow_vertical = 2
-rotation = -0.785397
-color = Color(1, 0.713726, 0, 1)
-
-[node name="ScrollAnim" type="AnimationPlayer" parent="YellowLoop" unique_id=347714272]
-libraries = {
-&"": SubResource("AnimationLibrary_choun")
-}
 
 [node name="Decorline" type="TextureRect" parent="." unique_id=873829163]
 modulate = Color(1, 0.69803923, 0.2627451, 1)
@@ -324,6 +248,15 @@ offset_right = 2946.0
 offset_bottom = 300.00003
 rotation = 3.1415927
 texture = ExtResource("8_ya4ey")
+
+[node name="Label" type="Label" parent="." unique_id=942764629]
+layout_mode = 0
+offset_left = 442.0
+offset_top = 550.0
+offset_right = 939.0
+offset_bottom = 601.0
+text = "Your last test was of SUBJECT_NAME. Your grade was GRADE.
+EVALUATION LINE"
 
 [node name="LogoO" type="TextureRect" parent="." unique_id=1163254591]
 layout_mode = 1
@@ -370,7 +303,7 @@ libraries = {
 }
 
 [node name="BGM" type="AudioStreamPlayer" parent="." unique_id=1122383797]
-stream = ExtResource("5_tefeu")
+stream = ExtResource("11_dp3eg")
 autoplay = true
 bus = &"BGM"
 
@@ -384,6 +317,30 @@ offset_right = 343.0
 offset_bottom = 361.0
 text = "Subjects"
 
+[node name="TextureButton" type="TextureButton" parent="." unique_id=1971527363]
+layout_mode = 0
+offset_left = -26.0
+offset_top = 284.0
+offset_right = 474.0
+offset_bottom = 364.0
+texture_normal = ExtResource("13_dp3eg")
+texture_pressed = ExtResource("14_0ld40")
+texture_hover = ExtResource("15_gqmmt")
+texture_disabled = ExtResource("16_yc10j")
+texture_focused = ExtResource("17_jscy8")
+
+[node name="Label" type="Label" parent="TextureButton" unique_id=942012165]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Subjects"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_lock_ = true
+
 [node name="Practice" type="Button" parent="." unique_id=202303619]
 layout_mode = 0
 offset_left = 91.0
@@ -394,10 +351,10 @@ text = "Practice"
 
 [node name="GridContainer" type="GridContainer" parent="Practice" unique_id=1690756882]
 layout_mode = 0
-offset_left = 500.0
-offset_top = -351.0
-offset_right = 924.0
-offset_bottom = 4.0
+offset_left = 441.0
+offset_top = -310.0
+offset_right = 865.0
+offset_bottom = 45.0
 
 [node name="Exit" type="Button" parent="." unique_id=1951728955]
 layout_mode = 0
@@ -428,6 +385,15 @@ anchor_right = 0.0
 anchor_bottom = 0.0
 grow_horizontal = 1
 grow_vertical = 1
+metadata/_edit_lock_ = true
+
+[node name="Button" type="Button" parent="." unique_id=1774012730]
+layout_mode = 0
+offset_left = 618.0
+offset_top = 84.0
+offset_right = 1202.0
+offset_bottom = 326.0
+text = "Random Question to answer"
 
 [connection signal="animation_finished" from="Overlay/ScrollLoopAnim" to="." method="_on_scroll_loop_anim_animation_finished"]
 [connection signal="pressed" from="Subjects" to="." method="_on_subjects_pressed"]

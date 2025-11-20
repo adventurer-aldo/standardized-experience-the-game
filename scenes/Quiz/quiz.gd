@@ -6,31 +6,62 @@ var quiz = Main.data.get_last_quiz()
 @export var battle_ost: AudioStream
 @export var might_ost: AudioStream
 @export var rush_ost: AudioStream
+@export var ambush_opening_ost: AudioStream
+@export var ambush_ending_ost: AudioStream
 var might_mode:= false
 var rush_mode:= false
 
 func _process(_delta: float) -> void:
 	$TimeBar/TimeLabel.text = str(int($Timer.time_left)) + "s"
-	$DebugLabel.text = str($MightTimer.time_left)
-	$DebugLabel2.text = str($MightTimer.wait_time)
-	if $Timer.time_left <= 90 && !rush_mode && !$Timer.is_stopped():
-		rush_mode = true
-		$BGM.stream = rush_ost
-		$MightTransition.play("RESET")
-		$RushLoop.play("rush")
-		$BGM.play()
+	if $Timer.time_left <= 20 && !rush_mode && !$Timer.is_stopped():
+		rush()
 
+func rush() -> void:
+	rush_mode = true
+	var rush_questions = await quiz.get_rush_questions()
+	if rush_questions.size() > 0:
+		$BGM.stream = ambush_opening_ost
+		$BGM.play()
+		$Timer.paused = true
+		$RushTransition.play("showcase")
+		await $RushTransition.animation_finished
+		$Blood.show()
+		for question in rush_questions:
+			add_question(question)
+			await get_tree().create_timer(0.5).timeout
+			var tween = get_tree().create_tween()
+			tween.tween_property($ScrollContainer, "scroll_vertical", 3200, 1.5)
+			await tween.finished
+		if $BGM.playing:
+			await $BGM.finished
+		$RushTransition.play("hide_dims")
+		await $RushTransition.animation_finished
+		$Timer.paused = false
+		$BGM.stream = ambush_ending_ost
+	else:
+		$BGM.stream = rush_ost
+	$RushTransition.play("display_time")
+	$BGM.play()
+	$MightTransition.play("RESET")
+	$RushLoop.play("rush")
+	
 func _ready() -> void:
 	redo()
 
 func add_questions() -> void:
 	for question in quiz.get_questions():
-		var new_attempt = open_attempt.instantiate()
-		new_attempt.prepare(question)
-		new_attempt.add_to_rush.connect(rush_increase)
-		$ScrollContainer/AttemptsContainer.add_child(new_attempt)
+		var new_question = add_question(question)
+		await get_tree().create_timer(0.1).timeout
+		new_question.grab_focus()
 
-func rush_increase(value: int) -> void:
+func add_question(question: Question) -> VBoxContainer:
+	var new_attempt = open_attempt.instantiate()
+	new_attempt.prepare(question)
+	new_attempt.add_to_might.connect(might_increase)
+	$ScrollContainer/AttemptsContainer.add_child(new_attempt)
+	return new_attempt
+	
+func might_increase(value: int) -> void:
 	var new_value = clamp($MightTimer.time_left + value, 0.0, 30.1)
 	$MightTimer.start(new_value)
 	if !rush_mode && !might_mode && $MightTimer.time_left > 30.0:
@@ -46,11 +77,13 @@ func redo() -> void:
 	$MightBGM.stream = might_ost
 	$BGM.play()
 	$MightBGM.play()
-	$Timer.start()
+	$Timer.start(quiz.end_time - quiz.start_time)
 
 func hey():
+	var prev_subject_id = quiz.subject_id
+	quiz = Quiz.new()
+	quiz.subject_id = prev_subject_id
 	quiz.id = Main.data.next_quiz_id()
-	# quiz.subject_id = 6
 	quiz.create()
 	quiz.generate()
 

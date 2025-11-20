@@ -16,6 +16,11 @@ func create() -> void:
 	id = Main.data.next_mediaset_id(true)
 	save()
 
+func add_image(image: ImageTexture) -> void:
+	if !images.has(image):
+		images.push_back(image)
+		save()
+
 func erase() -> void:
 	DirAccess.remove_absolute(get_file_path())
 

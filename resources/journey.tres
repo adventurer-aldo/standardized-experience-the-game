@@ -1,0 +1,6 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://dngxckg7m0j1e"]
+
+[ext_resource type="Script" uid="uid://dysj0k3icqd8n" path="res://resources/journey.gd" id="1_bwyfk"]
+
+[resource]
+script = ExtResource("1_bwyfk")

@@ -7,29 +7,29 @@ extends Resource
 @export var subject_id: int
 @export var created_at: int
 @export var last_time_edited: int
-@export var tags:= []
+@export var tags: Array
 
 @export_category('Sensory Add-Ons')
 @export var mediaset_id: int
 
 @export_category('Data')
-@export var question: PackedStringArray = []
+@export var question: PackedStringArray
 @export var answer = [{"texts": [""]}]
 @export var choices:= []
-@export var columns = {}
-@export var match_a = {}
-@export var match_b = {}
-@export var labels:= []
-@export var variables = []
+@export var columns: Dictionary
+@export var match_a: Dictionary
+@export var match_b: Dictionary
+@export var labels: Array
+@export var variables: Array
 
 @export var level: int = 1
 
 @export_category('Question Types')
-@export var is_open: bool = false
-@export var is_choice: bool = false
-@export var is_table: bool = false
-@export var is_label: bool = false
-@export var is_connect: bool = false
+@export var is_open:= false
+@export var is_choice:= false
+@export var is_table:= false
+@export var is_label:= false
+@export var is_connect:= false
 
 @export_category('Question Add-Ons')
 @export var is_order: bool = false
@@ -39,18 +39,21 @@ extends Resource
 @export var is_shuffle: bool = false
 
 @export_category('Experience')
-@export var parents := []
+@export var parents: Array
 @export var experience_level:= 1
-@export var experience: float = 0.0
+@export var experience: float
 @export var is_level_up_queued: bool
 @export_group("Streaks")
+@export var appearances: int
 @export var hits: int
 @export var misses: int
 @export var hit_streak: int
 @export var miss_streak: int
+@export var last_time_leveled: float
 
 @export_category("Quiz Answer")
 @export var attempt := []
+@export var attempt_index:= 0
 @export var formulated_variables := []
 @export var attempt_type: String
 
@@ -76,6 +79,15 @@ func get_subject() -> Subject:
 func get_mediaset() -> Mediaset:
 	return ResourceLoader.load("user://mediasets/" + str(mediaset_id).lpad(10, '0') + ".tres")
 
+func get_or_create_mediaset() -> Mediaset:
+	if has_media():
+		return get_mediaset()
+	else:
+		var media = Mediaset.new()
+		media.create()
+		mediaset_id = media.id
+		return media
+
 func get_file_path() -> String:
 	var subject_id_dir = str(subject_id).lpad(10, '0') + '/'
 	var id_filename = str(id).lpad(10, '0') + '.tres'
@@ -92,6 +104,10 @@ func save() -> void:
 	ResourceSaver.save(self, get_file_path(), ResourceSaver.FLAG_COMPRESS)
 
 func save_to_quiz(quiz_id: int, attempt_id:= id):
+	appearances += 1
+	attempt_index = attempt_id
+	save()
+	
 	var quiz_id_dir = str(quiz_id).lpad(10, '0') + '/'
 	var id_filename = str(attempt_id).lpad(10, '0') + '.tres'
 	ResourceSaver.save(self, "user://quizzes/" + quiz_id_dir + id_filename, ResourceSaver.FLAG_COMPRESS)

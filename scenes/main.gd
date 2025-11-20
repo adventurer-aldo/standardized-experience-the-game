@@ -15,7 +15,7 @@ func subject_pressed(id: int) -> void:
 func _ready() -> void:
 	$BGM.play()
 	$Overlay/ScrollLoopAnim.play("scroll")
-	$YellowLoop/ScrollAnim.play("move_out")
+	Main.wipe_out()
 	for subject in Main.data.get_subjects():
 		var new = practice_subject.instantiate()
 		new.subject_id = subject.id
