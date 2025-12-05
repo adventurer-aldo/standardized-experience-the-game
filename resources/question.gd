@@ -16,7 +16,7 @@ extends Resource
 @export var question: PackedStringArray
 @export var answer = [{"texts": [""]}]
 @export var choices:= []
-@export var columns: Dictionary
+@export var columns: Array
 @export var match_a: Dictionary
 @export var match_b: Dictionary
 @export var labels: Array

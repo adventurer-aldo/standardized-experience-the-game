@@ -3,8 +3,8 @@ extends Resource
 class_name Journey
 
 @export var id: int
-@export var start_time_unix: float
-@export var end_time_unix: float
+@export var start_time: float
+@export var end_time: float
 @export var progress: int
 
 func create() -> void:

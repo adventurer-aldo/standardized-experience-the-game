@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://ckaigity5vwrs"]
+
+[ext_resource type="Script" uid="uid://dmkjd6saglxqu" path="res://scenes/quiz/attempt.gd" id="1_mbb34"]
+[ext_resource type="PackedScene" uid="uid://cddvp6f3qvlqn" path="res://scenes/quiz/open_attempt_row.tscn" id="2_vyw6c"]
+[ext_resource type="PackedScene" uid="uid://bd634eo063jbr" path="res://scenes/data/data_question.tscn" id="3_wm3f2"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_lysjw"]
+device = -1
+alt_pressed = true
+keycode = 43
+
+[sub_resource type="Shortcut" id="Shortcut_qbo3c"]
+events = [SubResource("InputEventKey_lysjw")]
+
+[node name="Attempt" type="VBoxContainer" unique_id=378380950]
+focus_mode = 3
+theme_override_constants/separation = 0
+script = ExtResource("1_mbb34")
+attempt_row_scene = ExtResource("2_vyw6c")
+edit_shortcut = ExtResource("3_wm3f2")
+
+[node name="Image" type="TextureRect" parent="." unique_id=1445611978]
+layout_mode = 2
+expand_mode = 2
+
+[node name="Description" type="Label" parent="." unique_id=295401568]
+custom_minimum_size = Vector2(1.92, 1.37)
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "test"
+autowrap_mode = 3
+
+[node name="AddRowButton" type="Button" parent="." unique_id=657333845 node_paths=PackedStringArray("shortcut_context")]
+layout_mode = 2
+focus_mode = 0
+shortcut_context = NodePath("..")
+shortcut = SubResource("Shortcut_qbo3c")
+text = "+"

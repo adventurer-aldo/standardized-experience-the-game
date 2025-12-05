@@ -100,6 +100,15 @@ func get_subjects() -> Array[Subject]:
 func get_subject(subject_id: int) -> Subject:
 	return ResourceLoader.load("user://subjects/" + str(subject_id).lpad(10, "0") + ".tres")
 
+func get_quizzes() -> Array[Quiz]:
+	var quizzes: Array[Quiz]
+	for filename in DirAccess.get_files_at("user://quizzes"):
+		quizzes.push_back(ResourceLoader.load("user://quizzes/" + filename))
+	return quizzes
+
+func get_quiz(quiz_id: int) -> Quiz:
+	return ResourceLoader.load("user://quizzes/" + str(quiz_id).lpad(10, "0") + ".tres")
+
 func get_last_quiz() -> Quiz:
 	return ResourceLoader.load("user://quizzes/" + str(last_quiz_id).lpad(10, "0") + ".tres")
 

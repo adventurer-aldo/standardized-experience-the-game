@@ -49,6 +49,7 @@ bg_color = Color(1, 0, 0, 1)
 bg_color = Color(0, 1, 0, 1)
 
 [node name="Attempt" type="VBoxContainer" unique_id=378380950]
+focus_mode = 3
 theme_override_constants/separation = 0
 script = ExtResource("1_0dpb1")
 attempt_row_scene = ExtResource("2_lysjw")

@@ -44,6 +44,14 @@ func has_question(question_id: int) -> bool:
 func erase_question(question_id: int) -> void:
 	DirAccess.remove_absolute(get_dir_path() + '/' + str(question_id).lpad(10, "0") + '.tres')
 
+func get_quizzes() -> Array[Quiz]:
+	var quizzes: Array[Quiz]
+	for filename in DirAccess.get_files_at("user://quizzes"):
+		var res: Quiz = ResourceLoader.load("user://quizzes/" + filename)
+		if res.subject_id == id:
+			quizzes.push_back(res)
+	return quizzes
+
 func size() -> int:
 	return DirAccess.get_files_at(get_dir_path()).size()
 

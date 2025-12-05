@@ -13,13 +13,15 @@ var rush_mode:= false
 
 func _process(_delta: float) -> void:
 	$TimeBar/TimeLabel.text = str(int($Timer.time_left)) + "s"
-	if $Timer.time_left <= 20 && !rush_mode && !$Timer.is_stopped():
+	if $Timer.time_left <= 90 && !rush_mode && !$Timer.is_stopped():
+		rush_mode = true
 		rush()
 
 func rush() -> void:
-	rush_mode = true
 	var rush_questions = await quiz.get_rush_questions()
+	print("I got the rush questions.")
 	if rush_questions.size() > 0:
+		$MightTransition.play("RESET")
 		$BGM.stream = ambush_opening_ost
 		$BGM.play()
 		$Timer.paused = true
@@ -46,13 +48,14 @@ func rush() -> void:
 	$RushLoop.play("rush")
 	
 func _ready() -> void:
+	_on_rush_arrow_anim_animation_finished("")
 	redo()
 
 func add_questions() -> void:
 	for question in quiz.get_questions():
-		var new_question = add_question(question)
+		add_question(question)
 		await get_tree().create_timer(0.1).timeout
-		new_question.grab_focus()
+		# new_question.grab_focus()
 
 func add_question(question: Question) -> VBoxContainer:
 	var new_attempt = open_attempt.instantiate()
@@ -77,7 +80,9 @@ func redo() -> void:
 	$MightBGM.stream = might_ost
 	$BGM.play()
 	$MightBGM.play()
+	$Blood.hide()
 	$Timer.start(quiz.end_time - quiz.start_time)
+	$RushTransition.play("RESET")
 
 func hey():
 	var prev_subject_id = quiz.subject_id
@@ -102,14 +107,29 @@ func _on_button_pressed() -> void:
 		var truth = child.solve()
 		if truth: grade += 20.0 / amount_of_questions
 	$Grade.text = str(grade).replace('.', ',')
-	if grade >= 20.0: $BGM.stream = load("res://audio/tracks/score_greatest.ogg")
-	elif grade >= 14.5: $BGM.stream = load("res://audio/tracks/score_great.ogg")
-	elif grade >= 9.5: $BGM.stream = load("res://audio/tracks/score_good.ogg")
-	else: $BGM.stream = load("res://audio/tracks/score_defeat.ogg")
+	$BGM.stream = load("res://audio/tracks/score_{rank}.ogg".format({"rank": rank_grade(grade)}))
 	$BGM.play()
 		
 	$BreakTimer.start()
 	$EndBreak.show()
+
+func rank_grade(grade: float) -> String:
+	if grade >= 19.9:
+		return 's'
+	elif grade >= 14.5:
+		return 'a'
+	elif grade >= 12.0:
+		return 'b'
+	elif grade >= 9.5:
+		return 'c'
+	elif grade >= 8.0:
+		return 'd'
+	elif grade >= 5.0:
+		return 'e'
+	elif grade >= 0.1:
+		return 'f'
+	else:
+		return 'g'
 
 func _on_timer_timeout() -> void:
 	_on_button_pressed()
@@ -133,3 +153,7 @@ func _on_might_timer_timeout() -> void:
 
 func _on_rush_loop_animation_finished(anim_name: StringName) -> void:
 	$RushLoop.play(anim_name)
+
+
+func _on_rush_arrow_anim_animation_finished(_anim_name: StringName) -> void:
+	$RushArrowLoop/RushArrowAnim.play("loop")

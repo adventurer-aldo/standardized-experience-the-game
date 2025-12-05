@@ -19,6 +19,7 @@ func _ready() -> void:
 		DirAccess.make_dir_absolute("user://leveling_queues")
 	if !DirAccess.dir_exists_absolute("user://quizzes"):
 		DirAccess.make_dir_absolute("user://quizzes")
+	begin_update()
 
 func begin_update() -> void:
 	thread.start(update)
@@ -31,7 +32,7 @@ func update() -> bool:
 		queue = ResourceLoader.load(file_path, "", ResourceLoader.CACHE_MODE_REPLACE)
 		if queue.process_leveling(): 
 			print(str(queue.id) + " has finished SR wait time.")
-	update_finished.emit()
+	call_deferred("emit_signal", "update_finished")
 	if files.size() > 0:
 		return true
 	else:
@@ -49,3 +50,27 @@ func wipe_out() -> void:
 	$WipeAnim.play("wipe_out")
 	await $WipeAnim.animation_finished
 	wipe_finished.emit()
+
+func _on_update_finished() -> void:
+	thread.wait_to_finish()
+	print("Thread finished...?")
+	thread = Thread.new()
+
+
+func rank_grade(grade: float) -> String:
+	if grade >= 19.9:
+		return 's'
+	elif grade >= 14.5:
+		return 'a'
+	elif grade >= 12.0:
+		return 'b'
+	elif grade >= 9.5:
+		return 'c'
+	elif grade >= 8.0:
+		return 'd'
+	elif grade >= 5.0:
+		return 'e'
+	elif grade >= 0.1:
+		return 'f'
+	else:
+		return 'g'

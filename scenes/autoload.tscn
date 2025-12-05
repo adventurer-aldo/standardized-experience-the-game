@@ -121,3 +121,5 @@ root_node = NodePath("../LoadingWipe")
 libraries = {
 &"": SubResource("AnimationLibrary_85g3d")
 }
+
+[connection signal="update_finished" from="." to="." method="_on_update_finished"]

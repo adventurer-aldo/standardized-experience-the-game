@@ -79,8 +79,10 @@ func get_filtered_questions() -> Array[Question]:
 	return res
 
 func get_rush_questions() -> Array[Question]:
-	Main.update()
+	print("Updating")
+	Main.begin_update()
 	await Main.update_finished
+	print("I awaited the finish.")
 	var questions = get_filtered_questions()
 	# Filter based on whether level up was completed in midst of quiz
 	var queue_range = range(start_time, Time.get_unix_time_from_system() + 10.0)

@@ -1,15 +1,17 @@
-[gd_scene load_steps=29 format=3 uid="uid://bpf0tt33ehi2y"]
+[gd_scene load_steps=31 format=3 uid="uid://bpf0tt33ehi2y"]
 
 [ext_resource type="Script" uid="uid://bdpus4w5vrgxp" path="res://scenes/main.gd" id="1_sugp2"]
 [ext_resource type="PackedScene" uid="uid://h8nysytvkxqo" path="res://scenes/quiz/quiz.tscn" id="2_sugp2"]
 [ext_resource type="PackedScene" uid="uid://dnhptst0j74w3" path="res://scenes/practice_subject.tscn" id="3_sugp2"]
 [ext_resource type="PackedScene" uid="uid://cvbfhohv32pcb" path="res://scenes/data/data_subject.tscn" id="4_jyhfs"]
+[ext_resource type="Texture2D" uid="uid://ejk8mymsv7ff" path="res://graphics/mainpattern.png" id="5_gqmmt"]
 [ext_resource type="Texture2D" uid="uid://ctcvpsm8bw2an" path="res://graphics/intro_overlay.png" id="5_o6xl0"]
 [ext_resource type="PackedScene" uid="uid://dlr7qwhpdikn6" path="res://scenes/voice.tscn" id="5_tbgi4"]
 [ext_resource type="Texture2D" uid="uid://c84vifgxk83ta" path="res://graphics/smallicons/SpeechIcon.png" id="6_85g3d"]
 [ext_resource type="Script" uid="uid://beeh1u3slrs6d" path="res://scenes/main/quote.gd" id="7_choun"]
 [ext_resource type="Texture2D" uid="uid://2dx55lrhkwqm" path="res://graphics/LogoO.png" id="8_choun"]
 [ext_resource type="Texture2D" uid="uid://cypf4kxrg0uou" path="res://graphics/decorline.png" id="8_ya4ey"]
+[ext_resource type="Script" uid="uid://c2keheyqpksb2" path="res://scenes/cheer_label.gd" id="9_0ld40"]
 [ext_resource type="Texture2D" uid="uid://qsslr5p5he8x" path="res://graphics/mainarrow.png" id="10_eb6dy"]
 [ext_resource type="AudioStream" uid="uid://c6wr681lp6peq" path="res://audio/tracks/journey.ogg" id="11_dp3eg"]
 [ext_resource type="Texture2D" uid="uid://3ao5bsq4sfls" path="res://graphics/mainbutton.png" id="13_dp3eg"]
@@ -21,8 +23,9 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jyhfs"]
 bg_color = Color(0.1612, 0.32942674, 0.62, 1)
-border_width_top = 333
-border_color = Color(0, 0.16033337, 0.37, 1)
+border_width_left = 333
+border_width_right = 333
+border_color = Color(0, 0.16033337, 0.37, 0.5372549)
 border_blend = true
 
 [sub_resource type="Animation" id="Animation_ya4ey"]
@@ -172,6 +175,27 @@ quiz_scene = ExtResource("2_sugp2")
 practice_subject = ExtResource("3_sugp2")
 data_subject_scene = ExtResource("4_jyhfs")
 
+[node name="TextureRect" type="TextureRect" parent="." unique_id=633500167]
+modulate = Color(0.1, 0.20000005, 0.4, 0.75686276)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_gqmmt")
+stretch_mode = 1
+
+[node name="Panel" type="Panel" parent="." unique_id=348019212]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_jyhfs")
+
 [node name="Overlay" type="TextureRect" parent="." unique_id=733440368]
 modulate = Color(0, 0.043137256, 0.1882353, 0.21176471)
 layout_mode = 0
@@ -257,6 +281,7 @@ offset_right = 939.0
 offset_bottom = 601.0
 text = "Your last test was of SUBJECT_NAME. Your grade was GRADE.
 EVALUATION LINE"
+script = ExtResource("9_0ld40")
 
 [node name="LogoO" type="TextureRect" parent="." unique_id=1163254591]
 layout_mode = 1
@@ -320,9 +345,9 @@ text = "Subjects"
 [node name="TextureButton" type="TextureButton" parent="." unique_id=1971527363]
 layout_mode = 0
 offset_left = -26.0
-offset_top = 284.0
+offset_top = 205.0
 offset_right = 474.0
-offset_bottom = 364.0
+offset_bottom = 285.0
 texture_normal = ExtResource("13_dp3eg")
 texture_pressed = ExtResource("14_0ld40")
 texture_hover = ExtResource("15_gqmmt")
