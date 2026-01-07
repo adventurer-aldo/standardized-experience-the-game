@@ -1,0 +1,191 @@
+[gd_scene format=3 uid="uid://bg7bp0isxc8bv"]
+
+[ext_resource type="Texture2D" uid="uid://bwhjad47lsguj" path="res://graphics/icons/clock-desk.svg" id="1_wj4cn"]
+[ext_resource type="Script" uid="uid://ceomdijdrxlb2" path="res://scenes/user_display/date_time.gd" id="2_bgjfo"]
+[ext_resource type="FontFile" uid="uid://djqlkih7hivms" path="res://fonts/DMSans-Bold.ttf" id="3_fs8l7"]
+[ext_resource type="Texture2D" uid="uid://mdcv0474gk3t" path="res://graphics/icons/battery-half.svg" id="4_rwyv4"]
+[ext_resource type="Texture2D" uid="uid://33a4aatktaqb" path="res://graphics/avatar_demo.jpeg" id="5_h4j8d"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fojjr"]
+bg_color = Color(1, 1, 1, 0.5254902)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(1, 1, 1, 1)
+border_blend = true
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+corner_detail = 6
+
+[sub_resource type="LabelSettings" id="LabelSettings_y4bp6"]
+font = ExtResource("3_fs8l7")
+font_color = Color(0.19607843, 0.1882353, 0.23137255, 1)
+outline_size = 1
+outline_color = Color(0.19607843, 0.1882353, 0.23137255, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_8rixk"]
+font = ExtResource("3_fs8l7")
+font_size = 22
+font_color = Color(0.19607843, 0.1882353, 0.23137255, 1)
+outline_size = 1
+outline_color = Color(0.19607843, 0.1882353, 0.23137255, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cee8v"]
+corner_radius_top_left = 70
+corner_radius_top_right = 70
+corner_radius_bottom_right = 70
+corner_radius_bottom_left = 70
+shadow_color = Color(0, 0, 0, 0.31764707)
+shadow_size = 5
+shadow_offset = Vector2(2, 4)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iem7o"]
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 70
+corner_radius_top_right = 70
+corner_radius_bottom_right = 70
+corner_radius_bottom_left = 70
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w0sbu"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 1, 1, 0.43529412)
+corner_radius_top_left = 70
+corner_radius_top_right = 70
+corner_radius_bottom_right = 70
+corner_radius_bottom_left = 70
+expand_margin_left = 1.0
+expand_margin_top = 1.0
+expand_margin_right = 1.0
+expand_margin_bottom = 1.0
+
+[node name="User" type="Panel" unique_id=579549992]
+offset_left = 939.0
+offset_top = 21.0
+offset_right = 1305.0
+offset_bottom = 58.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_fojjr")
+
+[node name="ClockIcon" type="TextureRect" parent="." unique_id=574200972]
+modulate = Color(0.19607843, 0.1882353, 0.23137255, 1)
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = 23.0
+offset_top = 3.0
+offset_right = 60.0
+offset_bottom = -4.0
+grow_vertical = 2
+size_flags_vertical = 4
+texture = ExtResource("1_wj4cn")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="DateTime" type="HBoxContainer" parent="." unique_id=1828438202]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 57.0
+offset_top = 4.0
+offset_right = -142.0
+offset_bottom = 33.0
+grow_horizontal = 2
+script = ExtResource("2_bgjfo")
+
+[node name="Time" type="Label" parent="DateTime" unique_id=973325586]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0.05490196, 1)
+text = "51:47 PM"
+label_settings = SubResource("LabelSettings_y4bp6")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Divider" type="Label" parent="DateTime" unique_id=1896156517]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0.05490196, 1)
+text = "|"
+label_settings = SubResource("LabelSettings_8rixk")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Weekday" type="Label" parent="DateTime" unique_id=1891290695]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0.05490196, 1)
+text = "Mon"
+label_settings = SubResource("LabelSettings_y4bp6")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Date" type="Label" parent="DateTime" unique_id=835040437]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0.05490196, 1)
+text = "99/99"
+label_settings = SubResource("LabelSettings_y4bp6")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BatteryIcon" type="TextureRect" parent="." unique_id=573082513]
+modulate = Color(0.19607843, 0.1882353, 0.23137255, 1)
+custom_minimum_size = Vector2(40, 30)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -139.0
+offset_top = 3.0
+offset_right = -92.75
+offset_bottom = 33.0
+grow_horizontal = 0
+size_flags_vertical = 4
+texture = ExtResource("4_rwyv4")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="AvatarShade" type="Panel" parent="." unique_id=967665056]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -97.0
+offset_top = -14.0
+offset_right = -33.0
+offset_bottom = 50.0
+grow_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_cee8v")
+metadata/_edit_group_ = true
+
+[node name="AvatarMask" type="Panel" parent="AvatarShade" unique_id=345772009]
+clip_children = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_iem7o")
+
+[node name="AvatarTexture" type="TextureRect" parent="AvatarShade/AvatarMask" unique_id=1799676955]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_h4j8d")
+expand_mode = 1
+
+[node name="Outline" type="Panel" parent="AvatarShade" unique_id=490979414]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_w0sbu")

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dorhyoghxkay6"
-path="res://.godot/imported/class-icon.svg-c17de51589a7d30572bf401526524f64.ctex"
+uid="uid://mdcv0474gk3t"
+path="res://.godot/imported/battery-half.svg-6459a2ff8167db7006803a33ace43cc4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/SmoothScroll/class-icon.svg"
-dest_files=["res://.godot/imported/class-icon.svg-c17de51589a7d30572bf401526524f64.ctex"]
+source_file="res://graphics/icons/battery-half.svg"
+dest_files=["res://.godot/imported/battery-half.svg-6459a2ff8167db7006803a33ace43cc4.ctex"]
 
 [params]
 

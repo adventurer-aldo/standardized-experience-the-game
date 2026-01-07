@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dorhyoghxkay6"
-path="res://.godot/imported/class-icon.svg-c17de51589a7d30572bf401526524f64.ctex"
+uid="uid://db7qe8840obw7"
+path="res://.godot/imported/grad.png-976b7ad1e4cb314069ce6b76c6af306b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/SmoothScroll/class-icon.svg"
-dest_files=["res://.godot/imported/class-icon.svg-c17de51589a7d30572bf401526524f64.ctex"]
+source_file="res://graphics/grad.png"
+dest_files=["res://.godot/imported/grad.png-976b7ad1e4cb314069ce6b76c6af306b.ctex"]
 
 [params]
 
@@ -38,6 +38,3 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
-svg/scale=1.0
-editor/scale_with_editor_scale=false
-editor/convert_colors_with_editor_theme=false

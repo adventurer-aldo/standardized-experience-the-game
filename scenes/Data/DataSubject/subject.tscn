@@ -1,21 +1,291 @@
-[gd_scene load_steps=3 format=3 uid="uid://bnpmo674alohx"]
+[gd_scene format=3 uid="uid://bnpmo674alohx"]
 
 [ext_resource type="Script" uid="uid://clbulj65dnqr1" path="res://scenes/data/DataSubject/subject.gd" id="1_1tp4j"]
+[ext_resource type="Texture2D" uid="uid://oqed10emjfjh" path="res://graphics/icons/stethoscope.svg" id="2_oh3ke"]
 [ext_resource type="PackedScene" uid="uid://bd634eo063jbr" path="res://scenes/data/data_question.tscn" id="2_svi1f"]
+[ext_resource type="FontFile" uid="uid://cll00c3mbr5pe" path="res://fonts/DMSans.ttf" id="3_ps61u"]
 
-[node name="HBoxContainer" type="HBoxContainer"]
-offset_right = 40.0
-offset_bottom = 40.0
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fojjr"]
+bg_color = Color(1, 1, 1, 0.5254902)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(1, 1, 1, 1)
+border_blend = true
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rumu7"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.2, 0.2, 0.2, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+expand_margin_top = 5.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nf2mc"]
+bg_color = Color(0.2, 0.2, 0.2, 0)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+expand_margin_top = 5.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_qegxg"]
+font_size = 24
+font_color = Color(0.2, 0.2, 0.2, 1)
+outline_size = 2
+outline_color = Color(0.2, 0.2, 0.2, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7005v"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_mvvj2"]
+font_size = 15
+font_color = Color(0.2, 0.2, 0.2, 1)
+outline_size = 1
+outline_color = Color(0.2, 0.2, 0.2, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tvt0i"]
+bg_color = Color(0.9685872, 5.679429e-06, 7.70092e-07, 1)
+border_width_bottom = 18
+border_color = Color(0.72, 0.13200001, 0, 1)
+border_blend = true
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1nffk"]
+bg_color = Color(0, 0.5658335, 0.97, 1)
+border_width_bottom = 18
+border_color = Color(0, 0.15600003, 0.72, 1)
+border_blend = true
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tmucb"]
+bg_color = Color(0.97, 0.7275, 0, 1)
+border_width_bottom = 18
+border_color = Color(0.72, 0.38400003, 0, 1)
+border_blend = true
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ps61u"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.2, 0.2, 0.2, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qegxg"]
+bg_color = Color(0.67402667, 0.6532, 0.71, 1)
+border_width_top = 4
+border_width_bottom = 3
+border_color = Color(0.6292303, 0.5850049, 0.70853955, 1)
+border_blend = true
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="Gradient" id="Gradient_7005v"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_mvvj2"]
+gradient = SubResource("Gradient_7005v")
+fill_from = Vector2(0.5811966, 0.53418803)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_tvt0i"]
+texture = SubResource("GradientTexture2D_mvvj2")
+
+[node name="Subject" type="Panel" unique_id=1602614645]
+custom_minimum_size = Vector2(500, 180)
+offset_right = 500.0
+offset_bottom = 180.0
+size_flags_horizontal = 6
+theme_override_styles/panel = SubResource("StyleBoxFlat_fojjr")
 script = ExtResource("1_1tp4j")
 data_question_scene = ExtResource("2_svi1f")
 
-[node name="Subject" type="Button" parent="."]
+[node name="M" type="MarginContainer" parent="." unique_id=563204713]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Elements" type="VBoxContainer" parent="M" unique_id=2100648604]
+layout_mode = 2
+
+[node name="Quick" type="HBoxContainer" parent="M/Elements" unique_id=779574758]
+layout_mode = 2
+
+[node name="MTitle" type="MarginContainer" parent="M/Elements/Quick" unique_id=332880936]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Subject Name"
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
 
-[node name="Delete" type="Button" parent="."]
+[node name="M" type="MarginContainer" parent="M/Elements/Quick/MTitle" unique_id=2145430411]
 layout_mode = 2
-text = "Delete"
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
 
-[connection signal="pressed" from="Subject" to="." method="_on_subject_pressed"]
+[node name="Name" type="HBoxContainer" parent="M/Elements/Quick/MTitle/M" unique_id=191360894]
+layout_mode = 2
+
+[node name="Icon" type="MarginContainer" parent="M/Elements/Quick/MTitle/M/Name" unique_id=1048760041]
+layout_mode = 2
+
+[node name="Outline" type="Panel" parent="M/Elements/Quick/MTitle/M/Name/Icon" unique_id=2105525949]
+clip_children = 2
+custom_minimum_size = Vector2(40, 30)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_rumu7")
+
+[node name="Inner" type="Panel" parent="M/Elements/Quick/MTitle/M/Name/Icon" unique_id=44561428]
+custom_minimum_size = Vector2(30, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_nf2mc")
+
+[node name="Image" type="TextureRect" parent="M/Elements/Quick/MTitle/M/Name/Icon/Inner" unique_id=948604590]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 3.0
+offset_top = -5.0
+offset_right = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_oh3ke")
+expand_mode = 1
+
+[node name="Title" type="Label" parent="M/Elements/Quick/MTitle/M/Name" unique_id=419907073]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("3_ps61u")
+text = "Fisiologia"
+label_settings = SubResource("LabelSettings_qegxg")
+autowrap_mode = 1
+
+[node name="Underline" type="Panel" parent="M/Elements/Quick/MTitle" unique_id=81313847]
+show_behind_parent = true
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_7005v")
+
+[node name="Level" type="Label" parent="M/Elements/Quick" unique_id=377062489]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("3_ps61u")
+text = "Lv. 15"
+label_settings = SubResource("LabelSettings_mvvj2")
+
+[node name="Delete" type="Button" parent="M/Elements/Quick" unique_id=368430015]
+visible = false
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_styles/normal = SubResource("StyleBoxFlat_tvt0i")
+
+[node name="Edit" type="Button" parent="M/Elements/Quick" unique_id=489762107]
+visible = false
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_styles/normal = SubResource("StyleBoxFlat_1nffk")
+
+[node name="Study" type="Button" parent="M/Elements/Quick" unique_id=727686411]
+visible = false
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_styles/normal = SubResource("StyleBoxFlat_tmucb")
+
+[node name="MTitle" type="MarginContainer" parent="M/Elements" unique_id=1070188944]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_right = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="M/Elements/MTitle" unique_id=102840402]
+layout_mode = 2
+
+[node name="Details" type="HBoxContainer" parent="M/Elements/MTitle/VBoxContainer" unique_id=223355422]
+layout_mode = 2
+alignment = 2
+
+[node name="Panel" type="Panel" parent="M/Elements/MTitle/VBoxContainer/Details" unique_id=869342325]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_ps61u")
+
+[node name="TextureProgressBar" type="ProgressBar" parent="M/Elements/MTitle/VBoxContainer/Details/Panel" unique_id=428206594]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+theme_override_styles/background = SubResource("StyleBoxFlat_qegxg")
+theme_override_styles/fill = SubResource("StyleBoxTexture_tvt0i")
+value = 50.0
+show_percentage = false
+
+[node name="Questions" type="Label" parent="M/Elements/MTitle/VBoxContainer/Details" unique_id=1776475542]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("3_ps61u")
+text = "10532 Questions"
+label_settings = SubResource("LabelSettings_mvvj2")
+
+[node name="Description" type="Label" parent="M/Elements/MTitle/VBoxContainer" unique_id=112898892]
+custom_minimum_size = Vector2(1, 90)
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("3_ps61u")
+text = "A ciência que estuda o funcionamento dos orgãos do corpo humano ao nível dos sistemas e tal. Ela tem como objectivo ensinar ao estudante como cada ação tem uma reação em cada sistema do corpo. Essa cadeira irá tratar de ensinar-lhe cada "
+label_settings = SubResource("LabelSettings_mvvj2")
+autowrap_mode = 3
+text_overrun_behavior = 5
+
+[connection signal="pressed" from="M/Elements/Quick/Edit" to="." method="_on_subject_pressed"]

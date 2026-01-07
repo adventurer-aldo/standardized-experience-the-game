@@ -8,8 +8,20 @@ func _on_create_button_pressed() -> void:
 	subject.create()
 	$DataSubject/Elements/DescriptionText.text = ""
 	$DataSubject/Elements/TitleLine.text = ""
-	$DataSubject/SubjectsContainer.add_to_container(subject)
+	$GradientMask/SubjectsScroll/SubjectsContainer.add_to_container(subject)
 
 
 func _on_exit_pressed() -> void:
 	queue_free()
+
+
+func _on_search_bar_text_changed(new_text: String) -> void:
+	for subject in $GradientMask/SubjectsScroll/SubjectsContainer.get_children():
+		if new_text.strip_edges() == '':
+			subject.show()
+		else:
+			var title: String = subject.title.text
+			if !title.containsn(new_text):
+				subject.hide()
+			else:
+				subject.show()

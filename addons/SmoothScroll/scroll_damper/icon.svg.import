@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dorhyoghxkay6"
-path="res://.godot/imported/class-icon.svg-c17de51589a7d30572bf401526524f64.ctex"
+uid="uid://4ok12qtgl7xq"
+path="res://.godot/imported/icon.svg-5b01e8115f19d6d63dc265815ce29c75.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/SmoothScroll/class-icon.svg"
-dest_files=["res://.godot/imported/class-icon.svg-c17de51589a7d30572bf401526524f64.ctex"]
+source_file="res://addons/SmoothScroll/scroll_damper/icon.svg"
+dest_files=["res://.godot/imported/icon.svg-5b01e8115f19d6d63dc265815ce29c75.ctex"]
 
 [params]
 

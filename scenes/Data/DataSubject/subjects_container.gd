@@ -12,5 +12,8 @@ func _ready() -> void:
 func add_to_container(subj: Subject) -> void:
 	var new_subject_scene = subject_packed_scene.instantiate()
 	new_subject_scene.set_title(subj.title)
+	new_subject_scene.set_description(subj.description)
+	new_subject_scene.set_level(subj.level)
+	new_subject_scene.set_questions_size(subj.size())
 	new_subject_scene.subject_id = subj.id
 	add_child(new_subject_scene)

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dorhyoghxkay6"
-path="res://.godot/imported/class-icon.svg-c17de51589a7d30572bf401526524f64.ctex"
+uid="uid://b4mjun0mwc3lt"
+path="res://.godot/imported/magnifying-glass.svg-2fcececf36140a7929c06b18331ccacf.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/SmoothScroll/class-icon.svg"
-dest_files=["res://.godot/imported/class-icon.svg-c17de51589a7d30572bf401526524f64.ctex"]
+source_file="res://graphics/icons/magnifying-glass.svg"
+dest_files=["res://.godot/imported/magnifying-glass.svg-2fcececf36140a7929c06b18331ccacf.ctex"]
 
 [params]
 

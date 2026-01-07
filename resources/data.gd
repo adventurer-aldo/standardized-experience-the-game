@@ -12,6 +12,8 @@ extends Resource
 @export var last_quiz_id := 0
 @export var last_leveling_queue_id:= 0
 @export var last_mediaset_id:= 0
+
+@export var eligible_subject_ids:= []
 @export_category("Settings")
 @export var lenient:= true
 @export var skip_dissertation:= true
