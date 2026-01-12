@@ -7,12 +7,12 @@
 [ext_resource type="Texture2D" uid="uid://db7qe8840obw7" path="res://graphics/grad.png" id="3_buabq"]
 [ext_resource type="FontFile" uid="uid://cll00c3mbr5pe" path="res://fonts/DMSans.ttf" id="4_0pdix"]
 [ext_resource type="FontFile" uid="uid://b5hv4vumrlxlb" path="res://fonts/ContinuumMedium.ttf" id="4_hiay8"]
-[ext_resource type="Texture2D" uid="uid://oqed10emjfjh" path="res://graphics/icons/stethoscope.svg" id="4_s1j61"]
 [ext_resource type="Script" path="res://addons/SmoothScroll/smooth_scroll_container.gd" id="4_y345i"]
 [ext_resource type="Texture2D" uid="uid://bm1tk1odkf3ed" path="res://graphics/icons/circle-arrow-left.svg" id="5_0axcs"]
 [ext_resource type="Script" uid="uid://b7h0k2h2qwlqv" path="res://addons/SmoothScroll/scroll_damper/expo_scroll_damper.gd" id="5_ob4f8"]
 [ext_resource type="Texture2D" uid="uid://b4mjun0mwc3lt" path="res://graphics/icons/magnifying-glass.svg" id="9_ulao1"]
 [ext_resource type="FontFile" uid="uid://djqlkih7hivms" path="res://fonts/DMSans-Bold.ttf" id="10_4k6aa"]
+[ext_resource type="Texture2D" uid="uid://xhg1ux1kvubd" path="res://graphics/icons/circle-plus.svg" id="10_ob4f8"]
 [ext_resource type="PackedScene" uid="uid://bg7bp0isxc8bv" path="res://scenes/user_display/user.tscn" id="14_y345i"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hbpdo"]
@@ -20,12 +20,6 @@ bg_color = Color(0.90513396, 0.9369275, 0.9893057, 1)
 border_width_bottom = 333
 border_color = Color(0.732702, 0.7801281, 0.84668916, 1)
 border_blend = true
-
-[sub_resource type="Resource" id="Resource_wphfj"]
-script = ExtResource("5_ob4f8")
-
-[sub_resource type="Resource" id="Resource_h1gsa"]
-script = ExtResource("5_ob4f8")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fojjr"]
 bg_color = Color(1, 1, 1, 0.5254902)
@@ -47,98 +41,39 @@ font_color = Color(0.19607843, 0.1882353, 0.23137255, 1)
 outline_size = 1
 outline_color = Color(0.19607843, 0.1882353, 0.23137255, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wiiei"]
-bg_color = Color(1, 1, 1, 0.5254902)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y345i"]
+bg_color = Color(0, 0.85, 0.45333332, 1)
 border_width_left = 10
 border_width_top = 10
 border_width_right = 10
 border_width_bottom = 10
-border_color = Color(1, 1, 1, 1)
 border_blend = true
 corner_radius_top_left = 20
 corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hoy3h"]
-bg_color = Color(0.6, 0.6, 0.6, 0)
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
-border_color = Color(0.2, 0.2, 0.2, 1)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
-expand_margin_top = 5.0
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4k6aa"]
-bg_color = Color(0.2, 0.2, 0.2, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
-expand_margin_top = 5.0
-
-[sub_resource type="LabelSettings" id="LabelSettings_s1j61"]
-font_size = 24
-font_color = Color(0.2, 0.2, 0.2, 1)
-outline_size = 2
-outline_color = Color(0.2, 0.2, 0.2, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hiay8"]
-bg_color = Color(0.6, 0.6, 0.6, 0)
-border_width_bottom = 2
-border_color = Color(1, 1, 1, 1)
-
-[sub_resource type="LabelSettings" id="LabelSettings_hoy3h"]
-font_size = 15
-font_color = Color(0.2, 0.2, 0.2, 1)
-outline_size = 1
-outline_color = Color(0.2, 0.2, 0.2, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ylpgf"]
-bg_color = Color(0.9685872, 5.679429e-06, 7.70092e-07, 1)
-border_width_bottom = 18
-border_color = Color(0.72, 0.13200001, 0, 1)
-border_blend = true
-corner_radius_top_left = 12
-corner_radius_top_right = 12
-corner_radius_bottom_right = 12
-corner_radius_bottom_left = 12
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0axcs"]
-bg_color = Color(0, 0.5658335, 0.97, 1)
-border_width_bottom = 18
-border_color = Color(0, 0.15600003, 0.72, 1)
-border_blend = true
-corner_radius_top_left = 12
-corner_radius_top_right = 12
-corner_radius_bottom_right = 12
-corner_radius_bottom_left = 12
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ulao1"]
-bg_color = Color(0.97, 0.7275, 0, 1)
-border_width_bottom = 18
-border_color = Color(0.72, 0.38400003, 0, 1)
-border_blend = true
-corner_radius_top_left = 12
-corner_radius_top_right = 12
-corner_radius_bottom_right = 12
-corner_radius_bottom_left = 12
-
-[sub_resource type="LabelSettings" id="LabelSettings_hiay8"]
-font_size = 24
-font_color = Color(0.2, 0.2, 0.2, 1)
-outline_size = 2
-outline_color = Color(0.2, 0.2, 0.2, 1)
+[sub_resource type="LabelSettings" id="LabelSettings_wphfj"]
+font = ExtResource("10_4k6aa")
+outline_color = Color(0.19607843, 0.1882353, 0.23137255, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hbpdo"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_buabq"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_y345i"]
+
+[sub_resource type="Resource" id="Resource_wphfj"]
+script = ExtResource("5_ob4f8")
+
+[sub_resource type="Resource" id="Resource_h1gsa"]
+script = ExtResource("5_ob4f8")
+
+[sub_resource type="LabelSettings" id="LabelSettings_hiay8"]
+font_size = 24
+font_color = Color(0.2, 0.2, 0.2, 1)
+outline_size = 2
+outline_color = Color(0.2, 0.2, 0.2, 1)
 
 [node name="DataSubject" type="Control" unique_id=1013457455]
 layout_mode = 3
@@ -169,41 +104,8 @@ grow_vertical = 2
 texture = ExtResource("2_ylpgf")
 stretch_mode = 1
 
-[node name="GradientMask" type="TextureRect" parent="." unique_id=933528517]
-top_level = true
-clip_children = 1
-layout_mode = 0
-offset_left = 110.0
-offset_top = 239.0
-offset_right = 1170.0
-offset_bottom = 440.0
-texture = ExtResource("3_buabq")
-
-[node name="SubjectsScroll" type="ScrollContainer" parent="GradientMask" unique_id=1626243880]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_vertical = 3
-follow_focus = true
-vertical_scroll_mode = 3
-script = ExtResource("4_y345i")
-wheel_scroll_damper = SubResource("Resource_wphfj")
-dragging_scroll_damper = SubResource("Resource_h1gsa")
-
-[node name="SubjectsContainer" type="GridContainer" parent="GradientMask/SubjectsScroll" unique_id=1599854834]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_constants/h_separation = 30
-theme_override_constants/v_separation = 15
-columns = 2
-script = ExtResource("2_k41un")
-subject_packed_scene = ExtResource("2_8o7ef")
-
 [node name="DataSubject" type="VBoxContainer" parent="." unique_id=616288865]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -295,180 +197,56 @@ label_settings = SubResource("LabelSettings_ylpgf")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Subject" type="Panel" parent="." unique_id=2099634603]
-visible = false
-layout_mode = 0
-offset_left = 385.0
-offset_top = 222.0
-offset_right = 886.0
-offset_bottom = 399.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_wiiei")
+[node name="CreateSubject" type="Panel" parent="." unique_id=1164262907]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 729.0
+offset_top = 18.0
+offset_right = -365.0
+offset_bottom = 61.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_y345i")
+metadata/_edit_group_ = true
 
-[node name="M" type="MarginContainer" parent="Subject" unique_id=435319620]
+[node name="HBoxContainer" type="HBoxContainer" parent="CreateSubject" unique_id=208910133]
+custom_minimum_size = Vector2(0, 38)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 2.5
+offset_right = -33.0
+offset_bottom = -2.5
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
 
-[node name="Elements" type="VBoxContainer" parent="Subject/M" unique_id=883151192]
-layout_mode = 2
-
-[node name="Quick" type="HBoxContainer" parent="Subject/M/Elements" unique_id=1200613819]
-layout_mode = 2
-
-[node name="MTitle" type="MarginContainer" parent="Subject/M/Elements/Quick" unique_id=1903769476]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_right = 10
-
-[node name="M" type="MarginContainer" parent="Subject/M/Elements/Quick/MTitle" unique_id=1706744190]
-layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_right = 10
-
-[node name="Name" type="HBoxContainer" parent="Subject/M/Elements/Quick/MTitle/M" unique_id=2037177334]
-layout_mode = 2
-
-[node name="Icon" type="MarginContainer" parent="Subject/M/Elements/Quick/MTitle/M/Name" unique_id=1708148299]
-layout_mode = 2
-
-[node name="Outline" type="Panel" parent="Subject/M/Elements/Quick/MTitle/M/Name/Icon" unique_id=2037530889]
-clip_children = 2
-custom_minimum_size = Vector2(40, 30)
+[node name="SearchIcon" type="TextureRect" parent="CreateSubject/HBoxContainer" unique_id=1563615975]
+custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 size_flags_vertical = 4
-theme_override_styles/panel = SubResource("StyleBoxFlat_hoy3h")
-
-[node name="Inner" type="Panel" parent="Subject/M/Elements/Quick/MTitle/M/Name/Icon" unique_id=1328334491]
-clip_children = 1
-custom_minimum_size = Vector2(30, 20)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_styles/panel = SubResource("StyleBoxFlat_4k6aa")
-
-[node name="Image" type="TextureRect" parent="Subject/M/Elements/Quick/MTitle/M/Name/Icon/Inner" unique_id=436053096]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 3.0
-offset_top = -5.0
-offset_right = -2.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("4_s1j61")
+texture = ExtResource("10_ob4f8")
 expand_mode = 1
+stretch_mode = 4
 
-[node name="Title" type="Label" parent="Subject/M/Elements/Quick/MTitle/M/Name" unique_id=1402383366]
-custom_minimum_size = Vector2(1, 1)
+[node name="Label" type="Label" parent="CreateSubject/HBoxContainer" unique_id=279770839]
 layout_mode = 2
-size_flags_horizontal = 3
-theme_override_fonts/font = ExtResource("4_0pdix")
-text = "Fisiologia"
-label_settings = SubResource("LabelSettings_s1j61")
-autowrap_mode = 1
-
-[node name="Underline" type="Panel" parent="Subject/M/Elements/Quick/MTitle" unique_id=229281145]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_hiay8")
-
-[node name="Level" type="Label" parent="Subject/M/Elements/Quick" unique_id=2053220898]
-custom_minimum_size = Vector2(1, 1)
-layout_mode = 2
-size_flags_vertical = 8
-theme_override_fonts/font = ExtResource("4_0pdix")
-text = "Lv. 15"
-label_settings = SubResource("LabelSettings_hoy3h")
-
-[node name="Button" type="Button" parent="Subject/M/Elements/Quick" unique_id=446926167]
-custom_minimum_size = Vector2(36, 36)
-layout_mode = 2
-size_flags_vertical = 4
-theme_override_styles/normal = SubResource("StyleBoxFlat_ylpgf")
-
-[node name="Button2" type="Button" parent="Subject/M/Elements/Quick" unique_id=54925829]
-custom_minimum_size = Vector2(36, 36)
-layout_mode = 2
-size_flags_vertical = 4
-theme_override_styles/normal = SubResource("StyleBoxFlat_0axcs")
-
-[node name="Button3" type="Button" parent="Subject/M/Elements/Quick" unique_id=957869913]
-custom_minimum_size = Vector2(36, 36)
-layout_mode = 2
-size_flags_vertical = 4
-theme_override_styles/normal = SubResource("StyleBoxFlat_ulao1")
-
-[node name="MTitle" type="MarginContainer" parent="Subject/M/Elements" unique_id=1159902447]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/margin_left = 15
-theme_override_constants/margin_right = 15
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Subject/M/Elements/MTitle" unique_id=352119441]
-layout_mode = 2
-
-[node name="Details" type="HBoxContainer" parent="Subject/M/Elements/MTitle/VBoxContainer" unique_id=208821276]
-layout_mode = 2
-alignment = 2
-
-[node name="Questions" type="Label" parent="Subject/M/Elements/MTitle/VBoxContainer/Details" unique_id=2116093320]
-custom_minimum_size = Vector2(1, 1)
-layout_mode = 2
-size_flags_vertical = 8
-theme_override_fonts/font = ExtResource("4_0pdix")
-text = "10532 Questions"
-label_settings = SubResource("LabelSettings_hoy3h")
-
-[node name="Description" type="Label" parent="Subject/M/Elements/MTitle/VBoxContainer" unique_id=1733334480]
-custom_minimum_size = Vector2(1, 90)
-layout_mode = 2
-size_flags_vertical = 8
-theme_override_fonts/font = ExtResource("4_0pdix")
-text = "A ciência que estuda o funcionamento dos orgãos do corpo humano ao nível dos sistemas e tal. Ela tem como objectivo ensinar ao estudante como cada ação tem uma reação em cada sistema do corpo. Essa cadeira irá tratar de ensinar-lhe cada "
-label_settings = SubResource("LabelSettings_hoy3h")
-autowrap_mode = 3
-text_overrun_behavior = 5
-
-[node name="ColorRect2" type="ColorRect" parent="." unique_id=817042018]
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -44.0
-grow_horizontal = 2
-grow_vertical = 0
-
-[node name="Title" type="Label" parent="ColorRect2" unique_id=631228193]
-custom_minimum_size = Vector2(1, 1)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 3
-theme_override_fonts/font = ExtResource("4_0pdix")
-text = "A - Delete, B - Edit, C - Eligible"
-label_settings = SubResource("LabelSettings_hiay8")
-autowrap_mode = 1
+theme_override_colors/font_color = Color(0, 0, 0.05490196, 1)
+text = "Create Subject"
+label_settings = SubResource("LabelSettings_wphfj")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Search" type="Panel" parent="." unique_id=1414286182]
+custom_minimum_size = Vector2(0, 43)
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
 offset_left = 44.0
-offset_top = 190.0
+offset_top = 86.0
 offset_right = -46.0
-offset_bottom = 233.0
+offset_bottom = 129.0
 grow_horizontal = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_fojjr")
 metadata/_edit_group_ = true
@@ -504,6 +282,64 @@ theme_override_styles/read_only = SubResource("StyleBoxEmpty_buabq")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_y345i")
 placeholder_text = "Search by Title"
 caret_blink = true
+
+[node name="GradientMask" type="TextureRect" parent="." unique_id=933528517]
+top_level = true
+clip_children = 1
+layout_mode = 0
+offset_left = 110.0
+offset_top = 137.0
+offset_right = 1170.0
+offset_bottom = 662.0
+texture = ExtResource("3_buabq")
+
+[node name="SubjectsScroll" type="ScrollContainer" parent="GradientMask" unique_id=1626243880]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+follow_focus = true
+vertical_scroll_mode = 3
+script = ExtResource("4_y345i")
+wheel_scroll_damper = SubResource("Resource_wphfj")
+dragging_scroll_damper = SubResource("Resource_h1gsa")
+
+[node name="SubjectsContainer" type="GridContainer" parent="GradientMask/SubjectsScroll" unique_id=1599854834]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/h_separation = 30
+theme_override_constants/v_separation = 15
+columns = 2
+script = ExtResource("2_k41un")
+subject_packed_scene = ExtResource("2_8o7ef")
+
+[node name="ColorRect2" type="ColorRect" parent="." unique_id=817042018]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -44.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Title" type="Label" parent="ColorRect2" unique_id=631228193]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("4_0pdix")
+text = "A - Delete, B - Edit, C - Eligible"
+label_settings = SubResource("LabelSettings_hiay8")
+autowrap_mode = 1
 
 [node name="User" parent="." unique_id=579549992 instance=ExtResource("14_y345i")]
 layout_mode = 1
