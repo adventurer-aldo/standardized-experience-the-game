@@ -1,5 +1,7 @@
 extends Panel
 
+signal subject_was_focused(subject_id: int)
+
 @export var data_question_scene: PackedScene
 
 @onready var title = $M/Elements/Quick/MTitle/M/Name/Title
@@ -29,3 +31,13 @@ func _on_subject_pressed() -> void:
 	question_scene.subject_id = subject_id
 	question_scene.title = $M/Elements/Quick/MTitle/M/Name/Title.text
 	add_child(question_scene)
+
+func _on_selected_focus_entered() -> void:
+	$Selected.show()
+	subject_was_focused.emit(subject_id)
+
+func _on_selected_focus_exited() -> void:
+	$Selected.hide()
+
+func _on_selected_mouse_entered() -> void:
+	grab_focus()

@@ -121,11 +121,35 @@ corner_radius_top_right = 30
 corner_radius_bottom_right = 30
 corner_radius_bottom_left = 30
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vfgbc"]
+bg_color = Color(1, 1, 1, 0)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(0, 0.083333254, 1, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+expand_margin_left = 5.0
+expand_margin_top = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_odny2"]
+bg_color = Color(2.8878452e-07, 0.71869826, 0.35706174, 1)
+corner_radius_top_left = 354
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
 [node name="Subject" type="Panel" unique_id=1602614645]
 custom_minimum_size = Vector2(500, 180)
 offset_right = 500.0
 offset_bottom = 180.0
 size_flags_horizontal = 6
+focus_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_fojjr")
 script = ExtResource("1_1tp4j")
 data_question_scene = ExtResource("2_svi1f")
@@ -295,4 +319,25 @@ label_settings = SubResource("LabelSettings_mvvj2")
 autowrap_mode = 3
 text_overrun_behavior = 5
 
+[node name="Selected" type="Panel" parent="." unique_id=464633682]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_vfgbc")
+
+[node name="Bookmark" type="Panel" parent="." unique_id=846123004]
+layout_mode = 0
+offset_left = 437.0
+offset_top = 3.0
+offset_right = 507.0
+offset_bottom = 26.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_odny2")
+
+[connection signal="focus_entered" from="." to="." method="_on_selected_focus_entered"]
+[connection signal="focus_exited" from="." to="." method="_on_selected_focus_exited"]
+[connection signal="mouse_entered" from="." to="." method="_on_selected_mouse_entered"]
 [connection signal="pressed" from="M/Elements/Quick/Edit" to="." method="_on_subject_pressed"]

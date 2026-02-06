@@ -16,5 +16,5 @@ func _process(_delta: float) -> void:
 	var hour = str(date["hour"]).lpad(2, "0")
 	var minute = str(date["minute"]).lpad(2, "0")
 	$Weekday.text = weekday
-	$Date.text = "{month}/{day}".format({"month": month, "day": day})
+	$Date.text = "{day}/{month}".format({"month": month, "day": day})
 	$Time.text = "{hour}:{minute}".format({"hour": hour, "minute": minute})

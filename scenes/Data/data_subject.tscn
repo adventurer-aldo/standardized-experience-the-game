@@ -356,3 +356,4 @@ metadata/_edit_group_ = true
 [connection signal="pressed" from="DataSubject/Elements/CreateButton" to="." method="_on_create_button_pressed"]
 [connection signal="pressed" from="BackButon" to="." method="_on_exit_pressed"]
 [connection signal="text_changed" from="Search/Elements/SearchBar" to="." method="_on_search_bar_text_changed"]
+[connection signal="subject_was_focused" from="GradientMask/SubjectsScroll/SubjectsContainer" to="." method="_on_subjects_container_subject_was_focused"]

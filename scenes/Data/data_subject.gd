@@ -1,6 +1,7 @@
 extends Control
 
 var subject = Subject.new()
+var currently_selected_subject_id: int
 
 func _on_create_button_pressed() -> void:
 	subject.title = $DataSubject/Elements/TitleLine.text
@@ -25,3 +26,8 @@ func _on_search_bar_text_changed(new_text: String) -> void:
 				subject.hide()
 			else:
 				subject.show()
+
+
+func _on_subjects_container_subject_was_focused(subject_id: int) -> void:
+	currently_selected_subject_id = subject_id
+	print(currently_selected_subject_id)
