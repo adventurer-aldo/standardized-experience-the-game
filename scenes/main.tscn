@@ -1,9 +1,8 @@
 [gd_scene format=3 uid="uid://bpf0tt33ehi2y"]
 
 [ext_resource type="Script" uid="uid://bdpus4w5vrgxp" path="res://scenes/main.gd" id="1_sugp2"]
-[ext_resource type="PackedScene" uid="uid://h8nysytvkxqo" path="res://scenes/quiz/quiz.tscn" id="2_sugp2"]
-[ext_resource type="PackedScene" uid="uid://dnhptst0j74w3" path="res://scenes/practice_subject.tscn" id="3_sugp2"]
 [ext_resource type="PackedScene" uid="uid://cvbfhohv32pcb" path="res://scenes/data/data_subject.tscn" id="4_jyhfs"]
+[ext_resource type="Texture2D" uid="uid://blnjow0okn4q5" path="res://graphics/icons/walker.svg" id="5_dp3eg"]
 [ext_resource type="Texture2D" uid="uid://ejk8mymsv7ff" path="res://graphics/mainpattern.png" id="5_gqmmt"]
 [ext_resource type="Texture2D" uid="uid://ctcvpsm8bw2an" path="res://graphics/intro_overlay.png" id="5_o6xl0"]
 [ext_resource type="PackedScene" uid="uid://dlr7qwhpdikn6" path="res://scenes/voice.tscn" id="5_tbgi4"]
@@ -14,7 +13,10 @@
 [ext_resource type="Script" uid="uid://c2keheyqpksb2" path="res://scenes/cheer_label.gd" id="9_0ld40"]
 [ext_resource type="AudioStream" uid="uid://c6wr681lp6peq" path="res://audio/tracks/journey.ogg" id="11_dp3eg"]
 [ext_resource type="PackedScene" uid="uid://d07j4gkkx5bx7" path="res://scenes/main/notification_dim.tscn" id="13_trceg"]
-[ext_resource type="FontFile" uid="uid://b5hv4vumrlxlb" path="res://fonts/ContinuumMedium.ttf" id="20_jscy8"]
+[ext_resource type="PackedScene" uid="uid://cv7voldn75uoq" path="res://scenes/main/menu_button.tscn" id="14_muem4"]
+[ext_resource type="Texture2D" uid="uid://cded8r01tfgvs" path="res://graphics/icons/joystick.svg" id="16_0ld40"]
+[ext_resource type="Texture2D" uid="uid://bvpjhhodkmb26" path="res://graphics/icons/bed-front.svg" id="17_gqmmt"]
+[ext_resource type="Texture2D" uid="uid://cvx4uxb0a6bpf" path="res://graphics/backgrounds/library.png" id="20_gqmmt"]
 [ext_resource type="PackedScene" uid="uid://bg7bp0isxc8bv" path="res://scenes/user_display/user.tscn" id="21_yc10j"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jyhfs"]
@@ -67,37 +69,8 @@ _data = {
 &"scroll": SubResource("Animation_choun")
 }
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_muem4"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dp3eg"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0ld40"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gqmmt"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yc10j"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jscy8"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pm3ni"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_y6deb"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_og1vs"]
-
-[sub_resource type="Theme" id="Theme_2wyq8"]
-Button/styles/disabled = SubResource("StyleBoxEmpty_muem4")
-Button/styles/disabled_mirrored = SubResource("StyleBoxEmpty_dp3eg")
-Button/styles/focus = SubResource("StyleBoxEmpty_0ld40")
-Button/styles/hover = SubResource("StyleBoxEmpty_gqmmt")
-Button/styles/hover_mirrored = SubResource("StyleBoxEmpty_yc10j")
-Button/styles/hover_pressed = SubResource("StyleBoxEmpty_jscy8")
-Button/styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_pm3ni")
-Button/styles/normal = SubResource("StyleBoxEmpty_y6deb")
-Button/styles/pressed = SubResource("StyleBoxEmpty_og1vs")
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pm3ni"]
-bg_color = Color(1, 1, 1, 0.5294118)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fojjr"]
+bg_color = Color(1, 1, 1, 0.5254902)
 border_width_left = 10
 border_width_top = 10
 border_width_right = 10
@@ -108,86 +81,83 @@ corner_radius_top_left = 20
 corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
+corner_detail = 6
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vxglm"]
-bg_color = Color(0, 0, 1, 0.5294118)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pm3ni"]
+bg_color = Color(1, 1, 1, 0.5294118)
 border_width_left = 10
 border_width_top = 10
 border_width_right = 10
 border_width_bottom = 10
-border_color = Color(0.1500001, 0, 1, 1)
+border_color = Color(1, 1, 1, 1)
 border_blend = true
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yc10j"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.19607843, 0.1882353, 0.23137255, 1)
 corner_radius_top_left = 20
 corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 
-[sub_resource type="LabelSettings" id="LabelSettings_ylpgf"]
-font = ExtResource("20_jscy8")
-font_size = 30
-font_color = Color(0.19607843, 0.1882353, 0.23137255, 1)
-outline_size = 6
-
-[sub_resource type="Animation" id="Animation_o6xl0"]
+[sub_resource type="Animation" id="Animation_dp3eg"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Rect:size")
+tracks/0/path = NodePath(".:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(1488.7449, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Rect:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(227.62488, 754.3402)]
+"values": [Vector2(539, 103)]
 }
 
-[sub_resource type="Animation" id="Animation_tefeu"]
-resource_name = "scroll"
-length = 0.5
+[sub_resource type="Animation" id="Animation_0ld40"]
+resource_name = "slide_in"
+length = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Rect:size")
+tracks/0/path = NodePath(".:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
+"times": PackedFloat32Array(0, 0.1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(1488.7449, 0), Vector2(1488.7449, 1293.3815)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Rect:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(227.62488, 754.3402), Vector2(-419.06586, -365.761)]
+"values": [Vector2(539, 103), Vector2(475, 103)]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_tipki"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gqmmt"]
 _data = {
-&"RESET": SubResource("Animation_o6xl0"),
-&"scroll": SubResource("Animation_tefeu")
+&"RESET": SubResource("Animation_dp3eg"),
+&"slide_in": SubResource("Animation_0ld40")
 }
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jscy8"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.19607843, 0.1882353, 0.23137255, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+expand_margin_left = 3.0
+expand_margin_top = 3.0
+expand_margin_right = 3.0
+expand_margin_bottom = 3.0
 
 [node name="Main" type="Panel" unique_id=749532907]
 anchors_preset = 15
@@ -197,8 +167,6 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_jyhfs")
 script = ExtResource("1_sugp2")
-quiz_scene = ExtResource("2_sugp2")
-practice_subject = ExtResource("3_sugp2")
 data_subject_scene = ExtResource("4_jyhfs")
 
 [node name="Panel2" type="Panel" parent="." unique_id=1026270071]
@@ -245,13 +213,16 @@ stretch_mode = 1
 [node name="ScrollLoopAnim" type="AnimationPlayer" parent="Overlay" unique_id=172470390]
 libraries/ = SubResource("AnimationLibrary_eb6dy")
 
-[node name="QuoteBG" type="ColorRect" parent="." unique_id=1587776638]
+[node name="QuoteBG" type="Panel" parent="." unique_id=903063708]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_bottom = 35.0
+offset_left = 42.0
+offset_top = 22.0
+offset_right = -473.0
+offset_bottom = 76.0
 grow_horizontal = 2
-color = Color(1, 0.69803923, 0.2627451, 1)
+theme_override_styles/panel = SubResource("StyleBoxFlat_fojjr")
 
 [node name="QuoteContainer" type="HBoxContainer" parent="QuoteBG" unique_id=1692929445]
 layout_mode = 1
@@ -272,7 +243,7 @@ size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.4117647, 0.101960786, 0.101960786, 1)
 text = "\"We're unprepared for every challenge we meet for the first time.\""
 script = ExtResource("7_choun")
-quotes = PackedStringArray("We\'re unprepared for every challenge we meet for the first time.", "The early student learns sooner.", "Each defeat is a step towards the ending.", "Don\'t wait for the challenge to get prepared for it.", "To err is to gain experience.", "With new knowledge, you don\'t study how you came to know it.", "Your own experienced knowledge is more valuable than words of others.", "Pacience and persistence are needed to create a solid mind.", "Learning is simple. We make it difficult.", "Incompetence is a feeling that can never be experienced again once you gain mastery.", "Humans are beings of knowledge and experience.", "To study is to train the mind.", "Experience is a cruel teacher. She gives the test first and the lesson afterwards.", "Being ready enough is a myth, even for the truly experienced.", "Self-esteem is irrelevant for whether you do good or bad.", "Being a genius is subjective to others\' intellect. Evolution is subjective to the growth between you and your past.", "If you\'re not leveling up, you\'re leveling down.", "Courage and bravery triumph over confidence when learning.", "You don\'t lack willpower—you lack a compelling enough reason.", "Talent is just early progress that you mistook for destiny.", "Being busy is a decision, not a circumstance.", "Overthinking is just underdoing disguised as preparation.", "Procrastination isn\'t laziness—it\'s perfectionism wearing a disguise.", "Suffering doesn\'t build character—how you interpret suffering does.", "Clarity comes from action, not contemplation.", "You don\'t struggle with the subject—you struggle with the fact that struggling is part of the subject.", "Every time you say \'I\'ll understand it later,\' you\'re choosing to misunderstand it now.", "The difference between an A and a C isn\'t intelligence. It\'s whether you started the problem set on Tuesday or Sunday.", "Cramming proves you could have learned it slowly if you\'d wanted to. You just chose panic over preparation.", "The material didn\'t get harder. You just got further behind.", "You don\'t \'not get it\'—you just haven\'t gotten it yet, and you\'re pretending that\'s permanent.", "Intelligence is what you use to avoid the work that would make you competent.", "Intelligence is subjective. Competence is not.")
+quotes = PackedStringArray("We\'re unprepared for every challenge we meet for the first time.", "The early student learns sooner.", "Each defeat is a step towards the ending.", "Don\'t wait for the challenge to get prepared for it.", "To err is to gain experience.", "With new knowledge, you don\'t study how you came to know it.", "Your own experienced knowledge is more valuable than words of others.", "Pacience and persistence are needed to create a solid mind.", "Learning is simple. We make it difficult.", "Incompetence is a feeling that can never be experienced again once you gain mastery.", "Humans are beings of knowledge and experience.", "To study is to train the mind.", "Experience is a cruel teacher. She gives the test first and the lesson afterwards.", "Being ready enough is a myth, even for the truly experienced.", "Self-esteem is irrelevant for whether you do good or bad.", "Being a genius is subjective to others\' intellect. Evolution is subjective to the growth between you and your past.", "If you\'re not leveling up, you\'re leveling down.", "Courage and bravery triumph over confidence when learning.", "You don\'t lack willpower—you lack a compelling enough reason.", "Talent is just early progress that you mistook for destiny.", "Being busy is a decision, not a circumstance.", "Overthinking is just underdoing disguised as preparation.", "Procrastination isn\'t laziness—it\'s perfectionism wearing a disguise.", "Suffering doesn\'t build character—how you interpret suffering does.", "Clarity comes from action, not contemplation.", "You don\'t struggle with the subject—you struggle with the fact that struggling is part of the subject.", "Every time you say \'I\'ll understand it later,\' you\'re choosing to misunderstand it now.", "The difference between an A and a C isn\'t intelligence. It\'s whether you started the problem set on Tuesday or Sunday.", "Cramming proves you could have learned it slowly if you\'d wanted to. You just chose panic over preparation.", "The material didn\'t get harder. You just got further behind.", "You don\'t \'not get it\'—you just haven\'t gotten it yet, and you\'re pretending that\'s permanent.", "Intelligence is what you use to avoid the work that would make you competent.", "Intelligence is subjective. Competence is not.", "Complete mastery of a challenging subject begins with reading a single sentence.", "Those who never venture outside their comfort zone never learn their ability to master skills beyond it.", "Even dust, when piled up, becomes a mountain.", "Study the old to know the new.", "Fail seven times, retry eight.", "After rain, the ground hardens.", "Only failure cures stupidity.", "Even monkeys fall from trees sometimes.", "Adversity strengthens the foundations of your knowledge.", "The more people you have, the more ideas you will get through the discussion.", "One who chases after 2 rabbits will not even catch one.", "One man’s failure is another’s lesson.", "Giving birth is easier than worrying about it.")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1919938097]
 layout_mode = 1
@@ -326,14 +297,15 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -342.00006
-offset_top = -356.00006
-offset_right = 533.0
-offset_bottom = 519.0
+offset_left = -1174.0
+offset_top = -643.0
+offset_right = -792.4834
+offset_bottom = -261.4834
 grow_horizontal = 0
 grow_vertical = 0
 scale = Vector2(0.36171427, 0.37971425)
 texture = ExtResource("8_choun")
+expand_mode = 5
 
 [node name="BGM" type="AudioStreamPlayer" parent="." unique_id=1122383797]
 stream = ExtResource("11_dp3eg")
@@ -342,147 +314,61 @@ bus = &"BGM"
 
 [node name="Voice" parent="." unique_id=572250213 instance=ExtResource("5_tbgi4")]
 
-[node name="Subjects" type="Button" parent="." unique_id=446077092]
-layout_mode = 0
-offset_left = 91.0
-offset_top = 314.0
-offset_right = 343.0
-offset_bottom = 361.0
-text = "Subjects"
-
-[node name="Practice" type="Button" parent="." unique_id=202303619]
-layout_mode = 0
-offset_left = 91.0
-offset_top = 442.0
-offset_right = 343.0
-offset_bottom = 500.0
-text = "Practice"
-
-[node name="GridContainer" type="GridContainer" parent="Practice" unique_id=1690756882]
-layout_mode = 0
-offset_left = 441.0
-offset_top = -310.0
-offset_right = 865.0
-offset_bottom = 45.0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1360860596]
+[node name="Base2" type="MarginContainer" parent="." unique_id=862112783]
+custom_minimum_size = Vector2(0, 60)
 layout_mode = 0
 offset_left = -5.0
 offset_top = 224.0
-offset_right = 294.0
-offset_bottom = 629.0
+offset_right = 361.0
+offset_bottom = 466.0
+
+[node name="Base" type="Panel" parent="Base2" unique_id=19619784]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_pm3ni")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Base2" unique_id=1360860596]
+layout_mode = 2
 theme_override_constants/separation = 0
-metadata/_edit_group_ = true
 
-[node name="Button" type="Button" parent="VBoxContainer" unique_id=1973259610]
-custom_minimum_size = Vector2(0, 60)
+[node name="SubjectsButton" parent="Base2/VBoxContainer" unique_id=1057535993 instance=ExtResource("14_muem4")]
 layout_mode = 2
-theme = SubResource("Theme_2wyq8")
 
-[node name="Panel2" type="Panel" parent="VBoxContainer/Button" unique_id=631518046]
-custom_minimum_size = Vector2(0, 60)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_pm3ni")
-
-[node name="Panel3" type="Panel" parent="VBoxContainer/Button" unique_id=485655696]
-visible = false
-custom_minimum_size = Vector2(0, 60)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_vxglm")
-
-[node name="Label" type="Label" parent="VBoxContainer/Button" unique_id=1781607807]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "Subjects"
-label_settings = SubResource("LabelSettings_ylpgf")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Panel3" type="Panel" parent="VBoxContainer" unique_id=873657351]
-custom_minimum_size = Vector2(0, 60)
+[node name="JourneyButton" parent="Base2/VBoxContainer" unique_id=1896130196 instance=ExtResource("14_muem4")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_pm3ni")
 
-[node name="Label" type="Label" parent="VBoxContainer/Panel3" unique_id=1421479659]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="Label" parent="Base2/VBoxContainer/JourneyButton/Texts" parent_id_path=PackedInt32Array(1896130196, 816294809) index="0" unique_id=1320499887]
 text = "Journey"
-label_settings = SubResource("LabelSettings_ylpgf")
-horizontal_alignment = 1
-vertical_alignment = 1
 
-[node name="Panel4" type="Panel" parent="VBoxContainer" unique_id=1588272339]
-custom_minimum_size = Vector2(0, 60)
+[node name="Icon" parent="Base2/VBoxContainer/JourneyButton/Texts/Label" index="0" unique_id=1236317861]
+texture = ExtResource("5_dp3eg")
+
+[node name="Desc" parent="Base2/VBoxContainer/JourneyButton/Texts/MDesc" parent_id_path=PackedInt32Array(1896130196, 312624622) index="0" unique_id=1441112836]
+text = "Simulate a semester with real stakes at hand."
+
+[node name="FreestyleButton" parent="Base2/VBoxContainer" unique_id=1804627280 instance=ExtResource("14_muem4")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_pm3ni")
 
-[node name="Label" type="Label" parent="VBoxContainer/Panel4" unique_id=1309380814]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="Label" parent="Base2/VBoxContainer/FreestyleButton/Texts" parent_id_path=PackedInt32Array(1804627280, 816294809) index="0" unique_id=1320499887]
 text = "Freestyle"
-label_settings = SubResource("LabelSettings_ylpgf")
-horizontal_alignment = 1
-vertical_alignment = 1
 
-[node name="Panel5" type="Panel" parent="VBoxContainer" unique_id=648608449]
-custom_minimum_size = Vector2(0, 60)
+[node name="Icon" parent="Base2/VBoxContainer/FreestyleButton/Texts/Label" index="0" unique_id=1236317861]
+texture = ExtResource("16_0ld40")
+
+[node name="Desc" parent="Base2/VBoxContainer/FreestyleButton/Texts/MDesc" parent_id_path=PackedInt32Array(1804627280, 312624622) index="0" unique_id=1441112836]
+text = "Play with Subjects and level up as you go."
+
+[node name="RestButton" parent="Base2/VBoxContainer" unique_id=1558879698 instance=ExtResource("14_muem4")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_pm3ni")
 
-[node name="Label" type="Label" parent="VBoxContainer/Panel5" unique_id=1040248312]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "Leave"
-label_settings = SubResource("LabelSettings_ylpgf")
-horizontal_alignment = 1
-vertical_alignment = 1
+[node name="Label" parent="Base2/VBoxContainer/RestButton/Texts" parent_id_path=PackedInt32Array(1558879698, 816294809) index="0" unique_id=1320499887]
+text = "Rest"
 
-[node name="Exit" type="Button" parent="." unique_id=1951728955]
-layout_mode = 0
-offset_left = -5.0
-offset_top = 404.0
-offset_right = 294.0
-offset_bottom = 433.0
-text = "Leave"
+[node name="Icon" parent="Base2/VBoxContainer/RestButton/Texts/Label" index="0" unique_id=1236317861]
+texture = ExtResource("17_gqmmt")
 
-[node name="Rect" type="ColorRect" parent="Exit" unique_id=1112578792]
-visible = false
-layout_mode = 0
-offset_left = 227.62488
-offset_top = 754.3402
-offset_right = 1716.3698
-offset_bottom = 754.3402
-rotation = -0.5235988
-color = Color(0, 0, 0, 1)
-
-[node name="ExitScroll" type="AnimationPlayer" parent="Exit" unique_id=1512230308]
-libraries/ = SubResource("AnimationLibrary_tipki")
+[node name="Desc" parent="Base2/VBoxContainer/RestButton/Texts/MDesc" parent_id_path=PackedInt32Array(1558879698, 312624622) index="0" unique_id=1441112836]
+text = "Take a break and return later."
 
 [node name="ScreenDim" parent="." unique_id=135422224 instance=ExtResource("13_trceg")]
 layout_mode = 0
@@ -492,14 +378,6 @@ anchor_bottom = 0.0
 grow_horizontal = 1
 grow_vertical = 1
 metadata/_edit_lock_ = true
-
-[node name="Button" type="Button" parent="." unique_id=1774012730]
-layout_mode = 0
-offset_left = 618.0
-offset_top = 84.0
-offset_right = 1202.0
-offset_bottom = 326.0
-text = "Random Question to answer"
 
 [node name="User" parent="." unique_id=579549992 instance=ExtResource("21_yc10j")]
 layout_mode = 1
@@ -512,6 +390,66 @@ offset_right = 13.0
 offset_bottom = 56.0
 grow_horizontal = 0
 
+[node name="BackPanel" type="Panel" parent="." unique_id=981300017]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 521.00006
+offset_top = 89.00001
+offset_right = -123.99988
+offset_bottom = -310.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 0.09221772
+theme_override_styles/panel = SubResource("StyleBoxFlat_yc10j")
+
+[node name="ChangeIlust" type="AnimationPlayer" parent="." unique_id=1817818335]
+root_node = NodePath("../Outline")
+libraries/ = SubResource("AnimationLibrary_gqmmt")
+
+[node name="Outline" type="Panel" parent="." unique_id=1985316978]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 539.0
+offset_top = 103.0
+offset_right = -105.999756
+offset_bottom = -296.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_jscy8")
+metadata/_edit_group_ = true
+
+[node name="Mask" type="Panel" parent="Outline" unique_id=1172951948]
+clip_children = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_yc10j")
+
+[node name="Texture" type="TextureRect" parent="Outline/Mask" unique_id=1505087754]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("20_gqmmt")
+expand_mode = 1
+
 [connection signal="animation_finished" from="Overlay/ScrollLoopAnim" to="." method="_on_scroll_loop_anim_animation_finished"]
-[connection signal="pressed" from="Subjects" to="." method="_on_subjects_pressed"]
-[connection signal="pressed" from="Exit" to="." method="_on_exit_pressed"]
+[connection signal="focus_entered" from="Base2/VBoxContainer/SubjectsButton" to="." method="_on_subjects_button_focus_entered"]
+[connection signal="pressed" from="Base2/VBoxContainer/SubjectsButton" to="." method="_on_subjects_pressed"]
+[connection signal="focus_entered" from="Base2/VBoxContainer/JourneyButton" to="." method="_on_journey_button_focus_entered"]
+[connection signal="focus_entered" from="Base2/VBoxContainer/FreestyleButton" to="." method="_on_freestyle_button_focus_entered"]
+[connection signal="focus_entered" from="Base2/VBoxContainer/RestButton" to="." method="_on_rest_button_focus_entered"]
+[connection signal="pressed" from="Base2/VBoxContainer/RestButton" to="." method="_on_exit_pressed"]
+
+[editable path="Base2/VBoxContainer/JourneyButton"]
+[editable path="Base2/VBoxContainer/FreestyleButton"]
+[editable path="Base2/VBoxContainer/RestButton"]

@@ -8,6 +8,15 @@ signal subject_was_focused(subject_id: int)
 @onready var description = $M/Elements/MTitle/VBox/Description
 var subject_id: int
 
+func _input(event: InputEvent) -> void:
+	if has_focus():
+		if event is InputEventKey:
+			if event.key_label == Key.KEY_ENTER:
+				_on_subject_pressed()
+		elif event is InputEventMouse:
+			if event.button_mask == MouseButton.MOUSE_BUTTON_LEFT:
+				_on_subject_pressed()
+
 func set_title(to: String) -> void:
 	$M/Elements/Quick/MTitle/M/Name/Title.text = to
 

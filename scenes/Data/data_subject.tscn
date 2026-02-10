@@ -10,9 +10,9 @@
 [ext_resource type="Script" path="res://addons/SmoothScroll/smooth_scroll_container.gd" id="4_y345i"]
 [ext_resource type="Texture2D" uid="uid://bm1tk1odkf3ed" path="res://graphics/icons/circle-arrow-left.svg" id="5_0axcs"]
 [ext_resource type="Script" uid="uid://b7h0k2h2qwlqv" path="res://addons/SmoothScroll/scroll_damper/expo_scroll_damper.gd" id="5_ob4f8"]
+[ext_resource type="Texture2D" uid="uid://dgsrudcioj334" path="res://graphics/icons/books-medical.svg" id="5_y345i"]
 [ext_resource type="Texture2D" uid="uid://b4mjun0mwc3lt" path="res://graphics/icons/magnifying-glass.svg" id="9_ulao1"]
 [ext_resource type="FontFile" uid="uid://djqlkih7hivms" path="res://fonts/DMSans-Bold.ttf" id="10_4k6aa"]
-[ext_resource type="Texture2D" uid="uid://xhg1ux1kvubd" path="res://graphics/icons/circle-plus.svg" id="10_ob4f8"]
 [ext_resource type="PackedScene" uid="uid://bg7bp0isxc8bv" path="res://scenes/user_display/user.tscn" id="14_y345i"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hbpdo"]
@@ -226,7 +226,7 @@ grow_vertical = 2
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 size_flags_vertical = 4
-texture = ExtResource("10_ob4f8")
+texture = ExtResource("5_y345i")
 expand_mode = 1
 stretch_mode = 4
 

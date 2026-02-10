@@ -1,0 +1,138 @@
+[gd_scene format=3 uid="uid://cv7voldn75uoq"]
+
+[ext_resource type="FontFile" uid="uid://b5hv4vumrlxlb" path="res://fonts/ContinuumMedium.ttf" id="1_1q8ts"]
+[ext_resource type="Script" uid="uid://c44msp60x2hrv" path="res://scenes/main/menu_button.gd" id="1_440dp"]
+[ext_resource type="Texture2D" uid="uid://dgsrudcioj334" path="res://graphics/icons/books-medical.svg" id="2_440dp"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pm3ni"]
+bg_color = Color(1, 1, 1, 0.5294118)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(1, 1, 1, 1)
+border_blend = true
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vxglm"]
+bg_color = Color(0.1025, 0.13325004, 0.41, 0.5294118)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(0.1025, 0.13325004, 0.41, 1)
+border_blend = true
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+
+[sub_resource type="LabelSettings" id="LabelSettings_ylpgf"]
+font = ExtResource("1_1q8ts")
+font_size = 30
+font_color = Color(0.19607843, 0.1882353, 0.23137255, 1)
+outline_size = 6
+
+[sub_resource type="LabelSettings" id="LabelSettings_gm3qu"]
+outline_size = 5
+outline_color = Color(0.25490198, 0.24705882, 0.2901961, 1)
+
+[sub_resource type="Animation" id="Animation_kt210"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Focus:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_aliqa"]
+resource_name = "focused"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Focus:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.27450982), Color(1, 1, 1, 1), Color(1, 1, 1, 0.27450982)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7b10h"]
+_data = {
+&"RESET": SubResource("Animation_kt210"),
+&"focused": SubResource("Animation_aliqa")
+}
+
+[node name="MenuButton" type="MarginContainer" unique_id=1057535993]
+custom_minimum_size = Vector2(366, 60)
+size_flags_horizontal = 0
+focus_mode = 2
+script = ExtResource("1_440dp")
+
+[node name="Base" type="Panel" parent="." unique_id=271060979]
+visible = false
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_pm3ni")
+
+[node name="Focus" type="Panel" parent="." unique_id=1686158507]
+modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_vxglm")
+
+[node name="Texts" type="VBoxContainer" parent="." unique_id=816294809]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Label" type="Label" parent="Texts" unique_id=1320499887]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Subjects"
+label_settings = SubResource("LabelSettings_ylpgf")
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="Icon" type="TextureRect" parent="Texts/Label" unique_id=1236317861]
+visible = false
+layout_mode = 1
+offset_left = 16.0
+offset_right = 64.75
+offset_bottom = 39.0
+texture = ExtResource("2_440dp")
+expand_mode = 3
+
+[node name="MDesc" type="MarginContainer" parent="Texts" unique_id=312624622]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 0
+
+[node name="Desc" type="Label" parent="Texts/MDesc" unique_id=1441112836]
+layout_mode = 2
+text = "Organize your subjects and their questions."
+label_settings = SubResource("LabelSettings_gm3qu")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Anims" type="AnimationPlayer" parent="." unique_id=1953428483]
+libraries/ = SubResource("AnimationLibrary_7b10h")
+
+[connection signal="focus_entered" from="." to="." method="_on_focus_entered"]
+[connection signal="focus_exited" from="." to="." method="_on_focus_exited"]
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="animation_finished" from="Anims" to="." method="_on_anims_animation_finished"]

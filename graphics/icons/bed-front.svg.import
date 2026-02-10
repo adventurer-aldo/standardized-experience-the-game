@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://2dx55lrhkwqm"
-path="res://.godot/imported/LogoO.png-82ca8dd1758fbba7e127c65280b230e5.ctex"
+uid="uid://bvpjhhodkmb26"
+path="res://.godot/imported/bed-front.svg-3ef229f469e9296e64f93b8c690e622c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://graphics/LogoO.png"
-dest_files=["res://.godot/imported/LogoO.png-82ca8dd1758fbba7e127c65280b230e5.ctex"]
+source_file="res://graphics/icons/bed-front.svg"
+dest_files=["res://.godot/imported/bed-front.svg-3ef229f469e9296e64f93b8c690e622c.ctex"]
 
 [params]
 
@@ -38,3 +38,6 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
+svg/scale=1.0
+editor/scale_with_editor_scale=false
+editor/convert_colors_with_editor_theme=false

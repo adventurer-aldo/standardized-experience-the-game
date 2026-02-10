@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://2dx55lrhkwqm"
-path="res://.godot/imported/LogoO.png-82ca8dd1758fbba7e127c65280b230e5.ctex"
+uid="uid://k7ihrfomhjvi"
+path="res://.godot/imported/journey.png-0be465250e9ebaaf4689627c6afe53e9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://graphics/LogoO.png"
-dest_files=["res://.godot/imported/LogoO.png-82ca8dd1758fbba7e127c65280b230e5.ctex"]
+source_file="res://graphics/backgrounds/journey.png"
+dest_files=["res://.godot/imported/journey.png-0be465250e9ebaaf4689627c6afe53e9.ctex"]
 
 [params]
 
