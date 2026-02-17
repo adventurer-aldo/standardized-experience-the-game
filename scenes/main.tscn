@@ -9,9 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://c84vifgxk83ta" path="res://graphics/smallicons/SpeechIcon.png" id="6_85g3d"]
 [ext_resource type="Script" uid="uid://beeh1u3slrs6d" path="res://scenes/main/quote.gd" id="7_choun"]
 [ext_resource type="Texture2D" uid="uid://2dx55lrhkwqm" path="res://graphics/LogoO.png" id="8_choun"]
-[ext_resource type="Texture2D" uid="uid://cypf4kxrg0uou" path="res://graphics/decorline.png" id="8_ya4ey"]
-[ext_resource type="Script" uid="uid://c2keheyqpksb2" path="res://scenes/cheer_label.gd" id="9_0ld40"]
-[ext_resource type="AudioStream" uid="uid://c6wr681lp6peq" path="res://audio/tracks/journey.ogg" id="11_dp3eg"]
+[ext_resource type="AudioStream" uid="uid://dotyikhexcvrj" path="res://audio/tracks/main.ogg" id="10_dp3eg"]
 [ext_resource type="PackedScene" uid="uid://d07j4gkkx5bx7" path="res://scenes/main/notification_dim.tscn" id="13_trceg"]
 [ext_resource type="PackedScene" uid="uid://cv7voldn75uoq" path="res://scenes/main/menu_button.tscn" id="14_muem4"]
 [ext_resource type="Texture2D" uid="uid://cded8r01tfgvs" path="res://graphics/icons/joystick.svg" id="16_0ld40"]
@@ -93,6 +91,55 @@ border_color = Color(1, 1, 1, 1)
 border_blend = true
 corner_radius_top_right = 20
 corner_radius_bottom_right = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_muem4"]
+bg_color = Color(0.41, 0.41, 0.41, 0.5294118)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(0.14, 0.14, 0.14, 0.73333335)
+border_blend = true
+corner_radius_top_right = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dp3eg"]
+bg_color = Color(0.19, 0.19, 0.19, 0.5294118)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(0.08, 0.08, 0.08, 0.73333335)
+border_blend = true
+corner_radius_top_right = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0ld40"]
+bg_color = Color(0.41, 0.41, 0.41, 0.5294118)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(0.14, 0.14, 0.14, 0.73333335)
+border_blend = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gqmmt"]
+bg_color = Color(0.41, 0.41, 0.41, 0.5294118)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(0.14, 0.14, 0.14, 0.73333335)
+border_blend = true
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y6deb"]
+bg_color = Color(0.19, 0.19, 0.19, 0.5294118)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(0.08, 0.08, 0.08, 0.73333335)
+border_blend = true
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yc10j"]
 bg_color = Color(1, 1, 1, 1)
@@ -178,7 +225,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_hbpdo")
 
-[node name="TextureRect2" type="TextureRect" parent="." unique_id=391895830]
+[node name="BGDots" type="TextureRect" parent="." unique_id=391895830]
 modulate = Color(0.5912317, 0.6272673, 0.6987933, 0.16078432)
 layout_mode = 1
 anchors_preset = 15
@@ -189,20 +236,7 @@ grow_vertical = 2
 texture = ExtResource("5_gqmmt")
 stretch_mode = 1
 
-[node name="TextureRect" type="TextureRect" parent="." unique_id=633500167]
-visible = false
-modulate = Color(0.1, 0.20000005, 0.4, 0.75686276)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("5_gqmmt")
-stretch_mode = 1
-
 [node name="Overlay" type="TextureRect" parent="." unique_id=733440368]
-visible = false
 modulate = Color(0, 0.043137256, 0.1882353, 0.21176471)
 layout_mode = 0
 offset_right = 3237.0
@@ -240,55 +274,13 @@ expand_mode = 2
 [node name="Quote" type="Label" parent="QuoteBG/QuoteContainer" unique_id=2048007753]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.4117647, 0.101960786, 0.101960786, 1)
+theme_override_colors/font_color = Color(0.19607843, 0.1882353, 0.23137255, 1)
+theme_override_colors/font_outline_color = Color(0.19607843, 0.1882353, 0.23137255, 1)
+theme_override_constants/outline_size = 2
 text = "\"We're unprepared for every challenge we meet for the first time.\""
+autowrap_mode = 2
 script = ExtResource("7_choun")
 quotes = PackedStringArray("We\'re unprepared for every challenge we meet for the first time.", "The early student learns sooner.", "Each defeat is a step towards the ending.", "Don\'t wait for the challenge to get prepared for it.", "To err is to gain experience.", "With new knowledge, you don\'t study how you came to know it.", "Your own experienced knowledge is more valuable than words of others.", "Pacience and persistence are needed to create a solid mind.", "Learning is simple. We make it difficult.", "Incompetence is a feeling that can never be experienced again once you gain mastery.", "Humans are beings of knowledge and experience.", "To study is to train the mind.", "Experience is a cruel teacher. She gives the test first and the lesson afterwards.", "Being ready enough is a myth, even for the truly experienced.", "Self-esteem is irrelevant for whether you do good or bad.", "Being a genius is subjective to others\' intellect. Evolution is subjective to the growth between you and your past.", "If you\'re not leveling up, you\'re leveling down.", "Courage and bravery triumph over confidence when learning.", "You don\'t lack willpower—you lack a compelling enough reason.", "Talent is just early progress that you mistook for destiny.", "Being busy is a decision, not a circumstance.", "Overthinking is just underdoing disguised as preparation.", "Procrastination isn\'t laziness—it\'s perfectionism wearing a disguise.", "Suffering doesn\'t build character—how you interpret suffering does.", "Clarity comes from action, not contemplation.", "You don\'t struggle with the subject—you struggle with the fact that struggling is part of the subject.", "Every time you say \'I\'ll understand it later,\' you\'re choosing to misunderstand it now.", "The difference between an A and a C isn\'t intelligence. It\'s whether you started the problem set on Tuesday or Sunday.", "Cramming proves you could have learned it slowly if you\'d wanted to. You just chose panic over preparation.", "The material didn\'t get harder. You just got further behind.", "You don\'t \'not get it\'—you just haven\'t gotten it yet, and you\'re pretending that\'s permanent.", "Intelligence is what you use to avoid the work that would make you competent.", "Intelligence is subjective. Competence is not.", "Complete mastery of a challenging subject begins with reading a single sentence.", "Those who never venture outside their comfort zone never learn their ability to master skills beyond it.", "Even dust, when piled up, becomes a mountain.", "Study the old to know the new.", "Fail seven times, retry eight.", "After rain, the ground hardens.", "Only failure cures stupidity.", "Even monkeys fall from trees sometimes.", "Adversity strengthens the foundations of your knowledge.", "The more people you have, the more ideas you will get through the discussion.", "One who chases after 2 rabbits will not even catch one.", "One man’s failure is another’s lesson.", "Giving birth is easier than worrying about it.")
-
-[node name="ColorRect" type="ColorRect" parent="." unique_id=1919938097]
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -181.0
-offset_bottom = -106.0
-grow_horizontal = 2
-grow_vertical = 0
-color = Color(1, 0.69803923, 0.2627451, 1)
-
-[node name="Decorline" type="TextureRect" parent="." unique_id=873829163]
-modulate = Color(1, 0.69803923, 0.2627451, 1)
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -493.0
-offset_top = 495.99997
-offset_right = 980.0
-offset_bottom = 550.0
-grow_horizontal = 2
-scale = Vector2(0.6666667, 0.6666667)
-texture = ExtResource("8_ya4ey")
-
-[node name="Decorline2" type="TextureRect" parent="Decorline" unique_id=392823292]
-layout_mode = 1
-offset_left = 1473.0
-offset_top = 246.00003
-offset_right = 2946.0
-offset_bottom = 300.00003
-rotation = 3.1415927
-texture = ExtResource("8_ya4ey")
-
-[node name="Label" type="Label" parent="." unique_id=942764629]
-layout_mode = 0
-offset_left = 442.0
-offset_top = 550.0
-offset_right = 939.0
-offset_bottom = 601.0
-text = "Your last test was of SUBJECT_NAME. Your grade was GRADE.
-EVALUATION LINE"
-script = ExtResource("9_0ld40")
 
 [node name="LogoO" type="TextureRect" parent="." unique_id=1163254591]
 layout_mode = 1
@@ -308,7 +300,7 @@ texture = ExtResource("8_choun")
 expand_mode = 5
 
 [node name="BGM" type="AudioStreamPlayer" parent="." unique_id=1122383797]
-stream = ExtResource("11_dp3eg")
+stream = ExtResource("10_dp3eg")
 autoplay = true
 bus = &"BGM"
 
@@ -331,7 +323,27 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_pm3ni")
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="SubjectsButton" parent="Base2/VBoxContainer" unique_id=1057535993 instance=ExtResource("14_muem4")]
+[node name="StoryButton" parent="Base2/VBoxContainer" unique_id=1057535993 instance=ExtResource("14_muem4")]
+layout_mode = 2
+focus_mode = 0
+
+[node name="Base" parent="Base2/VBoxContainer/StoryButton" index="0" unique_id=271060979]
+visible = true
+theme_override_styles/panel = SubResource("StyleBoxFlat_muem4")
+
+[node name="Focus" parent="Base2/VBoxContainer/StoryButton" index="1" unique_id=1686158507]
+theme_override_styles/panel = SubResource("StyleBoxFlat_dp3eg")
+
+[node name="Label" parent="Base2/VBoxContainer/StoryButton/Texts" parent_id_path=PackedInt32Array(1057535993, 816294809) index="0" unique_id=1320499887]
+text = "Story"
+
+[node name="Icon" parent="Base2/VBoxContainer/StoryButton/Texts/Label" index="0" unique_id=1236317861]
+texture = ExtResource("16_0ld40")
+
+[node name="Desc" parent="Base2/VBoxContainer/StoryButton/Texts/MDesc" parent_id_path=PackedInt32Array(1057535993, 312624622) index="0" unique_id=1441112836]
+text = "Play with Subjects and level up as you go."
+
+[node name="SubjectsButton" parent="Base2/VBoxContainer" unique_id=1764401637 instance=ExtResource("14_muem4")]
 layout_mode = 2
 
 [node name="JourneyButton" parent="Base2/VBoxContainer" unique_id=1896130196 instance=ExtResource("14_muem4")]
@@ -356,6 +368,46 @@ text = "Freestyle"
 texture = ExtResource("16_0ld40")
 
 [node name="Desc" parent="Base2/VBoxContainer/FreestyleButton/Texts/MDesc" parent_id_path=PackedInt32Array(1804627280, 312624622) index="0" unique_id=1441112836]
+text = "Play with Subjects and level up as you go."
+
+[node name="MultiStudyButton" parent="Base2/VBoxContainer" unique_id=1233098636 instance=ExtResource("14_muem4")]
+layout_mode = 2
+focus_mode = 0
+
+[node name="Base" parent="Base2/VBoxContainer/MultiStudyButton" index="0" unique_id=271060979]
+visible = true
+theme_override_styles/panel = SubResource("StyleBoxFlat_0ld40")
+
+[node name="Focus" parent="Base2/VBoxContainer/MultiStudyButton" index="1" unique_id=1686158507]
+theme_override_styles/panel = SubResource("StyleBoxFlat_gqmmt")
+
+[node name="Label" parent="Base2/VBoxContainer/MultiStudyButton/Texts" parent_id_path=PackedInt32Array(1233098636, 816294809) index="0" unique_id=1320499887]
+text = "Multistudy"
+
+[node name="Icon" parent="Base2/VBoxContainer/MultiStudyButton/Texts/Label" index="0" unique_id=1236317861]
+texture = ExtResource("16_0ld40")
+
+[node name="Desc" parent="Base2/VBoxContainer/MultiStudyButton/Texts/MDesc" parent_id_path=PackedInt32Array(1233098636, 312624622) index="0" unique_id=1441112836]
+text = "Play with Subjects and level up as you go."
+
+[node name="SettingsButton" parent="Base2/VBoxContainer" unique_id=924513859 instance=ExtResource("14_muem4")]
+layout_mode = 2
+focus_mode = 0
+
+[node name="Base" parent="Base2/VBoxContainer/SettingsButton" index="0" unique_id=271060979]
+visible = true
+theme_override_styles/panel = SubResource("StyleBoxFlat_0ld40")
+
+[node name="Focus" parent="Base2/VBoxContainer/SettingsButton" index="1" unique_id=1686158507]
+theme_override_styles/panel = SubResource("StyleBoxFlat_y6deb")
+
+[node name="Label" parent="Base2/VBoxContainer/SettingsButton/Texts" parent_id_path=PackedInt32Array(924513859, 816294809) index="0" unique_id=1320499887]
+text = "Settings"
+
+[node name="Icon" parent="Base2/VBoxContainer/SettingsButton/Texts/Label" index="0" unique_id=1236317861]
+texture = ExtResource("16_0ld40")
+
+[node name="Desc" parent="Base2/VBoxContainer/SettingsButton/Texts/MDesc" parent_id_path=PackedInt32Array(924513859, 312624622) index="0" unique_id=1441112836]
 text = "Play with Subjects and level up as you go."
 
 [node name="RestButton" parent="Base2/VBoxContainer" unique_id=1558879698 instance=ExtResource("14_muem4")]
@@ -395,13 +447,14 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 521.00006
-offset_top = 89.00001
-offset_right = -123.99988
-offset_bottom = -310.0
+offset_left = 478.94278
+offset_top = 85.0
+offset_right = -166.05713
+offset_bottom = -314.0
 grow_horizontal = 2
 grow_vertical = 2
 rotation = 0.09221772
+scale = Vector2(1.1482686, 1.1482686)
 theme_override_styles/panel = SubResource("StyleBoxFlat_yc10j")
 
 [node name="ChangeIlust" type="AnimationPlayer" parent="." unique_id=1817818335]
@@ -415,10 +468,11 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 539.0
 offset_top = 103.0
-offset_right = -105.999756
+offset_right = -105.99951
 offset_bottom = -296.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(1.1482686, 1.1482686)
 theme_override_styles/panel = SubResource("StyleBoxFlat_jscy8")
 metadata/_edit_group_ = true
 
@@ -447,9 +501,13 @@ expand_mode = 1
 [connection signal="pressed" from="Base2/VBoxContainer/SubjectsButton" to="." method="_on_subjects_pressed"]
 [connection signal="focus_entered" from="Base2/VBoxContainer/JourneyButton" to="." method="_on_journey_button_focus_entered"]
 [connection signal="focus_entered" from="Base2/VBoxContainer/FreestyleButton" to="." method="_on_freestyle_button_focus_entered"]
+[connection signal="pressed" from="Base2/VBoxContainer/FreestyleButton" to="." method="_on_freestyle_button_pressed"]
 [connection signal="focus_entered" from="Base2/VBoxContainer/RestButton" to="." method="_on_rest_button_focus_entered"]
 [connection signal="pressed" from="Base2/VBoxContainer/RestButton" to="." method="_on_exit_pressed"]
 
+[editable path="Base2/VBoxContainer/StoryButton"]
 [editable path="Base2/VBoxContainer/JourneyButton"]
 [editable path="Base2/VBoxContainer/FreestyleButton"]
+[editable path="Base2/VBoxContainer/MultiStudyButton"]
+[editable path="Base2/VBoxContainer/SettingsButton"]
 [editable path="Base2/VBoxContainer/RestButton"]

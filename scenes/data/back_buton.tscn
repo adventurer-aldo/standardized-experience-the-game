@@ -1,0 +1,56 @@
+[gd_scene format=3 uid="uid://bg238dkkbuae"]
+
+[ext_resource type="Script" uid="uid://ohelqvc1cm87" path="res://scenes/back_buton.gd" id="1_tt5it"]
+[ext_resource type="Texture2D" uid="uid://bm1tk1odkf3ed" path="res://graphics/icons/circle-arrow-left.svg" id="2_agu5f"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fojjr"]
+bg_color = Color(1, 1, 1, 0.5254902)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(1, 1, 1, 1)
+border_blend = true
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[node name="BackButon" type="Button" unique_id=791702814]
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 129.0
+offset_top = 18.0
+offset_right = -1108.0
+offset_bottom = 61.0
+grow_horizontal = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_fojjr")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxFlat_fojjr")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_fojjr")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_fojjr")
+theme_override_styles/hover = SubResource("StyleBoxFlat_fojjr")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxFlat_fojjr")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_fojjr")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxFlat_fojjr")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_fojjr")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxFlat_fojjr")
+theme_override_styles/focus = SubResource("StyleBoxFlat_fojjr")
+script = ExtResource("1_tt5it")
+
+[node name="BackIcon" type="TextureRect" parent="." unique_id=366111889]
+modulate = Color(0.19607843, 0.1882353, 0.23137255, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 7.0
+offset_top = 7.0
+offset_right = -7.0
+offset_bottom = -7.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_agu5f")
+expand_mode = 1
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="pressed" from="." to="." method="_on_pressed"]

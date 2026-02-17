@@ -11,6 +11,9 @@ extends Resource
 @export var experience:= 0.0
 @export var maximum_experience:= 0
 
+@export_category("Stats")
+@export var last_time_saved:= Time.get_unix_time_from_system()
+
 func get_dir_path() -> String:
 	return "user://subjects/" + str(id).lpad(10, '0')
 
@@ -56,6 +59,7 @@ func size() -> int:
 	return DirAccess.get_files_at(get_dir_path()).size()
 
 func save() -> void:
+	last_time_saved = Time.get_unix_time_from_system()
 	ResourceSaver.save(self, get_file_path(), ResourceSaver.FLAG_COMPRESS)
 
 func update_experience() -> void:

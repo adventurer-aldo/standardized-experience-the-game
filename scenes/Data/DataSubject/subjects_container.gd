@@ -17,9 +17,9 @@ func add_to_container(subj: Subject) -> void:
 	new_subject_scene.set_title(subj.title)
 	new_subject_scene.set_description(subj.description)
 	new_subject_scene.set_level(subj.level)
-	var size = subj.size()
-	new_subject_scene.set_progress(size * subj.level, subj.experience)
-	new_subject_scene.set_questions_size(size)
+	var subj_size = subj.size()
+	new_subject_scene.set_progress(subj_size * subj.level, subj.experience)
+	new_subject_scene.set_questions_size(subj_size)
 	new_subject_scene.subject_id = subj.id
 	add_child(new_subject_scene)
 	

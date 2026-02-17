@@ -5,10 +5,10 @@
 [ext_resource type="Script" uid="uid://cfmywd6m7sh1q" path="res://scenes/data/DataSubject/subjects_container.gd" id="2_k41un"]
 [ext_resource type="Texture2D" uid="uid://ejk8mymsv7ff" path="res://graphics/mainpattern.png" id="2_ylpgf"]
 [ext_resource type="Texture2D" uid="uid://db7qe8840obw7" path="res://graphics/grad.png" id="3_buabq"]
+[ext_resource type="PackedScene" uid="uid://bg238dkkbuae" path="res://scenes/data/back_buton.tscn" id="3_y345i"]
 [ext_resource type="FontFile" uid="uid://cll00c3mbr5pe" path="res://fonts/DMSans.ttf" id="4_0pdix"]
 [ext_resource type="FontFile" uid="uid://b5hv4vumrlxlb" path="res://fonts/ContinuumMedium.ttf" id="4_hiay8"]
 [ext_resource type="Script" path="res://addons/SmoothScroll/smooth_scroll_container.gd" id="4_y345i"]
-[ext_resource type="Texture2D" uid="uid://bm1tk1odkf3ed" path="res://graphics/icons/circle-arrow-left.svg" id="5_0axcs"]
 [ext_resource type="Script" uid="uid://b7h0k2h2qwlqv" path="res://addons/SmoothScroll/scroll_damper/expo_scroll_damper.gd" id="5_ob4f8"]
 [ext_resource type="Texture2D" uid="uid://dgsrudcioj334" path="res://graphics/icons/books-medical.svg" id="5_y345i"]
 [ext_resource type="Texture2D" uid="uid://b4mjun0mwc3lt" path="res://graphics/icons/magnifying-glass.svg" id="9_ulao1"]
@@ -131,41 +131,15 @@ placeholder_text = "Description"
 layout_mode = 2
 text = "Create"
 
-[node name="BackButon" type="Button" parent="." unique_id=1230419844]
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_left = 129.0
-offset_top = 18.0
-offset_right = -1108.0
-offset_bottom = 61.0
-grow_horizontal = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_fojjr")
-theme_override_styles/normal_mirrored = SubResource("StyleBoxFlat_fojjr")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_fojjr")
-theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_fojjr")
-theme_override_styles/hover = SubResource("StyleBoxFlat_fojjr")
-theme_override_styles/hover_mirrored = SubResource("StyleBoxFlat_fojjr")
-theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_fojjr")
-theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxFlat_fojjr")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_fojjr")
-theme_override_styles/disabled_mirrored = SubResource("StyleBoxFlat_fojjr")
-theme_override_styles/focus = SubResource("StyleBoxFlat_fojjr")
-
-[node name="BackIcon" type="TextureRect" parent="BackButon" unique_id=1862227746]
-modulate = Color(0.19607843, 0.1882353, 0.23137255, 1)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 7.0
-offset_top = 7.0
-offset_right = -7.0
-offset_bottom = -7.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("5_0axcs")
-expand_mode = 1
+[node name="BackButon" parent="." unique_id=791702814 instance=ExtResource("3_y345i")]
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 8.0
+offset_bottom = 43.0
+grow_horizontal = 1
 
 [node name="SubjectsBanner" type="Panel" parent="." unique_id=983001645]
 layout_mode = 1
@@ -354,6 +328,5 @@ grow_horizontal = 0
 metadata/_edit_group_ = true
 
 [connection signal="pressed" from="DataSubject/Elements/CreateButton" to="." method="_on_create_button_pressed"]
-[connection signal="pressed" from="BackButon" to="." method="_on_exit_pressed"]
 [connection signal="text_changed" from="Search/Elements/SearchBar" to="." method="_on_search_bar_text_changed"]
 [connection signal="subject_was_focused" from="GradientMask/SubjectsScroll/SubjectsContainer" to="." method="_on_subjects_container_subject_was_focused"]

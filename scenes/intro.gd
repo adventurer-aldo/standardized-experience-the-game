@@ -4,6 +4,8 @@ extends ColorRect
 
 func _ready() -> void:
 	$EmblemAnim.play("splash")
+	await get_tree().create_timer(0.7).timeout
+	$BGM.play()
 	get_tree().create_timer(2.0).timeout.connect(welcome)
 
 func welcome() -> void:

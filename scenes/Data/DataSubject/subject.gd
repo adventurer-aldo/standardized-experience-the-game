@@ -31,8 +31,8 @@ func set_questions_size(to: int) -> void:
 	if to != 1: res+= "s"
 	$M/Elements/MTitle/VBox/Details/Questions.text = res
 
-func set_progress(max: int, value: int):
-	$M/Elements/MTitle/VBox/Details/Outline/Experience.max_value = max
+func set_progress(maximum: int, value: int):
+	$M/Elements/MTitle/VBox/Details/Outline/Experience.max_value = maximum
 	$M/Elements/MTitle/VBox/Details/Outline/Experience.value = value
 
 func _on_subject_pressed() -> void:

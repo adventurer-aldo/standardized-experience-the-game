@@ -1,0 +1,118 @@
+[gd_scene format=3 uid="uid://cic476gke6ejk"]
+
+[ext_resource type="Script" uid="uid://j8hcl5df8tv2" path="res://scenes/freestyle/subject.gd" id="1_rwq7s"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_realq"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_65m7j"]
+bg_color = Color(0.6, 0.6, 0.6, 0.41960785)
+border_width_bottom = 105
+border_blend = true
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_realq"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="LabelSettings" id="LabelSettings_e0j88"]
+font_size = 52
+outline_size = 9
+outline_color = Color(0.19607843, 0.1882353, 0.23137255, 1)
+shadow_size = 6
+shadow_color = Color(0.19607843, 0.1882353, 0.23137255, 1)
+shadow_offset = Vector2(3.365, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dwhrs"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(0, 0.026666641, 0.8, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+expand_margin_left = 10.0
+expand_margin_top = 10.0
+expand_margin_right = 10.0
+expand_margin_bottom = 10.0
+
+[node name="Subject" type="Panel" unique_id=1536004553]
+custom_minimum_size = Vector2(190, 190)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -95.0
+offset_top = -95.0
+offset_right = 95.0
+offset_bottom = 95.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_realq")
+script = ExtResource("1_rwq7s")
+
+[node name="Subject" type="Panel" parent="." unique_id=852288518]
+modulate = Color(0.060000002, 0.73366666, 1, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_65m7j")
+
+[node name="Panel" type="Panel" parent="Subject" unique_id=101586786]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_realq")
+
+[node name="Label" type="Label" parent="." unique_id=986563684]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+label_settings = SubResource("LabelSettings_e0j88")
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+visible_characters = 5
+metadata/_edit_lock_ = true
+
+[node name="Focus" type="Panel" parent="." unique_id=1339890899]
+visible = false
+z_index = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_dwhrs")
+
+[connection signal="focus_entered" from="." to="." method="_on_focus_entered"]
+[connection signal="focus_exited" from="." to="." method="_on_focus_exited"]
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="pressed" from="." to="." method="_on_pressed"]

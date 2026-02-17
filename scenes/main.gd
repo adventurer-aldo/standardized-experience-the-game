@@ -8,7 +8,10 @@ func _ready() -> void:
 	Main.wipe_out()
 
 func _on_subjects_pressed() -> void:
-	add_child(data_subject_scene.instantiate())
+	Main.wipe_in()
+	await Main.wipe_finished
+	get_tree().change_scene_to_packed(data_subject_scene)
+	# add_child(data_subject_scene.instantiate())
 
 func _on_exit_pressed() -> void:
 	Main.wipe_in(Color.BLACK)
@@ -17,10 +20,8 @@ func _on_exit_pressed() -> void:
 	await $Voice.finished
 	get_tree().quit()
 
-
 func _on_scroll_loop_anim_animation_finished(_anim_name: StringName) -> void:
 	$Overlay/ScrollLoopAnim.play("scroll")
-
 
 func _on_journey_button_focus_entered() -> void:
 	$Outline/Mask/Texture.texture = load("res://graphics/backgrounds/journey.png")
@@ -37,3 +38,9 @@ func _on_freestyle_button_focus_entered() -> void:
 func _on_rest_button_focus_entered() -> void:
 	$Outline/Mask/Texture.texture = load("res://graphics/backgrounds/rest.png")
 	$ChangeIlust.play("slide_in")
+
+
+func _on_freestyle_button_pressed() -> void:
+	Main.wipe_in()
+	await Main.wipe_finished
+	get_tree().change_scene_to_file("res://scenes/freestyle.tscn")
