@@ -35,7 +35,6 @@ func _on_pressed() -> void:
 	get_tree().change_scene_to_file("res://scenes/quiz/quiz.tscn")
 
 func set_title(from: String) -> void:
-	print(Array(from.split(" ")))
 	Array(from.split(" ")).map(func (part: String): 
 		$Label.text += part[0]
 	)

@@ -1,8 +1,26 @@
-[gd_scene load_steps=18 format=3 uid="uid://do5cgc300pwx1"]
+[gd_scene format=3 uid="uid://do5cgc300pwx1"]
 
 [ext_resource type="Script" uid="uid://btdjogxpkgxak" path="res://scenes/quiz/open_attempt.gd" id="1_0dpb1"]
 [ext_resource type="PackedScene" uid="uid://cddvp6f3qvlqn" path="res://scenes/quiz/open_attempt_row.tscn" id="2_lysjw"]
 [ext_resource type="PackedScene" uid="uid://bd634eo063jbr" path="res://scenes/data/data_question.tscn" id="3_qbo3c"]
+[ext_resource type="FontFile" uid="uid://bo1dug3kwgf87" path="res://fonts/timesbi.ttf" id="4_en7q1"]
+[ext_resource type="FontFile" uid="uid://bunjfygn0oso1" path="res://fonts/times.ttf" id="5_vmxha"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_vmxha"]
+font = ExtResource("4_en7q1")
+font_size = 18
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2ocr8"]
+bg_color = Color(0, 0, 0, 1)
+skew = Vector2(0.63, 0)
+corner_radius_top_left = 2
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="LabelSettings" id="LabelSettings_2ocr8"]
+font = ExtResource("5_vmxha")
+font_color = Color(0, 0, 0, 1)
 
 [sub_resource type="InputEventKey" id="InputEventKey_lysjw"]
 device = -1
@@ -49,6 +67,8 @@ bg_color = Color(1, 0, 0, 1)
 bg_color = Color(0, 1, 0, 1)
 
 [node name="Attempt" type="VBoxContainer" unique_id=378380950]
+offset_right = 237.0
+offset_bottom = 79.0
 focus_mode = 3
 theme_override_constants/separation = 0
 script = ExtResource("1_0dpb1")
@@ -59,23 +79,51 @@ edit_shortcut = ExtResource("3_qbo3c")
 layout_mode = 2
 expand_mode = 2
 
-[node name="Description" type="Label" parent="." unique_id=295401568]
+[node name="ID" type="HBoxContainer" parent="." unique_id=1183301303]
+layout_mode = 2
+
+[node name="Number" type="Label" parent="ID" unique_id=865741692]
+layout_mode = 2
+text = "1. "
+label_settings = SubResource("LabelSettings_vmxha")
+horizontal_alignment = 1
+
+[node name="Panel" type="Panel" parent="ID/Number" unique_id=971056892]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -3.0
+offset_right = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_2ocr8")
+
+[node name="Description" type="Label" parent="ID" unique_id=295401568]
 custom_minimum_size = Vector2(1.92, 1.37)
 layout_mode = 2
+size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "test"
+label_settings = SubResource("LabelSettings_2ocr8")
 autowrap_mode = 3
 
-[node name="OpensRow" type="VBoxContainer" parent="." unique_id=308595558]
+[node name="Elements" type="HBoxContainer" parent="." unique_id=608012511]
 layout_mode = 2
 
-[node name="Attempt" parent="OpensRow" unique_id=1191986727 instance=ExtResource("2_lysjw")]
+[node name="OpensRow" type="VBoxContainer" parent="Elements" unique_id=308595558]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Attempt" parent="Elements/OpensRow" unique_id=1191986727 instance=ExtResource("2_lysjw")]
 layout_mode = 2
 
-[node name="AddRowButton" type="Button" parent="." unique_id=657333845 node_paths=PackedStringArray("shortcut_context")]
+[node name="AddRowButton" type="Button" parent="Elements" unique_id=657333845 node_paths=PackedStringArray("shortcut_context")]
+visible = false
 layout_mode = 2
 focus_mode = 0
-shortcut_context = NodePath("..")
+shortcut_context = NodePath("../..")
 shortcut = SubResource("Shortcut_qbo3c")
 text = "+"
 
@@ -117,7 +165,9 @@ theme_override_styles/disabled_mirrored = SubResource("StyleBoxFlat_nyk8l")
 theme_override_styles/focus = SubResource("StyleBoxFlat_nyk8l")
 text = "Edit"
 
-[connection signal="text_has_changed" from="OpensRow/Attempt" to="." method="a_text_has_changed"]
-[connection signal="pressed" from="AddRowButton" to="." method="_on_add_row_button_pressed"]
+[connection signal="text_focused" from="Elements/OpensRow/Attempt" to="." method="_on_attempt_text_focused"]
+[connection signal="text_has_changed" from="Elements/OpensRow/Attempt" to="." method="a_text_has_changed"]
+[connection signal="text_unfocused" from="Elements/OpensRow/Attempt" to="." method="_on_attempt_text_unfocused"]
+[connection signal="pressed" from="Elements/AddRowButton" to="." method="_on_add_row_button_pressed"]
 [connection signal="pressed" from="Wrong" to="." method="edit"]
 [connection signal="pressed" from="Right" to="." method="edit"]

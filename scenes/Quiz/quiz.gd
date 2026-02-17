@@ -1,6 +1,6 @@
-extends ColorRect
+extends Panel
 
-var quiz = Main.data.get_last_quiz()
+var quiz: Quiz
 
 @export var open_attempt: PackedScene
 @export var battle_ost: AudioStream
@@ -48,6 +48,7 @@ func rush() -> void:
 	$RushLoop.play("rush")
 	
 func _ready() -> void:
+	quiz = Main.data.get_last_quiz()
 	_on_rush_arrow_anim_animation_finished("")
 	redo()
 
@@ -61,7 +62,7 @@ func add_question(question: Question) -> VBoxContainer:
 	var new_attempt = open_attempt.instantiate()
 	new_attempt.prepare(question)
 	new_attempt.add_to_might.connect(might_increase)
-	$ScrollContainer/AttemptsContainer.add_child(new_attempt)
+	$ScrollC/Elements/Attempts.add_child(new_attempt)
 	return new_attempt
 	
 func might_increase(value: int) -> void:
@@ -73,13 +74,22 @@ func might_increase(value: int) -> void:
 		
 
 func redo() -> void:
-	for child in $ScrollContainer/AttemptsContainer.get_children():
+	var start_time = Time.get_datetime_dict_from_unix_time(quiz.start_time)
+	var end_time = Time.get_datetime_dict_from_unix_time(quiz.end_time)
+	$ScrollC/Elements/Header/SubjectTitle.text = quiz.get_subject().title
+	$ScrollC/Elements/Header/Year.text = str(end_time.year)
+	var duration = "{s_hour}:{s_minute} — {e_hour}:{e_minute}".format({
+		"s_hour": str(start_time.hour).lpad(2, "0"), "s_minute": str(start_time.minute).lpad(2, "0"),
+		"e_hour": str(end_time.hour).lpad(2, "0"), "e_minute": str(end_time.minute).lpad(2, "0")
+	})
+	$ScrollC/Elements/Header/Date/Duration.text = duration
+	for child in $ScrollC/Elements/Attempts.get_children():
 		child.queue_free()
 	add_questions()
 	$BGM.stream = battle_ost
 	$MightBGM.stream = might_ost
-	$BGM.play()
-	$MightBGM.play()
+	# $BGM.play()
+	# $MightBGM.play()
 	$Blood.hide()
 	$Timer.start(quiz.end_time - quiz.start_time)
 	$RushTransition.play("RESET")
@@ -101,9 +111,9 @@ func _on_button_pressed() -> void:
 	$MightTimer.stop()
 	$MightTimer.wait_time = 0.01
 	$MightTransition.play("RESET")
-	var amount_of_questions = $ScrollContainer/AttemptsContainer.get_child_count()
+	var amount_of_questions = $ScrollC/Elements/Attempts.get_child_count()
 	var grade = 0.0
-	for child in $ScrollContainer/AttemptsContainer.get_children():
+	for child in $ScrollC/Elements/Attempts.get_children():
 		var truth = child.solve()
 		if truth: grade += 20.0 / amount_of_questions
 	$Grade.text = str(grade).replace('.', ',')

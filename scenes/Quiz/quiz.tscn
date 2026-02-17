@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://h8nysytvkxqo"]
+[gd_scene format=3 uid="uid://h8nysytvkxqo"]
 
 [ext_resource type="Script" uid="uid://bvnuh150gond2" path="res://scenes/quiz/quiz.gd" id="1_1ip8j"]
 [ext_resource type="PackedScene" uid="uid://do5cgc300pwx1" path="res://scenes/quiz/open_attempt.tscn" id="2_3uwr7"]
@@ -10,9 +10,18 @@
 [ext_resource type="AudioStream" uid="uid://bb2265px147cy" path="res://audio/tracks/rush_end.ogg" id="7_c4nui"]
 [ext_resource type="Texture2D" uid="uid://0l6b0asgx7c7" path="res://graphics/dim_border.png" id="7_l2jlm"]
 [ext_resource type="Texture2D" uid="uid://cd1majdr26ims" path="res://graphics/arrowloopoverlay.png" id="8_uhkvd"]
+[ext_resource type="FontFile" uid="uid://bunjfygn0oso1" path="res://fonts/times.ttf" id="9_jej5b"]
 [ext_resource type="Texture2D" uid="uid://dnrrbnqukhnpe" path="res://graphics/bloodsplatter_0.png" id="10_ahw1d"]
+[ext_resource type="FontFile" uid="uid://nwkjg5r0mxxa" path="res://fonts/timesbd.ttf" id="10_wd8gu"]
 [ext_resource type="Texture2D" uid="uid://dg3v0i56quamo" path="res://graphics/bloodsplatter_1.png" id="11_uhkvd"]
 [ext_resource type="Texture2D" uid="uid://dptun32pehbr5" path="res://graphics/bloodsplatter_2.png" id="12_xjybf"]
+[ext_resource type="Texture2D" uid="uid://xw8b0rwj8nqc" path="res://graphics/emb.png" id="14_xjybf"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wd8gu"]
+bg_color = Color(0.046899997, 0.050365005, 0.07, 1)
+border_width_bottom = 398
+border_color = Color(0.33, 0.41799998, 0.55, 1)
+border_blend = true
 
 [sub_resource type="Animation" id="Animation_jej5b"]
 length = 0.001
@@ -49,6 +58,16 @@ _data = {
 &"RESET": SubResource("Animation_jej5b"),
 &"loop": SubResource("Animation_xjybf")
 }
+
+[sub_resource type="LabelSettings" id="LabelSettings_xjybf"]
+font = ExtResource("9_jej5b")
+font_size = 18
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_wytnh"]
+font = ExtResource("10_wd8gu")
+font_size = 24
+font_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l2jlm"]
 bg_color = Color(0, 0, 0, 1)
@@ -432,13 +451,13 @@ _data = {
 &"rush": SubResource("Animation_emm6g")
 }
 
-[node name="Quiz" type="ColorRect" unique_id=124219786]
+[node name="Quiz" type="Panel" unique_id=462008531]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.10127578, 0.37695184, 0.79067934, 1)
+theme_override_styles/panel = SubResource("StyleBoxFlat_wd8gu")
 script = ExtResource("1_1ip8j")
 open_attempt = ExtResource("2_3uwr7")
 battle_ost = ExtResource("3_h1qc3")
@@ -448,15 +467,16 @@ ambush_opening_ost = ExtResource("6_vr1nu")
 ambush_ending_ost = ExtResource("7_c4nui")
 
 [node name="RushArrowLoop" type="TextureRect" parent="." unique_id=1489089515]
+visible = false
 modulate = Color(0.101960786, 0.3764706, 0.7921569, 1)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -878.0
-offset_top = -1135.9998
-offset_right = -593.75
-offset_bottom = 923.406
+offset_left = -348.12335
+offset_top = 146.00021
+offset_right = -63.87329
+offset_bottom = 2205.406
 grow_horizontal = 2
 grow_vertical = 2
 rotation = -0.3926991
@@ -464,9 +484,7 @@ texture = ExtResource("8_uhkvd")
 stretch_mode = 1
 
 [node name="RushArrowAnim" type="AnimationPlayer" parent="RushArrowLoop" unique_id=168907054]
-libraries = {
-&"": SubResource("AnimationLibrary_wytnh")
-}
+libraries/ = SubResource("AnimationLibrary_wytnh")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1699848435]
 layout_mode = 1
@@ -479,19 +497,108 @@ offset_right = 480.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ScrollContainer" type="ScrollContainer" parent="." unique_id=839189571]
+[node name="ScrollC" type="ScrollContainer" parent="." unique_id=839189571]
+clip_contents = false
 layout_mode = 0
 offset_left = 184.0
-offset_top = 31.0
+offset_top = 2.0
 offset_right = 1101.0
 offset_bottom = 718.0
 follow_focus = true
 horizontal_scroll_mode = 0
+vertical_scroll_mode = 3
 
-[node name="AttemptsContainer" type="VBoxContainer" parent="ScrollContainer" unique_id=2124893966]
+[node name="Elements" type="VBoxContainer" parent="ScrollC" unique_id=408002572]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+
+[node name="Header" type="VBoxContainer" parent="ScrollC/Elements" unique_id=104677666]
+layout_mode = 2
+
+[node name="Year" type="Label" parent="ScrollC/Elements/Header" unique_id=2022285823]
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+text = "2026"
+label_settings = SubResource("LabelSettings_xjybf")
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="Emblem" type="TextureRect" parent="ScrollC/Elements/Header" unique_id=318222648]
+modulate = Color(0, 0, 0, 1)
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("14_xjybf")
+expand_mode = 5
+
+[node name="SchoolName" type="Label" parent="ScrollC/Elements/Header" unique_id=2026050588]
+layout_mode = 2
+text = "Standardized School"
+label_settings = SubResource("LabelSettings_xjybf")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Level" type="Label" parent="ScrollC/Elements/Header" unique_id=1088950147]
+layout_mode = 2
+text = "Practice Test"
+label_settings = SubResource("LabelSettings_xjybf")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SubjectTitle" type="Label" parent="ScrollC/Elements/Header" unique_id=28751166]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+text = "Subject Full Name Goes Here"
+label_settings = SubResource("LabelSettings_wytnh")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Date" type="HBoxContainer" parent="ScrollC/Elements/Header" unique_id=1415449390]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ScrollC/Elements/Header/Date" unique_id=1702328295]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+text = "Examination Time:"
+label_settings = SubResource("LabelSettings_xjybf")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Space" type="Control" parent="ScrollC/Elements/Header/Date" unique_id=2121277978]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="Duration" type="Label" parent="ScrollC/Elements/Header/Date" unique_id=1696246519]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+text = "14:25 — 15:15"
+label_settings = SubResource("LabelSettings_xjybf")
+vertical_alignment = 1
+
+[node name="Bar" type="ColorRect" parent="ScrollC/Elements/Header" unique_id=289950264]
+custom_minimum_size = Vector2(0, 2)
+layout_mode = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Attempts" type="VBoxContainer" parent="ScrollC/Elements" unique_id=2124893966]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Footer" type="VBoxContainer" parent="ScrollC/Elements" unique_id=998191951]
+layout_mode = 2
+
+[node name="Praise" type="Label" parent="ScrollC/Elements/Footer" unique_id=113297883]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+text = "Good job!"
+label_settings = SubResource("LabelSettings_xjybf")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Submit" type="Button" parent="." unique_id=1345693557]
 layout_mode = 0
@@ -524,6 +631,7 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = -10.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "1s"
@@ -562,19 +670,13 @@ one_shot = true
 
 [node name="RushTransition" type="AnimationPlayer" parent="." unique_id=1648347823]
 root_node = NodePath("../MightTransition")
-libraries = {
-&"": SubResource("AnimationLibrary_gpimr")
-}
+libraries/ = SubResource("AnimationLibrary_gpimr")
 
 [node name="MightTransition" type="AnimationPlayer" parent="." unique_id=984353511]
-libraries = {
-&"": SubResource("AnimationLibrary_emm6g")
-}
+libraries/ = SubResource("AnimationLibrary_emm6g")
 
 [node name="RushLoop" type="AnimationPlayer" parent="." unique_id=581162262]
-libraries = {
-&"": SubResource("AnimationLibrary_cggyg")
-}
+libraries/ = SubResource("AnimationLibrary_cggyg")
 
 [node name="RushAnimation" type="Control" parent="." unique_id=2026605174]
 layout_mode = 1

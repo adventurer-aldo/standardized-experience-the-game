@@ -21,7 +21,7 @@ func get_file_path() -> String:
 
 func create() -> void:
 	start_time = Time.get_unix_time_from_system()
-	end_time = start_time + 300.0
+	end_time = start_time + 3000.0
 	DirAccess.make_dir_recursive_absolute(get_dir_path())
 	save()
 

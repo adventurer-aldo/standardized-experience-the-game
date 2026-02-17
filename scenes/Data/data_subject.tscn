@@ -104,6 +104,9 @@ grow_vertical = 2
 texture = ExtResource("2_ylpgf")
 stretch_mode = 1
 
+[node name="BackButon" parent="." unique_id=791702814 instance=ExtResource("3_y345i")]
+layout_mode = 1
+
 [node name="DataSubject" type="VBoxContainer" parent="." unique_id=616288865]
 visible = false
 layout_mode = 1
@@ -130,16 +133,6 @@ placeholder_text = "Description"
 [node name="CreateButton" type="Button" parent="DataSubject/Elements" unique_id=897002850]
 layout_mode = 2
 text = "Create"
-
-[node name="BackButon" parent="." unique_id=791702814 instance=ExtResource("3_y345i")]
-layout_mode = 0
-anchors_preset = 0
-anchor_right = 0.0
-offset_left = 0.0
-offset_top = 0.0
-offset_right = 8.0
-offset_bottom = 43.0
-grow_horizontal = 1
 
 [node name="SubjectsBanner" type="Panel" parent="." unique_id=983001645]
 layout_mode = 1

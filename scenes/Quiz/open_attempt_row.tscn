@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://cddvp6f3qvlqn"]
+[gd_scene format=3 uid="uid://cddvp6f3qvlqn"]
 
 [ext_resource type="Script" uid="uid://bhkvfsvq75ak3" path="res://scenes/quiz/open_attempt_row.gd" id="1_v00ik"]
+[ext_resource type="FontFile" uid="uid://fwboxxvvu160" path="res://fonts/Allison-Regular.ttf" id="2_j5rnp"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v00ik"]
 bg_color = Color(1, 1, 1, 1)
@@ -27,16 +28,27 @@ size_flags_horizontal = 3
 theme_override_colors/caret_color = Color(0.17400002, 0.2947, 0.6, 1)
 theme_override_colors/font_color = Color(0, 0, 0.16470589, 1)
 theme_override_colors/word_highlighted_color = Color(0.32799998, 0.48380008, 0.82, 0.50980395)
+theme_override_constants/caret_width = 10
+theme_override_fonts/font = ExtResource("2_j5rnp")
+theme_override_font_sizes/font_size = 33
 theme_override_styles/normal = SubResource("StyleBoxFlat_v00ik")
+theme_override_styles/focus = SubResource("StyleBoxFlat_v00ik")
 wrap_mode = 1
+scroll_smooth = true
 scroll_fit_content_height = true
+caret_type = 1
+caret_blink = true
+caret_multiple = false
 
 [node name="DeleteButton" type="Button" parent="." unique_id=1213266165 node_paths=PackedStringArray("shortcut_context")]
+visible = false
 layout_mode = 2
 focus_mode = 0
 shortcut_context = NodePath("..")
 shortcut = SubResource("Shortcut_ob4sp")
 text = "-"
 
+[connection signal="focus_entered" from="Text" to="." method="_on_text_focus_entered"]
+[connection signal="focus_exited" from="Text" to="." method="_on_text_focus_exited"]
 [connection signal="text_changed" from="Text" to="." method="_on_text_text_changed"]
 [connection signal="pressed" from="DeleteButton" to="." method="_on_delete_button_pressed"]
