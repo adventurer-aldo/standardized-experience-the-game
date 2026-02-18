@@ -2,10 +2,8 @@
 
 [ext_resource type="Script" uid="uid://bvnuh150gond2" path="res://scenes/quiz/quiz.gd" id="1_1ip8j"]
 [ext_resource type="PackedScene" uid="uid://do5cgc300pwx1" path="res://scenes/quiz/open_attempt.tscn" id="2_3uwr7"]
-[ext_resource type="AudioStream" uid="uid://4dpp6xlgs7wn" path="res://audio/tracks/dread.ogg" id="3_h1qc3"]
-[ext_resource type="AudioStream" uid="uid://c672wptte2n3" path="res://audio/tracks/dread_might.ogg" id="4_qog3i"]
-[ext_resource type="AudioStream" uid="uid://b5ajdqqm61ym6" path="res://audio/tracks/rush_dread.ogg" id="5_l2jlm"]
-[ext_resource type="FontFile" uid="uid://cg330vu00gosa" path="res://fonts/Poppins-Regular.ttf" id="6_qog3i"]
+[ext_resource type="AudioStream" uid="uid://dr1p4rivw2f4n" path="res://audio/tracks/wiiu2.ogg" id="3_xjybf"]
+[ext_resource type="AudioStream" uid="uid://ckps3iblud1ts" path="res://audio/tracks/wii23.ogg" id="4_wd8gu"]
 [ext_resource type="AudioStream" uid="uid://1s3ch5n2tse0" path="res://audio/tracks/rush_open.ogg" id="6_vr1nu"]
 [ext_resource type="AudioStream" uid="uid://bb2265px147cy" path="res://audio/tracks/rush_end.ogg" id="7_c4nui"]
 [ext_resource type="Texture2D" uid="uid://0l6b0asgx7c7" path="res://graphics/dim_border.png" id="7_l2jlm"]
@@ -79,6 +77,8 @@ keycode = 83
 
 [sub_resource type="Shortcut" id="Shortcut_cvutw"]
 events = [SubResource("InputEventKey_6oeex")]
+
+[sub_resource type="LabelSettings" id="LabelSettings_wd8gu"]
 
 [sub_resource type="Animation" id="Animation_l2jlm"]
 length = 0.001
@@ -460,9 +460,9 @@ grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_wd8gu")
 script = ExtResource("1_1ip8j")
 open_attempt = ExtResource("2_3uwr7")
-battle_ost = ExtResource("3_h1qc3")
-might_ost = ExtResource("4_qog3i")
-rush_ost = ExtResource("5_l2jlm")
+battle_ost = ExtResource("3_xjybf")
+might_ost = ExtResource("3_xjybf")
+rush_ost = ExtResource("4_wd8gu")
 ambush_opening_ost = ExtResource("6_vr1nu")
 ambush_ending_ost = ExtResource("7_c4nui")
 
@@ -607,7 +607,6 @@ offset_top = 179.0
 offset_right = 146.0
 offset_bottom = 282.0
 focus_mode = 0
-theme_override_fonts/font = ExtResource("6_qog3i")
 theme_override_font_sizes/font_size = 29
 theme_override_styles/normal = SubResource("StyleBoxFlat_l2jlm")
 shortcut = SubResource("Shortcut_cvutw")
@@ -635,6 +634,7 @@ offset_right = -10.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "1s"
+label_settings = SubResource("LabelSettings_wd8gu")
 horizontal_alignment = 2
 vertical_alignment = 1
 

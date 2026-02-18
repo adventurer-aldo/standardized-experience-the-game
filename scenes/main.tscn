@@ -9,7 +9,9 @@
 [ext_resource type="Texture2D" uid="uid://c84vifgxk83ta" path="res://graphics/smallicons/SpeechIcon.png" id="6_85g3d"]
 [ext_resource type="Script" uid="uid://beeh1u3slrs6d" path="res://scenes/main/quote.gd" id="7_choun"]
 [ext_resource type="Texture2D" uid="uid://2dx55lrhkwqm" path="res://graphics/LogoO.png" id="8_choun"]
+[ext_resource type="AudioStream" uid="uid://chppnhxlm0k1f" path="res://audio/sfx/cursor.ogg" id="10_0ld40"]
 [ext_resource type="AudioStream" uid="uid://dotyikhexcvrj" path="res://audio/tracks/main.ogg" id="10_dp3eg"]
+[ext_resource type="AudioStream" uid="uid://cnhtwqw7ygc8h" path="res://audio/sfx/select.ogg" id="11_gqmmt"]
 [ext_resource type="PackedScene" uid="uid://d07j4gkkx5bx7" path="res://scenes/main/notification_dim.tscn" id="13_trceg"]
 [ext_resource type="PackedScene" uid="uid://cv7voldn75uoq" path="res://scenes/main/menu_button.tscn" id="14_muem4"]
 [ext_resource type="Texture2D" uid="uid://cded8r01tfgvs" path="res://graphics/icons/joystick.svg" id="16_0ld40"]
@@ -305,6 +307,12 @@ autoplay = true
 bus = &"BGM"
 
 [node name="Voice" parent="." unique_id=572250213 instance=ExtResource("5_tbgi4")]
+
+[node name="CursorSFX" type="AudioStreamPlayer" parent="." unique_id=2023029785]
+stream = ExtResource("10_0ld40")
+
+[node name="SelectSFX" type="AudioStreamPlayer" parent="." unique_id=949978758]
+stream = ExtResource("11_gqmmt")
 
 [node name="Base2" type="MarginContainer" parent="." unique_id=862112783]
 custom_minimum_size = Vector2(0, 60)

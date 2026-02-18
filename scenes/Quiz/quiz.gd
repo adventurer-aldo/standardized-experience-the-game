@@ -88,8 +88,8 @@ func redo() -> void:
 	add_questions()
 	$BGM.stream = battle_ost
 	$MightBGM.stream = might_ost
-	# $BGM.play()
-	# $MightBGM.play()
+	$BGM.play()
+	$MightBGM.play()
 	$Blood.hide()
 	$Timer.start(quiz.end_time - quiz.start_time)
 	$RushTransition.play("RESET")

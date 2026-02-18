@@ -1,0 +1,121 @@
+[gd_scene format=3 uid="uid://cem6uvu73l4bp"]
+
+[ext_resource type="Texture2D" uid="uid://dl0q3py1kbiyw" path="res://graphics/icons/pen-line.svg" id="1_hnqbc"]
+[ext_resource type="FontFile" uid="uid://djqlkih7hivms" path="res://fonts/DMSans-Bold.ttf" id="2_a1gyi"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fojjr"]
+bg_color = Color(1, 1, 1, 0.5254902)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(1, 1, 1, 1)
+border_blend = true
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hbpdo"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_buabq"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_y345i"]
+
+[node name="NewSubject" type="Control" unique_id=1338033426]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Panel" parent="." unique_id=38940175]
+custom_minimum_size = Vector2(0, 43)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 83.0
+offset_right = -40.0
+offset_bottom = 126.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_fojjr")
+metadata/_edit_group_ = true
+
+[node name="Elements" type="HBoxContainer" parent="Title" unique_id=1393764609]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 6.0
+offset_right = -20.0
+offset_bottom = -6.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TitleIcon" type="TextureRect" parent="Title/Elements" unique_id=209637806]
+modulate = Color(0.19607843, 0.1882353, 0.23137255, 1)
+layout_mode = 2
+texture = ExtResource("1_hnqbc")
+expand_mode = 2
+
+[node name="TitleBar" type="LineEdit" parent="Title/Elements" unique_id=795955247]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.19607843, 0.1882353, 0.23137255, 1)
+theme_override_colors/font_placeholder_color = Color(0.19431168, 0.18630001, 0.23, 0.6745098)
+theme_override_colors/caret_color = Color(0.297, 0.43010008, 0.66, 1)
+theme_override_colors/selection_color = Color(0.19607843, 0.1882353, 0.23137255, 1)
+theme_override_fonts/font = ExtResource("2_a1gyi")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_hbpdo")
+theme_override_styles/read_only = SubResource("StyleBoxEmpty_buabq")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_y345i")
+placeholder_text = "Title"
+caret_blink = true
+
+[node name="Description" type="Panel" parent="." unique_id=1501746275]
+custom_minimum_size = Vector2(0, 43)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 150.0
+offset_right = -40.0
+offset_bottom = 287.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_fojjr")
+metadata/_edit_group_ = true
+
+[node name="Elements" type="HBoxContainer" parent="Description" unique_id=575051484]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 6.0
+offset_right = -20.0
+offset_bottom = -6.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DescriptionIcon" type="TextureRect" parent="Description/Elements" unique_id=1718393858]
+modulate = Color(0.19607843, 0.1882353, 0.23137255, 1)
+custom_minimum_size = Vector2(31, 31)
+layout_mode = 2
+size_flags_vertical = 0
+texture = ExtResource("1_hnqbc")
+expand_mode = 2
+
+[node name="DescriptionBar" type="TextEdit" parent="Description/Elements" unique_id=1665129852]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/caret_color = Color(0.297, 0.43010008, 0.66, 1)
+theme_override_colors/selection_color = Color(0.19607843, 0.1882353, 0.23137255, 1)
+theme_override_colors/font_color = Color(0.19607843, 0.1882353, 0.23137255, 1)
+theme_override_colors/font_placeholder_color = Color(0.19431168, 0.18630001, 0.23, 0.6745098)
+theme_override_fonts/font = ExtResource("2_a1gyi")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_hbpdo")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_y345i")
+theme_override_styles/read_only = SubResource("StyleBoxEmpty_buabq")
+placeholder_text = "Describe the new subject's topic."
+caret_blink = true

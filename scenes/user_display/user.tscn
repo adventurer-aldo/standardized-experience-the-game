@@ -100,15 +100,16 @@ grow_horizontal = 2
 script = ExtResource("2_bgjfo")
 
 [node name="Time" type="Label" parent="DateTime" unique_id=973325586]
+custom_minimum_size = Vector2(67, 21)
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0.05490196, 1)
 text = "51:47 PM"
 label_settings = SubResource("LabelSettings_y4bp6")
-horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Divider" type="Label" parent="DateTime" unique_id=1896156517]
 layout_mode = 2
+size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0, 0, 0.05490196, 1)
 text = "|"
 label_settings = SubResource("LabelSettings_8rixk")
@@ -124,6 +125,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Date" type="Label" parent="DateTime" unique_id=835040437]
+custom_minimum_size = Vector2(47, 21)
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0.05490196, 1)
 text = "99/99"
