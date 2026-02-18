@@ -2,11 +2,15 @@
 
 [ext_resource type="Script" uid="uid://bhkvfsvq75ak3" path="res://scenes/quiz/open_attempt_row.gd" id="1_v00ik"]
 [ext_resource type="FontFile" uid="uid://fwboxxvvu160" path="res://fonts/Allison-Regular.ttf" id="2_j5rnp"]
+[ext_resource type="Texture2D" uid="uid://du6m4j5gxybkq" path="res://graphics/quiz/inputline.png" id="3_x16n1"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v00ik"]
-bg_color = Color(1, 1, 1, 1)
-border_width_bottom = 4
-border_color = Color(0, 0, 0, 1)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_p8yc6"]
+content_margin_left = 5.0
+texture = ExtResource("3_x16n1")
+expand_margin_left = 10.0
+expand_margin_right = 10.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
 
 [sub_resource type="InputEventKey" id="InputEventKey_v00ik"]
 device = -1
@@ -31,8 +35,9 @@ theme_override_colors/word_highlighted_color = Color(0.32799998, 0.48380008, 0.8
 theme_override_constants/caret_width = 10
 theme_override_fonts/font = ExtResource("2_j5rnp")
 theme_override_font_sizes/font_size = 33
-theme_override_styles/normal = SubResource("StyleBoxFlat_v00ik")
-theme_override_styles/focus = SubResource("StyleBoxFlat_v00ik")
+theme_override_styles/normal = SubResource("StyleBoxTexture_p8yc6")
+theme_override_styles/focus = SubResource("StyleBoxTexture_p8yc6")
+theme_override_styles/read_only = SubResource("StyleBoxTexture_p8yc6")
 wrap_mode = 1
 scroll_smooth = true
 scroll_fit_content_height = true
