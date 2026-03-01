@@ -20,15 +20,9 @@ func _ready() -> void:
 	if !DirAccess.dir_exists_absolute("user://quizzes"):
 		DirAccess.make_dir_absolute("user://quizzes")
 	begin_update()
-	pass
 	for subject in data.get_subjects():
-		var exp = subject.experience
-		var max_exp = subject.size() * 15
-		var lvl = (exp / max_exp) * 15
-		subject.level = clampi(lvl, 0, 15)
-		if max_exp > 0: 
-			subject.level = clampi(lvl, 1, 15)
-		subject.save()
+		subject.maximum_experience = subject.size() * 15
+		subject.update_level()
 
 func begin_update() -> void:
 	thread.start(update)

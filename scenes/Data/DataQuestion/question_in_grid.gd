@@ -6,12 +6,18 @@ signal delete_pressed(id: int)
 
 var id:= 0
 
+func _ready() -> void:
+	set_id(id)
+
 func set_text(to: String):
 	$MainText.text = to
 
 func set_id(to: int):
 	id = to
 	$Buttons/ID.text = str(to)
+
+func set_level(to: int) -> void:
+	$Buttons/Level.text = "Lv. " + str(to)
 
 func _on_parent_pressed() -> void:
 	parent_pressed.emit(id)

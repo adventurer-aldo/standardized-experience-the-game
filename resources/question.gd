@@ -125,6 +125,9 @@ func hit() -> void:
 		experience_level = clampi(next_level, 1, 15)
 		queue_level_up(next_level)
 	save()
+	var subj = get_subject()
+	subj.experience += 1
+	subj.save()
 
 func miss() -> void:
 	misses += 1
@@ -134,6 +137,9 @@ func miss() -> void:
 		miss_streak = 0
 		experience_level = clampi(experience_level - 1, 1, 15)
 	save()
+	var subj = get_subject()
+	subj.experience -= 1
+	subj.save()
 
 func queue_level_up(to_level: int) -> void:
 	is_level_up_queued = true

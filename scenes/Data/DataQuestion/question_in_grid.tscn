@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://cpdo7bx7xqye8"]
+[gd_scene format=3 uid="uid://cpdo7bx7xqye8"]
 
 [ext_resource type="Script" uid="uid://dbgvllcy3psno" path="res://scenes/data/DataQuestion/question_in_grid.gd" id="1_nnuj0"]
 
@@ -24,6 +24,10 @@ theme_override_constants/separation = 0
 [node name="ID" type="Button" parent="Buttons" unique_id=1174256144]
 layout_mode = 2
 text = "ID: "
+
+[node name="Level" type="Button" parent="Buttons" unique_id=2141105514]
+layout_mode = 2
+text = "Lv. "
 
 [node name="Parent" type="Button" parent="Buttons" unique_id=1015523774]
 layout_mode = 2

@@ -12,11 +12,11 @@ func _on_create_button_pressed() -> void:
 	subject.create()
 	$DataSubject/Elements/DescriptionText.text = ""
 	$DataSubject/Elements/TitleLine.text = ""
-	$GradientMask/SubjectsScroll/SubjectsContainer.add_to_container(subject)
+	$Interface/GradientMask/SubjectsScroll/SubjectsContainer.add_to_container(subject)
 
 
 func _on_search_bar_text_changed(new_text: String) -> void:
-	for subj in $GradientMask/SubjectsScroll/SubjectsContainer.get_children():
+	for subj in $Interface/GradientMask/SubjectsScroll/SubjectsContainer.get_children():
 		if new_text.strip_edges() == '':
 			subj.show()
 		else:
@@ -30,3 +30,13 @@ func _on_search_bar_text_changed(new_text: String) -> void:
 func _on_subjects_container_subject_was_focused(subject_id: int) -> void:
 	currently_selected_subject_id = subject_id
 	print(currently_selected_subject_id)
+
+func might_bgm() -> void:
+	$MightTransitions.play("might")
+
+func calm_bgm() -> void:
+	$MightTransitions.play("calm")
+
+func _on_create_subject_pressed() -> void:
+	$MightTransitions.play("might")
+	$Slides.play("slide_out")

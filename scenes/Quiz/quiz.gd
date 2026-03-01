@@ -32,7 +32,7 @@ func rush() -> void:
 			add_question(question)
 			await get_tree().create_timer(0.5).timeout
 			var tween = get_tree().create_tween()
-			tween.tween_property($ScrollContainer, "scroll_vertical", 3200, 1.5)
+			tween.tween_property($ScrollC, "scroll_vertical", 3200, 1.5)
 			await tween.finished
 		if $BGM.playing:
 			await $BGM.finished
@@ -43,6 +43,7 @@ func rush() -> void:
 	else:
 		$BGM.stream = rush_ost
 	$RushTransition.play("display_time")
+	$RushLight/Anim.play("warn")
 	$BGM.play()
 	$MightTransition.play("RESET")
 	$RushLoop.play("rush")
@@ -119,8 +120,9 @@ func _on_button_pressed() -> void:
 	$Grade.text = str(grade).replace('.', ',')
 	$BGM.stream = load("res://audio/tracks/score_{rank}.ogg".format({"rank": rank_grade(grade)}))
 	$BGM.play()
-		
-	$BreakTimer.start()
+	
+	$RushLight/Anim.play("RESET")
+	$BreakTimer.start(quiz.size() * 10.0)
 	$EndBreak.show()
 
 func rank_grade(grade: float) -> String:
@@ -167,3 +169,8 @@ func _on_rush_loop_animation_finished(anim_name: StringName) -> void:
 
 func _on_rush_arrow_anim_animation_finished(_anim_name: StringName) -> void:
 	$RushArrowLoop/RushArrowAnim.play("loop")
+
+
+func _on_anim_animation_finished(anim_name: StringName) -> void:
+	if anim_name == "warn":
+		$RushLight/Anim.play("warn")

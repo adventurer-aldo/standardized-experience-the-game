@@ -16,6 +16,15 @@ func _input(event: InputEvent) -> void:
 		elif event is InputEventMouse:
 			if event.button_mask == MouseButton.MOUSE_BUTTON_LEFT:
 				_on_subject_pressed()
+	
+func _ready() -> void:
+	var subject = Main.data.get_subject(subject_id)
+	set_title(subject.title)
+	set_description(subject.description)
+	set_level(subject.level)
+	var amount_of_questions = subject.size()
+	set_questions_size(amount_of_questions)
+	set_progress(amount_of_questions * subject.level, subject.experience)
 
 func set_title(to: String) -> void:
 	$M/Elements/Quick/MTitle/M/Name/Title.text = to

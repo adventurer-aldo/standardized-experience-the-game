@@ -74,3 +74,14 @@ func update_experience() -> void:
 	print(experience)
 	level = int((float(experience) / float(maximum_experience)) * 15.0)
 	save()
+
+func update_level() -> void:
+	var exper = experience
+	var max_exp = size() * 15
+	print("The current subject is: " + title + " with the ID " + str(id))
+	var lvl = (exper / max_exp) * 15
+	level = clampi(lvl, 0, 15)
+	if max_exp > 0: 
+		level = clampi(lvl, 1, 15)
+	print("Finished dealing with " + title)
+	save()

@@ -2,11 +2,17 @@ extends Control
 
 signal question_alt_changed
 
+signal might_started
+signal might_ended
+
 @export var question_packed_scene: PackedScene
 @export var saved_question_packed_scene: PackedScene
 var subject_id: int
 var title = "Default Subject"
 var question = Question.new()
+@export var silence = false
+
+var might_mode:= false
 
 func _ready() -> void:
 	question.subject_id = subject_id
@@ -16,6 +22,25 @@ func _ready() -> void:
 	$Items/ScrollData/Data/Types/M/VBoxContainer/Types/Open.button_pressed = true
 	_on_open_pressed()
 	set_container()
+	
+	if silence:
+		$BGM.stop()
+		$MightBGM.stop()
+
+func might_boost(value: float) -> void:
+	var new_value = clamp($MightTimer.time_left + value, 0.0, 30.1)
+	$MightTimer.start(new_value)
+	if !might_mode:
+		$MightTransitions.play("might")
+		might_mode = true
+		might_started.emit()
+
+func _on_might_timer_timeout() -> void:
+	if might_mode && $MightTimer.time_left > 120.0:
+		$MightTransitions.play("calm")
+		might_mode = false
+		$MightTimer.wait_time = 0.06
+		might_ended.emit()
 
 func _on_reset_pressed() -> void:
 	$Items/ScrollData/Data/Question/Texts.get_children().map(func (child): child.reset())
@@ -40,14 +65,15 @@ func add_question_to_container(saved_question: Question) -> void:
 		question_to_add = container_node.get_node(str(saved_question.id))
 	else:
 		question_to_add = saved_question_packed_scene.instantiate()
-		container_node.add_child(question_to_add)
-		container_node.move_child(question_to_add, 0)
 		question_to_add.parent_pressed.connect(on_parent_pressed)
 		question_to_add.edit_pressed.connect(on_edit_pressed)
 		question_to_add.delete_pressed.connect(on_grid_delete_pressed)
 		question_to_add.name = str(saved_question.id)
 		question_to_add.id = saved_question.id
 	question_to_add.set_text(saved_question.question[0])
+	question_to_add.set_level(saved_question.experience_level)
+	container_node.add_child(question_to_add)
+	container_node.move_child(question_to_add, 0)
 	$SubjectBar/AmountBar/Amount.text = str(container_node.get_child_count()).lpad(2, '0')
 
 func _on_add_question_alt_pressed() -> void:
@@ -147,6 +173,11 @@ func on_edit_pressed(id: int) -> void:
 	$Items/ScrollData/Data/ParentsContainer/ParentsFlow.replicate(to_edit.parents)
 	$Items/ScrollData/Data/TagsContainer/TagsFlow.replicate(to_edit.tags)
 	question.id = id
+	question.experience_level = to_edit.experience_level
+	question.hits = to_edit.hits
+	question.misses = to_edit.misses
+	question.hit_streak = to_edit.hit_streak
+	question.miss_streak	 = to_edit.miss_streak	
 	change_level(to_edit.level)
 
 func fetch_data() -> void:
@@ -177,12 +208,19 @@ func play_submit_edit_voice() -> void:
 			$Voice.random_play("questions_new", 1.0)
 
 func _on_submit_pressed() -> void:
+	might_boost(45.0)
 	play_submit_edit_voice()
 	fetch_data()
+	# Save or Edit Question. Also edit the Subject's last time saved variable.
+	var subj = question.get_subject()
 	if question.get_subject().has_question(question.id):
 		question.save()
 	else:
 		question.create()
+		subj.maximum_experience += 1
+
+	subj.last_time_saved = Time.get_unix_time_from_system()
+	subj.save()
 	add_question_to_container(question)
 	$SFX.play_file("submit")
 	$Items/ScrollData/Data/Question/Texts.get_children().map(func (child): child.reset())

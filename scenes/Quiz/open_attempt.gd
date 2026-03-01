@@ -86,6 +86,7 @@ func solve() -> bool:
 func edit() -> void:
 	var edit_scene = edit_shortcut.instantiate()
 	edit_scene.subject_id = question.subject_id
+	edit_scene.silence = true
 	add_child(edit_scene)
 	edit_scene.on_edit_pressed(question.id)
 

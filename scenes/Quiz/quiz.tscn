@@ -2,8 +2,9 @@
 
 [ext_resource type="Script" uid="uid://bvnuh150gond2" path="res://scenes/quiz/quiz.gd" id="1_1ip8j"]
 [ext_resource type="PackedScene" uid="uid://do5cgc300pwx1" path="res://scenes/quiz/open_attempt.tscn" id="2_3uwr7"]
-[ext_resource type="AudioStream" uid="uid://dr1p4rivw2f4n" path="res://audio/tracks/wiiu2.ogg" id="3_xjybf"]
-[ext_resource type="AudioStream" uid="uid://ckps3iblud1ts" path="res://audio/tracks/wii23.ogg" id="4_wd8gu"]
+[ext_resource type="AudioStream" uid="uid://dhykkjq14ll86" path="res://audio/tracks/test_rivers.ogg" id="3_jej5b"]
+[ext_resource type="AudioStream" uid="uid://k17b10qj2d60" path="res://audio/tracks/test_rivers_might.ogg" id="4_wytnh"]
+[ext_resource type="AudioStream" uid="uid://bahw6gg55qccr" path="res://audio/tracks/rush_life.ogg" id="5_pr3ji"]
 [ext_resource type="AudioStream" uid="uid://1s3ch5n2tse0" path="res://audio/tracks/rush_open.ogg" id="6_vr1nu"]
 [ext_resource type="AudioStream" uid="uid://bb2265px147cy" path="res://audio/tracks/rush_end.ogg" id="7_c4nui"]
 [ext_resource type="Texture2D" uid="uid://0l6b0asgx7c7" path="res://graphics/dim_border.png" id="7_l2jlm"]
@@ -12,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://dnrrbnqukhnpe" path="res://graphics/bloodsplatter_0.png" id="10_ahw1d"]
 [ext_resource type="FontFile" uid="uid://nwkjg5r0mxxa" path="res://fonts/timesbd.ttf" id="10_wd8gu"]
 [ext_resource type="Texture2D" uid="uid://dg3v0i56quamo" path="res://graphics/bloodsplatter_1.png" id="11_uhkvd"]
+[ext_resource type="FontFile" uid="uid://rc72ny274tp4" path="res://fonts/ContinuumBold.ttf" id="12_jej5b"]
 [ext_resource type="Texture2D" uid="uid://dptun32pehbr5" path="res://graphics/bloodsplatter_2.png" id="12_xjybf"]
 [ext_resource type="Texture2D" uid="uid://xw8b0rwj8nqc" path="res://graphics/emb.png" id="14_xjybf"]
 
@@ -20,6 +22,43 @@ bg_color = Color(0.046899997, 0.050365005, 0.07, 1)
 border_width_bottom = 398
 border_color = Color(0.33, 0.41799998, 0.55, 1)
 border_blend = true
+
+[sub_resource type="Animation" id="Animation_wytnh"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.58, 0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_pr3ji"]
+resource_name = "warn"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(0.58, 0, 0, 0.27058825), Color(0.58, 0, 0, 0.6745098), Color(0.58, 0, 0, 0.27058825)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3wj08"]
+_data = {
+&"RESET": SubResource("Animation_wytnh"),
+&"warn": SubResource("Animation_pr3ji")
+}
 
 [sub_resource type="Animation" id="Animation_jej5b"]
 length = 0.001
@@ -79,6 +118,7 @@ keycode = 83
 events = [SubResource("InputEventKey_6oeex")]
 
 [sub_resource type="LabelSettings" id="LabelSettings_wd8gu"]
+font = ExtResource("12_jej5b")
 
 [sub_resource type="Animation" id="Animation_l2jlm"]
 length = 0.001
@@ -460,11 +500,23 @@ grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_wd8gu")
 script = ExtResource("1_1ip8j")
 open_attempt = ExtResource("2_3uwr7")
-battle_ost = ExtResource("3_xjybf")
-might_ost = ExtResource("3_xjybf")
-rush_ost = ExtResource("4_wd8gu")
+battle_ost = ExtResource("3_jej5b")
+might_ost = ExtResource("4_wytnh")
+rush_ost = ExtResource("5_pr3ji")
 ambush_opening_ost = ExtResource("6_vr1nu")
 ambush_ending_ost = ExtResource("7_c4nui")
+
+[node name="RushLight" type="ColorRect" parent="." unique_id=1503456806]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.58, 0, 0, 0)
+
+[node name="Anim" type="AnimationPlayer" parent="RushLight" unique_id=1290552366]
+libraries/ = SubResource("AnimationLibrary_3wj08")
 
 [node name="RushArrowLoop" type="TextureRect" parent="." unique_id=1489089515]
 visible = false
@@ -492,8 +544,8 @@ anchors_preset = 13
 anchor_left = 0.5
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -476.0
-offset_right = 480.0
+offset_left = -505.0
+offset_right = 509.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -602,10 +654,10 @@ vertical_alignment = 1
 
 [node name="Submit" type="Button" parent="." unique_id=1345693557]
 layout_mode = 0
-offset_left = 33.0
-offset_top = 179.0
-offset_right = 146.0
-offset_bottom = 282.0
+offset_left = 9.0
+offset_top = 221.0
+offset_right = 122.0
+offset_bottom = 324.0
 focus_mode = 0
 theme_override_font_sizes/font_size = 29
 theme_override_styles/normal = SubResource("StyleBoxFlat_l2jlm")
@@ -787,6 +839,7 @@ offset_bottom = 832.0
 mouse_filter = 2
 texture = ExtResource("12_xjybf")
 
+[connection signal="animation_finished" from="RushLight/Anim" to="." method="_on_anim_animation_finished"]
 [connection signal="animation_finished" from="RushArrowLoop/RushArrowAnim" to="." method="_on_rush_arrow_anim_animation_finished"]
 [connection signal="pressed" from="Submit" to="." method="_on_button_pressed"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

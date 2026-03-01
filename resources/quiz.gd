@@ -21,7 +21,7 @@ func get_file_path() -> String:
 
 func create() -> void:
 	start_time = Time.get_unix_time_from_system()
-	end_time = start_time + 3000.0
+	end_time = start_time + 600.0
 	DirAccess.make_dir_recursive_absolute(get_dir_path())
 	save()
 
@@ -90,6 +90,9 @@ func get_rush_questions() -> Array[Question]:
 		return queue_range.has(int(question.last_time_leveled))
 	)	
 	return questions.slice(0, 4)
+
+func size() -> int:
+	return DirAccess.get_files_at("user://quizzes/" + str(id).lpad(10, "0")).size()
 
 func move_question_to_quiz(question: Question, positioning: int) -> void:
 	randomize()

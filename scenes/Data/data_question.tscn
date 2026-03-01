@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=3 uid="uid://bd634eo063jbr"]
+[gd_scene format=3 uid="uid://bd634eo063jbr"]
 
 [ext_resource type="Script" uid="uid://b0qderfii5a6j" path="res://scenes/data/data_question.gd" id="1_0rm0x"]
 [ext_resource type="PackedScene" uid="uid://7f5d1bwwjuu0" path="res://scenes/data/DataQuestion/question_row.tscn" id="2_ve1ap"]
@@ -30,6 +30,8 @@
 [ext_resource type="PackedScene" uid="uid://cpdo7bx7xqye8" path="res://scenes/data/DataQuestion/question_in_grid.tscn" id="27_3rfw0"]
 [ext_resource type="PackedScene" uid="uid://d38wtvflj2mq6" path="res://scenes/sfx.tscn" id="29_lyehf"]
 [ext_resource type="PackedScene" uid="uid://dlr7qwhpdikn6" path="res://scenes/voice.tscn" id="30_eed2l"]
+[ext_resource type="AudioStream" uid="uid://dekxkptobb0cn" path="res://audio/tracks/subjects.ogg" id="31_vs3r5"]
+[ext_resource type="AudioStream" uid="uid://cib34byywt73k" path="res://audio/tracks/subjects_might.ogg" id="32_bdc5a"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gkyu1"]
 texture = ExtResource("4_kw14r")
@@ -138,6 +140,94 @@ keycode = 4194305
 [sub_resource type="Shortcut" id="Shortcut_pa0ux"]
 events = [SubResource("InputEventKey_lsry1")]
 
+[sub_resource type="Animation" id="Animation_h1gsa"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BGM:volume_db")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MightBGM:volume_db")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-60.0]
+}
+
+[sub_resource type="Animation" id="Animation_irox0"]
+resource_name = "calm"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BGM:volume_db")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, -60.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MightBGM:volume_db")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-60.0, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_e2tsu"]
+resource_name = "might"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BGM:volume_db")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, -60.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MightBGM:volume_db")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-60.0, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rsuri"]
+_data = {
+&"RESET": SubResource("Animation_h1gsa"),
+&"calm": SubResource("Animation_irox0"),
+&"might": SubResource("Animation_e2tsu")
+}
+
 [node name="DataQuestion" type="Control" unique_id=818269271]
 top_level = true
 layout_mode = 3
@@ -149,6 +239,7 @@ grow_vertical = 2
 script = ExtResource("1_0rm0x")
 question_packed_scene = ExtResource("2_ve1ap")
 saved_question_packed_scene = ExtResource("27_3rfw0")
+silence = true
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=753104734]
 layout_mode = 1
@@ -601,6 +692,22 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 columns = 2
 
+[node name="BGM" type="AudioStreamPlayer" parent="." unique_id=106018432]
+stream = ExtResource("31_vs3r5")
+autoplay = true
+
+[node name="MightBGM" type="AudioStreamPlayer" parent="." unique_id=218839098]
+stream = ExtResource("32_bdc5a")
+volume_db = -60.0
+autoplay = true
+
+[node name="MightTransitions" type="AnimationPlayer" parent="." unique_id=2055965213]
+libraries/ = SubResource("AnimationLibrary_rsuri")
+
+[node name="MightTimer" type="Timer" parent="." unique_id=961960822]
+wait_time = 0.06
+one_shot = true
+
 [connection signal="pressed" from="Items/Resources/Images" to="." method="_on_images_pressed"]
 [connection signal="pressed" from="Items/ScrollData/Data/Question/GloballyRelevant/Reset" to="." method="_on_reset_pressed"]
 [connection signal="pressed" from="Items/ScrollData/Data/Question/GloballyRelevant/IncreaseLevel" to="." method="_on_increase_level_pressed"]
@@ -619,6 +726,7 @@ columns = 2
 [connection signal="pressed" from="Items/ScrollData/Data/Tag/AddTagButton" to="." method="_on_add_tag_button_pressed"]
 [connection signal="pressed" from="Items/ScrollData/Data/Submit" to="." method="_on_submit_pressed"]
 [connection signal="pressed" from="SubjectBar/Close" to="." method="_on_close_pressed"]
+[connection signal="timeout" from="MightTimer" to="." method="_on_might_timer_timeout"]
 
 [editable path="Items/ScrollData/Data/Types/M/VBoxContainer/Types/Open"]
 [editable path="Items/ScrollData/Data/Types/M/VBoxContainer/Types/Choice"]
