@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bpf0tt33ehi2y"]
 
 [ext_resource type="Script" uid="uid://bdpus4w5vrgxp" path="res://scenes/main.gd" id="1_sugp2"]
+[ext_resource type="PackedScene" uid="uid://lw8kc0nrgtfm" path="res://scenes/freestyle.tscn" id="3_0ld40"]
 [ext_resource type="PackedScene" uid="uid://cvbfhohv32pcb" path="res://scenes/data/data_subject.tscn" id="4_jyhfs"]
 [ext_resource type="Texture2D" uid="uid://blnjow0okn4q5" path="res://graphics/icons/walker.svg" id="5_dp3eg"]
 [ext_resource type="Texture2D" uid="uid://ejk8mymsv7ff" path="res://graphics/mainpattern.png" id="5_gqmmt"]
@@ -217,6 +218,7 @@ grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_jyhfs")
 script = ExtResource("1_sugp2")
 data_subject_scene = ExtResource("4_jyhfs")
+freestyle_scene = ExtResource("3_0ld40")
 
 [node name="Panel2" type="Panel" parent="." unique_id=1026270071]
 layout_mode = 1
@@ -274,6 +276,7 @@ texture = ExtResource("6_85g3d")
 expand_mode = 2
 
 [node name="Quote" type="Label" parent="QuoteBG/QuoteContainer" unique_id=2048007753]
+custom_minimum_size = Vector2(1.545, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.19607843, 0.1882353, 0.23137255, 1)

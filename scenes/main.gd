@@ -1,6 +1,7 @@
 extends Panel
 
 @export var data_subject_scene: PackedScene
+@export var freestyle_scene: PackedScene
 
 func _ready() -> void:
 	$BGM.play()
@@ -49,4 +50,4 @@ func _on_freestyle_button_pressed() -> void:
 	$SelectSFX.play()
 	Main.wipe_in()
 	await Main.wipe_finished
-	get_tree().change_scene_to_file("res://scenes/freestyle.tscn")
+	get_tree().change_scene_to_packed(freestyle_scene)
