@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dy4w0xtd2ieoi"]
+[gd_scene format=3 uid="uid://dy4w0xtd2ieoi"]
 
 [ext_resource type="Script" uid="uid://ce6aau8dh1425" path="res://scenes/data/DataQuestion/Table/table.gd" id="1_g23or"]
 [ext_resource type="PackedScene" uid="uid://cgmg2jkj72qpm" path="res://scenes/data/DataQuestion/Table/table_cell.tscn" id="2_2bbrh"]
@@ -35,7 +35,7 @@ content_margin_bottom = 3.0
 bg_color = Color(0.76, 0.00759999, 0.00759999, 1)
 corner_radius_bottom_right = 10
 
-[node name="Tables" type="VBoxContainer"]
+[node name="Tables" type="VBoxContainer" unique_id=391072213]
 offset_top = 89.0
 offset_right = 120.0
 offset_bottom = 89.0
@@ -43,43 +43,44 @@ script = ExtResource("1_g23or")
 cell_scene = ExtResource("2_2bbrh")
 button_scene = ExtResource("3_lnr2n")
 
-[node name="Writable" type="VBoxContainer" parent="."]
+[node name="Writable" type="VBoxContainer" parent="." unique_id=2102064998]
 layout_mode = 2
 
-[node name="Table" type="HBoxContainer" parent="Writable"]
+[node name="Table" type="HBoxContainer" parent="Writable" unique_id=986223899]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="Base" type="VBoxContainer" parent="Writable/Table"]
+[node name="Base" type="VBoxContainer" parent="Writable/Table" unique_id=218567636]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 0
 
-[node name="Rows" type="HBoxContainer" parent="Writable/Table/Base"]
+[node name="Rows" type="HBoxContainer" parent="Writable/Table/Base" unique_id=1393279501]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 0
 
-[node name="Column" type="VBoxContainer" parent="Writable/Table/Base/Rows"]
+[node name="Column" type="VBoxContainer" parent="Writable/Table/Base/Rows" unique_id=2096991597]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 0
 
-[node name="Text" parent="Writable/Table/Base/Rows/Column" instance=ExtResource("2_2bbrh")]
+[node name="Text" parent="Writable/Table/Base/Rows/Column" unique_id=456937355 instance=ExtResource("2_2bbrh")]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.216, 0.1952, 0.32, 1)
 
-[node name="RowButtons" type="HBoxContainer" parent="Writable/Table/Base"]
+[node name="RowButtons" type="HBoxContainer" parent="Writable/Table/Base" unique_id=1370643021]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="AddRow" type="Button" parent="Writable/Table/Base/RowButtons"]
+[node name="AddRow" type="Button" parent="Writable/Table/Base/RowButtons" unique_id=1664778927]
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/normal = SubResource("StyleBoxFlat_q3ibh")
 text = "+"
 
-[node name="DeleteRow" type="Button" parent="Writable/Table/Base/RowButtons"]
+[node name="DeleteRow" type="Button" parent="Writable/Table/Base/RowButtons" unique_id=1024447471]
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -87,61 +88,61 @@ size_flags_vertical = 3
 theme_override_styles/normal = SubResource("StyleBoxFlat_a58w3")
 text = "-"
 
-[node name="ColumnButtons" type="VBoxContainer" parent="Writable/Table"]
+[node name="ColumnButtons" type="VBoxContainer" parent="Writable/Table" unique_id=441943173]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="AddColumn" type="Button" parent="Writable/Table/ColumnButtons"]
+[node name="AddColumn" type="Button" parent="Writable/Table/ColumnButtons" unique_id=2037765918]
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/normal = SubResource("StyleBoxFlat_anqob")
 text = "+"
 
-[node name="DeleteColumn" type="Button" parent="Writable/Table/ColumnButtons"]
+[node name="DeleteColumn" type="Button" parent="Writable/Table/ColumnButtons" unique_id=1481069024]
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/normal = SubResource("StyleBoxFlat_auwyl")
 text = "-"
 
-[node name="Editable" type="VBoxContainer" parent="."]
+[node name="Editable" type="VBoxContainer" parent="." unique_id=776945807]
 layout_mode = 2
 
-[node name="Table" type="HBoxContainer" parent="Editable"]
+[node name="Table" type="HBoxContainer" parent="Editable" unique_id=834454070]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="Base" type="VBoxContainer" parent="Editable/Table"]
+[node name="Base" type="VBoxContainer" parent="Editable/Table" unique_id=1512013280]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 0
 
-[node name="Rows" type="HBoxContainer" parent="Editable/Table/Base"]
+[node name="Rows" type="HBoxContainer" parent="Editable/Table/Base" unique_id=1494178584]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 0
 
-[node name="Column" type="VBoxContainer" parent="Editable/Table/Base/Rows"]
+[node name="Column" type="VBoxContainer" parent="Editable/Table/Base/Rows" unique_id=1955258234]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 0
 
-[node name="EditableButton" parent="Editable/Table/Base/Rows/Column" instance=ExtResource("3_lnr2n")]
+[node name="EditableButton" parent="Editable/Table/Base/Rows/Column" unique_id=263349921 instance=ExtResource("3_lnr2n")]
 layout_mode = 2
 
-[node name="RowButtons" type="HBoxContainer" parent="Editable/Table/Base"]
+[node name="RowButtons" type="HBoxContainer" parent="Editable/Table/Base" unique_id=1631334413]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="AddRow" type="Button" parent="Editable/Table/Base/RowButtons"]
+[node name="AddRow" type="Button" parent="Editable/Table/Base/RowButtons" unique_id=397683994]
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/normal = SubResource("StyleBoxFlat_q3ibh")
 text = "+"
 
-[node name="DeleteRow" type="Button" parent="Editable/Table/Base/RowButtons"]
+[node name="DeleteRow" type="Button" parent="Editable/Table/Base/RowButtons" unique_id=805147508]
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -149,18 +150,18 @@ size_flags_vertical = 3
 theme_override_styles/normal = SubResource("StyleBoxFlat_a58w3")
 text = "-"
 
-[node name="ColumnButtons" type="VBoxContainer" parent="Editable/Table"]
+[node name="ColumnButtons" type="VBoxContainer" parent="Editable/Table" unique_id=1498841863]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="AddColumn" type="Button" parent="Editable/Table/ColumnButtons"]
+[node name="AddColumn" type="Button" parent="Editable/Table/ColumnButtons" unique_id=1464743717]
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/normal = SubResource("StyleBoxFlat_anqob")
 text = "+"
 
-[node name="DeleteColumn" type="Button" parent="Editable/Table/ColumnButtons"]
+[node name="DeleteColumn" type="Button" parent="Editable/Table/ColumnButtons" unique_id=563393395]
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
 size_flags_vertical = 3

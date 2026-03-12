@@ -94,7 +94,7 @@ func get_file_path() -> String:
 	return "user://subjects/" + subject_id_dir + id_filename
 
 func create() -> void:
-	id = Main.data.next_question_id(true)
+	id = get_subject().next_question_id(true)
 	save()
 
 func erase() -> void:

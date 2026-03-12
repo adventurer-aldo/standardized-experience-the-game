@@ -1,13 +1,13 @@
-extends HBoxContainer
+extends MarginContainer
 
 signal delete_pressed(text: String)
 
 func set_text(text: String) -> void:
-	$TextButton.text = text
+	$Tag/TextButton.text = text
 
 func _on_delete_button_pressed() -> void:
-	delete_pressed.emit($TextButton.text)
+	delete_pressed.emit($Tag/TextButton.text)
 	queue_free()
 
 func fetch() -> String:
-	return $TextButton.text
+	return $Tag/TextButton.text

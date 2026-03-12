@@ -5,6 +5,7 @@ extends Resource
 @export var id := 0
 @export var title := ""
 @export var description := ""
+@export var last_question_id:= 0
 
 @export_category("Experience")
 @export var level:= 0
@@ -85,3 +86,13 @@ func update_level() -> void:
 		level = clampi(lvl, 1, 15)
 	print("Finished dealing with " + title)
 	save()
+
+func next_question_id(should_save:= true) -> int:
+	var value_to_return = 0
+	if should_save:
+		last_question_id += 1
+		value_to_return = last_question_id
+		save()
+	else:
+		value_to_return = last_question_id + 1
+	return value_to_return

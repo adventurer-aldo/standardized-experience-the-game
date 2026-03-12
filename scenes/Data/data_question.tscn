@@ -111,15 +111,27 @@ keycode = 43
 [sub_resource type="Shortcut" id="Shortcut_eed2l"]
 events = [SubResource("InputEventKey_lyehf")]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pa0ux"]
-texture = ExtResource("21_l7njq")
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vs3r5"]
+bg_color = Color(0, 0.5241666, 0.85, 1)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_blend = true
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lsry1"]
+texture = ExtResource("20_7uqtb")
 texture_margin_left = 12.0
 texture_margin_top = 12.0
 texture_margin_right = 12.0
 texture_margin_bottom = 12.0
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lsry1"]
-texture = ExtResource("20_7uqtb")
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pa0ux"]
+texture = ExtResource("21_l7njq")
 texture_margin_left = 12.0
 texture_margin_top = 12.0
 texture_margin_right = 12.0
@@ -593,7 +605,7 @@ text = "test"
 [node name="Submit" type="Button" parent="Items/ScrollData/Data" unique_id=510749835 node_paths=PackedStringArray("shortcut_context")]
 layout_mode = 2
 shortcut_context = NodePath("../../..")
-theme_override_styles/normal = SubResource("StyleBoxTexture_pa0ux")
+theme_override_styles/normal = SubResource("StyleBoxFlat_vs3r5")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_lsry1")
 theme_override_styles/hover = SubResource("StyleBoxTexture_pa0ux")
 theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_lsry1")

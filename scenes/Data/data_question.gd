@@ -10,13 +10,14 @@ signal might_ended
 var subject_id: int
 var title = "Default Subject"
 var question = Question.new()
+var subject: Subject
 @export var silence = false
 
 var might_mode:= false
 
 func _ready() -> void:
 	question.subject_id = subject_id
-	question.id = Main.data.next_question_id(false)
+	subject = Main.data.get_subject(subject_id)
 	$SubjectBar/Title.text = title
 	_on_add_question_alt_pressed()
 	$Items/ScrollData/Data/Types/M/VBoxContainer/Types/Open.button_pressed = true
@@ -49,7 +50,7 @@ func _on_reset_pressed() -> void:
 	
 	$Items/ScrollData/Data/ParentsContainer/ParentsFlow.reset()
 	$Items/ScrollData/Data/TagsContainer/TagsFlow.reset()
-	question.id = Main.data.next_question_id(false)
+	question.id = 0
 
 func set_container() -> void:
 	question.get_subject().get_questions().map(func (saved_question):
@@ -212,22 +213,21 @@ func _on_submit_pressed() -> void:
 	play_submit_edit_voice()
 	fetch_data()
 	# Save or Edit Question. Also edit the Subject's last time saved variable.
-	var subj = question.get_subject()
-	if question.get_subject().has_question(question.id):
+	if subject.has_question(question.id):
 		question.save()
 	else:
 		question.create()
-		subj.maximum_experience += 1
+		subject.maximum_experience += 1
 
-	subj.last_time_saved = Time.get_unix_time_from_system()
-	subj.save()
+	subject.last_time_saved = Time.get_unix_time_from_system()
+	subject.save()
 	add_question_to_container(question)
 	$SFX.play_file("submit")
 	$Items/ScrollData/Data/Question/Texts.get_children().map(func (child): child.reset())
 	$Items/ScrollData/Data/Question/Texts.get_child(0).get_focus()
 	$Items/ScrollData/Data/Question/Image.texture = null
 	$Items/ScrollData/Data/Opens.reset()
-	question.id = Main.data.next_question_id(false)
+	question.id = 0
 
 func _on_close_pressed() -> void:
 	queue_free()

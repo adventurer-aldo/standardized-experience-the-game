@@ -2,6 +2,12 @@
 
 [ext_resource type="Script" uid="uid://dbgvllcy3psno" path="res://scenes/data/DataQuestion/question_in_grid.gd" id="1_nnuj0"]
 
+[sub_resource type="LabelSettings" id="LabelSettings_sdwmh"]
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jq7oj"]
+bg_color = Color(1, 1, 1, 1)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sdwmh"]
 bg_color = Color(0.8039216, 0.5764706, 0, 1)
 
@@ -12,10 +18,24 @@ size_flags_horizontal = 3
 script = ExtResource("1_nnuj0")
 
 [node name="MainText" type="Label" parent="." unique_id=2142630910]
+custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 text = "gggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg"
+label_settings = SubResource("LabelSettings_sdwmh")
+autowrap_mode = 3
 clip_text = true
 text_overrun_behavior = 3
+max_lines_visible = 2
+
+[node name="Panel" type="Panel" parent="MainText" unique_id=1198437768]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_jq7oj")
 
 [node name="Buttons" type="HBoxContainer" parent="." unique_id=541909795]
 layout_mode = 2
