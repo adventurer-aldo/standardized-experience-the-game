@@ -30,8 +30,10 @@
 [ext_resource type="PackedScene" uid="uid://cpdo7bx7xqye8" path="res://scenes/data/DataQuestion/question_in_grid.tscn" id="27_3rfw0"]
 [ext_resource type="PackedScene" uid="uid://d38wtvflj2mq6" path="res://scenes/sfx.tscn" id="29_lyehf"]
 [ext_resource type="PackedScene" uid="uid://dlr7qwhpdikn6" path="res://scenes/voice.tscn" id="30_eed2l"]
+[ext_resource type="Texture2D" uid="uid://b4mjun0mwc3lt" path="res://graphics/icons/magnifying-glass.svg" id="31_irox0"]
 [ext_resource type="AudioStream" uid="uid://dekxkptobb0cn" path="res://audio/tracks/subjects.ogg" id="31_vs3r5"]
 [ext_resource type="AudioStream" uid="uid://cib34byywt73k" path="res://audio/tracks/subjects_might.ogg" id="32_bdc5a"]
+[ext_resource type="FontFile" uid="uid://djqlkih7hivms" path="res://fonts/DMSans-Bold.ttf" id="32_rsuri"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gkyu1"]
 texture = ExtResource("4_kw14r")
@@ -151,6 +153,25 @@ keycode = 4194305
 
 [sub_resource type="Shortcut" id="Shortcut_pa0ux"]
 events = [SubResource("InputEventKey_lsry1")]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mb2d3"]
+bg_color = Color(1, 1, 1, 0.5254902)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(1, 1, 1, 1)
+border_blend = true
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_o5d3e"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xxsx6"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rh8jh"]
 
 [sub_resource type="Animation" id="Animation_h1gsa"]
 length = 0.001
@@ -688,13 +709,54 @@ offset_bottom = 43.0
 shortcut = SubResource("Shortcut_pa0ux")
 text = "X"
 
+[node name="Search" type="Panel" parent="." unique_id=9039647]
+custom_minimum_size = Vector2(0, 43)
+layout_mode = 0
+offset_left = 660.0
+offset_top = 77.0
+offset_right = 1268.0
+offset_bottom = 120.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_mb2d3")
+
+[node name="Elements" type="HBoxContainer" parent="Search" unique_id=342849284]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 6.0
+offset_right = -20.0
+offset_bottom = -6.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SearchIcon" type="TextureRect" parent="Search/Elements" unique_id=672193647]
+modulate = Color(0.19607843, 0.1882353, 0.23137255, 1)
+layout_mode = 2
+texture = ExtResource("31_irox0")
+expand_mode = 2
+
+[node name="SearchBar" type="LineEdit" parent="Search/Elements" unique_id=1283588310]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.19607843, 0.1882353, 0.23137255, 1)
+theme_override_colors/font_placeholder_color = Color(0.19431168, 0.18630001, 0.23, 0.6745098)
+theme_override_colors/caret_color = Color(0.297, 0.43010008, 0.66, 1)
+theme_override_colors/selection_color = Color(0.19607843, 0.1882353, 0.23137255, 1)
+theme_override_fonts/font = ExtResource("32_rsuri")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_o5d3e")
+theme_override_styles/read_only = SubResource("StyleBoxEmpty_xxsx6")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_rh8jh")
+placeholder_text = "Search by Question"
+caret_blink = true
+
 [node name="QuestionsScroll" type="ScrollContainer" parent="." unique_id=154006331]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 643.0
-offset_top = 69.0
+offset_left = 651.0
+offset_top = 124.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -738,6 +800,7 @@ one_shot = true
 [connection signal="pressed" from="Items/ScrollData/Data/Tag/AddTagButton" to="." method="_on_add_tag_button_pressed"]
 [connection signal="pressed" from="Items/ScrollData/Data/Submit" to="." method="_on_submit_pressed"]
 [connection signal="pressed" from="SubjectBar/Close" to="." method="_on_close_pressed"]
+[connection signal="text_changed" from="Search/Elements/SearchBar" to="." method="_on_search_bar_text_changed"]
 [connection signal="timeout" from="MightTimer" to="." method="_on_might_timer_timeout"]
 
 [editable path="Items/ScrollData/Data/Types/M/VBoxContainer/Types/Open"]

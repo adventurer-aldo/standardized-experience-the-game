@@ -12,6 +12,7 @@ var title = "Default Subject"
 var question = Question.new()
 var subject: Subject
 @export var silence = false
+var search_thread = Thread.new()
 
 var might_mode:= false
 
@@ -235,3 +236,15 @@ func _on_close_pressed() -> void:
 func _on_images_pressed() -> void:
 	var img = DisplayServer.clipboard_get_image()
 	$Items/ScrollData/Data/Question/Image.texture = ImageTexture.create_from_image(img)
+
+
+func _on_search_bar_text_changed(new_text: String) -> void:
+	for question_query in $QuestionsScroll/QuestionsContainer.get_children():
+		if new_text.strip_edges() == '':
+			question_query.show()
+		else:
+			var title: String = question_query.get_text()
+			if !title.containsn(new_text):
+				question_query.hide()
+			else:
+				question_query.show()

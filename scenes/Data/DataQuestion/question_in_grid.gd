@@ -9,6 +9,9 @@ var id:= 0
 func _ready() -> void:
 	set_id(id)
 
+func get_text() -> String:
+	return $MainText.text
+
 func set_text(to: String):
 	$MainText.text = to
 
