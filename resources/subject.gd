@@ -7,6 +7,8 @@ extends Resource
 @export var description := ""
 @export var last_question_id:= 0
 
+@export var is_journey_eligible:= false
+
 @export_category("Experience")
 @export var level:= 0
 @export var experience:= 0.0

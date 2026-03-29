@@ -9,6 +9,12 @@ class_name Journey
 
 func create() -> void:
 	DirAccess.make_dir_recursive_absolute(get_dir_path())
+	for subject in Main.data.get_subjects():
+		if subject.is_journey_eligible:
+			var new_chair = Chair.new()
+			new_chair.subject_id = subject.id
+			new_chair.id = subject.id
+			new_chair.save()
 	save()
 
 func save() -> void:
