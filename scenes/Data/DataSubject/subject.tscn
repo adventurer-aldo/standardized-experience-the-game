@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://bd634eo063jbr" path="res://scenes/data/data_question.tscn" id="2_svi1f"]
 [ext_resource type="FontFile" uid="uid://cll00c3mbr5pe" path="res://fonts/DMSans.ttf" id="3_ps61u"]
 [ext_resource type="Texture2D" uid="uid://bcfiebs15xh1e" path="res://graphics/icons/graduation-cap.svg" id="5_fojjr"]
+[ext_resource type="Script" uid="uid://bdrtirfhsvoe" path="res://scenes/data/DataSubject/bookmark.gd" id="6_rumu7"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fojjr"]
 bg_color = Color(1, 1, 1, 0.5254902)
@@ -352,16 +353,22 @@ offset_left = 435.0
 offset_top = 3.0
 offset_right = 509.0
 offset_bottom = 31.0
+focus_mode = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_odny2")
+script = ExtResource("6_rumu7")
 
 [node name="Filler" type="Panel" parent="Bookmark" unique_id=746432293]
 visible = false
 layout_mode = 0
 offset_right = 74.0
 offset_bottom = 28.0
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_kjp2v")
 
 [connection signal="focus_entered" from="." to="." method="_on_selected_focus_entered"]
 [connection signal="focus_exited" from="." to="." method="_on_selected_focus_exited"]
 [connection signal="mouse_entered" from="." to="." method="_on_selected_mouse_entered"]
 [connection signal="pressed" from="M/Elements/Quick/Edit" to="." method="_on_subject_pressed"]
+[connection signal="bookmark_pressed" from="Bookmark" to="." method="_on_bookmark_bookmark_pressed"]
+[connection signal="mouse_entered" from="Bookmark" to="Bookmark" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Bookmark" to="Bookmark" method="_on_mouse_exited"]

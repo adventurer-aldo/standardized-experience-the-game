@@ -25,6 +25,10 @@ func _ready() -> void:
 	var amount_of_questions = subject.size()
 	set_questions_size(amount_of_questions)
 	set_progress(amount_of_questions * subject.level, subject.experience)
+	set_bookmark(subject.is_journey_eligible)
+
+func set_bookmark(to: bool) -> void:
+	$Bookmark/Filler.visible = to
 
 func set_title(to: String) -> void:
 	$M/Elements/Quick/MTitle/M/Name/Title.text = to
@@ -59,3 +63,11 @@ func _on_selected_focus_exited() -> void:
 
 func _on_selected_mouse_entered() -> void:
 	grab_focus()
+
+func _on_mouse_exited() -> void:
+	release_focus()
+
+func _on_bookmark_bookmark_pressed(to: bool) -> void:
+	var subject = Main.data.get_subject(subject_id)
+	subject.is_journey_eligible = to
+	subject.save()

@@ -1,8 +1,104 @@
 [gd_scene format=3 uid="uid://d4fkb8hl1h104"]
 
+[ext_resource type="PackedScene" uid="uid://bg7bp0isxc8bv" path="res://scenes/user_display/user.tscn" id="1_5kwj8"]
+
 [node name="Control" type="ColorRect" unique_id=1065204052]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+color = Color(0.19039999, 0.52496004, 0.68, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1544999828]
+layout_mode = 0
+offset_left = 476.0
+offset_top = 263.0
+offset_right = 728.0
+offset_bottom = 341.0
+
+[node name="Panel" type="Panel" parent="MarginContainer" unique_id=1689300216]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=355739931]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer" unique_id=249646201]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/MarginContainer" unique_id=158339695]
+layout_mode = 2
+theme_override_font_sizes/font_size = 26
+text = "1st Test"
+horizontal_alignment = 1
+
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/VBoxContainer" unique_id=1461566023]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/MarginContainer2" unique_id=697990218]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "—"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="MarginContainer" unique_id=1919369732]
+visible = false
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 13
+theme_override_font_sizes/font_size = 54
+text = "X"
+horizontal_alignment = 1
+
+[node name="MarginContainer2" type="MarginContainer" parent="." unique_id=1974596084]
+layout_mode = 0
+offset_left = 89.0
+offset_top = 249.0
+offset_right = 371.0
+offset_bottom = 357.0
+
+[node name="Panel" type="Panel" parent="MarginContainer2" unique_id=1209875981]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer2" unique_id=76033007]
+layout_mode = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 5
+
+[node name="Label" type="Label" parent="MarginContainer2/MarginContainer" unique_id=1133365274]
+layout_mode = 2
+theme_override_font_sizes/font_size = 26
+text = "Fisiologia I"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="MarginContainer2" unique_id=1571692518]
+visible = false
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 13
+theme_override_font_sizes/font_size = 54
+text = "X"
+horizontal_alignment = 1
+
+[node name="User" parent="." unique_id=579549992 instance=ExtResource("1_5kwj8")]
+layout_mode = 0
+
+[node name="Label" type="Label" parent="." unique_id=1383084301]
+layout_mode = 0
+offset_left = 469.0
+offset_top = 125.0
+offset_right = 743.0
+offset_bottom = 177.0
+theme_override_colors/font_outline_color = Color(0.35099995, 0.54535, 0.65, 1)
+theme_override_constants/outline_size = 13
+theme_override_font_sizes/font_size = 39
+text = "Beginner Stage"
+horizontal_alignment = 1

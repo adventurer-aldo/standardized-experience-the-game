@@ -8,6 +8,7 @@ class_name Quiz
 @export var start_time:= 0.0
 @export var end_time:= 0.0
 @export var journey_id:= 0
+@export var saved_grade:= -1.0
 @export var template:= 0
 
 func get_subject() -> Subject:
@@ -25,6 +26,11 @@ func create() -> void:
 	DirAccess.make_dir_recursive_absolute(get_dir_path())
 	save()
 
+func delete() -> void:
+	var one = DirAccess.remove_absolute(get_dir_path())
+	var two = DirAccess.remove_absolute(get_file_path())
+	print("Attempted deletion of Quiz ID#{id}. Codes: {one} | {two}".format({"id": id, "one": one, "two": two}))
+	
 func save() -> void:
 	return ResourceSaver.save(self, get_file_path(), ResourceSaver.FLAG_COMPRESS)
 
