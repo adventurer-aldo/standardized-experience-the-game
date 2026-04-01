@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bdpus4w5vrgxp" path="res://scenes/main.gd" id="1_sugp2"]
 [ext_resource type="PackedScene" uid="uid://lw8kc0nrgtfm" path="res://scenes/freestyle.tscn" id="3_0ld40"]
+[ext_resource type="PackedScene" uid="uid://d4fkb8hl1h104" path="res://scenes/journey/journey.tscn" id="4_gqmmt"]
 [ext_resource type="PackedScene" uid="uid://cvbfhohv32pcb" path="res://scenes/data/data_subject.tscn" id="4_jyhfs"]
 [ext_resource type="Texture2D" uid="uid://blnjow0okn4q5" path="res://graphics/icons/walker.svg" id="5_dp3eg"]
 [ext_resource type="Texture2D" uid="uid://ejk8mymsv7ff" path="res://graphics/mainpattern.png" id="5_gqmmt"]
@@ -219,6 +220,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_jyhfs")
 script = ExtResource("1_sugp2")
 data_subject_scene = ExtResource("4_jyhfs")
 freestyle_scene = ExtResource("3_0ld40")
+journey_scene = ExtResource("4_gqmmt")
 
 [node name="Panel2" type="Panel" parent="." unique_id=1026270071]
 layout_mode = 1
@@ -511,6 +513,7 @@ expand_mode = 1
 [connection signal="focus_entered" from="Base2/VBoxContainer/SubjectsButton" to="." method="_on_subjects_button_focus_entered"]
 [connection signal="pressed" from="Base2/VBoxContainer/SubjectsButton" to="." method="_on_subjects_pressed"]
 [connection signal="focus_entered" from="Base2/VBoxContainer/JourneyButton" to="." method="_on_journey_button_focus_entered"]
+[connection signal="pressed" from="Base2/VBoxContainer/JourneyButton" to="." method="_on_journey_button_pressed"]
 [connection signal="focus_entered" from="Base2/VBoxContainer/FreestyleButton" to="." method="_on_freestyle_button_focus_entered"]
 [connection signal="pressed" from="Base2/VBoxContainer/FreestyleButton" to="." method="_on_freestyle_button_pressed"]
 [connection signal="focus_entered" from="Base2/VBoxContainer/RestButton" to="." method="_on_rest_button_focus_entered"]

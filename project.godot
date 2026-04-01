@@ -53,6 +53,7 @@ data_table_cell=""
 
 [gui]
 
+theme/custom="uid://dp6f4t10y8x2y"
 theme/custom_font="uid://cll00c3mbr5pe"
 
 [input]

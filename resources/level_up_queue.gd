@@ -7,8 +7,8 @@ extends Resource
 @export var subject_id:= 0
 @export var due_time:= 0.0
 
-func check() -> bool:
-	return Time.get_unix_time_from_system() > due_time
+func check(time:= Time.get_unix_time_from_system()) -> bool:
+	return time > due_time
 
 func erase() -> void:
 	DirAccess.remove_absolute("user://leveling_queues/" + str(id).lpad(10, "0") + ".tres")
@@ -19,15 +19,16 @@ func get_subject() -> Subject:
 func get_question() -> Question:
 	return get_subject().get_question(question_id)
 
-func process_leveling() -> bool:
-	if check():
+func process_leveling(time:= Time.get_unix_time_from_system()) -> bool:
+	if check(time):
 		var question = get_question()
 		question.is_level_up_queued = false
 		question.last_time_leveled = Time.get_unix_time_from_system()
 		question.save()
 		erase()
 		return true
-	else: return false
+	else:
+		return false
 
 func save() -> void:
 	ResourceSaver.save(self, "user://leveling_queues/" + str(id).lpad(10, '0') + ".tres")

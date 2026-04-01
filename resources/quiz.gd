@@ -9,6 +9,7 @@ class_name Quiz
 @export var end_time:= 0.0
 @export var journey_id:= 0
 @export var saved_grade:= -1.0
+@export var should_rush:= true
 @export var template:= 0
 
 func get_subject() -> Subject:
@@ -36,7 +37,7 @@ func save() -> void:
 
 func generate() -> bool:
 	randomize()
-	var questions = get_filtered_questions()
+	var questions = get_filtered_questions(!(journey_id > 0))
 	
 	# Give priority to questions with a miss streak
 	questions.sort_custom(func (question_a: Question, question_b: Question):
@@ -50,17 +51,34 @@ func generate() -> bool:
 		)
 		possible_types.shuffle()
 		question.attempt_type = possible_types[0]
+		question.is_rush = false
 		move_question_to_quiz(question, questions.find(question))
 	return questions.size() > 0
 
+func generate_rush_questions() -> void:
+	var questions = get_rush_questions()
+	for question in questions:
+		question.is_rush = true
+		move_question_to_quiz(question, randi() % size())
+	
 func get_questions() -> Array[Question]:
 	var files = Array(DirAccess.get_files_at("user://quizzes/" + str(id).lpad(10, '0')))
 	var res: Array[Question] = []
 	for question_filename in files:
 		res.push_back(ResourceLoader.load("user://quizzes/" + str(id).lpad(10, '0') + "/" + question_filename))
+	# Sort by attempt ID
+	res.sort_custom(func (question_a: Question, question_b: Question):
+		return question_a.attempt_index < question_b.attempt_index
+	)
 	return res
 
-func get_filtered_questions() -> Array[Question]:
+func has_rush_questions() -> bool:
+	var rush_questions = get_questions().filter(func (question: Question):
+		return question.is_rush
+	)
+	return rush_questions.size() > 0
+
+func get_filtered_questions(block_unsolved_parents:= true) -> Array[Question]:
 	var res:= get_subject().get_questions()
 	# Filter based on quiz's level
 	res = res.filter(func (question: Question):
@@ -75,26 +93,25 @@ func get_filtered_questions() -> Array[Question]:
 				return question.level == 3
 	)
 	# Filter based on the parents having completed basic mastery
-	res = res.filter(func (question: Question):
-		return question.are_parents_decent()
-	)
-	# Filter based on question type
+	if block_unsolved_parents:
+		res = res.filter(func (question: Question):
+			return question.are_parents_decent()
+		)
+	# Filter based on question type (This is only because other types haven't been properly implemented yet.)
 	res = res.filter(func (question: Question): return (question.is_open || question.is_choice))
 	# Filter based on not being in the leveling queue
 	res = res.filter(func (question: Question): return !question.is_level_up_queued)
 	return res
 
 func get_rush_questions() -> Array[Question]:
-	print("Updating")
-	Main.begin_update()
-	await Main.update_finished
-	print("I awaited the finish.")
-	var questions = get_filtered_questions()
-	# Filter based on whether level up was completed in midst of quiz
-	var queue_range = range(start_time, Time.get_unix_time_from_system() + 10.0)
-	questions = questions.filter(func (question: Question):
-		return queue_range.has(int(question.last_time_leveled))
-	)	
+	print("Fetching Rush questions")
+	# Filter based on whether level up will be completed in midst of quiz
+	var all_queued_questions = Main.data.get_questions_with_leveling_due_at(end_time)
+	var questions = all_queued_questions.filter(func (question: Question):
+		return question.subject_id == subject_id && (journey_id > 0 || question.are_parents_decent())
+	)
+	randomize()
+	questions.shuffle()
 	return questions.slice(0, 4)
 
 func size() -> int:

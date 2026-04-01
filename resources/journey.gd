@@ -5,23 +5,25 @@ class_name Journey
 @export var id: int
 @export var start_time: float
 @export var end_time: float
-@export var progress: int
+@export var stage:= 0
 
 func create() -> void:
 	DirAccess.make_dir_recursive_absolute(get_dir_path())
 	for subject in Main.data.get_subjects():
 		if subject.is_journey_eligible:
 			var new_chair = Chair.new()
+			new_chair.journey_id = id
 			new_chair.subject_id = subject.id
 			new_chair.id = subject.id
 			new_chair.save()
+	start_time = Time.get_unix_time_from_system()
 	save()
 
 func save() -> void:
 	ResourceSaver.save(self, get_file_path())
 
 func get_dir_path() -> String:
-	return "user://journeys/" + str(id).lpad(10, '0' + '/')
+	return "user://journeys/" + str(id).lpad(10, '0') + '/'
 
 func get_file_path() -> String:
 	return "user://journeys/" + str(id).lpad(10, '0') + ".tres"

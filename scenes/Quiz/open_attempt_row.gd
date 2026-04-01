@@ -6,20 +6,20 @@ signal text_unfocused
 var text:= ""
 
 func fetch() -> String:
-	return $Text.text
+	return $TextsMargin/Text.text
 
 func _on_delete_button_pressed() -> void:
 	queue_free()
 
 func set_text(to: String) -> void:
-	$Text.text = to
+	$TextsMargin/Text.text = to
 
 func get_focus() -> void:
-	$Text.grab_focus()
+	$TextsMargin/Text.grab_focus()
 
 func _on_text_text_changed() -> void:
-	var diff = $Text.text.strip_edges().length() - text.strip_edges().length()
-	text = $Text.text
+	var diff = $TextsMargin/Text.text.strip_edges().length() - text.strip_edges().length()
+	text = $TextsMargin/Text.text
 	if diff!= 0: text_has_changed.emit(diff)
 
 func _on_text_focus_entered() -> void:
@@ -29,3 +29,23 @@ func _on_text_focus_entered() -> void:
 func _on_text_focus_exited() -> void:
 	text_unfocused.emit()
 	$DeleteButton.hide()
+
+func make_text_red() -> void:
+	$TextsMargin/Text.add_theme_color_override("font_color", Color.RED)
+
+func tick() -> void:
+	$TextsMargin/Text.hide()
+	$Correction/Tick.show()
+	$TextsMargin/RTL.append_text($TextsMargin/Text.text)
+
+func cross(with_text: String, mark:= true) -> void:
+	$TextsMargin/Text.hide()
+	$DeleteButton.hide()
+	$TextsMargin/RTL.push_strikethrough(Color.RED)
+	$TextsMargin/RTL.append_text($TextsMargin/Text.text)
+	$TextsMargin/RTL.pop()
+	$TextsMargin/RTL.push_color(Color.RED)
+	$TextsMargin/RTL.append_text(with_text)
+	$TextsMargin/RTL.pop()
+	if mark:
+		$Correction/Cross.show()

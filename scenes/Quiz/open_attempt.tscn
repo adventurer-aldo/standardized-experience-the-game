@@ -31,40 +31,16 @@ keycode = 43
 events = [SubResource("InputEventKey_lysjw")]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lysjw"]
-bg_color = Color(1, 0, 0, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qbo3c"]
-bg_color = Color(1, 0, 0, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7jkrs"]
-bg_color = Color(1, 0, 0, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pdxsl"]
-bg_color = Color(1, 0, 0, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a2y3a"]
-bg_color = Color(1, 0, 0, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wgt7l"]
-bg_color = Color(1, 0, 0, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oethw"]
-bg_color = Color(1, 0, 0, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g0a7q"]
-bg_color = Color(1, 0, 0, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ijpm6"]
-bg_color = Color(1, 0, 0, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_48o7w"]
-bg_color = Color(1, 0, 0, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rwrnd"]
-bg_color = Color(1, 0, 0, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nyk8l"]
-bg_color = Color(0, 1, 0, 1)
+bg_color = Color(0.31628498, 0.2397, 0.51, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.19705994, 0.15339999, 0.59, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
 
 [node name="Attempt" type="VBoxContainer" unique_id=378380950]
 offset_right = 237.0
@@ -127,47 +103,27 @@ shortcut_context = NodePath("../..")
 shortcut = SubResource("Shortcut_qbo3c")
 text = "+"
 
-[node name="Wrong" type="Button" parent="." unique_id=309994819]
+[node name="Edit" type="Button" parent="." unique_id=309994819]
 visible = false
 custom_minimum_size = Vector2(0, 33)
 layout_mode = 2
 focus_mode = 0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_styles/normal = SubResource("StyleBoxFlat_lysjw")
-theme_override_styles/normal_mirrored = SubResource("StyleBoxFlat_qbo3c")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_7jkrs")
-theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_pdxsl")
-theme_override_styles/hover = SubResource("StyleBoxFlat_a2y3a")
-theme_override_styles/hover_mirrored = SubResource("StyleBoxFlat_wgt7l")
-theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_oethw")
-theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxFlat_g0a7q")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_ijpm6")
-theme_override_styles/disabled_mirrored = SubResource("StyleBoxFlat_48o7w")
-theme_override_styles/focus = SubResource("StyleBoxFlat_rwrnd")
-text = "Edit"
-
-[node name="Right" type="Button" parent="." unique_id=517578553]
-visible = false
-custom_minimum_size = Vector2(0, 33)
-layout_mode = 2
-focus_mode = 0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_styles/normal = SubResource("StyleBoxFlat_nyk8l")
-theme_override_styles/normal_mirrored = SubResource("StyleBoxFlat_nyk8l")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_nyk8l")
-theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_nyk8l")
-theme_override_styles/hover = SubResource("StyleBoxFlat_nyk8l")
-theme_override_styles/hover_mirrored = SubResource("StyleBoxFlat_nyk8l")
-theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_nyk8l")
-theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxFlat_nyk8l")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_nyk8l")
-theme_override_styles/disabled_mirrored = SubResource("StyleBoxFlat_nyk8l")
-theme_override_styles/focus = SubResource("StyleBoxFlat_nyk8l")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxFlat_lysjw")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_lysjw")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_lysjw")
+theme_override_styles/hover = SubResource("StyleBoxFlat_lysjw")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxFlat_lysjw")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_lysjw")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxFlat_lysjw")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_lysjw")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxFlat_lysjw")
+theme_override_styles/focus = SubResource("StyleBoxFlat_lysjw")
 text = "Edit"
 
 [connection signal="text_focused" from="Elements/OpensRow/Attempt" to="." method="_on_attempt_text_focused"]
 [connection signal="text_has_changed" from="Elements/OpensRow/Attempt" to="." method="a_text_has_changed"]
 [connection signal="text_unfocused" from="Elements/OpensRow/Attempt" to="." method="_on_attempt_text_unfocused"]
 [connection signal="pressed" from="Elements/AddRowButton" to="." method="_on_add_row_button_pressed"]
-[connection signal="pressed" from="Wrong" to="." method="edit"]
-[connection signal="pressed" from="Right" to="." method="edit"]
+[connection signal="pressed" from="Edit" to="." method="edit"]

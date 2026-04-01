@@ -1,0 +1,6 @@
+[gd_resource type="Resource" format=3 uid="uid://dbhg6l2bo3gaf"]
+
+[ext_resource type="Script" uid="uid://d20c2rc3rrvrl" path="res://resources/soundtrack.gd" id="1_kno8x"]
+
+[resource]
+script = ExtResource("1_kno8x")

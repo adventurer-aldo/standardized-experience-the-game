@@ -10,39 +10,37 @@ var quiz: Quiz
 @export var ambush_ending_ost: AudioStream
 var might_mode:= false
 var rush_mode:= false
+var streak = 0
 
 func _process(_delta: float) -> void:
-	$TimeBar/TimeLabel.text = str(int($Timer.time_left)) + "s"
+	$TimeBar.set_time_string(str(int($Timer.time_left)) + "s")
 	if $Timer.time_left <= 90 && !rush_mode && !$Timer.is_stopped():
 		rush_mode = true
 		rush()
 
 func rush() -> void:
-	var rush_questions = await quiz.get_rush_questions()
-	print("I got the rush questions.")
-	if rush_questions.size() > 0:
+	if quiz.has_rush_questions():
+		print("I do have rush questions.")
 		$MightTransition.play("RESET")
 		$BGM.stream = ambush_opening_ost
 		$BGM.play()
 		$Timer.paused = true
-		$RushTransition.play("showcase")
-		await $RushTransition.animation_finished
+		$RushAnimation.play()
+		await $RushAnimation.animation_finished
 		$Blood.show()
-		for question in rush_questions:
-			add_question(question)
+		for node in get_tree().get_nodes_in_group("rush_questions"):
 			await get_tree().create_timer(0.5).timeout
-			var tween = get_tree().create_tween()
-			tween.tween_property($ScrollC, "scroll_vertical", 3200, 1.5)
-			await tween.finished
+			node.show()
+			node.grab_focus()
 		if $BGM.playing:
 			await $BGM.finished
-		$RushTransition.play("hide_dims")
-		await $RushTransition.animation_finished
+		$RushAnimation.play_hide_dims()
+		await $RushAnimation.animation_finished
 		$Timer.paused = false
 		$BGM.stream = ambush_ending_ost
 	else:
 		$BGM.stream = rush_ost
-	$RushTransition.play("display_time")
+	$TimeBar.display()
 	$RushLight/Anim.play("warn")
 	$BGM.play()
 	$MightTransition.play("RESET")
@@ -63,6 +61,9 @@ func add_question(question: Question) -> VBoxContainer:
 	var new_attempt = open_attempt.instantiate()
 	new_attempt.prepare(question)
 	new_attempt.add_to_might.connect(might_increase)
+	if question.is_rush:
+		new_attempt.hide()
+		new_attempt.add_to_group("rush_questions")
 	$ScrollC/Elements/Attempts.add_child(new_attempt)
 	return new_attempt
 	
@@ -89,26 +90,44 @@ func redo() -> void:
 	add_questions()
 	$BGM.stream = battle_ost
 	$MightBGM.stream = might_ost
-	$BGM.play()
-	$MightBGM.play()
+	var bgm_starting_point:= 0.0
+	if streak > 1:
+		bgm_starting_point += randf_range(0.1, 5.0)
+	$BGM.play(bgm_starting_point)
+	$MightBGM.play(bgm_starting_point)
 	$Blood.hide()
+	$TimeBar.reset()
 	$Timer.start(quiz.end_time - quiz.start_time)
-	$RushTransition.play("RESET")
+	# Might Start
+	var questions = quiz.get_questions()
+	if questions.size() > 0:
+		if questions[0].hit_streak > 0:
+			$MightTransition.play("might_start")
+			might_mode = true
+			$MightTimer.start(30.1)
+	$RushAnimation.reset()
 
-func hey():
+func make_new_quiz():
 	var prev_subject_id = quiz.subject_id
 	quiz = Quiz.new()
 	quiz.subject_id = prev_subject_id
 	quiz.id = Main.data.next_quiz_id()
 	quiz.create()
 	quiz.generate()
+	quiz.generate_rush_questions()
+	streak += 1
 
 func _on_button_pressed() -> void:
+	if quiz.has_rush_questions() && !rush_mode:
+		$Timer.start(90.1)
+		return
 	might_mode = false
 	rush_mode = false
 	$RushLoop.stop()
 	$Timer.stop()
-	if !$Timer.is_stopped(): return
+	$TimeBar.stop()
+	if !$Timer.is_stopped(): 
+		return
 	$MightTimer.stop()
 	$MightTimer.wait_time = 0.01
 	$MightTransition.play("RESET")
@@ -117,7 +136,7 @@ func _on_button_pressed() -> void:
 	for child in $ScrollC/Elements/Attempts.get_children():
 		var truth = child.solve()
 		if truth: grade += 20.0 / amount_of_questions
-	$Grade.text = str(grade).replace('.', ',')
+	$Grade.text = str(grade).replace('.', ',').substr(0, 4)
 	$BGM.stream = load("res://audio/tracks/score_{rank}.ogg".format({"rank": rank_grade(grade)}))
 	$BGM.play()
 	
@@ -149,7 +168,7 @@ func _on_timer_timeout() -> void:
 func stop_break() -> void:
 	$Grade.text = ""
 	$EndBreak.hide()
-	hey()
+	make_new_quiz()
 	redo()
 
 func _on_end_break_pressed() -> void:

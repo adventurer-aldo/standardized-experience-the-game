@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://cxxlavskj4uwi"]
+
+[ext_resource type="Script" uid="uid://ddxty2cxlrol3" path="res://scenes/journey/chair_title.gd" id="1_hdqpb"]
+
+[node name="Chair" type="MarginContainer" unique_id=1466039907]
+custom_minimum_size = Vector2(282, 108)
+offset_left = 89.0
+offset_top = 249.0
+offset_right = 371.0
+offset_bottom = 357.0
+script = ExtResource("1_hdqpb")
+
+[node name="Background" type="Panel" parent="." unique_id=318495304]
+layout_mode = 2
+
+[node name="M" type="MarginContainer" parent="." unique_id=1420785838]
+layout_mode = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 5
+
+[node name="Title" type="Label" parent="M" unique_id=751673539]
+layout_mode = 2
+theme_override_font_sizes/font_size = 26
+text = "Fisiologia I"
+horizontal_alignment = 1

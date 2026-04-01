@@ -56,6 +56,7 @@ extends Resource
 @export var attempt_index:= 0
 @export var formulated_variables := []
 @export var attempt_type: String
+@export var is_rush:= false
 
 func get_types() -> Array:
 	var types = []
@@ -109,17 +110,17 @@ func save_to_quiz(quiz_id: int, attempt_id:= id):
 	save()
 	
 	var quiz_id_dir = str(quiz_id).lpad(10, '0') + '/'
-	var id_filename = str(attempt_id).lpad(10, '0') + '.tres'
+	var id_filename = str(DirAccess.get_files_at("user://quizzes/" + quiz_id_dir).size()).lpad(10, '0') + '.tres'
 	ResourceSaver.save(self, "user://quizzes/" + quiz_id_dir + id_filename, ResourceSaver.FLAG_COMPRESS)
 
 # ==============================================================================
 # LEVELING
 # ==============================================================================
-func hit() -> void:
+func hit(is_in_journey:= false) -> void:
 	hits += 1
 	hit_streak += 1
 	miss_streak = 0
-	if hit_streak > 1 && !is_level_up_queued:
+	if ((!is_in_journey && hit_streak > 1) || is_in_journey) && !is_level_up_queued:
 		var next_level = experience_level + 1
 		hit_streak = 0
 		experience_level = clampi(next_level, 1, 15)
@@ -129,11 +130,11 @@ func hit() -> void:
 	subj.experience += 1
 	subj.save()
 
-func miss() -> void:
+func miss(is_in_journey:= false) -> void:
 	misses += 1
 	miss_streak += 1
 	hit_streak = 0
-	if miss_streak > 1 && !is_level_up_queued && experience_level > 1:
+	if ((!is_in_journey && miss_streak > 1) || is_in_journey) && !is_level_up_queued && experience_level > 1:
 		miss_streak = 0
 		experience_level = clampi(experience_level - 1, 1, 15)
 	save()
@@ -165,6 +166,14 @@ func queue_level_up(to_level: int) -> void:
 	level_queue.question_id = id
 	level_queue.due_time = due_time + Time.get_unix_time_from_system()
 	level_queue.save()
+
+func finish_level_up() -> void:
+	var leveling_queues: Array[LevelingQueue] = Main.data.get_leveling_queues()
+	leveling_queues = leveling_queues.filter(func (queue: LevelingQueue):
+		return queue.question_id == id
+	)
+	for leveling_queue in leveling_queues:
+		leveling_queue.process_leveling(9999999999.9)
 # ==============================================================================
 # OTHERS
 # ==============================================================================

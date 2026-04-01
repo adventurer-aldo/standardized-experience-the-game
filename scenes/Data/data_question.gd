@@ -243,8 +243,8 @@ func _on_search_bar_text_changed(new_text: String) -> void:
 		if new_text.strip_edges() == '':
 			question_query.show()
 		else:
-			var title: String = question_query.get_text()
-			if !title.containsn(new_text):
+			var target_title: String = question_query.get_text()
+			if !target_title.containsn(new_text):
 				question_query.hide()
 			else:
 				question_query.show()

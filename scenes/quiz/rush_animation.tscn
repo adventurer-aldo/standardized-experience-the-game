@@ -1,0 +1,391 @@
+[gd_scene format=3 uid="uid://bcekw6rjg6bgo"]
+
+[ext_resource type="Script" uid="uid://pe37rew3ys1s" path="res://scenes/quiz/rush_animation.gd" id="1_61c4i"]
+[ext_resource type="Texture2D" uid="uid://cq1h8u5i3r35k" path="res://graphics/ambush_dashes.png" id="1_cg8oj"]
+[ext_resource type="Texture2D" uid="uid://boft8uggwxke5" path="res://graphics/ambush_bg.png" id="2_61c4i"]
+[ext_resource type="Texture2D" uid="uid://0l6b0asgx7c7" path="res://graphics/dim_border.png" id="3_vntpl"]
+[ext_resource type="Texture2D" uid="uid://cy0mve531ydwj" path="res://graphics/ambush_fader.png" id="4_chxrs"]
+[ext_resource type="Texture2D" uid="uid://boe8lgr5qydau" path="res://graphics/ambush.png" id="5_vntpl"]
+[ext_resource type="AudioStream" uid="uid://bev2np3fget73" path="res://audio/sfx/087-Action02.ogg" id="6_rpgy4"]
+[ext_resource type="AudioStream" uid="uid://bneaus7ls1da4" path="res://audio/sfx/CueSheet_SE_System_0000002A.hca.ogg" id="7_chxrs"]
+
+[sub_resource type="Animation" id="Animation_yiwq6"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AmbushDashes:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -46)]
+}
+
+[sub_resource type="Animation" id="Animation_jj7ps"]
+resource_name = "dashloop"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AmbushDashes:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, -46), Vector2(-1280, -46)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wn3lt"]
+_data = {
+&"RESET": SubResource("Animation_yiwq6"),
+&"dashloop": SubResource("Animation_jj7ps")
+}
+
+[sub_resource type="Animation" id="Animation_vntpl"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../RushAnimation/Top:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -257)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../RushAnimation/Bottom:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 720)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../RushAnimation/Dim:color")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../RushAnimation/TextBackground:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1480, 241)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../RushAnimation/Label:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1282, 142)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("SFX1:playing")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("SFX2:playing")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_3n1kd"]
+resource_name = "hide_dims"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../RushAnimation/Top:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -257)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../RushAnimation/Bottom:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 463), Vector2(0, 720)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../RushAnimation/Dim:color")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0.3764706), Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_rpgy4"]
+resource_name = "showcase"
+length = 2.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../RushAnimation/Top:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, -257), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../RushAnimation/Bottom:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 720), Vector2(0, 463)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../RushAnimation/Dim:color")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 0.3764706)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../RushAnimation/TextBackground:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.5, 0.7, 2, 2.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1480, 241), Vector2(-60, 241), Vector2(-60, 241), Vector2(-1550, 241)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../RushAnimation/Label:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.71, 0.9, 1.8, 2),
+"transitions": PackedFloat32Array(1, 0.2871746, 2.3784137, 3.6050022),
+"update": 0,
+"values": [Vector2(1282, 142), Vector2(227, 142), Vector2(316, 142), Vector2(-959, 142)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("SFX1:playing")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0.2),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("SFX2:playing")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0.72),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_chxrs"]
+_data = {
+&"RESET": SubResource("Animation_vntpl"),
+&"hide_dims": SubResource("Animation_3n1kd"),
+&"showcase": SubResource("Animation_rpgy4")
+}
+
+[node name="RushAnimation" type="Control" unique_id=1614869028]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_61c4i")
+
+[node name="Dim" type="ColorRect" parent="." unique_id=472457009]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0)
+
+[node name="TextBackground" type="TextureRect" parent="." unique_id=1870861915]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 200.0
+offset_top = 241.0
+offset_right = 1617.0005
+offset_bottom = -241.0
+grow_horizontal = 0
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_61c4i")
+expand_mode = 1
+
+[node name="AmbushDashes" type="TextureRect" parent="TextBackground" unique_id=858812090]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -46.0
+offset_right = 1280.0
+offset_bottom = 49.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_cg8oj")
+stretch_mode = 1
+
+[node name="FaderL" type="TextureRect" parent="TextBackground" unique_id=2036729332]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -121.0
+offset_right = -1364.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_chxrs")
+expand_mode = 1
+
+[node name="FaderR" type="TextureRect" parent="TextBackground" unique_id=854112689]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1368.0
+offset_right = 125.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_chxrs")
+expand_mode = 1
+
+[node name="DashesAnim" type="AnimationPlayer" parent="TextBackground" unique_id=1319896517]
+libraries/ = SubResource("AnimationLibrary_wn3lt")
+
+[node name="Top" type="TextureRect" parent="." unique_id=574913067]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = -257.0
+grow_horizontal = 2
+mouse_filter = 2
+texture = ExtResource("3_vntpl")
+
+[node name="Bottom" type="TextureRect" parent="." unique_id=1097645662]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 720.0
+offset_bottom = 977.0004
+grow_horizontal = 2
+mouse_filter = 2
+texture = ExtResource("3_vntpl")
+flip_v = true
+
+[node name="Label" type="TextureRect" parent="." unique_id=1009498494]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 642.0
+offset_top = -218.0
+offset_right = 1643.0044
+offset_bottom = 115.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_vntpl")
+
+[node name="RushTransition" type="AnimationPlayer" parent="." unique_id=537214753]
+libraries/ = SubResource("AnimationLibrary_chxrs")
+
+[node name="SFX1" type="AudioStreamPlayer" parent="." unique_id=1417189398]
+stream = ExtResource("6_rpgy4")
+
+[node name="SFX2" type="AudioStreamPlayer" parent="." unique_id=334654173]
+stream = ExtResource("7_chxrs")
+
+[connection signal="animation_finished" from="TextBackground/DashesAnim" to="." method="_on_dashes_anim_animation_finished"]
+[connection signal="animation_finished" from="RushTransition" to="." method="_on_rush_transition_animation_finished"]

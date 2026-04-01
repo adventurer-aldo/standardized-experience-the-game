@@ -1,0 +1,52 @@
+BottomCloudMat_v_x
+==================
+  Textures:
+    - OceanSkyCloud
+        Offset: 0.03391729295253754, 0
+    - OceanSkyCloudBottom
+        Offset: 0, 0.28049999475479126
+        Scale: 2, 2
+
+  Ambient Colors:
+    - 50, 50, 50, 50
+
+  Constant Colors:
+    - 0, 35, 157, 255
+
+  Material Colors:
+    - 204, 204, 204, 255
+    - 204, 204, 204, 255
+
+  Color Registers:
+    - 236, 236, 216, 255
+
+  Steps:
+    1: RGB = ((vertex RGB) * (tex #1 RGB))
+         A = ((vertex A) * (vertex A))
+    2: RGB = (lerp from (tex #2 RGB) to (prev. RGB) using (vertex A)), then add (0, 35, 157)
+         A = 0
+
+
+
+SkyMat_v
+========
+  Textures:
+    - OceanSkyCloud
+        Offset: 0.36723193526268005, 0
+
+  Ambient Colors:
+    - 50, 50, 50, 50
+
+  Constant Colors:
+    - 0, 35, 157, 255
+
+  Material Colors:
+    - 204, 204, 204, 255
+    - 204, 204, 204, 255
+
+  Color Registers:
+    - 236, 236, 216, 255
+
+  Steps:
+    1: RGB = ((vertex RGB) * (tex #1 RGB)), then add (0, 35, 157)
+         A = ((tex #1 A) * (vertex A))

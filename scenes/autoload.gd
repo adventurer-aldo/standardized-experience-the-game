@@ -11,6 +11,8 @@ func _ready() -> void:
 		data = ResourceLoader.load("user://data.tres")
 	else:
 		data = Data.new()
+	if !DirAccess.dir_exists_absolute("user://journeys"):
+		DirAccess.make_dir_absolute("user://journeys")
 	if !DirAccess.dir_exists_absolute("user://mediasets"):
 		DirAccess.make_dir_absolute("user://mediasets")
 	if !DirAccess.dir_exists_absolute("user://subjects"):
