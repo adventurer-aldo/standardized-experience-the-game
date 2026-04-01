@@ -31,12 +31,12 @@ keycode = 43
 events = [SubResource("InputEventKey_lysjw")]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lysjw"]
-bg_color = Color(0.31628498, 0.2397, 0.51, 1)
+bg_color = Color(0.75046504, 0.73709995, 0.81, 1)
 border_width_left = 5
 border_width_top = 5
 border_width_right = 5
 border_width_bottom = 5
-border_color = Color(0.19705994, 0.15339999, 0.59, 1)
+border_color = Color(0.59, 0.59, 0.59, 1)
 corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10

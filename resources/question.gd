@@ -146,7 +146,7 @@ func queue_level_up(to_level: int) -> void:
 	is_level_up_queued = true
 	var due_time:= 0.0
 	match to_level:
-		2: due_time = 10 * 60
+		2: due_time = 15 * 60
 		3: due_time = 1 * 60 * 60
 		4: due_time = 8 * 60 * 60
 		5: due_time = 24 * 60 * 60

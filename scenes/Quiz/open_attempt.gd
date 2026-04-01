@@ -112,7 +112,7 @@ func solve() -> bool:
 					)
 					return answers_array
 				)
-				answers_copy.sort_custom(func (answers_array_a: Array[String], answers_array_b: Array[String]):
+				answers_copy.sort_custom(func (answers_array_a: Array, answers_array_b: Array):
 					return answers_array_a[0].similarity(attempts[attempt_i]) > answers_array_b[0].similarity(attempts[attempt_i])
 				)
 				wrong = answers_copy[0][0]
