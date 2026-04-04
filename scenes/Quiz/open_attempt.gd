@@ -66,6 +66,7 @@ func map_string_to_lower(string: String) -> String:
 	return string.to_lower()
 	
 func solve() -> bool:
+	print("For question \"%s\"" % [question.question[0]])
 	var res = false
 	
 	# New attempt
@@ -75,6 +76,9 @@ func solve() -> bool:
 	
 	var attempts = fetch()
 	var answers = question.answer.map(func (answers_dict: Dictionary): return answers_dict["texts"])
+	print("Printing attempts and answers at first.")
+	print(attempts)
+	print(answers)
 	# Do not care about case if not strict
 	if !is_strict:
 		attempts = attempts.map(func (attempt: String):
@@ -88,14 +92,34 @@ func solve() -> bool:
 	var attempts_copy = attempts.duplicate()
 	var answers_copy = answers.duplicate()
 	
+	print("Checking the answers and copies")
 	for answer_i in range(answers.size()):
-		var matching_attempts = attempts_copy.map(func (attempt: String): return answers_copy[0].has(attempt))
+		var matching_attempts = attempts_copy.map(func (attempt: String): 
+			return answers_copy.map(func (answer: Array):
+				return answer.has(attempt)
+			).has(true)
+		)
+		var erasing_answer_index = -1
+		
+		if matching_attempts.has(true):
+			erasing_answer_index = answers_copy.map(func (answer: Array):
+				return answer.has(attempts_copy[matching_attempts.find(true)])
+			).find(true)
+		print("I'm gonna delete the %sth answer." % [erasing_answer_index])
+		print("Doing it for the %sth answer." % str(answer_i + 1))
+		print(matching_attempts)
 		var ma = matching_attempts.has(true)
 		if ma:
-			answers_copy.remove_at(0)
+			print("Yep, one little shit matches.")
+			answers_copy.remove_at(erasing_answer_index)
 			attempts_copy.remove_at(matching_attempts.find(true))
+		else:
+			print("Looks like the shit didn't match.")
 	# The remaining answers don't have a match. Ergo, they were not written
 	# The remaining attempts are not correct.
+	print("Now printing the copies.")
+	print(attempts_copy)
+	print(answers_copy)
 	
 	for attempt_i in range(attempts.size()):
 		var matches = answers.map(func (answer: Array):
@@ -104,6 +128,8 @@ func solve() -> bool:
 		if !matches.has(true):
 			res = false
 			var wrong:= ""
+			print("Below is answers_copy")
+			print(answers_copy)
 			if answers_copy.size() > 0:
 				# answers_copy_similarity_map = answers_copy
 				answers_copy = answers_copy.map(func (answers_array: Array):
@@ -112,23 +138,32 @@ func solve() -> bool:
 					)
 					return answers_array
 				)
+				print("Below is answers_copy after the micro sorting")
+				print(answers_copy)
 				answers_copy.sort_custom(func (answers_array_a: Array, answers_array_b: Array):
 					return answers_array_a[0].similarity(attempts[attempt_i]) > answers_array_b[0].similarity(attempts[attempt_i])
 				)
-				wrong = answers_copy[0][0]
-				answers_copy.remove_at(0)
+				print("Below is answers_copy after the macro sorting")
+				print(answers_copy)
+				var debug = answers_copy.pop_at(0)
+				wrong = debug[0]
 			$Elements/OpensRow.get_child(attempt_i).cross(wrong)
 		else:
 			var index = matches.find(true)
 			answers.remove_at(index)
 			$Elements/OpensRow.get_child(attempt_i).tick()
-		if answers_copy.size() > 0:
-			for ans in answers_copy:
-				var new_correction = _on_add_row_button_pressed()
-				new_correction.cross(ans[0], false)
+			
+	print("Below is answers_copy after everything is done.")
+	print(answers_copy)
+	if answers_copy.size() > 0:
+		res = false
+		for ans in answers_copy:
+			var new_correction = _on_add_row_button_pressed()
+			new_correction.cross(ans[0], false)
 			
 	# New attempt finished
 	$Edit.show()
+	print("----This is correct!----" if res else "----This is wrong!----")
 	if res:
 		# $Right.show()
 		# $Wrong.hide()

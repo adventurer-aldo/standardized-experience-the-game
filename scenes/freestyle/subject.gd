@@ -3,6 +3,7 @@ extends Panel
 var subject_id:= 6
 
 signal pressed
+signal focused(id: int)
 
 func _ready() -> void:
 	set_title(Main.data.get_subject(subject_id).title)
@@ -19,6 +20,7 @@ func _input(event: InputEvent) -> void:
 
 func _on_focus_entered() -> void:
 	$Focus.show()
+	focused.emit(subject_id)
 
 func _on_focus_exited() -> void:
 	$Focus.hide()

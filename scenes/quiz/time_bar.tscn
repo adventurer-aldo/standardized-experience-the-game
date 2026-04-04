@@ -121,9 +121,10 @@ _data = {
 }
 
 [node name="TimeBar" type="ColorRect" unique_id=1655604307]
+custom_minimum_size = Vector2(0, 28)
 anchors_preset = 10
 anchor_right = 1.0
-offset_bottom = 28.0
+offset_top = -28.0
 grow_horizontal = 2
 color = Color(0, 0, 0, 1)
 script = ExtResource("1_pff0n")

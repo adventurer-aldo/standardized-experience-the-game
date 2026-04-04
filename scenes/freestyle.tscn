@@ -125,9 +125,30 @@ grow_horizontal = 2
 grow_vertical = 2
 columns = 6
 
-[node name="Subject" parent="SubjectsContainer" unique_id=1536004553 instance=ExtResource("5_realq")]
-layout_mode = 2
-
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=2014312309]
 stream = ExtResource("7_dsjbm")
 autoplay = true
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1769754492]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -96.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Label" type="Label" parent="ColorRect" unique_id=35440449]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.19607843, 0.1882353, 0.23137255, 1)
+theme_override_fonts/font = ExtResource("3_realq")
+theme_override_font_sizes/font_size = 43
+text = "Subject Title"
+horizontal_alignment = 1
+vertical_alignment = 1
