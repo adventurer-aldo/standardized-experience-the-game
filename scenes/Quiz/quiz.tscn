@@ -2,14 +2,16 @@
 
 [ext_resource type="Script" uid="uid://bvnuh150gond2" path="res://scenes/quiz/quiz.gd" id="1_1ip8j"]
 [ext_resource type="PackedScene" uid="uid://do5cgc300pwx1" path="res://scenes/quiz/open_attempt.tscn" id="2_3uwr7"]
-[ext_resource type="AudioStream" uid="uid://cn8rkhb2v6qeu" path="res://audio/tracks/awakening_exam.ogg" id="3_jej5b"]
-[ext_resource type="AudioStream" uid="uid://dwk41hdk5glwr" path="res://audio/tracks/awakening_exam_might.ogg" id="4_wytnh"]
+[ext_resource type="AudioStream" uid="uid://cn77xjvtseycg" path="res://audio/tracks/Listen to the Cries of the Planet.ogg" id="3_wytnh"]
+[ext_resource type="AudioStream" uid="uid://4v2t11p0wl6i" path="res://audio/tracks/Listen to the Cries of the Planet_might.ogg" id="4_pr3ji"]
 [ext_resource type="AudioStream" uid="uid://kqgret56kl2l" path="res://audio/tracks/awakening_rush.ogg" id="5_pr3ji"]
 [ext_resource type="AudioStream" uid="uid://bbi3jgg7r2oi3" path="res://audio/tracks/awakening_ambush_intro.ogg" id="6_3wj08"]
 [ext_resource type="AudioStream" uid="uid://baxc0hylrvuvs" path="res://audio/tracks/awakening_ambush.ogg" id="7_p3q4f"]
 [ext_resource type="Texture2D" uid="uid://cd1majdr26ims" path="res://graphics/arrowloopoverlay.png" id="8_uhkvd"]
+[ext_resource type="Script" path="res://addons/SmoothScroll/smooth_scroll_container.gd" id="9_3wj08"]
 [ext_resource type="FontFile" uid="uid://bunjfygn0oso1" path="res://fonts/times.ttf" id="9_jej5b"]
 [ext_resource type="Texture2D" uid="uid://dnrrbnqukhnpe" path="res://graphics/bloodsplatter_0.png" id="10_ahw1d"]
+[ext_resource type="Script" uid="uid://b7h0k2h2qwlqv" path="res://addons/SmoothScroll/scroll_damper/expo_scroll_damper.gd" id="10_p3q4f"]
 [ext_resource type="FontFile" uid="uid://nwkjg5r0mxxa" path="res://fonts/timesbd.ttf" id="10_wd8gu"]
 [ext_resource type="Texture2D" uid="uid://dg3v0i56quamo" path="res://graphics/bloodsplatter_1.png" id="11_uhkvd"]
 [ext_resource type="PackedScene" uid="uid://cex5aribr0jrw" path="res://scenes/quiz/time_bar.tscn" id="12_wytnh"]
@@ -96,6 +98,12 @@ _data = {
 &"RESET": SubResource("Animation_jej5b"),
 &"loop": SubResource("Animation_xjybf")
 }
+
+[sub_resource type="Resource" id="Resource_y507y"]
+script = ExtResource("10_p3q4f")
+
+[sub_resource type="Resource" id="Resource_cr5du"]
+script = ExtResource("10_p3q4f")
 
 [sub_resource type="LabelSettings" id="LabelSettings_xjybf"]
 font = ExtResource("9_jej5b")
@@ -264,8 +272,8 @@ grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_wd8gu")
 script = ExtResource("1_1ip8j")
 open_attempt = ExtResource("2_3uwr7")
-battle_ost = ExtResource("3_jej5b")
-might_ost = ExtResource("4_wytnh")
+battle_ost = ExtResource("3_wytnh")
+might_ost = ExtResource("4_pr3ji")
 rush_ost = ExtResource("5_pr3ji")
 ambush_opening_ost = ExtResource("6_3wj08")
 ambush_ending_ost = ExtResource("7_p3q4f")
@@ -323,6 +331,9 @@ offset_bottom = 718.0
 follow_focus = true
 horizontal_scroll_mode = 0
 vertical_scroll_mode = 3
+script = ExtResource("9_3wj08")
+wheel_scroll_damper = SubResource("Resource_y507y")
+dragging_scroll_damper = SubResource("Resource_cr5du")
 
 [node name="Elements" type="VBoxContainer" parent="ScrollC" unique_id=408002572]
 layout_mode = 2

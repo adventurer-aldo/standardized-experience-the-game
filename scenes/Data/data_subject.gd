@@ -20,7 +20,7 @@ func _on_search_bar_text_changed(new_text: String) -> void:
 		if new_text.strip_edges() == '':
 			subj.show()
 		else:
-			var title: String = subject.title.text
+			var title: String = subj.title.text
 			if !title.containsn(new_text):
 				subj.hide()
 			else:

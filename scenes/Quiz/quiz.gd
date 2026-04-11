@@ -114,7 +114,11 @@ func make_new_quiz():
 	quiz.id = Main.data.next_quiz_id()
 	quiz.create()
 	quiz.generate()
-	quiz.generate_rush_questions()
+	randomize()
+	var random_chance = [false, true, false]
+	random_chance.shuffle()
+	if random_chance[0]:
+		quiz.generate_rush_questions()
 	streak += 1
 
 func _on_button_pressed() -> void:

@@ -45,7 +45,7 @@ corner_radius_bottom_left = 10
 [node name="Attempt" type="VBoxContainer" unique_id=378380950]
 offset_right = 237.0
 offset_bottom = 79.0
-focus_mode = 3
+focus_mode = 1
 theme_override_constants/separation = 0
 script = ExtResource("1_0dpb1")
 attempt_row_scene = ExtResource("2_lysjw")
