@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://c7oufr7oa4s4k"]
+[gd_scene format=3 uid="uid://c7oufr7oa4s4k"]
 
 [ext_resource type="Script" uid="uid://c06lq3xix3dbf" path="res://scenes/quiz/choice_attempt.gd" id="1_bem41"]
 
