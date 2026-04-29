@@ -55,13 +55,20 @@ extends Resource
 @export var attempt := []
 @export var attempt_index:= 0
 @export var formulated_variables := []
+@export var formulated_question:= ""
+@export var formulated_choices:= []
 @export var attempt_type: String
 @export var is_rush:= false
+@export var was_checked:= false
+@export var was_correct:= false
+@export var wrong_attempts:= []
+@export var missing_answers:= []
 
 func get_types() -> Array:
 	var types = []
 	if is_open: types.push_back('open')
 	if is_choice: types.push_back('choice')
+	if is_veracity: types.push_back('veracity')
 	if is_table: types.push_back('table')
 	if is_label: types.push_back('label')
 	if is_connect: types.push_back('connect')
@@ -97,21 +104,165 @@ func get_file_path() -> String:
 func create() -> void:
 	id = get_subject().next_question_id(true)
 	save()
+	get_subject().register_question_added()
 
 func erase() -> void:
 	DirAccess.remove_absolute(get_file_path())
+	get_subject().update_experience()
 
 func save() -> void:
 	ResourceSaver.save(self, get_file_path(), ResourceSaver.FLAG_COMPRESS)
 
 func save_to_quiz(quiz_id: int, attempt_id:= id):
-	appearances += 1
 	attempt_index = attempt_id
-	save()
-	
 	var quiz_id_dir = str(quiz_id).lpad(10, '0') + '/'
 	var id_filename = str(DirAccess.get_files_at("user://quizzes/" + quiz_id_dir).size()).lpad(10, '0') + '.tres'
 	ResourceSaver.save(self, "user://quizzes/" + quiz_id_dir + id_filename, ResourceSaver.FLAG_COMPRESS)
+
+func make_quiz_attempt(attempt_id: int, allowed_types:= []) -> Question:
+	appearances += 1
+	save()
+	var quiz_question = duplicate(true) as Question
+	quiz_question.generate_attempt(attempt_id, allowed_types)
+	return quiz_question
+
+func generate_attempt(attempt_id:= 0, allowed_types:= []) -> void:
+	randomize()
+	attempt_index = attempt_id
+	attempt = []
+	formulated_variables = []
+	formulated_choices = []
+	wrong_attempts = []
+	missing_answers = []
+	was_checked = false
+	was_correct = false
+	var possible_types = get_types()
+	if !allowed_types.is_empty():
+		possible_types = possible_types.filter(func(type): return allowed_types.has(type))
+	if possible_types.is_empty():
+		possible_types = ["open"]
+	possible_types.shuffle()
+	attempt_type = possible_types[0]
+	var possible_questions = Array(question)
+	possible_questions.shuffle()
+	formulated_question = possible_questions[0] if !possible_questions.is_empty() else ""
+	match attempt_type:
+		"choice":
+			_generate_choice_attempt()
+		"veracity":
+			_generate_veracity_attempt()
+
+func get_display_question() -> String:
+	if formulated_question.strip_edges() != "":
+		return formulated_question
+	var possible_questions = Array(question)
+	return possible_questions[0] if !possible_questions.is_empty() else ""
+
+func check_attempt(submitted_attempt: Array) -> Dictionary:
+	attempt = submitted_attempt.duplicate(true)
+	was_checked = true
+	wrong_attempts = []
+	missing_answers = []
+	match attempt_type:
+		"choice", "veracity":
+			was_correct = _check_choice_attempt(submitted_attempt)
+		_:
+			was_correct = _check_open_attempt(submitted_attempt)
+	save()
+	var source_question = get_subject().get_question(id)
+	if was_correct:
+		source_question.hit()
+	else:
+		source_question.miss()
+	return {
+		"correct": was_correct,
+		"wrong_attempts": wrong_attempts,
+		"missing_answers": missing_answers,
+	}
+
+func get_grade_points(max_points: float, uses_negative_points:= false) -> float:
+	if was_correct:
+		return max_points
+	if uses_negative_points:
+		return -max_points
+	return 0.0
+
+func _generate_choice_attempt() -> void:
+	for answer_set in answer:
+		var shuffled_answers: Array = answer_set.get("texts", []).duplicate()
+		shuffled_answers.shuffle()
+		if !shuffled_answers.is_empty():
+			formulated_choices.push_back(shuffled_answers[0])
+	var shuffled_choices: Array = choices.duplicate()
+	shuffled_choices.shuffle()
+	for choice in shuffled_choices:
+		if !formulated_choices.has(choice):
+			formulated_choices.push_back(choice)
+	formulated_choices.shuffle()
+
+func _generate_veracity_attempt() -> void:
+	formulated_choices = ["True", "False"]
+
+func _check_choice_attempt(submitted_attempt: Array) -> bool:
+	if submitted_attempt.is_empty():
+		missing_answers = _get_primary_answers()
+		return false
+	var normalized_attempt = _normalize_string(str(submitted_attempt[0]))
+	for answer_text in _get_all_answer_texts():
+		if _normalize_string(answer_text) == normalized_attempt:
+			return true
+	wrong_attempts = submitted_attempt.duplicate(true)
+	missing_answers = _get_primary_answers()
+	return false
+
+func _check_open_attempt(submitted_attempt: Array) -> bool:
+	var raw_attempts = submitted_attempt.duplicate()
+	var attempts = submitted_attempt.duplicate()
+	var answers = answer.map(func(answers_dict: Dictionary): return answers_dict.get("texts", []))
+	if !is_strict:
+		attempts = attempts.map(func(attempt_text): return _normalize_string(str(attempt_text)))
+		answers = answers.map(func(answers_array: Array):
+			return answers_array.map(func(answer_text): return _normalize_string(str(answer_text)))
+		)
+	var unmatched_answers = answers.duplicate(true)
+	var unmatched_attempt_indexes = range(attempts.size())
+	for attempt_index in range(attempts.size()):
+		var attempt_text = attempts[attempt_index]
+		var matched_answer_index = -1
+		for answer_index in range(unmatched_answers.size()):
+			if unmatched_answers[answer_index].has(attempt_text):
+				matched_answer_index = answer_index
+				break
+		if matched_answer_index >= 0:
+			unmatched_answers.remove_at(matched_answer_index)
+			unmatched_attempt_indexes.erase(attempt_index)
+	for unmatched_attempt_index in unmatched_attempt_indexes:
+		wrong_attempts.push_back(raw_attempts[unmatched_attempt_index])
+	for answers_array in unmatched_answers:
+		if !answers_array.is_empty():
+			missing_answers.push_back(answers_array[0])
+	return wrong_attempts.is_empty() && missing_answers.is_empty()
+
+func _get_all_answer_texts() -> Array:
+	var texts = []
+	for answer_set in answer:
+		for answer_text in answer_set.get("texts", []):
+			texts.push_back(str(answer_text))
+	return texts
+
+func _get_primary_answers() -> Array:
+	var texts = []
+	for answer_set in answer:
+		var answer_texts: Array = answer_set.get("texts", [])
+		if !answer_texts.is_empty():
+			texts.push_back(str(answer_texts[0]))
+	return texts
+
+func _normalize_string(value: String) -> String:
+	var normalized = value.strip_edges()
+	if !is_strict:
+		normalized = normalized.to_lower()
+	return normalized
 
 # ==============================================================================
 # LEVELING
@@ -127,8 +278,7 @@ func hit(is_in_journey:= false) -> void:
 	miss_streak = 0
 	save()
 	var subj = get_subject()
-	subj.experience += 1
-	subj.save()
+	subj.update_experience()
 
 func miss(is_in_journey:= false) -> void:
 	misses += 1
@@ -139,8 +289,7 @@ func miss(is_in_journey:= false) -> void:
 		experience_level = clampi(experience_level - 1, 1, 15)
 	save()
 	var subj = get_subject()
-	subj.experience -= 1
-	subj.save()
+	subj.update_experience()
 
 func queue_level_up(to_level: int) -> void:
 	is_level_up_queued = true

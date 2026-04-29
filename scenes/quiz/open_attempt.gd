@@ -32,10 +32,7 @@ func prepare(with_question: Question):
 	question_id = with_question.id
 	if question.has_media(): 
 		$Image.texture = question.get_mediaset().images[0]
-	randomize()
-	var questions = Array(with_question.question)
-	questions.shuffle()
-	set_description(questions[0])
+	set_description(question.get_display_question())
 
 func fetch() -> Array:
 	var result = []
@@ -66,94 +63,25 @@ func map_string_to_lower(string: String) -> String:
 	return string.to_lower()
 	
 func solve() -> bool:
-	var res = false
-	
-	# New attempt
-	res = true
-	var is_strict = question.is_strict
-	var is_order = question.is_order
-	
 	var attempts = fetch()
-	var answers = question.answer.map(func (answers_dict: Dictionary): return answers_dict["texts"])
-	# Do not care about case if not strict
-	if !is_strict:
-		attempts = attempts.map(func (attempt: String):
-			return attempt.to_lower()
-		)
-		answers = answers.map(func (answers_array: Array):
-			return answers_array.map(func (answer: String):
-				return answer.to_lower()
-			)
-		)
-	var attempts_copy = attempts.duplicate()
-	var answers_copy = answers.duplicate()
-	
-	for answer_i in range(answers.size()):
-		var matching_attempts = attempts_copy.map(func (attempt: String): 
-			return answers_copy.map(func (answer: Array):
-				return answer.has(attempt)
-			).has(true)
-		)
-		var erasing_answer_index = -1
-		
-		var ma = matching_attempts.has(true)
-		if ma:
-			erasing_answer_index = answers_copy.map(func (answer: Array):
-				return answer.has(attempts_copy[matching_attempts.find(true)])
-			).find(true)
-			answers_copy.remove_at(erasing_answer_index)
-			attempts_copy.remove_at(matching_attempts.find(true))
-	# The remaining answers don't have a match. Ergo, they were not written
-	# The remaining attempts are not correct.
-	print("#%s: %s" % [question_id, question.question[0]])
-	print(answers_copy)
-	print(attempts_copy)
+	var result = question.check_attempt(attempts)
+	var wrong_attempts: Array = result["wrong_attempts"]
+	var missing_answers: Array = result["missing_answers"]
 	for attempt_i in range(attempts.size()):
-		var matches = answers.map(func (answer: Array):
-			return answer.has(attempts[attempt_i])
-		)
-		if !matches.has(true):
-			res = false
-			var wrong:= ""
-			if answers_copy.size() > 0:
-				# answers_copy_similarity_map = answers_copy
-				answers_copy = answers_copy.map(func (answers_array: Array):
-					answers_array.sort_custom(func (answer_a: String, answer_b: String):
-						return answer_a.similarity(attempts[attempt_i]) > answer_b.similarity(attempts[attempt_i])
-					)
-					return answers_array
-				)
-				answers_copy.sort_custom(func (answers_array_a: Array, answers_array_b: Array):
-					return answers_array_a[0].similarity(attempts[attempt_i]) > answers_array_b[0].similarity(attempts[attempt_i])
-				)
-				var debug = answers_copy.pop_at(0)
-				wrong = debug[0]
-			$Elements/OpensRow.get_child(attempt_i).cross(wrong)
+		if wrong_attempts.has(attempts[attempt_i]):
+			var correction = missing_answers.pop_front() if !missing_answers.is_empty() else ""
+			$Elements/OpensRow.get_child(attempt_i).cross(correction)
 		else:
-			var index = matches.find(true)
-			answers.remove_at(index)
 			$Elements/OpensRow.get_child(attempt_i).tick()
-			
-	if answers_copy.size() > 0:
-		res = false
-		for ans in answers_copy:
-			var new_correction = _on_add_row_button_pressed()
-			new_correction.cross(ans[0], false)
-			
-	# New attempt finished
+	for answer_text in missing_answers:
+		var new_correction = _on_add_row_button_pressed()
+		new_correction.cross(answer_text, false)
 	$Edit.show()
-	if res:
+	if result["correct"]:
 		print("--Correct--")
-		# $Right.show()
-		# $Wrong.hide()
-		question.get_subject().get_question(question.id).hit()
 	else:
 		print("--Wrong--")
-		# replicate()
-		# $Right.hide()
-		# $Wrong.show()
-		question.get_subject().get_question(question.id).miss()
-	return res
+	return result["correct"]
 
 func edit() -> void:
 	var edit_scene = edit_shortcut.instantiate()

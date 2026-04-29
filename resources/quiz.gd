@@ -9,6 +9,7 @@ class_name Quiz
 @export var end_time:= 0.0
 @export var journey_id:= 0
 @export var saved_grade:= -1.0
+@export var has_negative_points:= false
 @export var should_rush:= true
 @export var template:= 0
 
@@ -24,6 +25,9 @@ func get_file_path() -> String:
 func create() -> void:
 	start_time = Time.get_unix_time_from_system()
 	end_time = start_time + 600.0
+	var subject = get_subject()
+	if subject != null:
+		has_negative_points = randf() < subject.negative_likelihood
 	DirAccess.make_dir_recursive_absolute(get_dir_path())
 	save()
 
@@ -46,20 +50,14 @@ func generate() -> bool:
 	questions = questions.slice(0, randi() % 10 + 11)
 	questions.shuffle()
 	for question in questions:
-		var possible_types = question.get_types().filter(func (type: String): 
-			return ['choice', 'open'].has(type)
-		)
-		possible_types.shuffle()
-		question.attempt_type = possible_types[0]
-		question.is_rush = false
 		move_question_to_quiz(question, questions.find(question))
 	return questions.size() > 0
 
 func generate_rush_questions() -> void:
 	var questions = get_rush_questions()
 	for question in questions:
-		question.is_rush = true
-		move_question_to_quiz(question, randi() % size())
+		var insert_index = randi() % max(1, size())
+		move_question_to_quiz(question, insert_index, true)
 	
 func get_questions() -> Array[Question]:
 	var files = Array(DirAccess.get_files_at("user://quizzes/" + str(id).lpad(10, '0')))
@@ -117,19 +115,37 @@ func get_rush_questions() -> Array[Question]:
 func size() -> int:
 	return DirAccess.get_files_at("user://quizzes/" + str(id).lpad(10, "0")).size()
 
-func move_question_to_quiz(question: Question, positioning: int) -> void:
-	randomize()
-	var types = question.get_types()
-	types.shuffle()
-	question.attempt_type = types[0]
-	match question.attempt_type:
-		"choice":
-			for i in question.answer:
-				var shuffled_ans: Array = i["texts"].duplicate()
-				shuffled_ans.shuffle()
-				question.formulated_variables.push_back(shuffled_ans[0])
-			var shuffled_choices: Array = question.choices.duplicate()
-			question.choices.shuffle()
-			for i in randi_range(0, shuffled_choices.size()):
-				question.formulated_variables.push_back(shuffled_choices[i])
-	question.save_to_quiz(id, positioning)
+func move_question_to_quiz(question: Question, positioning: int, rush_question:= false) -> void:
+	var quiz_question = question.make_quiz_attempt(positioning, ["open", "choice", "veracity"])
+	quiz_question.is_rush = rush_question
+	quiz_question.save_to_quiz(id, positioning)
+
+func calculate_grade(uses_negative_points:= false) -> float:
+	var quiz_questions = get_questions()
+	if quiz_questions.is_empty():
+		saved_grade = 0.0
+		save()
+		return saved_grade
+	var points_per_question = 20.0 / quiz_questions.size()
+	var grade = 0.0
+	for question in quiz_questions:
+		grade += question.get_grade_points(points_per_question, uses_negative_points)
+	saved_grade = clampf(grade, 0.0, 20.0)
+	save()
+	return saved_grade
+
+func get_chair_grade_slot() -> int:
+	match level:
+		1:
+			return Chair.GradeSlot.FIRST
+		2:
+			return Chair.GradeSlot.SECOND
+		3:
+			return Chair.GradeSlot.DISSERTATION
+		4:
+			return Chair.GradeSlot.REPOSITION
+		5:
+			return Chair.GradeSlot.EXAM
+		6:
+			return Chair.GradeSlot.RECURRENCE
+	return 0

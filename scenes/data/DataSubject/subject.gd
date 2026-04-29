@@ -24,7 +24,9 @@ func _ready() -> void:
 	set_level(subject.level)
 	var amount_of_questions = subject.size()
 	set_questions_size(amount_of_questions)
-	set_progress(amount_of_questions * subject.level, subject.experience)
+	var current_level_experience = subject.get_experience_for_level(subject.level)
+	var next_level_experience = subject.get_experience_for_level(subject.level + 1)
+	set_progress(next_level_experience - current_level_experience, subject.experience - current_level_experience)
 	set_bookmark(subject.is_journey_eligible)
 
 func set_bookmark(to: bool) -> void:
@@ -44,9 +46,9 @@ func set_questions_size(to: int) -> void:
 	if to != 1: res+= "s"
 	$M/Elements/MTitle/VBox/Details/Questions.text = res
 
-func set_progress(maximum: int, value: int):
-	$M/Elements/MTitle/VBox/Details/Outline/Experience.max_value = maximum
-	$M/Elements/MTitle/VBox/Details/Outline/Experience.value = value
+func set_progress(maximum: float, value: float):
+	$M/Elements/MTitle/VBox/Details/Outline/Experience.max_value = max(1.0, maximum)
+	$M/Elements/MTitle/VBox/Details/Outline/Experience.value = clampf(value, 0.0, maximum)
 
 func _on_subject_pressed() -> void:
 	var question_scene = data_question_scene.instantiate()

@@ -21,6 +21,8 @@ func _ready() -> void:
 		DirAccess.make_dir_absolute("user://leveling_queues")
 	if !DirAccess.dir_exists_absolute("user://quizzes"):
 		DirAccess.make_dir_absolute("user://quizzes")
+	if !DirAccess.dir_exists_absolute("user://soundtracks"):
+		DirAccess.make_dir_absolute("user://soundtracks")
 	begin_update()
 	for subject in data.get_subjects():
 		subject.maximum_experience = subject.size() * 15

@@ -137,11 +137,13 @@ func _on_button_pressed() -> void:
 	$MightTimer.stop()
 	$MightTimer.wait_time = 0.01
 	$MightTransition.play("RESET")
-	var amount_of_questions = $ScrollC/Elements/Attempts.get_child_count()
-	var grade = 0.0
 	for child in $ScrollC/Elements/Attempts.get_children():
-		var truth = child.solve()
-		if truth: grade += 20.0 / amount_of_questions
+		child.solve()
+	var grade = quiz.calculate_grade(quiz.has_negative_points)
+	if quiz.journey_id > 0:
+		var journey = Main.data.get_journey(quiz.journey_id)
+		if journey != null:
+			journey.record_quiz_grade(quiz, quiz.get_chair_grade_slot())
 	$Grade.text = str(grade).replace('.', ',').substr(0, 4)
 	$BGM.stream = load("res://audio/tracks/score_{rank}.ogg".format({"rank": rank_grade(grade)}))
 	$BGM.play()

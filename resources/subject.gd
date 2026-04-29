@@ -9,6 +9,11 @@ extends Resource
 
 @export var is_journey_eligible:= false
 
+@export_category("Journey Rules")
+@export var exemption:= true
+@export var rigid:= false
+@export_range(0.0, 1.0, 0.01) var negative_likelihood:= 0.0
+
 @export_category("Experience")
 @export var level:= 0
 @export var experience:= 0.0
@@ -49,6 +54,7 @@ func has_question(question_id: int) -> bool:
 
 func erase_question(question_id: int) -> void:
 	DirAccess.remove_absolute(get_dir_path() + '/' + str(question_id).lpad(10, "0") + '.tres')
+	update_experience()
 
 func get_quizzes() -> Array[Quiz]:
 	var quizzes: Array[Quiz]
@@ -66,27 +72,53 @@ func save() -> void:
 	ResourceSaver.save(self, get_file_path(), ResourceSaver.FLAG_COMPRESS)
 
 func update_experience() -> void:
-	var levels = get_questions().map(func (question: Question): return question.experience_level)
-	if !(levels.size() > 0): return
-	print(maximum_experience)
-	maximum_experience = levels.size() * 15
-	var xp:= 0
-	for question_level in levels:
-		xp += question_level
+	var questions = get_questions()
+	maximum_experience = questions.size() * 15 * 15
+	if questions.is_empty():
+		experience = 0.0
+		level = 0
+		save()
+		return
+	var xp:= 0.0
+	for question in questions:
+		xp += clampi(question.experience_level, 0, 15) * 15
 	experience = xp
-	print(experience)
-	level = int((float(experience) / float(maximum_experience)) * 15.0)
+	level = get_experience_level()
 	save()
 
 func update_level() -> void:
-	var exper = experience
-	var max_exp = size() * 15
-	print("The current subject is: " + title + " with the ID " + str(id))
-	var lvl = (exper / max_exp) * 15
-	level = clampi(lvl, 0, 15)
-	if max_exp > 0: 
-		level = clampi(lvl, 1, 15)
-	print("Finished dealing with " + title)
+	update_experience()
+
+func get_experience_level() -> int:
+	var questions_amount = size()
+	if questions_amount <= 0:
+		return 0
+	var level_width = questions_amount * 15
+	return clampi(floori(experience / level_width), 0, 15)
+
+func get_experience_for_level(target_level: int) -> int:
+	return clampi(target_level, 0, 15) * size() * 15
+
+func get_experience_until_next_level() -> float:
+	if level >= 15 || size() <= 0:
+		return 0.0
+	return max(0.0, get_experience_for_level(level + 1) - experience)
+
+func get_level_progress() -> float:
+	if level >= 15 || size() <= 0:
+		return 1.0
+	var current_level_experience = get_experience_for_level(level)
+	var next_level_experience = get_experience_for_level(level + 1)
+	return clampf((experience - current_level_experience) / float(next_level_experience - current_level_experience), 0.0, 1.0)
+
+func has_questions_at_level(question_level: int) -> bool:
+	for question in get_questions():
+		if question.level == question_level:
+			return true
+	return false
+
+func register_question_added() -> void:
+	update_experience()
 	save()
 
 func next_question_id(should_save:= true) -> int:
