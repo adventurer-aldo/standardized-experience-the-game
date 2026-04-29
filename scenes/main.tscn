@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://lw8kc0nrgtfm" path="res://scenes/freestyle.tscn" id="3_0ld40"]
 [ext_resource type="PackedScene" uid="uid://d4fkb8hl1h104" path="res://scenes/journey/journey.tscn" id="4_gqmmt"]
 [ext_resource type="PackedScene" uid="uid://cvbfhohv32pcb" path="res://scenes/data/data_subject.tscn" id="4_jyhfs"]
+[ext_resource type="PackedScene" path="res://scenes/settings.tscn" id="5_7vowq"]
 [ext_resource type="Texture2D" uid="uid://blnjow0okn4q5" path="res://graphics/icons/walker.svg" id="5_dp3eg"]
 [ext_resource type="Texture2D" uid="uid://ejk8mymsv7ff" path="res://graphics/mainpattern.png" id="5_gqmmt"]
 [ext_resource type="Texture2D" uid="uid://ctcvpsm8bw2an" path="res://graphics/intro_overlay.png" id="5_o6xl0"]
@@ -221,6 +222,7 @@ script = ExtResource("1_sugp2")
 data_subject_scene = ExtResource("4_jyhfs")
 freestyle_scene = ExtResource("3_0ld40")
 journey_scene = ExtResource("4_gqmmt")
+settings_scene = ExtResource("5_7vowq")
 
 [node name="Panel2" type="Panel" parent="." unique_id=1026270071]
 layout_mode = 1
@@ -405,7 +407,6 @@ text = "Play with Subjects and level up as you go."
 
 [node name="SettingsButton" parent="Base2/VBoxContainer" unique_id=924513859 instance=ExtResource("14_muem4")]
 layout_mode = 2
-focus_mode = 0
 
 [node name="Base" parent="Base2/VBoxContainer/SettingsButton" index="0" unique_id=271060979]
 visible = true
@@ -421,7 +422,7 @@ text = "Settings"
 texture = ExtResource("16_0ld40")
 
 [node name="Desc" parent="Base2/VBoxContainer/SettingsButton/Texts/MDesc" parent_id_path=PackedInt32Array(924513859, 312624622) index="0" unique_id=1441112836]
-text = "Play with Subjects and level up as you go."
+text = "Adjust your language, quiz rules, time display, and saved quiz limits."
 
 [node name="RestButton" parent="Base2/VBoxContainer" unique_id=1558879698 instance=ExtResource("14_muem4")]
 layout_mode = 2
@@ -509,6 +510,22 @@ grow_vertical = 2
 texture = ExtResource("20_gqmmt")
 expand_mode = 1
 
+[node name="FocusDescription" type="Label" parent="." unique_id=2035377774]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 548.0
+offset_top = 588.0
+offset_right = -112.0
+offset_bottom = 650.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.19607843, 0.1882353, 0.23137255, 1)
+theme_override_font_sizes/font_size = 22
+text = "Play with Subjects and level up as you go."
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
 [connection signal="animation_finished" from="Overlay/ScrollLoopAnim" to="." method="_on_scroll_loop_anim_animation_finished"]
 [connection signal="focus_entered" from="Base2/VBoxContainer/SubjectsButton" to="." method="_on_subjects_button_focus_entered"]
 [connection signal="pressed" from="Base2/VBoxContainer/SubjectsButton" to="." method="_on_subjects_pressed"]
@@ -516,6 +533,8 @@ expand_mode = 1
 [connection signal="pressed" from="Base2/VBoxContainer/JourneyButton" to="." method="_on_journey_button_pressed"]
 [connection signal="focus_entered" from="Base2/VBoxContainer/FreestyleButton" to="." method="_on_freestyle_button_focus_entered"]
 [connection signal="pressed" from="Base2/VBoxContainer/FreestyleButton" to="." method="_on_freestyle_button_pressed"]
+[connection signal="focus_entered" from="Base2/VBoxContainer/SettingsButton" to="." method="_on_settings_button_focus_entered"]
+[connection signal="pressed" from="Base2/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="focus_entered" from="Base2/VBoxContainer/RestButton" to="." method="_on_rest_button_focus_entered"]
 [connection signal="pressed" from="Base2/VBoxContainer/RestButton" to="." method="_on_exit_pressed"]
 

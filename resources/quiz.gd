@@ -113,8 +113,8 @@ func get_filtered_questions(block_unsolved_parents:= true) -> Array[Question]:
 		res = res.filter(func (question: Question):
 			return question.are_parents_decent()
 		)
-	# Filter based on question type (This is only because other types haven't been properly implemented yet.)
-	res = res.filter(func (question: Question): return (question.is_open || question.is_choice))
+	# Filter based on question type
+	res = res.filter(func (question: Question): return !question.get_types().is_empty())
 	# Filter based on not being in the leveling queue
 	res = res.filter(func (question: Question): return !question.is_level_up_queued)
 	return res
@@ -137,7 +137,7 @@ func size() -> int:
 	return DirAccess.get_files_at("user://quizzes/" + str(id).lpad(10, "0")).size()
 
 func move_question_to_quiz(question: Question, positioning: int, rush_question:= false) -> void:
-	var quiz_question = question.make_quiz_attempt(positioning, ["open", "choice", "veracity"])
+	var quiz_question = question.make_quiz_attempt(positioning, ["open", "choice", "veracity", "table", "connect", "label", "scheme"])
 	quiz_question.is_rush = rush_question
 	quiz_question.is_ambush = rush_question
 	quiz_question.strip_for_quiz_attempt()

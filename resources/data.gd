@@ -23,7 +23,7 @@ extends Resource
 @export var skip_dissertation:= true
 @export var negative_points:= true
 @export var use_24_hour_time:= true
-@export var language:= "ja"
+@export var language:= "en"
 @export var soundtrack_id:= 0
 @export var prune_saved_quizzes:= true
 @export var max_saved_quizzes:= 100

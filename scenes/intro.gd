@@ -3,6 +3,9 @@ extends ColorRect
 @export var main_scene: PackedScene
 
 func _ready() -> void:
+	if !FileAccess.file_exists("user://data.tres"):
+		call_deferred("_go_to_welcome")
+		return
 	$EmblemAnim.play("splash")
 	await get_tree().create_timer(0.7).timeout
 	$BGM.play()
@@ -15,3 +18,6 @@ func welcome() -> void:
 	await Main.wipe_finished
 	await get_tree().create_timer(1).timeout
 	get_tree().change_scene_to_packed(main_scene)
+
+func _go_to_welcome() -> void:
+	get_tree().change_scene_to_file("res://scenes/welcome.tscn")

@@ -25,6 +25,7 @@
 [ext_resource type="PackedScene" uid="uid://bp0vok38xq7by" path="res://scenes/data/DataQuestion/tag.tscn" id="21_7uqtb"]
 [ext_resource type="Texture2D" uid="uid://bqs08qpv5mlf5" path="res://graphics/buttons/submit.png" id="21_l7njq"]
 [ext_resource type="PackedScene" uid="uid://cnf1sdbyq6ptj" path="res://scenes/data/DataQuestion/parent.tscn" id="23_i4w0a"]
+[ext_resource type="PackedScene" uid="uid://1pdiqydklbaw" path="res://scenes/data/DataQuestion/Schema/schema.tscn" id="23_schema"]
 [ext_resource type="Script" uid="uid://lqnh7clkkqdx" path="res://scenes/data/DataQuestion/tags_flow.gd" id="24_gkyu1"]
 [ext_resource type="Script" uid="uid://c0n5i0ejfyt4h" path="res://scenes/data/DataQuestion/parents_flow.gd" id="25_lyehf"]
 [ext_resource type="PackedScene" uid="uid://cpdo7bx7xqye8" path="res://scenes/data/DataQuestion/question_in_grid.tscn" id="27_3rfw0"]
@@ -548,6 +549,11 @@ layout_mode = 2
 
 [node name="Label" parent="Items/ScrollData/Data" unique_id=2018903514 instance=ExtResource("20_kw14r")]
 visible = false
+layout_mode = 2
+
+[node name="Scheme" parent="Items/ScrollData/Data" instance=ExtResource("23_schema")]
+visible = false
+custom_minimum_size = Vector2(0, 260)
 layout_mode = 2
 
 [node name="TagsContainer" type="MarginContainer" parent="Items/ScrollData/Data" unique_id=1920290847]

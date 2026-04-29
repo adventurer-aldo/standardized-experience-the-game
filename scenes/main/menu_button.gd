@@ -17,7 +17,6 @@ func _on_mouse_entered() -> void:
 func _on_focus_entered() -> void:
 	$Anims.play("focused")
 	$Texts/Label/Icon.show()
-	$Texts/MDesc.show()
 
 func _on_focus_exited() -> void:
 	$Anims.play("RESET")

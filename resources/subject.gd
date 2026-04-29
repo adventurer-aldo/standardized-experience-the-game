@@ -70,7 +70,7 @@ func has_question(question_id: int) -> bool:
 
 func erase_question(question_id: int) -> void:
 	DirAccess.remove_absolute(get_dir_path() + '/' + str(question_id).lpad(10, "0") + '.tres')
-	update_experience()
+	update_experience(true)
 
 func get_quizzes() -> Array[Quiz]:
 	var quizzes: Array[Quiz]
@@ -83,24 +83,25 @@ func get_quizzes() -> Array[Quiz]:
 func size() -> int:
 	return DirAccess.get_files_at(get_dir_path()).size()
 
-func save() -> void:
-	last_time_saved = Time.get_unix_time_from_system()
+func save(update_timestamp:= true) -> void:
+	if update_timestamp:
+		last_time_saved = Time.get_unix_time_from_system()
 	ResourceSaver.save(self, get_file_path(), ResourceSaver.FLAG_COMPRESS)
 
-func update_experience() -> void:
+func update_experience(update_timestamp:= false) -> void:
 	var questions = get_questions()
 	maximum_experience = questions.size() * 15 * 15
 	if questions.is_empty():
 		experience = 0.0
 		level = 0
-		save()
+		save(update_timestamp)
 		return
 	var xp:= 0.0
 	for question in questions:
 		xp += clampi(question.experience_level, 0, 15) * 15
 	experience = xp
 	level = get_experience_level()
-	save()
+	save(update_timestamp)
 
 func update_level() -> void:
 	update_experience()
@@ -134,7 +135,7 @@ func has_questions_at_level(question_level: int) -> bool:
 	return false
 
 func register_question_added() -> void:
-	update_experience()
+	update_experience(false)
 	save()
 
 func next_question_id(should_save:= true) -> int:

@@ -131,11 +131,18 @@ func erase() -> void:
 	DirAccess.remove_absolute(get_file_path())
 	get_subject().update_experience()
 
-func save() -> void:
+func save(update_edit_time:= true) -> void:
 	if quiz_id > 0 && quiz_file_index >= 0:
 		ResourceSaver.save(self, get_quiz_file_path(), ResourceSaver.FLAG_COMPRESS)
 	else:
+		if update_edit_time:
+			last_time_edited = Time.get_unix_time_from_system()
 		ResourceSaver.save(self, get_file_path(), ResourceSaver.FLAG_COMPRESS)
+		if update_edit_time:
+			var subject = get_subject()
+			if subject != null:
+				subject.last_time_saved = last_time_edited
+				ResourceSaver.save(subject, subject.get_file_path(), ResourceSaver.FLAG_COMPRESS)
 
 func save_to_quiz(quiz_id: int, attempt_id:= id):
 	self.quiz_id = quiz_id
@@ -149,7 +156,7 @@ func save_to_quiz(quiz_id: int, attempt_id:= id):
 
 func make_quiz_attempt(attempt_id: int, allowed_types:= []) -> Question:
 	appearances += 1
-	save()
+	save(false)
 	var quiz_question = duplicate(true) as Question
 	quiz_question.quiz_id = 0
 	quiz_question.quiz_file_index = -1
@@ -284,7 +291,7 @@ func check_attempt(submitted_attempt: Array) -> Dictionary:
 		_:
 			score_ratio = _score_open_attempt(submitted_attempt)
 	was_correct = score_ratio >= 1.0
-	save()
+	save(false)
 	var source_id = source_question_id if source_question_id > 0 else id
 	var source_question = get_subject().get_question(source_id)
 	if source_question != null:
@@ -661,7 +668,7 @@ func hit(is_in_journey:= false) -> void:
 		experience_level = clampi(next_level, 1, 15)
 		queue_level_up(next_level)
 	miss_streak = 0
-	save()
+	save(false)
 	var subj = get_subject()
 	subj.update_experience()
 
@@ -672,7 +679,7 @@ func miss(is_in_journey:= false) -> void:
 	if ((!is_in_journey && miss_streak > 1) || is_in_journey) && !is_level_up_queued && experience_level > 1:
 		miss_streak = 0
 		experience_level = clampi(experience_level - 1, 1, 15)
-	save()
+	save(false)
 	var subj = get_subject()
 	subj.update_experience()
 

@@ -3,6 +3,8 @@ extends HBoxContainer
 signal text_has_changed(difference: int)
 signal text_focused
 signal text_unfocused
+signal add_row_requested
+signal erase_if_empty_requested
 var text:= ""
 
 func fetch() -> String:
@@ -10,6 +12,17 @@ func fetch() -> String:
 
 func _on_delete_button_pressed() -> void:
 	queue_free()
+
+func _input(event: InputEvent) -> void:
+	if !$TextsMargin/Text.has_focus() || !(event is InputEventKey) || !event.pressed || event.echo:
+		return
+	if event.keycode == KEY_ENTER || event.keycode == KEY_KP_ENTER:
+		accept_event()
+		add_row_requested.emit()
+	elif event.keycode == KEY_BACKSPACE || event.keycode == KEY_DELETE:
+		if $TextsMargin/Text.text.strip_edges() == "":
+			accept_event()
+			erase_if_empty_requested.emit()
 
 func set_text(to: String) -> void:
 	$TextsMargin/Text.text = to
