@@ -58,8 +58,12 @@ func get_questions() -> Array[Question]:
 	var files = Array(DirAccess.get_files_at("user://subjects/" + str(id).lpad(10, '0')))
 	var questions: Array[Question] = []
 	for question_filename in files:
+		if !question_filename.ends_with(".tres"):
+			continue
 		var file_path = "user://subjects/" + str(id).lpad(10, '0') + "/" + question_filename
-		questions.push_back(ResourceLoader.load(file_path))
+		var loaded_question = ResourceLoader.load(file_path) as Question
+		if loaded_question != null:
+			questions.push_back(loaded_question)
 	return questions
 
 func get_question(question_id: int) -> Question:

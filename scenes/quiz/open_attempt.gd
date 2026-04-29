@@ -35,6 +35,7 @@ func prepare(with_question: Question):
 	set_description(question.get_display_question())
 	for child in $Elements/OpensRow.get_children():
 		_wire_row(child)
+	_update_order_numbers()
 	_prepare_type_controls()
 
 func fetch() -> Array:
@@ -111,6 +112,7 @@ func _on_attempt_row_erase_if_empty_requested(row: Node) -> void:
 		row.set_text("")
 		return
 	row.queue_free()
+	_update_order_numbers.call_deferred()
 
 func _wire_row(row: Node) -> void:
 	if row == null || row.has_meta("open_attempt_wired"):
@@ -126,6 +128,15 @@ func _wire_row(row: Node) -> void:
 	if row.has_signal("erase_if_empty_requested"):
 		row.erase_if_empty_requested.connect(_on_attempt_row_erase_if_empty_requested.bind(row))
 	row.set_meta("open_attempt_wired", true)
+	_update_order_numbers()
+
+func _update_order_numbers() -> void:
+	for index in range($Elements/OpensRow.get_child_count()):
+		var row = $Elements/OpensRow.get_child(index)
+		if question != null && question.is_order && row.has_method("show_order"):
+			row.show_order(index + 1)
+		elif row.has_method("hide_order"):
+			row.hide_order()
 
 func _prepare_type_controls() -> void:
 	if type_controls == null:

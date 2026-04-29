@@ -54,7 +54,7 @@ func _on_subject_pressed() -> void:
 	var question_scene = data_question_scene.instantiate()
 	question_scene.subject_id = subject_id
 	question_scene.title = $M/Elements/Quick/MTitle/M/Name/Title.text
-	add_child(question_scene)
+	get_tree().current_scene.add_child(question_scene)
 
 func _on_selected_focus_entered() -> void:
 	$Selected.show()

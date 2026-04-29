@@ -76,9 +76,11 @@ func set_container() -> void:
 func add_question_to_container(saved_question: Question) -> void:
 	var question_to_add
 	var container_node = $QuestionsScroll/QuestionsContainer
+	var is_new_card:= false
 	if container_node.has_node(str(saved_question.id)):
 		question_to_add = container_node.get_node(str(saved_question.id))
 	else:
+		is_new_card = true
 		question_to_add = saved_question_packed_scene.instantiate()
 		question_to_add.parent_pressed.connect(on_parent_pressed)
 		question_to_add.edit_pressed.connect(on_edit_pressed)
@@ -88,12 +90,14 @@ func add_question_to_container(saved_question: Question) -> void:
 		if question_to_add.has_signal("show_children_pressed"):
 			question_to_add.show_children_pressed.connect(on_show_children_pressed)
 		question_to_add.name = str(saved_question.id)
+	if question_to_add.has_method("set_question_data"):
+		question_to_add.set_question_data(saved_question)
+	else:
 		question_to_add.id = saved_question.id
-	question_to_add.set_text(saved_question.question[0])
-	question_to_add.set_level(saved_question.experience_level)
-	if question_to_add.has_method("set_types"):
-		question_to_add.set_types(saved_question.get_types())
-	container_node.add_child(question_to_add)
+		question_to_add.set_text(saved_question.question[0])
+		question_to_add.set_level(saved_question.experience_level)
+	if is_new_card:
+		container_node.add_child(question_to_add)
 	container_node.move_child(question_to_add, 0)
 	$SubjectBar/AmountBar/Amount.text = str(container_node.get_child_count()).lpad(2, '0')
 	_apply_question_filters_and_sort()
@@ -142,6 +146,11 @@ func _on_scheme_pressed() -> void:
 
 func _on_ordered_pressed() -> void:
 	question.is_order = !question.is_order
+	$Items/ScrollData/Data/Opens.is_order_enabled = question.is_order
+	if question.is_order:
+		$Items/ScrollData/Data/Opens.show_orders()
+	else:
+		$Items/ScrollData/Data/Opens.hide_orders()
 
 func _on_strict_pressed() -> void:
 	question.is_strict = !question.is_strict
@@ -211,6 +220,11 @@ func on_edit_pressed(id: int) -> void:
 	$Items/ScrollData/Data/Types/M/VBoxContainer/Types/Label.button_pressed = to_edit.is_label
 	$Items/ScrollData/Data/Types/M/VBoxContainer/Types/Label2.button_pressed = to_edit.is_scheme
 	$Items/ScrollData/Data/Opens.visible = to_edit.is_open || to_edit.is_choice
+	$Items/ScrollData/Data/Opens.is_order_enabled = to_edit.is_order
+	if to_edit.is_order:
+		$Items/ScrollData/Data/Opens.show_orders()
+	else:
+		$Items/ScrollData/Data/Opens.hide_orders()
 	$Items/ScrollData/Data/Choices.visible = to_edit.is_choice
 	$Items/ScrollData/Data/Match.visible = to_edit.is_connect
 	$Items/ScrollData/Data/Table.visible = to_edit.is_table
@@ -266,11 +280,11 @@ func _on_submit_pressed() -> void:
 	play_submit_edit_voice()
 	fetch_data()
 	# Save or Edit Question. Also edit the Subject's last time saved variable.
+	subject = Main.data.get_subject(subject_id)
 	if subject.has_question(question.id):
 		question.save()
 	else:
 		question.create()
-	subject = Main.data.get_subject(subject_id)
 	add_question_to_container(question)
 	$SFX.play_file("submit")
 	$Items/ScrollData/Data/Question/Texts.get_children().map(func (child): child.reset())
@@ -374,56 +388,59 @@ func _apply_question_filters_and_sort() -> void:
 	var container = $QuestionsScroll/QuestionsContainer
 	var cards = container.get_children()
 	cards.sort_custom(func(card_a, card_b):
-		var question_a = subject.get_question(int(card_a.id))
-		var question_b = subject.get_question(int(card_b.id))
-		if question_a == null || question_b == null:
-			return false
-		var comparison = _compare_questions(question_a, question_b)
+		var comparison = _compare_question_cards(card_a, card_b)
 		return comparison < 0 if question_sort_ascending else comparison > 0
 	)
 	for index in range(cards.size()):
 		container.move_child(cards[index], index)
 	for card in cards:
-		card.visible = _question_matches_filters(subject.get_question(int(card.id)))
+		card.visible = _question_card_matches_filters(card)
 
-func _question_matches_filters(saved_question: Question) -> bool:
-	if saved_question == null:
-		return false
+func _question_card_matches_filters(card: Node) -> bool:
+	if _has_default_question_filters():
+		return true
 	var search = $Search/Elements/SearchBar.text.strip_edges()
 	if search != "":
-		var text_match = saved_question.question.size() > 0 && str(saved_question.question[0]).containsn(search)
-		var tag_match = saved_question.tags.any(func(tag): return str(tag).containsn(search))
+		var text_match = str(card.question_text).containsn(search)
+		var tag_match = card.tags.any(func(tag): return str(tag).containsn(search))
 		if !text_match && !tag_match:
 			return false
-	if question_filter_level > 0 && saved_question.level != question_filter_level:
+	if question_filter_level > 0 && int(card.question_level) != question_filter_level:
 		return false
-	if question_filter_type != "any" && !saved_question.get_types().has(question_filter_type):
+	if question_filter_type != "any" && !card.types.has(question_filter_type):
 		return false
 	if relationship_filter == "parents":
-		var source = subject.get_question(relationship_question_id)
-		return source != null && source.parents.has(saved_question.id)
+		var source = subject.get_question(relationship_question_id) if subject != null else null
+		return source != null && source.parents.has(card.id)
 	if relationship_filter == "children":
-		return saved_question.parents.has(relationship_question_id)
+		var saved_question = subject.get_question(card.id) if subject != null else null
+		return saved_question != null && saved_question.parents.has(relationship_question_id)
 	return true
 
-func _compare_questions(question_a: Question, question_b: Question) -> int:
+func _compare_question_cards(card_a: Node, card_b: Node) -> int:
 	var a
 	var b
 	match question_sort_criteria:
 		"experience_level":
-			a = question_a.experience_level
-			b = question_b.experience_level
+			a = card_a.experience_level
+			b = card_b.experience_level
 		"level":
-			a = question_a.level
-			b = question_b.level
+			a = card_a.question_level
+			b = card_b.question_level
 		"question":
-			a = str(question_a.question[0]) if question_a.question.size() > 0 else ""
-			b = str(question_b.question[0]) if question_b.question.size() > 0 else ""
+			a = card_a.question_text
+			b = card_b.question_text
 		_:
-			a = question_a.last_time_edited
-			b = question_b.last_time_edited
+			a = card_a.last_time_edited
+			b = card_b.last_time_edited
 	if a == b:
-		return question_a.id - question_b.id
+		return card_a.id - card_b.id
 	if a is String:
 		return a.naturalnocasecmp_to(b)
 	return 1 if a > b else -1
+
+func _has_default_question_filters() -> bool:
+	return $Search/Elements/SearchBar.text.strip_edges() == "" \
+		&& question_filter_level == 0 \
+		&& question_filter_type == "any" \
+		&& relationship_filter == ""

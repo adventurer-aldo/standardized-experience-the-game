@@ -18,16 +18,17 @@ var history: Array = []  # stack for undo
 var used_colors = []
 
 func _ready():
+	$MainElements/Canvas/Markers.z_index = 100
 	# Live line
 	live_line = Line2D.new()
 	live_line.width = 2
 	live_line.default_color = Color(0,1,0)
-	add_child(live_line)
+	$MainElements/Canvas.add_child(live_line)
 
 	# Live filled polygon
 	live_poly = Polygon2D.new()
 	live_poly.color = Color(0,1,0,0.3)
-	add_child(live_poly)
+	$MainElements/Canvas.add_child(live_poly)
 
 	set_process_input(true)  # enable _input()
 
@@ -115,8 +116,8 @@ func _input(event):
 				polygon_points.append(start_pos)
 				is_drawing = true
 
-				live_line.points = [$MainElements/Canvas.global_position + start_pos]
-				live_poly.polygon = PackedVector2Array([$MainElements/Canvas.global_position + start_pos])
+				live_line.points = [start_pos]
+				live_poly.polygon = PackedVector2Array([start_pos])
 
 			elif is_drawing or (event.pressed and not $MainElements/Canvas.get_global_rect().has_point(event.global_position)):
 				_on_end_drawing_pressed()
@@ -132,12 +133,12 @@ func _input(event):
 		# Update live line
 		live_line.points = []
 		for pp in polygon_points:
-			live_line.points.append($MainElements/Canvas.global_position + pp)
+			live_line.points.append(pp)
 
 		# Update live polygon
 		var poly_points: PackedVector2Array = PackedVector2Array()
 		for pp in polygon_points:
-			poly_points.append(pp + $MainElements/Canvas.global_position)
+			poly_points.append(pp)
 		live_poly.polygon = poly_points
 
 # -----------------------
@@ -187,6 +188,7 @@ func _add_or_merge_collision(new_points: PackedVector2Array) -> Array:
 		var vis: Polygon2D = Polygon2D.new()
 		vis.polygon = piece
 		vis.color = used_colors[current_label_id]
+		vis.z_index = 1
 		area.add_child(vis)
 
 		col_new.set_meta("vis", vis)
@@ -206,11 +208,13 @@ func _add_or_merge_collision(new_points: PackedVector2Array) -> Array:
 	if $MainElements/Canvas/Markers.get_child(current_label_id) == null:
 		target_node = $Markers/Number.duplicate()
 		target_node.text = str(current_label_id + 1)
+		target_node.z_index = 100
 		$MainElements/Canvas/Markers.add_child(target_node)
 	else:
 		target_node = $MainElements/Canvas/Markers.get_child(current_label_id)
 	target_node.global_position.x = min_x
 	target_node.global_position.y = min_y
+	$MainElements/Canvas/Markers.move_to_front()
 	return created_nodes
 
 
