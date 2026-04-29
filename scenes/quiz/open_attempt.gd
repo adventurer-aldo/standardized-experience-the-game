@@ -21,7 +21,7 @@ func a_text_has_changed(difference: int) -> void:
 	add_to_might.emit(difference)
 
 func set_description(text: String) -> void:
-	if question.is_rush:
+	if question.is_ambush || question.is_rush:
 		$ID/Number.text = "X. "
 	else:
 		$ID/Number.text = str(question.attempt_index + 1) + ". "

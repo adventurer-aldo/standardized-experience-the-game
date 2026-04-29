@@ -4,6 +4,7 @@ var subject = Subject.new()
 var currently_selected_subject_id: int
 
 func _ready() -> void:
+	Main.localize_tree(self)
 	Main.wipe_out()
 
 func _on_create_button_pressed() -> void:

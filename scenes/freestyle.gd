@@ -10,6 +10,7 @@ func _ready() -> void:
 		subj.focused.connect(change_subject_text)
 		$SubjectsContainer.add_child(subj)
 	)
+	Main.localize_tree(self)
 
 func change_subject_text(from_subject_id: int) -> void:
 	$ColorRect/Label.text = Main.data.get_subject(from_subject_id).title

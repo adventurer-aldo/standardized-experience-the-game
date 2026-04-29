@@ -791,7 +791,7 @@ one_shot = true
 [connection signal="pressed" from="Items/ScrollData/Data/Types/M/VBoxContainer/Types/Match" to="." method="_on_match_pressed"]
 [connection signal="pressed" from="Items/ScrollData/Data/Types/M/VBoxContainer/Types/Table" to="." method="_on_table_pressed"]
 [connection signal="pressed" from="Items/ScrollData/Data/Types/M/VBoxContainer/Types/Label" to="." method="_on_label_pressed"]
-[connection signal="pressed" from="Items/ScrollData/Data/Types/M/VBoxContainer/Types/Label2" to="." method="_on_label_pressed"]
+[connection signal="pressed" from="Items/ScrollData/Data/Types/M/VBoxContainer/Types/Label2" to="." method="_on_scheme_pressed"]
 [connection signal="pressed" from="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters/Ordered" to="." method="_on_ordered_pressed"]
 [connection signal="pressed" from="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters/Strict" to="." method="_on_strict_pressed"]
 [connection signal="pressed" from="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters/Gap" to="." method="_on_gap_pressed"]

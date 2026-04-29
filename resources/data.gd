@@ -7,6 +7,7 @@ extends Resource
 @export var last_name:= ""
 @export var timezone: Timezone.Zone = Timezone.Zone.UTC
 @export var birthday:= 0.0
+@export var pfp_mediaset_id:= 0
 @export_category("IDs")
 @export var last_journey_id:= 0
 @export var last_subject_id := 0
@@ -22,7 +23,10 @@ extends Resource
 @export var skip_dissertation:= true
 @export var negative_points:= true
 @export var use_24_hour_time:= true
+@export var language:= "ja"
 @export var soundtrack_id:= 0
+@export var prune_saved_quizzes:= true
+@export var max_saved_quizzes:= 100
 @export var focus:= 0
 @export var theme:= NORMAL
 
@@ -173,6 +177,20 @@ func get_quiz(quiz_id: int) -> Quiz:
 func get_last_quiz() -> Quiz:
 	return ResourceLoader.load("user://quizzes/" + str(last_quiz_id).lpad(10, "0") + ".tres")
 
+func prune_old_quizzes() -> void:
+	if !prune_saved_quizzes || max_saved_quizzes <= 0:
+		return
+	var quizzes = get_quizzes()
+	if quizzes.size() <= max_saved_quizzes:
+		return
+	quizzes.sort_custom(func(quiz_a: Quiz, quiz_b: Quiz):
+		return quiz_a.start_time < quiz_b.start_time
+	)
+	while quizzes.size() > max_saved_quizzes:
+		var quiz_to_delete = quizzes.pop_front()
+		if quiz_to_delete != null:
+			quiz_to_delete.delete()
+
 func get_soundtracks() -> Array[Soundtrack]:
 	var soundtracks: Array[Soundtrack]
 	var seen_keys := {}
@@ -220,6 +238,54 @@ func get_current_soundtrack() -> Soundtrack:
 func get_timezone_offset_seconds() -> int:
 	return Timezone.get_offset_seconds(timezone)
 
+func get_pfp_mediaset() -> Mediaset:
+	if pfp_mediaset_id <= 0:
+		return null
+	return ResourceLoader.load("user://mediasets/" + str(pfp_mediaset_id).lpad(10, "0") + ".tres")
+
+func get_or_create_pfp_mediaset() -> Mediaset:
+	var mediaset = get_pfp_mediaset()
+	if mediaset != null:
+		return mediaset
+	mediaset = Mediaset.new()
+	mediaset.create()
+	pfp_mediaset_id = mediaset.id
+	save()
+	return mediaset
+
+func get_text(key: String, fallback:= "") -> String:
+	var dictionary = _load_language_dictionary(language)
+	if dictionary.has(key):
+		return str(dictionary[key])
+	if language != "en":
+		var english_dictionary = _load_language_dictionary("en")
+		if english_dictionary.has(key):
+			return str(english_dictionary[key])
+	return fallback if fallback != "" else key
+
+func translate(source_text: String) -> String:
+	if source_text.strip_edges() == "":
+		return source_text
+	var dictionary = _load_language_dictionary(language)
+	if dictionary.has(source_text):
+		return str(dictionary[source_text])
+	var english_dictionary = _load_language_dictionary("en")
+	var text_key = ""
+	for key in english_dictionary.keys():
+		if str(english_dictionary[key]) == source_text:
+			text_key = key
+			break
+	if text_key != "" && dictionary.has(text_key):
+		return str(dictionary[text_key])
+	return source_text
+
+func localize_tree(root: Node) -> void:
+	if root == null:
+		return
+	_localize_node(root)
+	for child in root.get_children():
+		localize_tree(child)
+
 func save() -> void:
 	ResourceSaver.save(self, "user://data.tres", ResourceSaver.FLAG_COMPRESS)
 
@@ -227,3 +293,39 @@ func _soundtrack_key(soundtrack: Soundtrack) -> String:
 	if soundtrack.id > 0:
 		return "id:" + str(soundtrack.id)
 	return "name:" + soundtrack.name.strip_edges().to_lower()
+
+func _load_language_dictionary(language_code: String) -> Dictionary:
+	var file_path = "res://locales/" + language_code + ".json"
+	if !FileAccess.file_exists(file_path):
+		return {}
+	var file = FileAccess.open(file_path, FileAccess.READ)
+	if file == null:
+		return {}
+	var parsed = JSON.parse_string(file.get_as_text())
+	if parsed is Dictionary:
+		return parsed
+	return {}
+
+func _localize_node(node: Node) -> void:
+	if _node_has_property(node, "text"):
+		var source_text = _get_localization_source(node, "text")
+		if source_text != "":
+			node.set("text", translate(source_text))
+	if _node_has_property(node, "placeholder_text"):
+		var source_placeholder = _get_localization_source(node, "placeholder_text")
+		if source_placeholder != "":
+			node.set("placeholder_text", translate(source_placeholder))
+
+func _get_localization_source(node: Node, property_name: String) -> String:
+	var meta_name = "localization_source_" + property_name
+	if node.has_meta(meta_name):
+		return str(node.get_meta(meta_name))
+	var source_text = str(node.get(property_name))
+	node.set_meta(meta_name, source_text)
+	return source_text
+
+func _node_has_property(node: Node, property_name: String) -> bool:
+	for property in node.get_property_list():
+		if property.get("name", "") == property_name:
+			return true
+	return false

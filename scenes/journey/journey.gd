@@ -6,6 +6,7 @@ extends ColorRect
 var journey: Journey
 
 func _ready() -> void:
+	Main.localize_tree(self)
 	$SummerSky/AnimationPlayer.play("spin")
 	Main.wipe_out()	
 	if Main.data.last_journey_id > 0:

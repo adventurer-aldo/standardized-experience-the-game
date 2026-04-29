@@ -42,8 +42,8 @@ func set_level(to: int) -> void:
 	$M/Elements/Quick/Level.text = "Lv. " + str(to)
 
 func set_questions_size(to: int) -> void:
-	var res:= str(to) + " Question"
-	if to != 1: res+= "s"
+	var label = Main.data.translate("Question") if to == 1 else Main.data.translate("Questions")
+	var res: String = str(to) + " " + label
 	$M/Elements/MTitle/VBox/Details/Questions.text = res
 
 func set_progress(maximum: float, value: float):

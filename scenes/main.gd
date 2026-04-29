@@ -5,6 +5,7 @@ extends Panel
 @export var journey_scene: PackedScene
 
 func _ready() -> void:
+	Main.localize_tree(self)
 	$BGM.play()
 	$Overlay/ScrollLoopAnim.play("scroll")
 	Main.wipe_out()

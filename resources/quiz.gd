@@ -10,7 +10,9 @@ class_name Quiz
 @export var journey_id:= 0
 @export var saved_grade:= -1.0
 @export var has_negative_points:= false
+@export var should_ambush:= true
 @export var should_rush:= true
+@export var is_ambush_rush:= false
 @export var template:= 0
 
 func get_subject() -> Subject:
@@ -25,22 +27,30 @@ func get_file_path() -> String:
 func create() -> void:
 	start_time = Time.get_unix_time_from_system()
 	end_time = start_time + 600.0
+	if level <= 0 && journey_id <= 0 && !Engine.is_editor_hint():
+		level = Main.data.focus
 	var subject = get_subject()
 	if subject != null:
 		has_negative_points = randf() < subject.negative_likelihood
 	DirAccess.make_dir_recursive_absolute(get_dir_path())
 	save()
+	if !Engine.is_editor_hint():
+		Main.data.prune_old_quizzes()
 
 func delete() -> void:
+	for filename in DirAccess.get_files_at(get_dir_path()):
+		DirAccess.remove_absolute(get_dir_path() + "/" + filename)
 	var one = DirAccess.remove_absolute(get_dir_path())
 	var two = DirAccess.remove_absolute(get_file_path())
 	print("Attempted deletion of Quiz ID#{id}. Codes: {one} | {two}".format({"id": id, "one": one, "two": two}))
 	
 func save() -> void:
-	return ResourceSaver.save(self, get_file_path(), ResourceSaver.FLAG_COMPRESS)
+	ResourceSaver.save(self, get_file_path(), ResourceSaver.FLAG_COMPRESS)
 
 func generate() -> bool:
 	randomize()
+	if level <= 0 && journey_id <= 0 && !Engine.is_editor_hint():
+		level = Main.data.focus
 	var questions = get_filtered_questions(!(journey_id > 0))
 	
 	# Give priority to questions with a miss streak
@@ -54,6 +64,9 @@ func generate() -> bool:
 	return questions.size() > 0
 
 func generate_rush_questions() -> void:
+	generate_ambush_questions()
+
+func generate_ambush_questions() -> void:
 	var questions = get_rush_questions()
 	for question in questions:
 		var insert_index = randi() % max(1, size())
@@ -63,7 +76,9 @@ func get_questions() -> Array[Question]:
 	var files = Array(DirAccess.get_files_at("user://quizzes/" + str(id).lpad(10, '0')))
 	var res: Array[Question] = []
 	for question_filename in files:
-		res.push_back(ResourceLoader.load("user://quizzes/" + str(id).lpad(10, '0') + "/" + question_filename))
+		var question = ResourceLoader.load("user://quizzes/" + str(id).lpad(10, '0') + "/" + question_filename) as Question
+		if question != null:
+			res.push_back(question)
 	# Sort by attempt ID
 	res.sort_custom(func (question_a: Question, question_b: Question):
 		return question_a.attempt_index < question_b.attempt_index
@@ -71,8 +86,11 @@ func get_questions() -> Array[Question]:
 	return res
 
 func has_rush_questions() -> bool:
+	return has_ambush_questions()
+
+func has_ambush_questions() -> bool:
 	var rush_questions = get_questions().filter(func (question: Question):
-		return question.is_rush
+		return question.is_ambush || question.is_rush
 	)
 	return rush_questions.size() > 0
 
@@ -102,6 +120,9 @@ func get_filtered_questions(block_unsolved_parents:= true) -> Array[Question]:
 	return res
 
 func get_rush_questions() -> Array[Question]:
+	return get_ambush_questions()
+
+func get_ambush_questions() -> Array[Question]:
 	print("Fetching Rush questions")
 	# Filter based on whether level up will be completed in midst of quiz
 	var all_queued_questions = Main.data.get_questions_with_leveling_due_at(end_time)
@@ -118,6 +139,8 @@ func size() -> int:
 func move_question_to_quiz(question: Question, positioning: int, rush_question:= false) -> void:
 	var quiz_question = question.make_quiz_attempt(positioning, ["open", "choice", "veracity"])
 	quiz_question.is_rush = rush_question
+	quiz_question.is_ambush = rush_question
+	quiz_question.strip_for_quiz_attempt()
 	quiz_question.save_to_quiz(id, positioning)
 
 func calculate_grade(uses_negative_points:= false) -> float:
@@ -126,9 +149,12 @@ func calculate_grade(uses_negative_points:= false) -> float:
 		saved_grade = 0.0
 		save()
 		return saved_grade
-	var points_per_question = 20.0 / quiz_questions.size()
+	var total_weight = 0.0
+	for question in quiz_questions:
+		total_weight += question.get_score_units()
 	var grade = 0.0
 	for question in quiz_questions:
+		var points_per_question = 20.0 * (question.get_score_units() / total_weight)
 		grade += question.get_grade_points(points_per_question, uses_negative_points)
 	saved_grade = clampf(grade, 0.0, 20.0)
 	save()

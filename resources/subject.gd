@@ -6,6 +6,7 @@ extends Resource
 @export var title := ""
 @export var description := ""
 @export var last_question_id:= 0
+@export var image_mediaset_id:= 0
 
 @export var is_journey_eligible:= false
 
@@ -27,6 +28,21 @@ func get_dir_path() -> String:
 
 func get_file_path() -> String:
 	return "user://subjects/" + str(id).lpad(10, '0') + ".tres"
+
+func get_image_mediaset() -> Mediaset:
+	if image_mediaset_id <= 0:
+		return null
+	return ResourceLoader.load("user://mediasets/" + str(image_mediaset_id).lpad(10, "0") + ".tres")
+
+func get_or_create_image_mediaset() -> Mediaset:
+	var mediaset = get_image_mediaset()
+	if mediaset != null:
+		return mediaset
+	mediaset = Mediaset.new()
+	mediaset.create()
+	image_mediaset_id = mediaset.id
+	save()
+	return mediaset
 
 func create() -> void:
 	id = Main.data.next_subject_id()

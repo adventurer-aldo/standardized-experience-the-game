@@ -23,6 +23,7 @@ func _ready() -> void:
 		DirAccess.make_dir_absolute("user://quizzes")
 	if !DirAccess.dir_exists_absolute("user://soundtracks"):
 		DirAccess.make_dir_absolute("user://soundtracks")
+	data.prune_old_quizzes()
 	begin_update()
 	for subject in data.get_subjects():
 		subject.maximum_experience = subject.size() * 15
@@ -63,6 +64,9 @@ func _on_update_finished() -> void:
 	print("Thread finished...?")
 	thread = Thread.new()
 
+func localize_tree(root: Node) -> void:
+	if data != null:
+		data.localize_tree(root)
 
 func rank_grade(grade: float) -> String:
 	if grade >= 19.9:

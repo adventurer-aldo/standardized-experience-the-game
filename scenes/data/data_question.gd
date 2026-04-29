@@ -24,6 +24,7 @@ func _ready() -> void:
 	$Items/ScrollData/Data/Types/M/VBoxContainer/Types/Open.button_pressed = true
 	_on_open_pressed()
 	set_container()
+	Main.localize_tree(self)
 	
 	if silence:
 		$BGM.stop()
@@ -115,6 +116,10 @@ func _on_label_pressed() -> void:
 	question.is_label = !question.is_label
 	$Items/ScrollData/Data/Label.visible = question.is_label
 
+func _on_scheme_pressed() -> void:
+	if question.get_types().size() == 1 && question.is_scheme: return
+	question.is_scheme = !question.is_scheme
+
 func _on_ordered_pressed() -> void:
 	question.is_order = !question.is_order
 
@@ -143,7 +148,7 @@ func change_level(to: int) -> void:
 	question.level = to
 	var tar = $Items/ScrollData/Data/Question/GloballyRelevant/IncreaseLevel/Elements/Text
 	var texts = ['Beginner Level', 'Advanced Level', 'Dissertation', 'Master Level']
-	tar.text = texts[to - 1]
+	tar.text = Main.data.translate(texts[to - 1])
 
 func _on_add_tag_button_pressed() -> void:
 	var text: String = $Items/ScrollData/Data/Tag/Text.text.strip_edges()
@@ -158,6 +163,8 @@ func on_grid_delete_pressed(id: int) -> void:
 
 func on_edit_pressed(id: int) -> void:
 	var to_edit = question.get_subject().get_question(id)
+	question = to_edit.duplicate(true)
+	question.subject_id = subject_id
 	var questions_difference = to_edit.question.size() - $Items/ScrollData/Data/Question/Texts.get_child_count()
 	if questions_difference > 0:
 		for i in range(questions_difference):
@@ -166,20 +173,33 @@ func on_edit_pressed(id: int) -> void:
 		for i in range(questions_difference * -1):
 			$Items/ScrollData/Data/Question/Texts.get_child((i * -1) -1).queue_free()
 	for i in range(to_edit.question.size()):
-		$Items/ScrollData/Data/Question/Texts.get_child(i - 1).set_text(to_edit.question[i - 1])
+		$Items/ScrollData/Data/Question/Texts.get_child(i).set_text(to_edit.question[i])
 	
 	if to_edit.has_media():
 		$Items/ScrollData/Data/Question/Image.texture = to_edit.get_mediaset().images[0]
+	else:
+		$Items/ScrollData/Data/Question/Image.texture = null
 	$Items/ScrollData/Data/Opens.replicate(to_edit.answer)
+	$Items/ScrollData/Data/Choices.replicate(to_edit.choices)
 	
 	$Items/ScrollData/Data/ParentsContainer/ParentsFlow.replicate(to_edit.parents)
 	$Items/ScrollData/Data/TagsContainer/TagsFlow.replicate(to_edit.tags)
-	question.id = id
-	question.experience_level = to_edit.experience_level
-	question.hits = to_edit.hits
-	question.misses = to_edit.misses
-	question.hit_streak = to_edit.hit_streak
-	question.miss_streak	 = to_edit.miss_streak	
+	$Items/ScrollData/Data/Types/M/VBoxContainer/Types/Open.button_pressed = to_edit.is_open
+	$Items/ScrollData/Data/Types/M/VBoxContainer/Types/Choice.button_pressed = to_edit.is_choice
+	$Items/ScrollData/Data/Types/M/VBoxContainer/Types/Match.button_pressed = to_edit.is_connect
+	$Items/ScrollData/Data/Types/M/VBoxContainer/Types/Table.button_pressed = to_edit.is_table
+	$Items/ScrollData/Data/Types/M/VBoxContainer/Types/Label.button_pressed = to_edit.is_label
+	$Items/ScrollData/Data/Types/M/VBoxContainer/Types/Label2.button_pressed = to_edit.is_scheme
+	$Items/ScrollData/Data/Opens.visible = to_edit.is_open || to_edit.is_choice
+	$Items/ScrollData/Data/Choices.visible = to_edit.is_choice
+	$Items/ScrollData/Data/Match.visible = to_edit.is_connect
+	$Items/ScrollData/Data/Table.visible = to_edit.is_table
+	$Items/ScrollData/Data/Label.visible = to_edit.is_label
+	$Items/ScrollData/Data/Types/M/VBoxContainer/Parameters/Ordered.button_pressed = to_edit.is_order
+	$Items/ScrollData/Data/Types/M/VBoxContainer/Parameters/Strict.button_pressed = to_edit.is_strict
+	$Items/ScrollData/Data/Types/M/VBoxContainer/Parameters/Gap.button_pressed = to_edit.is_gap
+	$Items/ScrollData/Data/Types/M/VBoxContainer/Parameters/Veracity.button_pressed = to_edit.is_veracity
+	$Items/ScrollData/Data/Types/M/VBoxContainer/Parameters/Shuffle.button_pressed = to_edit.is_shuffle
 	change_level(to_edit.level)
 
 func fetch_data() -> void:
@@ -188,11 +208,17 @@ func fetch_data() -> void:
 	question.last_time_edited = question.created_at
 	question.answer = $Items/ScrollData/Data/Opens.fetch()
 	question.choices = $Items/ScrollData/Data/Choices.fetch()
+	if question.is_choice && question.choices.is_empty():
+		question.sync_choices_from_answers(false)
 	question.columns = $Items/ScrollData/Data/Table.fetch()
 	var matches = $Items/ScrollData/Data/Match.fetch()
 	question.match_a = matches["a"]
 	question.match_b = matches["b"]
 	question.labels = $Items/ScrollData/Data/Label.fetch()
+	if has_node("Items/ScrollData/Data/Scheme"):
+		var scheme = $Items/ScrollData/Data/Scheme.fetch()
+		question.scheme_nodes = scheme.get("nodes", [])
+		question.scheme_links = scheme.get("links", [])
 	
 	question.tags = $Items/ScrollData/Data/TagsContainer/TagsFlow.fetch()
 	question.parents = $Items/ScrollData/Data/ParentsContainer/ParentsFlow.fetch()
@@ -228,7 +254,11 @@ func _on_submit_pressed() -> void:
 	$Items/ScrollData/Data/Question/Texts.get_child(0).get_focus()
 	$Items/ScrollData/Data/Question/Image.texture = null
 	$Items/ScrollData/Data/Opens.reset()
+	$Items/ScrollData/Data/Choices.reset()
 	question.id = 0
+	question = Question.new()
+	question.subject_id = subject_id
+	question.is_open = true
 
 func _on_close_pressed() -> void:
 	queue_free()

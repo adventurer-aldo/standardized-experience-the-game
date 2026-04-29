@@ -1,5 +1,7 @@
 extends Panel
 
+signal ambush_rush_might_ended
+
 var quiz: Quiz
 
 @export var open_attempt: PackedScene
@@ -9,18 +11,22 @@ var quiz: Quiz
 @export var ambush_opening_ost: AudioStream
 @export var ambush_ending_ost: AudioStream
 var might_mode:= false
+var ambush_mode:= false
 var rush_mode:= false
 var streak = 0
 
 func _process(_delta: float) -> void:
 	$TimeBar.set_time_string(str(int($Timer.time_left)) + "s")
-	if $Timer.time_left <= 90 && !rush_mode && !$Timer.is_stopped():
-		rush_mode = true
-		rush()
+	if $Timer.time_left <= 90 && !ambush_mode && !$Timer.is_stopped() && quiz.should_ambush:
+		ambush_mode = true
+		ambush()
 
 func rush() -> void:
-	if quiz.has_rush_questions():
-		print("I do have rush questions.")
+	ambush()
+
+func ambush() -> void:
+	if quiz.has_ambush_questions():
+		print("I do have ambush questions.")
 		$MightTransition.play("RESET")
 		$BGM.stream = ambush_opening_ost
 		$BGM.play()
@@ -48,6 +54,7 @@ func rush() -> void:
 	
 func _ready() -> void:
 	quiz = Main.data.get_last_quiz()
+	Main.localize_tree(self)
 	_on_rush_arrow_anim_animation_finished("")
 	redo()
 
@@ -61,7 +68,7 @@ func add_question(question: Question) -> VBoxContainer:
 	var new_attempt = open_attempt.instantiate()
 	new_attempt.prepare(question)
 	new_attempt.add_to_might.connect(might_increase)
-	if question.is_rush:
+	if question.is_ambush || question.is_rush:
 		new_attempt.hide()
 		new_attempt.add_to_group("rush_questions")
 	$ScrollC/Elements/Attempts.add_child(new_attempt)
@@ -70,7 +77,7 @@ func add_question(question: Question) -> VBoxContainer:
 func might_increase(value: int) -> void:
 	var new_value = clamp($MightTimer.time_left + value, 0.0, 30.1)
 	$MightTimer.start(new_value)
-	if !rush_mode && !might_mode && $MightTimer.time_left > 30.0:
+	if !ambush_mode && !might_mode && $MightTimer.time_left > 30.0:
 		$MightTransition.play("might")
 		might_mode = true
 		
@@ -120,14 +127,15 @@ func make_new_quiz():
 	var random_chance = [false, true, false]
 	random_chance.shuffle()
 	if random_chance[0]:
-		quiz.generate_rush_questions()
+		quiz.generate_ambush_questions()
 	streak += 1
 
 func _on_button_pressed() -> void:
-	if quiz.has_rush_questions() && !rush_mode:
+	if quiz.has_ambush_questions() && !ambush_mode:
 		$Timer.start(90.1)
 		return
 	might_mode = false
+	ambush_mode = false
 	rush_mode = false
 	$RushLoop.stop()
 	$Timer.stop()
@@ -184,7 +192,9 @@ func _on_end_break_pressed() -> void:
 	$BreakTimer.timeout.emit()
 
 func _on_might_timer_timeout() -> void:
-	if might_mode && !rush_mode:
+	if might_mode && ambush_mode && quiz.is_ambush_rush:
+		ambush_rush_might_ended.emit()
+	if might_mode && !ambush_mode:
 		$MightTransition.play("calm")
 		might_mode = false
 		$MightTimer.wait_time = 0.06
