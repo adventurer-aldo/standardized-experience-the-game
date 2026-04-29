@@ -166,7 +166,7 @@ func on_edit_pressed(id: int) -> void:
 		for i in range(questions_difference * -1):
 			$Items/ScrollData/Data/Question/Texts.get_child((i * -1) -1).queue_free()
 	for i in range(to_edit.question.size()):
-		$Items/ScrollData/Data/Question/Texts.get_child(0).set_text(to_edit.question[i])
+		$Items/ScrollData/Data/Question/Texts.get_child(i - 1).set_text(to_edit.question[i - 1])
 	
 	if to_edit.has_media():
 		$Items/ScrollData/Data/Question/Image.texture = to_edit.get_mediaset().images[0]

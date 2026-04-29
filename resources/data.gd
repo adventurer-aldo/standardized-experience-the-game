@@ -5,7 +5,7 @@ extends Resource
 @export_category("Player")
 @export var first_name:= ""
 @export var last_name:= ""
-@export var timezone:= 0
+@export var timezone: Timezone.Zone = Timezone.Zone.UTC
 @export var birthday:= 0.0
 @export_category("IDs")
 @export var last_journey_id:= 0
@@ -155,6 +155,9 @@ func get_quiz(quiz_id: int) -> Quiz:
 
 func get_last_quiz() -> Quiz:
 	return ResourceLoader.load("user://quizzes/" + str(last_quiz_id).lpad(10, "0") + ".tres")
+
+func get_timezone_offset_seconds() -> int:
+	return Timezone.get_offset_seconds(timezone)
 
 func save() -> void:
 	ResourceSaver.save(self, "user://data.tres", ResourceSaver.FLAG_COMPRESS)

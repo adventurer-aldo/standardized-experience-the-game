@@ -76,8 +76,9 @@ func might_increase(value: int) -> void:
 		
 
 func redo() -> void:
-	var start_time = Time.get_datetime_dict_from_unix_time(quiz.start_time)
-	var end_time = Time.get_datetime_dict_from_unix_time(quiz.end_time)
+	var timezone_offset = Main.data.get_timezone_offset_seconds()
+	var start_time = Time.get_datetime_dict_from_unix_time(quiz.start_time + timezone_offset)
+	var end_time = Time.get_datetime_dict_from_unix_time(quiz.end_time + timezone_offset)
 	$ScrollC/Elements/Header/SubjectTitle.text = quiz.get_subject().title
 	$ScrollC/Elements/Header/Year.text = str(end_time.year)
 	var duration = "{s_hour}:{s_minute} — {e_hour}:{e_minute}".format({
@@ -112,6 +113,7 @@ func make_new_quiz():
 	quiz = Quiz.new()
 	quiz.subject_id = prev_subject_id
 	quiz.id = Main.data.next_quiz_id()
+	quiz.level = 2
 	quiz.create()
 	quiz.generate()
 	randomize()

@@ -32,6 +32,7 @@ func _on_pressed() -> void:
 	var new_quiz = Quiz.new()
 	new_quiz.id = Main.data.next_quiz_id()
 	new_quiz.subject_id = subject_id
+	new_quiz.level = 2
 	new_quiz.create()
 	new_quiz.generate()
 	get_tree().change_scene_to_file("res://scenes/quiz/quiz.tscn")

@@ -14,7 +14,7 @@ func _on_add_row_button_pressed() -> HBoxContainer:
 	new_child.text_unfocused.connect(_on_attempt_text_unfocused)
 	$Elements/OpensRow.add_child(new_child)
 	new_child.text_has_changed.connect(a_text_has_changed)
-	new_child.get_focus()
+	new_child.call_deferred("get_focus")
 	return new_child
 
 func a_text_has_changed(difference: int) -> void:

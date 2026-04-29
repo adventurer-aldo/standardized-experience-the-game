@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bcuq3veu0kx2k"]
+[gd_scene format=3 uid="uid://bcuq3veu0kx2k"]
 
 [ext_resource type="Script" uid="uid://sh2qms5hxqx3" path="res://scenes/data/DataQuestion/OpensChoice/opens_row.gd" id="1_nbjlh"]
 [ext_resource type="PackedScene" uid="uid://caiqur14kros3" path="res://scenes/data/DataQuestion/OpensChoice/opens_alt_set.tscn" id="2_arib2"]
@@ -49,22 +49,22 @@ keycode = 45
 [sub_resource type="Shortcut" id="Shortcut_kksar"]
 events = [SubResource("InputEventKey_2flm3")]
 
-[node name="Row" type="HBoxContainer"]
+[node name="Row" type="HBoxContainer" unique_id=1405184165]
 theme_override_constants/separation = 0
 script = ExtResource("1_nbjlh")
 alt_scene = ExtResource("2_arib2")
 
-[node name="Answer" type="VBoxContainer" parent="."]
+[node name="Answer" type="VBoxContainer" parent="." unique_id=1925041566]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 0
 
-[node name="Set" type="HBoxContainer" parent="Answer"]
+[node name="Set" type="HBoxContainer" parent="Answer" unique_id=1615877489]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 0
 
-[node name="AddAlt" type="Button" parent="Answer/Set" node_paths=PackedStringArray("shortcut_context")]
+[node name="AddAlt" type="Button" parent="Answer/Set" unique_id=11394167 node_paths=PackedStringArray("shortcut_context")]
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
 focus_mode = 0
@@ -73,30 +73,32 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_eoayo")
 shortcut = SubResource("Shortcut_826cn")
 text = "Alt"
 
-[node name="AddImage" type="Button" parent="Answer/Set"]
+[node name="AddImage" type="Button" parent="Answer/Set" unique_id=1177977849]
 visible = false
 layout_mode = 2
 text = "Image"
 
-[node name="Text" type="TextEdit" parent="Answer/Set"]
-clip_contents = false
+[node name="Text" type="TextEdit" parent="Answer/Set" unique_id=802458983]
 custom_minimum_size = Vector2(100, 50)
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_colors/caret_color = Color(0, 0.08235294, 0.8745098, 1)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_placeholder_color = Color(0.216, 0.1952, 0.32, 1)
+theme_override_constants/caret_width = 3
 theme_override_font_sizes/font_size = 18
 theme_override_styles/normal = SubResource("StyleBoxEmpty_0rm0x")
 placeholder_text = "An answer to that question."
 wrap_mode = 1
 scroll_fit_content_height = true
+caret_blink = true
 
-[node name="Order" type="Control" parent="Answer/Set/Text"]
+[node name="Order" type="Control" parent="Answer/Set/Text" unique_id=1787762144]
 visible = false
 anchors_preset = 0
 offset_bottom = 51.0
 
-[node name="Text" type="Label" parent="Answer/Set/Text/Order"]
+[node name="Text" type="Label" parent="Answer/Set/Text/Order" unique_id=407948624]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -114,7 +116,7 @@ text = "1"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Background" type="Panel" parent="Answer/Set/Text/Order/Text"]
+[node name="Background" type="Panel" parent="Answer/Set/Text/Order/Text" unique_id=1691016060]
 show_behind_parent = true
 layout_mode = 1
 anchors_preset = 15
@@ -124,7 +126,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_p870i")
 
-[node name="Background" type="Panel" parent="Answer/Set/Text"]
+[node name="Background" type="Panel" parent="Answer/Set/Text" unique_id=101568423]
 show_behind_parent = true
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 1
@@ -136,7 +138,7 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_vwqmk")
 
-[node name="DeleteAnswer" type="Button" parent="Answer/Set" node_paths=PackedStringArray("shortcut_context")]
+[node name="DeleteAnswer" type="Button" parent="Answer/Set" unique_id=2131474249 node_paths=PackedStringArray("shortcut_context")]
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
 size_flags_vertical = 3
@@ -146,7 +148,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_wgsi8")
 shortcut = SubResource("Shortcut_kksar")
 text = "-"
 
-[node name="Alts" type="VBoxContainer" parent="Answer"]
+[node name="Alts" type="VBoxContainer" parent="Answer" unique_id=348804029]
 layout_mode = 2
 theme_override_constants/separation = 0
 

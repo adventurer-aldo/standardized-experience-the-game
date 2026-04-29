@@ -6,7 +6,7 @@
 [ext_resource type="FontFile" uid="uid://b5hv4vumrlxlb" path="res://fonts/ContinuumMedium.ttf" id="3_realq"]
 [ext_resource type="PackedScene" uid="uid://cic476gke6ejk" path="res://scenes/freestyle/subject.tscn" id="5_realq"]
 [ext_resource type="PackedScene" uid="uid://bg238dkkbuae" path="res://scenes/data/back_buton.tscn" id="6_dsjbm"]
-[ext_resource type="AudioStream" uid="uid://b3k3pj7uvm81f" path="res://audio/tracks/freestyle_menu.ogg" id="7_dsjbm"]
+[ext_resource type="AudioStream" uid="uid://g4pc4pv082ab" path="res://audio/tracks/serious_game.ogg" id="7_dsjbm"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fqf8e"]
 bg_color = Color(0.90513396, 0.9369275, 0.9893057, 1)
@@ -128,6 +128,10 @@ columns = 6
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=2014312309]
 stream = ExtResource("7_dsjbm")
 autoplay = true
+
+[node name="TextEdit" type="TextEdit" parent="AudioStreamPlayer" unique_id=1467315312]
+offset_right = 8.0
+offset_bottom = 8.0
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1769754492]
 layout_mode = 1

@@ -2,13 +2,13 @@
 
 [ext_resource type="Script" uid="uid://bvnuh150gond2" path="res://scenes/quiz/quiz.gd" id="1_1ip8j"]
 [ext_resource type="PackedScene" uid="uid://do5cgc300pwx1" path="res://scenes/quiz/open_attempt.tscn" id="2_3uwr7"]
-[ext_resource type="AudioStream" uid="uid://dhykkjq14ll86" path="res://audio/tracks/test_rivers.ogg" id="3_3wj08"]
-[ext_resource type="AudioStream" uid="uid://k17b10qj2d60" path="res://audio/tracks/test_rivers_might.ogg" id="4_p3q4f"]
-[ext_resource type="AudioStream" uid="uid://bahw6gg55qccr" path="res://audio/tracks/rush_life.ogg" id="5_y507y"]
-[ext_resource type="AudioStream" uid="uid://bbi3jgg7r2oi3" path="res://audio/tracks/awakening_ambush_intro.ogg" id="6_3wj08"]
-[ext_resource type="AudioStream" uid="uid://baxc0hylrvuvs" path="res://audio/tracks/awakening_ambush.ogg" id="7_p3q4f"]
+[ext_resource type="AudioStream" uid="uid://cn77xjvtseycg" path="res://audio/tracks/Listen to the Cries of the Planet.ogg" id="3_3wj08"]
+[ext_resource type="AudioStream" uid="uid://4v2t11p0wl6i" path="res://audio/tracks/Listen to the Cries of the Planet_might.ogg" id="4_p3q4f"]
+[ext_resource type="AudioStream" uid="uid://bipoinqa04knv" path="res://audio/tracks/pact.ogg" id="5_y507y"]
+[ext_resource type="AudioStream" uid="uid://bo0yjnmjg36ub" path="res://audio/tracks/defective.ogg" id="6_cr5du"]
+[ext_resource type="AudioStream" uid="uid://covbeccgow4b3" path="res://audio/tracks/defective_rush.ogg" id="7_cvm3b"]
 [ext_resource type="Texture2D" uid="uid://cd1majdr26ims" path="res://graphics/arrowloopoverlay.png" id="8_uhkvd"]
-[ext_resource type="Script" path="res://addons/SmoothScroll/smooth_scroll_container.gd" id="9_3wj08"]
+[ext_resource type="Script" uid="uid://bgqglerkcylxx" path="res://addons/SmoothScroll/smooth_scroll_container.gd" id="9_3wj08"]
 [ext_resource type="FontFile" uid="uid://bunjfygn0oso1" path="res://fonts/times.ttf" id="9_jej5b"]
 [ext_resource type="Texture2D" uid="uid://dnrrbnqukhnpe" path="res://graphics/bloodsplatter_0.png" id="10_ahw1d"]
 [ext_resource type="Script" uid="uid://b7h0k2h2qwlqv" path="res://addons/SmoothScroll/scroll_damper/expo_scroll_damper.gd" id="10_p3q4f"]
@@ -21,9 +21,11 @@
 [ext_resource type="Texture2D" uid="uid://xw8b0rwj8nqc" path="res://graphics/emb.png" id="14_xjybf"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wd8gu"]
-bg_color = Color(0.0407, 0.11, 0.091520004, 1)
-border_width_bottom = 398
-border_color = Color(0.217, 0.6517, 0.7, 1)
+bg_color = Color(0.18197715, 0.032912392, 0.06656156, 1)
+border_width_left = 146
+border_width_right = 126
+border_width_bottom = 730
+border_color = Color(0.7582265, 0.5146597, 0.44118607, 1)
 border_blend = true
 
 [sub_resource type="Animation" id="Animation_wytnh"]
@@ -275,8 +277,8 @@ open_attempt = ExtResource("2_3uwr7")
 battle_ost = ExtResource("3_3wj08")
 might_ost = ExtResource("4_p3q4f")
 rush_ost = ExtResource("5_y507y")
-ambush_opening_ost = ExtResource("6_3wj08")
-ambush_ending_ost = ExtResource("7_p3q4f")
+ambush_opening_ost = ExtResource("6_cr5du")
+ambush_ending_ost = ExtResource("7_cvm3b")
 
 [node name="RushLight" type="ColorRect" parent="." unique_id=1503456806]
 layout_mode = 1
@@ -457,8 +459,6 @@ volume_db = -60.0
 layout_mode = 0
 anchors_preset = 0
 anchor_right = 0.0
-offset_top = 0.0
-offset_bottom = 28.0
 grow_horizontal = 1
 
 [node name="Timer" type="Timer" parent="." unique_id=1426380253]

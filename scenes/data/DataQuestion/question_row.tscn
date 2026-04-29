@@ -1,7 +1,6 @@
-[gd_scene load_steps=9 format=3 uid="uid://7f5d1bwwjuu0"]
+[gd_scene format=3 uid="uid://7f5d1bwwjuu0"]
 
 [ext_resource type="Script" uid="uid://bga3vs0cwb1kt" path="res://scenes/data/DataQuestion/question_row.gd" id="1_8qvhy"]
-[ext_resource type="Material" uid="uid://dj573ymvvkvfg" path="res://materials/whiten_shader_material.tres" id="2_7dl4p"]
 [ext_resource type="Texture2D" uid="uid://jera1onaenhu" path="res://graphics/icons/minus.svg" id="3_7dl4p"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0rm0x"]
@@ -27,25 +26,26 @@ keycode = 45
 [sub_resource type="Shortcut" id="Shortcut_wauh3"]
 events = [SubResource("InputEventKey_1cpq0")]
 
-[node name="QuestionRow" type="HBoxContainer"]
+[node name="QuestionRow" type="HBoxContainer" unique_id=1693342396]
 theme_override_constants/separation = 0
 script = ExtResource("1_8qvhy")
 
-[node name="Text" type="TextEdit" parent="."]
-clip_contents = false
+[node name="Text" type="TextEdit" parent="." unique_id=518059254]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/caret_color = Color(0, 0, 1, 1)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_placeholder_color = Color(0.216, 0.1952, 0.32, 1)
+theme_override_constants/caret_width = 4
 theme_override_font_sizes/font_size = 18
 theme_override_styles/normal = SubResource("StyleBoxEmpty_0rm0x")
 placeholder_text = "What will be the question?"
 wrap_mode = 1
 scroll_fit_content_height = true
+caret_blink = true
 
-[node name="Background" type="Panel" parent="Text"]
+[node name="Background" type="Panel" parent="Text" unique_id=1928598686]
 show_behind_parent = true
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 1
@@ -57,7 +57,7 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ve1ap")
 
-[node name="DeleteButton" type="Button" parent="." node_paths=PackedStringArray("shortcut_context")]
+[node name="DeleteButton" type="Button" parent="." unique_id=1409708298 node_paths=PackedStringArray("shortcut_context")]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 focus_mode = 0
@@ -65,7 +65,7 @@ shortcut_context = NodePath("..")
 theme_override_styles/normal = SubResource("StyleBoxFlat_ll8xw")
 shortcut = SubResource("Shortcut_wauh3")
 
-[node name="M" type="MarginContainer" parent="DeleteButton"]
+[node name="M" type="MarginContainer" parent="DeleteButton" unique_id=750092167]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -77,8 +77,7 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 10
 
-[node name="Icon" type="TextureRect" parent="DeleteButton/M"]
-material = ExtResource("2_7dl4p")
+[node name="Icon" type="TextureRect" parent="DeleteButton/M" unique_id=944389148]
 layout_mode = 2
 texture = ExtResource("3_7dl4p")
 expand_mode = 2

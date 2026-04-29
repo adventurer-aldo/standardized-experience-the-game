@@ -119,12 +119,12 @@ func save_to_quiz(quiz_id: int, attempt_id:= id):
 func hit(is_in_journey:= false) -> void:
 	hits += 1
 	hit_streak += 1
-	miss_streak = 0
-	if ((!is_in_journey && hit_streak > 1) || is_in_journey) && !is_level_up_queued:
+	if ((!is_in_journey && hit_streak > 1) || is_in_journey || experience_level > 4 && miss_streak < 1) && !is_level_up_queued:
 		var next_level = experience_level + 1
 		hit_streak = 0
 		experience_level = clampi(next_level, 1, 15)
 		queue_level_up(next_level)
+	miss_streak = 0
 	save()
 	var subj = get_subject()
 	subj.experience += 1

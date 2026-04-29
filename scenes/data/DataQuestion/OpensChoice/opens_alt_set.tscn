@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://caiqur14kros3"]
+[gd_scene format=3 uid="uid://caiqur14kros3"]
 
 [ext_resource type="Script" uid="uid://davewbr533d4n" path="res://scenes/data/DataQuestion/OpensChoice/opens_alt_set.gd" id="1_7dbdj"]
 
@@ -28,12 +28,12 @@ bg_color = Color(1, 1, 1, 1)
 border_width_bottom = 5
 border_color = Color(0.607843, 0.784314, 0.87451, 1)
 
-[node name="Set" type="HBoxContainer"]
+[node name="Set" type="HBoxContainer" unique_id=390097149]
 size_flags_horizontal = 3
 theme_override_constants/separation = 0
 script = ExtResource("1_7dbdj")
 
-[node name="DeleteAlt" type="Button" parent="." node_paths=PackedStringArray("shortcut_context")]
+[node name="DeleteAlt" type="Button" parent="." unique_id=1662790778 node_paths=PackedStringArray("shortcut_context")]
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
 size_flags_vertical = 3
@@ -43,20 +43,22 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_wgsi8")
 shortcut = SubResource("Shortcut_qkuhw")
 text = "-"
 
-[node name="Text" type="TextEdit" parent="."]
-clip_contents = false
+[node name="Text" type="TextEdit" parent="." unique_id=1733714159]
 custom_minimum_size = Vector2(100, 50)
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_colors/caret_color = Color(0, 0.08235294, 0.8745098, 1)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_placeholder_color = Color(0.216, 0.1952, 0.32, 1)
+theme_override_constants/caret_width = 3
 theme_override_font_sizes/font_size = 18
 theme_override_styles/normal = SubResource("StyleBoxEmpty_0rm0x")
 placeholder_text = "An alternative to that answer."
 wrap_mode = 1
 scroll_fit_content_height = true
+caret_blink = true
 
-[node name="Background" type="Panel" parent="Text"]
+[node name="Background" type="Panel" parent="Text" unique_id=65363706]
 show_behind_parent = true
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 1
