@@ -136,39 +136,51 @@ func get_journey(journey_id: int) -> Journey:
 func get_last_journey() -> Journey:
 	return ResourceLoader.load("user://journeys/" + str(last_journey_id).lpad(10, "0") + ".tres")
 
-func get_leveling_queues() -> Array[LevelingQueue]:
-	var leveling_queues: Array[LevelingQueue]
+func get_leveling_queues() -> Array:
+	var leveling_queues: Array = []
 	for filename in DirAccess.get_files_at("user://leveling_queues"):
-		leveling_queues.push_back(ResourceLoader.load("user://leveling_queues/" + filename))
+		var loaded = ResourceLoader.load("user://leveling_queues/" + filename)
+		if loaded != null:
+			leveling_queues.push_back(loaded)
 	return leveling_queues
 
-func get_leveling_queues_due_at(time: float) -> Array[LevelingQueue]:
-	var leveling_queues: Array[LevelingQueue]
+func get_leveling_queues_due_at(time: float) -> Array:
+	var leveling_queues: Array = []
 	for filename in DirAccess.get_files_at("user://leveling_queues"):
-		var res: LevelingQueue = ResourceLoader.load("user://leveling_queues/" + filename)
-		if res.check(time):
+		var res = ResourceLoader.load("user://leveling_queues/" + filename)
+		if res != null && res.check(time):
 			leveling_queues.push_back(res)
 	return leveling_queues
 
-func get_questions_with_leveling_due_at(time: float) -> Array[Question]:
-	var res: Array[Question]
+func get_questions_with_leveling_due_at(time: float) -> Array:
+	var res: Array = []
 	for leveling_queue in get_leveling_queues_due_at(time):
-		res.push_back(leveling_queue.get_question())
+		var question = leveling_queue.get_question()
+		if question != null:
+			res.push_back(question)
 	return res
 
-func get_subjects() -> Array[Subject]:
-	var subjects: Array[Subject]
+func get_subjects() -> Array:
+	var subjects: Array = []
 	for filename in DirAccess.get_files_at("user://subjects"):
-		subjects.push_back(ResourceLoader.load("user://subjects/" + filename))
+		if !filename.ends_with(".tres"):
+			continue
+		var loaded = ResourceLoader.load("user://subjects/" + filename)
+		if loaded != null:
+			subjects.push_back(loaded)
 	return subjects
 
 func get_subject(subject_id: int) -> Subject:
 	return ResourceLoader.load("user://subjects/" + str(subject_id).lpad(10, "0") + ".tres")
 
-func get_quizzes() -> Array[Quiz]:
-	var quizzes: Array[Quiz]
+func get_quizzes() -> Array:
+	var quizzes: Array = []
 	for filename in DirAccess.get_files_at("user://quizzes"):
-		quizzes.push_back(ResourceLoader.load("user://quizzes/" + filename))
+		if !filename.ends_with(".tres"):
+			continue
+		var loaded = ResourceLoader.load("user://quizzes/" + filename)
+		if loaded != null:
+			quizzes.push_back(loaded)
 	return quizzes
 
 func get_quiz(quiz_id: int) -> Quiz:

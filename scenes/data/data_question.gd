@@ -209,7 +209,7 @@ func on_edit_pressed(id: int) -> void:
 	else:
 		$Items/ScrollData/Data/Question/Image.texture = null
 	$Items/ScrollData/Data/Opens.replicate(to_edit.answer)
-	$Items/ScrollData/Data/Choices.replicate(to_edit.choices)
+	$Items/ScrollData/Data/Choices.replicate(_get_choice_decoys(to_edit.choices))
 	
 	$Items/ScrollData/Data/ParentsContainer/ParentsFlow.replicate(to_edit.parents)
 	$Items/ScrollData/Data/TagsContainer/TagsFlow.replicate(to_edit.tags)
@@ -248,8 +248,6 @@ func fetch_data() -> void:
 	question.last_time_edited = Time.get_unix_time_from_system()
 	question.answer = $Items/ScrollData/Data/Opens.fetch()
 	question.choices = $Items/ScrollData/Data/Choices.fetch()
-	if question.is_choice && question.choices.is_empty():
-		question.sync_choices_from_answers(false)
 	question.columns = $Items/ScrollData/Data/Table.fetch()
 	var matches = $Items/ScrollData/Data/Match.fetch()
 	question.match_a = matches["a"]
@@ -265,6 +263,13 @@ func fetch_data() -> void:
 	var images = [$Items/ScrollData/Data/Question/Image.texture]
 	for image in images.filter(func (img): return img != null):
 		question.get_or_create_mediaset().add_image(image)
+
+func _get_choice_decoys(choice_entries) -> Array:
+	if choice_entries == null:
+		return []
+	return choice_entries.filter(func(choice):
+		return choice is Dictionary && !bool(choice.get("veracity", false))
+	)
 
 func play_submit_edit_voice() -> void:
 	if question.get_subject().has_question(question.id):

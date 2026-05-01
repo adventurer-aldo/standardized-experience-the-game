@@ -16,6 +16,8 @@ var live_line: Line2D = null
 var live_poly: Polygon2D = null
 var history: Array = []  # stack for undo
 var used_colors = []
+var label_ids: Array[int] = []
+var markers := {}
 
 func _ready():
 	$MainElements/Canvas/Markers.z_index = 100
@@ -66,17 +68,27 @@ func _on_add_label_pressed():
 	var area: Area2D = Area2D.new()
 	$MainElements/Canvas.add_child(area)
 	labels[current_label_id] = area
+	label_ids.push_back(current_label_id)
 
 	var row = open_row.instantiate()
-	row.delete_pressed.connect(_on_row_delete_pressed)
+	row.delete_pressed.connect(_on_row_delete_pressed.bind(row))
 	$LabelRows.add_child(row)
 	drawing_mode = true
 	generate_unique_color()
 
-func _on_row_delete_pressed(index):
-	labels.erase(index)
-	$MainElements/Canvas/Markers.get_child(index).queue_free()
-	$MainElements/Canvas.get_child(index + 1).queue_free()
+func _on_row_delete_pressed(_index, row: Node):
+	var row_index = row.get_index()
+	if row_index < 0 || row_index >= label_ids.size():
+		return
+	var label_id = label_ids[row_index]
+	label_ids.remove_at(row_index)
+	_clear_label(label_id)
+	if current_label_id == label_id:
+		current_label_id = -1
+		drawing_mode = false
+		is_drawing = false
+		_clear_live_drawing()
+	_renumber_markers()
 
 func _on_end_drawing_pressed():
 	if is_drawing:
@@ -90,19 +102,20 @@ func _on_end_drawing_pressed():
 		history.append(created_nodes)
 
 		is_drawing = false
-		live_line.points = []
-		live_poly.polygon = PackedVector2Array()  # clear temporary polygon
+		_clear_live_drawing()
 
 func _on_undo_pressed():
 	if history.is_empty():
 		return
 	var last_entry = history.pop_back()
 	for node in last_entry:
-		if node:
+		if is_instance_valid(node):
 			node.queue_free()
 
 func _input(event):
 	if not drawing_mode or current_label_id == -1:
+		return
+	if !labels.has(current_label_id):
 		return
 
 	if event is InputEventMouseButton:
@@ -116,8 +129,10 @@ func _input(event):
 				polygon_points.append(start_pos)
 				is_drawing = true
 
-				live_line.points = [start_pos]
-				live_poly.polygon = PackedVector2Array([start_pos])
+				if is_instance_valid(live_line):
+					live_line.points = [start_pos]
+				if is_instance_valid(live_poly):
+					live_poly.polygon = PackedVector2Array([start_pos])
 
 			elif is_drawing or (event.pressed and not $MainElements/Canvas.get_global_rect().has_point(event.global_position)):
 				_on_end_drawing_pressed()
@@ -131,21 +146,25 @@ func _input(event):
 		polygon_points.append(p)
 
 		# Update live line
-		live_line.points = []
-		for pp in polygon_points:
-			live_line.points.append(pp)
+		if is_instance_valid(live_line):
+			live_line.points = []
+			for pp in polygon_points:
+				live_line.points.append(pp)
 
 		# Update live polygon
 		var poly_points: PackedVector2Array = PackedVector2Array()
 		for pp in polygon_points:
 			poly_points.append(pp)
-		live_poly.polygon = poly_points
+		if is_instance_valid(live_poly):
+			live_poly.polygon = poly_points
 
 # -----------------------
 # ADD OR MERGE COLLISION
 # -----------------------
 func _add_or_merge_collision(new_points: PackedVector2Array) -> Array:
 	var created_nodes: Array = []
+	if !labels.has(current_label_id):
+		return created_nodes
 	var area: Area2D = labels[current_label_id]
 	var merged: PackedVector2Array = new_points
 	var to_remove: Array[CollisionShape2D] = []
@@ -169,7 +188,7 @@ func _add_or_merge_collision(new_points: PackedVector2Array) -> Array:
 	for col_rm in to_remove:
 		if col_rm.has_meta("vis"):
 			var vis_rm: Node = col_rm.get_meta("vis")
-			if vis_rm:
+			if is_instance_valid(vis_rm):
 				vis_rm.queue_free()
 		col_rm.queue_free()
 
@@ -200,18 +219,21 @@ func _add_or_merge_collision(new_points: PackedVector2Array) -> Array:
 	var c = []
 	b.map(func (poly): 
 		c.append_array(poly.polygon))
+	if c.is_empty():
+		return created_nodes
 	c.sort_custom(func (first, second): return first.x > second.x)
 	var min_x = (c[0].x + c[-1].x) / 2.0
 	c.sort_custom(func (first, second): return first.y > second.y)
 	var min_y = (c[0].y + c[-1].y) / 2.0
 	var target_node
-	if $MainElements/Canvas/Markers.get_child(current_label_id) == null:
+	if !markers.has(current_label_id) || !is_instance_valid(markers[current_label_id]):
 		target_node = $Markers/Number.duplicate()
-		target_node.text = str(current_label_id + 1)
+		target_node.text = str(_label_display_number(current_label_id))
 		target_node.z_index = 100
 		$MainElements/Canvas/Markers.add_child(target_node)
+		markers[current_label_id] = target_node
 	else:
-		target_node = $MainElements/Canvas/Markers.get_child(current_label_id)
+		target_node = markers[current_label_id]
 	target_node.global_position.x = min_x
 	target_node.global_position.y = min_y
 	$MainElements/Canvas/Markers.move_to_front()
@@ -229,9 +251,13 @@ func _circle_to_polygon(center: Vector2, radius: float, sides: int) -> PackedVec
 	return pts
 
 func fetch() -> Array:
-	return $LabelRows.get_children().map(func (row: Node): return {
-		"texts": row.fetch(), "area": labels[row.get_index()]
-		})
+	var result = []
+	for row_index in range($LabelRows.get_child_count()):
+		if row_index >= label_ids.size():
+			continue
+		var label_id = label_ids[row_index]
+		result.push_back({"texts": $LabelRows.get_child(row_index).fetch(), "area": labels.get(label_id)})
+	return result
 
 func replicate(data) -> void:
 	var texts = data.map(func (dic): dic["texts"])
@@ -243,7 +269,12 @@ func replicate(data) -> void:
 		for i in (difference * -1):
 			$LabelRows.get_child((i * -1) -1).queue_free()
 
-	labels = data.map(func (dic): dic["label"])
+	labels.clear()
+	label_ids.clear()
+	markers.clear()
+	for index in range(data.size()):
+		label_ids.push_back(index)
+		labels[index] = data[index].get("area", data[index].get("label", null))
 
 func _on_end_pressed() -> void:
 	drawing_mode = false
@@ -252,3 +283,37 @@ func _on_get_image_pressed() -> void:
 	if DisplayServer.clipboard_has_image():
 		image = DisplayServer.clipboard_get_image()
 		$MainElements/Canvas.texture = ImageTexture.create_from_image(image)
+
+func _clear_label(label_id: int) -> void:
+	if labels.has(label_id):
+		var area = labels[label_id]
+		if is_instance_valid(area):
+			area.queue_free()
+		labels.erase(label_id)
+	if markers.has(label_id):
+		var marker = markers[label_id]
+		if is_instance_valid(marker):
+			marker.queue_free()
+		markers.erase(label_id)
+	history = history.filter(func(entry):
+		for node in entry:
+			if is_instance_valid(node):
+				return true
+		return false
+	)
+
+func _clear_live_drawing() -> void:
+	if is_instance_valid(live_line):
+		live_line.points = PackedVector2Array()
+	if is_instance_valid(live_poly):
+		live_poly.polygon = PackedVector2Array()
+
+func _renumber_markers() -> void:
+	for index in range(label_ids.size()):
+		var label_id = label_ids[index]
+		if markers.has(label_id) && is_instance_valid(markers[label_id]):
+			markers[label_id].text = str(index + 1)
+
+func _label_display_number(label_id: int) -> int:
+	var index = label_ids.find(label_id)
+	return index + 1 if index >= 0 else label_id + 1

@@ -137,7 +137,7 @@ func size() -> int:
 	return DirAccess.get_files_at("user://quizzes/" + str(id).lpad(10, "0")).size()
 
 func move_question_to_quiz(question: Question, positioning: int, rush_question:= false) -> void:
-	var quiz_question = question.make_quiz_attempt(positioning, ["open", "choice", "veracity", "table", "connect", "label", "scheme"])
+	var quiz_question = question.make_quiz_attempt(positioning)
 	quiz_question.is_rush = rush_question
 	quiz_question.is_ambush = rush_question
 	quiz_question.strip_for_quiz_attempt()

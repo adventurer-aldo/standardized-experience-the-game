@@ -11,13 +11,18 @@ func _ready() -> void:
 	Main.wipe_out()
 
 func _on_create_button_pressed() -> void:
-	subject.title = $DataSubject/Elements/TitleLine.text
-	subject.description = $DataSubject/Elements/DescriptionText.text
-	subject.create()
+	var title = $DataSubject/Elements/TitleLine.text.strip_edges()
+	if title == "":
+		return
+	var new_subject = Subject.new()
+	new_subject.title = title
+	new_subject.description = $DataSubject/Elements/DescriptionText.text
+	new_subject.create()
 	$DataSubject/Elements/DescriptionText.text = ""
 	$DataSubject/Elements/TitleLine.text = ""
-	$Interface/GradientMask/SubjectsScroll/SubjectsContainer.add_to_container(subject)
+	$Interface/GradientMask/SubjectsScroll/SubjectsContainer.add_to_container(new_subject)
 	_apply_sort_and_search()
+	$Slides.play("RESET")
 
 
 func _on_search_bar_text_changed(new_text: String) -> void:
@@ -85,5 +90,4 @@ func calm_bgm() -> void:
 	$MightTransitions.play("calm")
 
 func _on_create_subject_pressed() -> void:
-	$MightTransitions.play("might")
 	$Slides.play("slide_out")

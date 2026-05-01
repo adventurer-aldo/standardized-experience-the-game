@@ -388,8 +388,6 @@ func sync_choices_from_answers(include_decoys:= true) -> void:
 	choices.append_array(existing_decoys)
 
 func _generate_choice_attempt() -> void:
-	if choices.is_empty():
-		sync_choices_from_answers(false)
 	for choice in _get_choice_entries():
 		var shuffled_answers = Array(choice.get("texts", [])).duplicate()
 		shuffled_answers.shuffle()
@@ -569,16 +567,20 @@ func _get_primary_answers() -> Array:
 	return texts
 
 func _get_choice_entries() -> Array:
-	if choices.is_empty():
-		var entries = []
-		for answer_set in answer:
+	var entries = []
+	var answer_entries = Array(answer) if answer != null else []
+	for answer_set in answer_entries:
+		if answer_set is Dictionary:
 			entries.push_back({
-				"texts": answer_set.get("texts", []),
+				"texts": Array(answer_set.get("texts", [])).duplicate(),
 				"veracity": true,
 				"media": answer_set.get("media", []),
 			})
-		return entries
-	return choices
+	var choice_entries = Array(choices) if choices != null else []
+	for choice in choice_entries:
+		if choice is Dictionary && !bool(choice.get("veracity", false)):
+			entries.push_back(choice)
+	return entries
 
 func _get_correct_choice_count() -> int:
 	return _get_choice_entries().filter(func(choice): return bool(choice.get("veracity", false))).size()

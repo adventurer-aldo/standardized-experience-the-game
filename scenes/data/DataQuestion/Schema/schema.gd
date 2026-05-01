@@ -47,6 +47,7 @@ func replicate(data: Dictionary) -> void:
 	_refresh()
 
 func add_node(id: String, text: String, position:= Vector2.ZERO, mediaset_id:= 0) -> void:
+	_sync_from_ui()
 	if id.strip_edges() == "":
 		id = _next_node_id()
 	if position == Vector2.ZERO:
@@ -61,6 +62,7 @@ func add_node(id: String, text: String, position:= Vector2.ZERO, mediaset_id:= 0
 	_refresh()
 
 func add_link(from_id: String, to_id: String, label:= "", bidirectional:= false) -> void:
+	_sync_from_ui()
 	if from_id == "" || to_id == "" || from_id == to_id:
 		return
 	for link in links:
@@ -150,6 +152,7 @@ func _add_node_control(node: Dictionary) -> void:
 	box.add_child(margin)
 
 	var layout = VBoxContainer.new()
+	layout.name = "Content"
 	layout.add_theme_constant_override("separation", 3)
 	margin.add_child(layout)
 
@@ -174,10 +177,8 @@ func _add_node_control(node: Dictionary) -> void:
 	add_alt.pressed.connect(_on_add_alternative_pressed.bind(alternatives))
 	layout.add_child(add_alt)
 
-	_add_handle(box, node_id, Vector2(-1, -1), Vector2.ZERO)
-	_add_handle(box, node_id, Vector2(1, -1), Vector2(NODE_SIZE.x - HANDLE_SIZE.x, 0))
-	_add_handle(box, node_id, Vector2(-1, 1), Vector2(0, NODE_SIZE.y - HANDLE_SIZE.y))
-	_add_handle(box, node_id, Vector2(1, 1), NODE_SIZE - HANDLE_SIZE)
+	_add_handle(box, node_id, Vector2(1, 0), Vector2(NODE_SIZE.x - HANDLE_SIZE.x, NODE_SIZE.y * 0.5 - HANDLE_SIZE.y * 0.5))
+	_add_delete_button(box, node_id)
 
 func _add_handle(box: Control, node_id: String, direction: Vector2, position: Vector2) -> void:
 	var handle = Button.new()
@@ -189,6 +190,16 @@ func _add_handle(box: Control, node_id: String, direction: Vector2, position: Ve
 	handle.mouse_filter = Control.MOUSE_FILTER_STOP
 	handle.gui_input.connect(_on_handle_gui_input.bind(node_id, direction.normalized()))
 	box.add_child(handle)
+
+func _add_delete_button(box: Control, node_id: String) -> void:
+	var delete = Button.new()
+	delete.text = "-"
+	delete.focus_mode = Control.FOCUS_NONE
+	delete.custom_minimum_size = HANDLE_SIZE
+	delete.size = HANDLE_SIZE
+	delete.position = Vector2(NODE_SIZE.x - HANDLE_SIZE.x, 0)
+	delete.pressed.connect(_delete_node.bind(node_id))
+	box.add_child(delete)
 
 func _on_add_text_pressed() -> void:
 	add_node(_next_node_id(), "Text")
@@ -229,10 +240,10 @@ func _on_handle_gui_input(event: InputEvent, node_id: String, direction: Vector2
 					add_link(handle_origin_id, target_id)
 			else:
 				_create_connected_node(handle_origin_id, handle_direction)
-				handle_origin_id = ""
-				handle_is_dragging = false
-				if is_instance_valid(live_arrow):
-					live_arrow.points = PackedVector2Array()
+			handle_origin_id = ""
+			handle_is_dragging = false
+			if is_instance_valid(live_arrow):
+				live_arrow.points = PackedVector2Array()
 	elif event is InputEventMouseMotion && handle_origin_id == node_id:
 		handle_end = graph.get_local_mouse_position()
 		if Time.get_ticks_msec() - handle_pressed_at >= LONG_PRESS_MS:
@@ -254,8 +265,12 @@ func _sync_from_ui() -> void:
 		var box = node_controls.get(node_id)
 		if box == null:
 			continue
-		var text = box.get_node_or_null("Margin/VBoxContainer/Text")
-		var alternatives = box.get_node_or_null("Margin/VBoxContainer/Alternatives")
+		var text = box.get_node_or_null("Margin/Content/Text")
+		if text == null:
+			text = box.find_child("Text", true, false)
+		var alternatives = box.get_node_or_null("Margin/Content/Alternatives")
+		if alternatives == null:
+			alternatives = box.find_child("Alternatives", true, false)
 		var texts = []
 		if text != null:
 			node["text"] = text.text
@@ -328,7 +343,7 @@ func _node_at_position(position: Vector2, except_id:= "") -> String:
 			return node_id
 	return ""
 
-func _draw_arrow(from_position: Vector2, to_position: Vector2, color: Color, destination_id:= "") -> void:
+func _draw_arrow(from_position: Vector2, to_position: Vector2, color: Color, link_data = null) -> void:
 	if from_position.distance_to(to_position) < 8.0:
 		return
 	var direction = (to_position - from_position).normalized()
@@ -345,15 +360,15 @@ func _draw_arrow(from_position: Vector2, to_position: Vector2, color: Color, des
 		end - direction.rotated(-0.55) * 13.0,
 	])
 	links_layer.add_child(line)
-	if destination_id != "":
+	if link_data != null:
 		var jump = Button.new()
-		jump.text = ">"
-		jump.tooltip_text = "Go to connected text"
+		jump.text = "x"
+		jump.tooltip_text = "Delete connection"
 		jump.focus_mode = Control.FOCUS_NONE
 		jump.custom_minimum_size = Vector2(28, 24)
 		jump.size = Vector2(28, 24)
 		jump.position = ((start + end) * 0.5) - jump.size * 0.5
-		jump.pressed.connect(_scroll_to_node.bind(destination_id))
+		jump.pressed.connect(_delete_link.bind(link_data))
 		links_layer.add_child(jump)
 
 func _redraw_links() -> void:
@@ -371,7 +386,7 @@ func _redraw_links() -> void:
 		var from_position = _node_center(str(link.get("from", "")))
 		var to_position = _node_center(str(link.get("to", "")))
 		if from_position != Vector2.INF && to_position != Vector2.INF:
-			_draw_arrow(from_position, to_position, Color(0.12, 0.22, 0.42), str(link.get("to", "")))
+			_draw_arrow(from_position, to_position, Color(0.12, 0.22, 0.42), link)
 
 func _update_live_arrow() -> void:
 	if live_arrow == null || !is_instance_valid(live_arrow) || handle_origin_id == "":
@@ -380,9 +395,20 @@ func _update_live_arrow() -> void:
 	var direction = (handle_end - from_position).normalized()
 	live_arrow.points = PackedVector2Array([from_position + direction * 70.0, handle_end])
 
-func _scroll_to_node(node_id: String) -> void:
-	var box = node_controls.get(node_id)
-	if box == null || scroll == null:
-		return
-	scroll.scroll_horizontal = max(0, int(box.position.x - scroll.size.x * 0.5 + NODE_SIZE.x * 0.5))
-	scroll.scroll_vertical = max(0, int(box.position.y - scroll.size.y * 0.5 + NODE_SIZE.y * 0.5))
+func _delete_link(link_data) -> void:
+	for index in range(links.size()):
+		if links[index] == link_data:
+			links.remove_at(index)
+			_redraw_links()
+			return
+
+func _delete_node(node_id: String) -> void:
+	_sync_from_ui()
+	for index in range(nodes.size()):
+		if str(nodes[index].get("id", "")) == node_id:
+			nodes.remove_at(index)
+			break
+	links = links.filter(func(link):
+		return str(link.get("from", "")) != node_id && str(link.get("to", "")) != node_id
+	)
+	_refresh()
