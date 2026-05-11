@@ -3,6 +3,8 @@
 [ext_resource type="Script" uid="uid://rbdi5sltiij7" path="res://scenes/data/DataQuestion/Schema/schema.gd" id="1_lpmhy"]
 
 [node name="Schema" type="Control"]
+custom_minimum_size = Vector2(0, 360)
+mouse_filter = 1
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -10,3 +12,114 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_lpmhy")
+
+[node name="Toolbar" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 220.0
+offset_bottom = 40.0
+theme_override_constants/separation = 8
+
+[node name="AddText" type="Button" parent="Toolbar"]
+layout_mode = 2
+text = "+ Text"
+
+[node name="Scroll" type="ScrollContainer" parent="."]
+custom_minimum_size = Vector2(0, 300)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 48.0
+offset_top = 78.0
+offset_right = -48.0
+offset_bottom = -48.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 3
+vertical_scroll_mode = 3
+
+[node name="Graph" type="Control" parent="Scroll"]
+custom_minimum_size = Vector2(760, 420)
+layout_mode = 2
+mouse_filter = 1
+
+[node name="Links" type="Control" parent="Scroll/Graph"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="LiveArrow" type="Line2D" parent="Scroll/Graph/Links"]
+width = 3.0
+default_color = Color(0.16, 0.46, 0.95, 1)
+
+[node name="PanLeft" type="Button" parent="."]
+custom_minimum_size = Vector2(38, 38)
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 6.0
+offset_top = -19.0
+offset_right = 44.0
+offset_bottom = 19.0
+grow_vertical = 2
+tooltip_text = "Pan graph"
+text = "<"
+
+[node name="PanRight" type="Button" parent="."]
+custom_minimum_size = Vector2(38, 38)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -44.0
+offset_top = -19.0
+offset_right = -6.0
+offset_bottom = 19.0
+grow_horizontal = 0
+grow_vertical = 2
+tooltip_text = "Pan graph"
+text = ">"
+
+[node name="PanUp" type="Button" parent="."]
+custom_minimum_size = Vector2(38, 38)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -19.0
+offset_top = 40.0
+offset_right = 19.0
+offset_bottom = 78.0
+grow_horizontal = 2
+tooltip_text = "Pan graph"
+text = "^"
+
+[node name="PanDown" type="Button" parent="."]
+custom_minimum_size = Vector2(38, 38)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -19.0
+offset_top = -44.0
+offset_right = 19.0
+offset_bottom = -6.0
+grow_horizontal = 2
+grow_vertical = 0
+tooltip_text = "Pan graph"
+text = "v"
+
+[connection signal="pressed" from="Toolbar/AddText" to="." method="_on_add_text_pressed"]
+[connection signal="pressed" from="PanLeft" to="." method="_on_pan_left_pressed"]
+[connection signal="pressed" from="PanRight" to="." method="_on_pan_right_pressed"]
+[connection signal="pressed" from="PanUp" to="." method="_on_pan_up_pressed"]
+[connection signal="pressed" from="PanDown" to="." method="_on_pan_down_pressed"]

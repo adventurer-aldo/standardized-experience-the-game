@@ -8,8 +8,6 @@ extends VBoxContainer
 
 signal add_to_might(value: int)
 
-var type_controls: VBoxContainer
-
 func _on_add_row_button_pressed() -> HBoxContainer:
 	var new_child = attempt_row_scene.instantiate()
 	_wire_row(new_child)
@@ -30,17 +28,13 @@ func set_description(text: String) -> void:
 func prepare(with_question: Question):
 	question = with_question
 	question_id = with_question.id
-	if question.has_media(): 
-		$Image.texture = question.get_mediaset().images[0]
+	_populate_media()
 	set_description(question.get_display_question())
 	for child in $Elements/OpensRow.get_children():
 		_wire_row(child)
 	_update_order_numbers()
-	_prepare_type_controls()
 
 func fetch() -> Array:
-	if _uses_custom_attempt_controls():
-		return _fetch_custom_attempt()
 	var result = []
 	for child in $Elements/OpensRow.get_children():
 		result.push_back(child.fetch())
@@ -71,11 +65,32 @@ func map_string_to_lower(string: String) -> String:
 func solve() -> bool:
 	var attempts = fetch()
 	var result = question.check_attempt(attempts)
-	if _uses_custom_attempt_controls():
-		_show_custom_result(result)
-		return result["correct"]
 	var wrong_attempts: Array = result["wrong_attempts"]
 	var missing_answers: Array = result["missing_answers"]
+	if !question.score_parts.is_empty():
+		var used_corrections := []
+		for part in question.score_parts:
+			var attempt_i = int(part.get("attempt_index", -1))
+			if attempt_i < 0:
+				continue
+			while attempt_i >= $Elements/OpensRow.get_child_count():
+				_on_add_row_button_pressed()
+			var row = $Elements/OpensRow.get_child(attempt_i)
+			if bool(part.get("correct", false)):
+				row.tick()
+			else:
+				var correction = str(part.get("correction", ""))
+				if correction != "":
+					used_corrections.push_back(correction)
+				row.cross_precise(correction, int(part.get("wrong_from", 0)))
+		for answer_text in missing_answers:
+			if used_corrections.has(str(answer_text)):
+				used_corrections.erase(str(answer_text))
+				continue
+			var new_correction = _on_add_row_button_pressed()
+			new_correction.cross(str(answer_text), false)
+		$Edit.show()
+		return result["correct"]
 	for attempt_i in range(attempts.size()):
 		if wrong_attempts.has(attempts[attempt_i]):
 			var correction = missing_answers.pop_front() if !missing_answers.is_empty() else ""
@@ -138,217 +153,46 @@ func _update_order_numbers() -> void:
 		elif row.has_method("hide_order"):
 			row.hide_order()
 
-func _prepare_type_controls() -> void:
-	if type_controls == null:
-		type_controls = VBoxContainer.new()
-		type_controls.name = "TypeControls"
-		type_controls.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		type_controls.add_theme_constant_override("separation", 8)
-		$Elements.add_child(type_controls)
-	for child in type_controls.get_children():
+func _populate_media() -> void:
+	$Image.texture = null
+	$Image.visible = false
+	for child in $MediaExtras.get_children():
 		child.queue_free()
-	var custom = _uses_custom_attempt_controls()
-	$Elements/OpensRow.visible = !custom
-	$Elements/AddRowButton.visible = false
-	type_controls.visible = custom
-	if !custom:
+	if question == null || !question.has_media():
 		return
-	match question.attempt_type:
-		"choice":
-			_build_choice_controls(false)
-		"veracity":
-			_build_choice_controls(true)
-		"table":
-			_build_table_controls()
-		"connect":
-			_build_connect_controls()
-		"label":
-			_build_label_controls()
-		"scheme":
-			_build_scheme_controls()
+	var mediaset = question.get_mediaset()
+	if mediaset == null:
+		return
+	if !mediaset.images.is_empty():
+		$Image.texture = mediaset.images[0]
+		_configure_image($Image, mediaset.images[0])
+		$Image.visible = true
+	for sound in mediaset.sounds:
+		$MediaExtras.add_child(_make_sound_button(sound))
+	for video in mediaset.videos:
+		var player = VideoStreamPlayer.new()
+		player.stream = video
+		player.custom_minimum_size = Vector2(480, 270)
+		player.expand = true
+		$MediaExtras.add_child(player)
+	$MediaExtras.visible = $MediaExtras.get_child_count() > 0
 
-func _uses_custom_attempt_controls() -> bool:
-	return question != null && ["choice", "veracity", "table", "connect", "label", "scheme"].has(question.attempt_type)
+func _configure_image(rect: TextureRect, texture: Texture2D) -> void:
+	var texture_size = texture.get_size()
+	var available_width = min(720.0, max(220.0, get_viewport_rect().size.x * 0.72))
+	var width = min(texture_size.x, available_width)
+	var scale = width / max(1.0, texture_size.x)
+	rect.custom_minimum_size = Vector2(width, texture_size.y * scale)
+	rect.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	rect.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	rect.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 
-func _build_choice_controls(veracity_mode: bool) -> void:
-	for choice in question.formulated_choices:
-		var text = str(choice.get("text", ""))
-		if veracity_mode:
-			var row = HBoxContainer.new()
-			row.add_theme_constant_override("separation", 8)
-			type_controls.add_child(row)
-			var label = Label.new()
-			label.text = text
-			label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-			row.add_child(label)
-			var option = OptionButton.new()
-			option.name = "VeracityChoice"
-			option.add_item("False")
-			option.set_item_metadata(0, false)
-			option.add_item("True")
-			option.set_item_metadata(1, true)
-			option.set_meta("choice_text", text)
-			row.add_child(option)
-		else:
-			var check = CheckBox.new()
-			check.name = "Choice"
-			check.text = text
-			type_controls.add_child(check)
-
-func _build_table_controls() -> void:
-	var columns = question.formulated_variables if !question.formulated_variables.is_empty() else question.columns
-	var grid = GridContainer.new()
-	grid.columns = max(1, columns.size())
-	type_controls.add_child(grid)
-	for column_index in range(columns.size()):
-		var column = Array(columns[column_index])
-		for row_index in range(column.size()):
-			var cell = column[row_index]
-			if cell is Dictionary && bool(cell.get("is_open", false)):
-				var input = LineEdit.new()
-				input.name = "TableGap"
-				input.placeholder_text = "Answer"
-				input.set_meta("column", column_index)
-				input.set_meta("row", row_index)
-				grid.add_child(input)
-			else:
-				var label = Label.new()
-				label.text = _cell_to_text(cell)
-				grid.add_child(label)
-
-func _build_connect_controls() -> void:
-	var a = question.match_a
-	var b = question.match_b
-	if question.formulated_variables.size() >= 2:
-		a = question.formulated_variables[0]
-		b = question.formulated_variables[1]
-	var b_values = []
-	for key in b.keys():
-		b_values.push_back(str(b[key]))
-	b_values.shuffle()
-	for key in a.keys():
-		var row = HBoxContainer.new()
-		row.add_theme_constant_override("separation", 8)
-		type_controls.add_child(row)
-		var label = Label.new()
-		label.text = str(a[key])
-		label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		row.add_child(label)
-		var option = OptionButton.new()
-		option.name = "MatchChoice"
-		option.set_meta("match_a", str(a[key]))
-		for value in b_values:
-			option.add_item(value)
-			option.set_item_metadata(option.item_count - 1, value)
-		row.add_child(option)
-
-func _build_label_controls() -> void:
-	var label_count = max(1, question.labels.size())
-	for label_index in range(label_count):
-		var input = LineEdit.new()
-		input.name = "LabelAttempt"
-		input.placeholder_text = "Label"
-		input.set_meta("label_index", label_index)
-		type_controls.add_child(input)
-
-func _build_scheme_controls() -> void:
-	var nodes = question.scheme_nodes
-	var links = question.scheme_links
-	if question.formulated_variables.size() >= 2:
-		nodes = question.formulated_variables[0]
-		links = question.formulated_variables[1]
-	var node_names = nodes.map(func(node): return _scheme_node_text(node))
-	for link_index in range(max(1, links.size())):
-		var row = HBoxContainer.new()
-		row.add_theme_constant_override("separation", 8)
-		type_controls.add_child(row)
-		var from_option = _make_node_option(node_names)
-		from_option.name = "SchemeFrom"
-		row.add_child(from_option)
-		var to_option = _make_node_option(node_names)
-		to_option.name = "SchemeTo"
-		row.add_child(to_option)
-		var label = LineEdit.new()
-		label.name = "SchemeLabel"
-		label.placeholder_text = "Label"
-		row.add_child(label)
-
-func _make_node_option(node_names: Array) -> OptionButton:
-	var option = OptionButton.new()
-	for node_name in node_names:
-		option.add_item(str(node_name))
-		option.set_item_metadata(option.item_count - 1, str(node_name))
-	return option
-
-func _fetch_custom_attempt() -> Array:
-	match question.attempt_type:
-		"choice":
-			var selected = []
-			for child in type_controls.get_children():
-				if child is CheckBox && child.button_pressed:
-					selected.push_back(child.text)
-			return selected
-		"veracity":
-			var veracity = []
-			for row in type_controls.get_children():
-				var option = row.get_node_or_null("VeracityChoice")
-				if option != null:
-					veracity.push_back({"text": str(option.get_meta("choice_text")), "veracity": bool(option.get_selected_metadata())})
-			return veracity
-		"table":
-			var table = []
-			for grid in type_controls.get_children():
-				for child in grid.get_children():
-					if child is LineEdit && child.name == "TableGap":
-						table.push_back({"column": int(child.get_meta("column")), "row": int(child.get_meta("row")), "text": child.text})
-			return table
-		"connect":
-			var pairs = []
-			for row in type_controls.get_children():
-				var option = row.get_node_or_null("MatchChoice")
-				if option != null:
-					pairs.push_back({"a": str(option.get_meta("match_a")), "b": str(option.get_selected_metadata())})
-			return pairs
-		"label":
-			var labels_attempt = []
-			for child in type_controls.get_children():
-				if child is LineEdit:
-					labels_attempt.push_back({"text": child.text})
-			return labels_attempt
-		"scheme":
-			var links_attempt = []
-			for row in type_controls.get_children():
-				var from_option = row.get_node_or_null("SchemeFrom")
-				var to_option = row.get_node_or_null("SchemeTo")
-				var label = row.get_node_or_null("SchemeLabel")
-				if from_option != null && to_option != null:
-					links_attempt.push_back({
-						"from": str(from_option.get_selected_metadata()),
-						"to": str(to_option.get_selected_metadata()),
-						"label": label.text if label != null else "",
-					})
-			return links_attempt
-	return []
-
-func _show_custom_result(result: Dictionary) -> void:
-	var label = type_controls.get_node_or_null("Result")
-	if label == null:
-		label = Label.new()
-		label.name = "Result"
-		type_controls.add_child(label)
-	label.text = "Correct" if bool(result.get("correct", false)) else "Wrong"
-	$Edit.show()
-	if result["correct"]:
-		print("--Correct--")
-	else:
-		print("--Wrong--")
-
-func _cell_to_text(cell) -> String:
-	if cell is Dictionary:
-		return str(cell.get("display", cell.get("text", "")))
-	return str(cell)
-
-func _scheme_node_text(node) -> String:
-	if node is Dictionary:
-		return str(node.get("id", node.get("text", node.get("name", ""))))
-	return str(node)
+func _make_sound_button(stream: AudioStream) -> Button:
+	var button = Button.new()
+	button.text = "Play Sound"
+	button.custom_minimum_size = Vector2(160, 34)
+	var player = AudioStreamPlayer.new()
+	player.stream = stream
+	button.add_child(player)
+	button.pressed.connect(player.play)
+	return button

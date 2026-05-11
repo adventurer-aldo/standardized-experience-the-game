@@ -408,6 +408,14 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_0rm0x")
 shortcut = SubResource("Shortcut_gkyu1")
 text = "Alt+"
 
+[node name="SynonymHint" type="Label" parent="Items/ScrollData/Data/Question"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(0.02, 0.19, 0.33, 1)
+theme_override_font_sizes/font_size = 18
+text = "This question's answer has synonyms!"
+horizontal_alignment = 1
+
 [node name="Separator" type="ColorRect" parent="Items/ScrollData/Data" unique_id=723555406]
 custom_minimum_size = Vector2(0, 2.5)
 layout_mode = 2
@@ -520,6 +528,24 @@ texture = ExtResource("17_ctgcr")
 
 [node name="Label" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters/Shuffle/HBoxContainer" parent_id_path=PackedInt32Array(1572357017, 844840613) index="1" unique_id=1614917766]
 text = "Shuffle"
+
+[node name="ShuffleRows" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters" instance=ExtResource("13_lyehf")]
+layout_mode = 2
+
+[node name="ImgTexture" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters/ShuffleRows/HBoxContainer" index="0"]
+texture = ExtResource("17_ctgcr")
+
+[node name="Label" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters/ShuffleRows/HBoxContainer" index="1"]
+text = "Shuffle Rows"
+
+[node name="ShuffleColumns" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters" instance=ExtResource("13_lyehf")]
+layout_mode = 2
+
+[node name="ImgTexture" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters/ShuffleColumns/HBoxContainer" index="0"]
+texture = ExtResource("17_ctgcr")
+
+[node name="Label" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters/ShuffleColumns/HBoxContainer" index="1"]
+text = "Shuffle Columns"
 
 [node name="BG" type="Panel" parent="Items/ScrollData/Data/Types" unique_id=1082747649]
 show_behind_parent = true
@@ -756,6 +782,14 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_rh8jh")
 placeholder_text = "Search by Question"
 caret_blink = true
 
+[node name="SortFilter" type="OptionButton" parent="Search/Elements"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+
+[node name="SortDirection" type="OptionButton" parent="Search/Elements"]
+custom_minimum_size = Vector2(130, 0)
+layout_mode = 2
+
 [node name="QuestionsScroll" type="ScrollContainer" parent="." unique_id=154006331]
 layout_mode = 1
 anchors_preset = 15
@@ -788,7 +822,15 @@ libraries/ = SubResource("AnimationLibrary_rsuri")
 wait_time = 0.06
 one_shot = true
 
+[node name="MediaFileDialog" type="FileDialog" parent="."]
+title = "Attach Media"
+size = Vector2i(900, 540)
+file_mode = 0
+access = 2
+filters = PackedStringArray("*.png, *.jpg, *.jpeg, *.webp, *.bmp, *.tga, *.svg ; Images", "*.ogg, *.mp3, *.wav ; Sounds", "*.ogv, *.webm ; Videos")
+
 [connection signal="pressed" from="Items/Resources/Images" to="." method="_on_images_pressed"]
+[connection signal="pressed" from="Items/Resources/Sounds" to="." method="_on_media_file_button_pressed"]
 [connection signal="pressed" from="Items/ScrollData/Data/Question/GloballyRelevant/Reset" to="." method="_on_reset_pressed"]
 [connection signal="pressed" from="Items/ScrollData/Data/Question/GloballyRelevant/IncreaseLevel" to="." method="_on_increase_level_pressed"]
 [connection signal="pressed" from="Items/ScrollData/Data/Question/AddAlt" to="." method="_on_add_question_alt_pressed"]
@@ -803,11 +845,16 @@ one_shot = true
 [connection signal="pressed" from="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters/Gap" to="." method="_on_gap_pressed"]
 [connection signal="pressed" from="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters/Veracity" to="." method="_on_veracity_pressed"]
 [connection signal="pressed" from="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters/Shuffle" to="." method="_on_shuffle_pressed"]
+[connection signal="pressed" from="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters/ShuffleRows" to="." method="_on_shuffle_rows_pressed"]
+[connection signal="pressed" from="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters/ShuffleColumns" to="." method="_on_shuffle_columns_pressed"]
 [connection signal="pressed" from="Items/ScrollData/Data/Tag/AddTagButton" to="." method="_on_add_tag_button_pressed"]
 [connection signal="pressed" from="Items/ScrollData/Data/Submit" to="." method="_on_submit_pressed"]
 [connection signal="pressed" from="SubjectBar/Close" to="." method="_on_close_pressed"]
 [connection signal="text_changed" from="Search/Elements/SearchBar" to="." method="_on_search_bar_text_changed"]
+[connection signal="item_selected" from="Search/Elements/SortFilter" to="." method="_on_question_sort_selected"]
+[connection signal="item_selected" from="Search/Elements/SortDirection" to="." method="_on_question_sort_direction_selected"]
 [connection signal="timeout" from="MightTimer" to="." method="_on_might_timer_timeout"]
+[connection signal="file_selected" from="MediaFileDialog" to="." method="_on_media_file_selected"]
 
 [editable path="Items/ScrollData/Data/Types/M/VBoxContainer/Types/Open"]
 [editable path="Items/ScrollData/Data/Types/M/VBoxContainer/Types/Choice"]
@@ -818,3 +865,5 @@ one_shot = true
 [editable path="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters/Gap"]
 [editable path="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters/Veracity"]
 [editable path="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters/Shuffle"]
+[editable path="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters/ShuffleRows"]
+[editable path="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters/ShuffleColumns"]

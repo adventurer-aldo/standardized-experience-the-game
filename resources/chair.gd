@@ -3,7 +3,13 @@ extends Resource
 class_name Chair
 
 enum GradeSlot { FIRST = 1, SECOND = 2, DISSERTATION = 3, REPOSITION = 4, EXAM = 5, RECURRENCE = 6 }
-enum AverageFormula { TESTS_ONLY, TESTS_80_DISSERTATION_20 }
+enum AverageFormula {
+	TESTS_ONLY,
+	TESTS_80_DISSERTATION_20,
+	BEST_TWO_TESTS,
+	REPOSITION_REPLACES_LOWEST_TEST,
+	BEST_TEST_60_DISSERTATION_40,
+}
 enum Status { IN_PROGRESS, EXEMPTED, EXAM_ELIGIBLE, FAILED_AVERAGE, PASSED_EXAM, RECURRENCE_ELIGIBLE, PASSED_RECURRENCE, FAILED_RECURRENCE }
 enum Diagnosis { PERFECT, PASSED, EXAM_READY, DANGER, FAILED, INCOMPLETE }
 
@@ -79,19 +85,7 @@ func has_grade(grade: float) -> bool:
 
 
 func get_first_second_average() -> float:
-	if has_grade(first) && has_grade(second):
-		return (first + second) / 2.0
-	if has_grade(reposition):
-		if has_grade(first):
-			return (first + reposition) / 2.0
-		if has_grade(second):
-			return (reposition + second) / 2.0
-		return reposition
-	if has_grade(first):
-		return first
-	if has_grade(second):
-		return second
-	return -1.0
+	return _average_grades(_get_available_test_grades(false))
 
 
 func ensure_dissertation_grade() -> void:
@@ -104,13 +98,19 @@ func ensure_dissertation_grade() -> void:
 
 func get_average() -> float:
 	ensure_dissertation_grade()
-	var tests_average = get_first_second_average()
+	var subject = get_subject()
+	var formula = subject.average_formula if subject != null else average_formula
+	var tests_average = _get_tests_average_for_formula(formula)
 	if !has_grade(tests_average):
 		return -1.0
-	match average_formula:
+	match formula:
 		AverageFormula.TESTS_80_DISSERTATION_20:
 			if has_grade(dissertation):
 				return tests_average * 0.8 + dissertation * 0.2
+		AverageFormula.BEST_TEST_60_DISSERTATION_40:
+			var best_test = _best_grade(_get_available_test_grades(true))
+			if has_grade(best_test) && has_grade(dissertation):
+				return best_test * 0.6 + dissertation * 0.4
 	return tests_average
 
 
@@ -198,3 +198,67 @@ func get_final_grade() -> float:
 
 func save() -> void:
 	ResourceSaver.save(self, get_file_path(), ResourceSaver.FLAG_COMPRESS)
+
+
+func _get_tests_average_for_formula(formula: int) -> float:
+	match formula:
+		AverageFormula.BEST_TWO_TESTS:
+			return _average_grades(_best_grades(_get_available_test_grades(true), 2))
+		AverageFormula.REPOSITION_REPLACES_LOWEST_TEST:
+			return _average_grades(_get_reposition_replaced_tests())
+		AverageFormula.BEST_TEST_60_DISSERTATION_40:
+			return _best_grade(_get_available_test_grades(true))
+	return _average_grades(_get_available_test_grades(false))
+
+
+func _get_available_test_grades(include_reposition:= true) -> Array:
+	var grades := []
+	if has_grade(first):
+		grades.push_back(first)
+	if has_grade(second):
+		grades.push_back(second)
+	if include_reposition && has_grade(reposition):
+		grades.push_back(reposition)
+	if grades.is_empty() && has_grade(reposition):
+		grades.push_back(reposition)
+	return grades
+
+
+func _get_reposition_replaced_tests() -> Array:
+	var grades := []
+	if has_grade(first):
+		grades.push_back(first)
+	if has_grade(second):
+		grades.push_back(second)
+	if has_grade(reposition):
+		if grades.size() < 2:
+			grades.push_back(reposition)
+		else:
+			var lowest_index := 0
+			for index in range(grades.size()):
+				if grades[index] < grades[lowest_index]:
+					lowest_index = index
+			grades[lowest_index] = max(grades[lowest_index], reposition)
+	return grades
+
+
+func _best_grades(grades: Array, amount: int) -> Array:
+	var sorted = grades.duplicate()
+	sorted.sort()
+	sorted.reverse()
+	return sorted.slice(0, min(amount, sorted.size()))
+
+
+func _best_grade(grades: Array) -> float:
+	if grades.is_empty():
+		return -1.0
+	return _best_grades(grades, 1)[0]
+
+
+func _average_grades(grades: Array) -> float:
+	if grades.is_empty():
+		return -1.0
+	var sum := 0.0
+	for grade in grades:
+		sum += float(grade)
+	return sum / float(grades.size())

@@ -11,6 +11,8 @@ func _ready() -> void:
 	Main.wipe_out()	
 	if Main.data.last_journey_id > 0:
 		journey = Main.data.get_last_journey()
+		journey.refresh()
+		_play_stage_music()
 		for chair_to_add in journey.get_chairs():
 			var add_chair = chair.instantiate()
 			add_chair.set_title(chair_to_add.get_subject().title)
@@ -26,3 +28,12 @@ func _on_button_pressed() -> void:
 
 func _on_animation_player_animation_finished(_anim_name: StringName) -> void:
 	$SummerSky/AnimationPlayer.play("spin")
+
+
+func _play_stage_music() -> void:
+	var player = $AudioStreamPlayer
+	var track = journey.get_stage_track(false) if journey != null else null
+	if track == null:
+		return
+	player.stream = track
+	player.play()

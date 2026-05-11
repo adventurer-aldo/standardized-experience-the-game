@@ -15,6 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://b4mjun0mwc3lt" path="res://graphics/icons/magnifying-glass.svg" id="9_ulao1"]
 [ext_resource type="FontFile" uid="uid://djqlkih7hivms" path="res://fonts/DMSans-Bold.ttf" id="10_4k6aa"]
 [ext_resource type="PackedScene" uid="uid://bg7bp0isxc8bv" path="res://scenes/user_display/user.tscn" id="14_y345i"]
+[ext_resource type="PackedScene" path="res://scenes/shared/synonym_groups_editor.tscn" id="15_synonyms"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hbpdo"]
 bg_color = Color(0.90513396, 0.9369275, 0.9893057, 1)
@@ -167,6 +168,19 @@ placeholder_text = "Title"
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 placeholder_text = "Description"
+
+[node name="AverageFormula" type="OptionButton" parent="DataSubject/Elements"]
+layout_mode = 2
+
+[node name="SubjectImagePreview" type="TextureRect" parent="DataSubject/Elements"]
+custom_minimum_size = Vector2(0, 96)
+layout_mode = 2
+expand_mode = 3
+stretch_mode = 5
+
+[node name="SubjectImage" type="Button" parent="DataSubject/Elements"]
+layout_mode = 2
+text = "Subject Image"
 
 [node name="CreateButton" type="Button" parent="DataSubject/Elements" unique_id=897002850]
 layout_mode = 2
@@ -338,13 +352,21 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_y345i")
 placeholder_text = "Search by Title"
 caret_blink = true
 
+[node name="SortCriteria" type="OptionButton" parent="Interface/Search/Elements"]
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 2
+
+[node name="SortDirection" type="OptionButton" parent="Interface/Search/Elements"]
+custom_minimum_size = Vector2(130, 0)
+layout_mode = 2
+
 [node name="GradientMask" type="TextureRect" parent="Interface" unique_id=933528517]
 clip_children = 1
 layout_mode = 0
 offset_left = 110.0
 offset_top = 61.0
 offset_right = 1170.0
-offset_bottom = 586.0
+offset_bottom = 358.0
 texture = ExtResource("3_buabq")
 
 [node name="SubjectsScroll" type="ScrollContainer" parent="Interface/GradientMask" unique_id=1626243880]
@@ -371,7 +393,24 @@ columns = 2
 script = ExtResource("2_k41un")
 subject_packed_scene = ExtResource("2_8o7ef")
 
+[node name="SubjectSynonyms" parent="Interface" instance=ExtResource("15_synonyms")]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 38.0
+offset_top = -210.0
+offset_right = -52.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 0
+
 [connection signal="pressed" from="DataSubject/Elements/CreateButton" to="." method="_on_create_button_pressed"]
+[connection signal="pressed" from="DataSubject/Elements/SubjectImage" to="." method="_on_subject_image_pressed"]
 [connection signal="pressed" from="CreateSubject" to="." method="_on_create_subject_pressed"]
 [connection signal="text_changed" from="Interface/Search/Elements/SearchBar" to="." method="_on_search_bar_text_changed"]
+[connection signal="item_selected" from="Interface/Search/Elements/SortCriteria" to="." method="_on_sort_criteria_selected"]
+[connection signal="item_selected" from="Interface/Search/Elements/SortDirection" to="." method="_on_sort_direction_selected"]
 [connection signal="subject_was_focused" from="Interface/GradientMask/SubjectsScroll/SubjectsContainer" to="." method="_on_subjects_container_subject_was_focused"]
+[connection signal="groups_changed" from="Interface/SubjectSynonyms" to="." method="_on_subject_synonyms_changed"]

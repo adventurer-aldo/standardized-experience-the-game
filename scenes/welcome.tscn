@@ -10,3 +10,84 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 script = ExtResource("1_welcome")
+
+[node name="Root" type="MarginContainer" parent="." unique_id=1466622456]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 160
+theme_override_constants/margin_top = 80
+theme_override_constants/margin_right = 160
+theme_override_constants/margin_bottom = 80
+
+[node name="Layout" type="VBoxContainer" parent="Root" unique_id=1526922232]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Title" type="Label" parent="Root/Layout" unique_id=1839183395]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Welcome"
+horizontal_alignment = 1
+
+[node name="FirstNameRow" type="HBoxContainer" parent="Root/Layout" unique_id=1247201977]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="Root/Layout/FirstNameRow" unique_id=335825546]
+custom_minimum_size = Vector2(220, 0)
+layout_mode = 2
+text = "First Name"
+
+[node name="FirstName" type="LineEdit" parent="Root/Layout/FirstNameRow" unique_id=1426203439]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="LastNameRow" type="HBoxContainer" parent="Root/Layout" unique_id=915625755]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="Root/Layout/LastNameRow" unique_id=876935428]
+custom_minimum_size = Vector2(220, 0)
+layout_mode = 2
+text = "Last Name"
+
+[node name="LastName" type="LineEdit" parent="Root/Layout/LastNameRow" unique_id=1156168280]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TimezoneRow" type="HBoxContainer" parent="Root/Layout" unique_id=1589980790]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="Root/Layout/TimezoneRow" unique_id=554170124]
+custom_minimum_size = Vector2(220, 0)
+layout_mode = 2
+text = "Timezone"
+
+[node name="Timezone" type="OptionButton" parent="Root/Layout/TimezoneRow" unique_id=1474393126]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="BirthdayRow" type="HBoxContainer" parent="Root/Layout" unique_id=1853121510]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="Root/Layout/BirthdayRow" unique_id=1435955698]
+custom_minimum_size = Vector2(220, 0)
+layout_mode = 2
+text = "Birthday"
+
+[node name="Birthday" type="LineEdit" parent="Root/Layout/BirthdayRow" unique_id=651390776]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Unix timestamp, optional"
+
+[node name="Start" type="Button" parent="Root/Layout" unique_id=441275431]
+layout_mode = 2
+text = "Start"
+
+[connection signal="pressed" from="Root/Layout/Start" to="." method="_on_start_pressed"]

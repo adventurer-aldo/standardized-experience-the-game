@@ -3,7 +3,7 @@ extends Resource
 class_name Soundtrack
 
 const USER_DIR := "user://soundtracks"
-const RESOURCE_DIR := "res://soundtracks"
+const RESOURCE_DIR := "res://saved_resources/soundtracks"
 
 enum Storage { USER, RESOURCE }
 enum QuizLevel {
@@ -23,45 +23,27 @@ enum JourneyDiagnosis { PERFECT, EXEMPTED, PASSING, DANGER, FAILING, UNKNOWN }
 
 @export_category("General")
 @export var main_menu: Array[AudioStream] = []
-@export var main_menu_might: Array[AudioStream] = []
 @export var freestyle: Array[AudioStream] = []
-@export var freestyle_might: Array[AudioStream] = []
 @export var subjects_writing: Array[AudioStream] = []
-@export var subjects_writing_might: Array[AudioStream] = []
 
 @export_category("Quiz")
 @export var first_test: Array[AudioStream] = []
-@export var first_test_might: Array[AudioStream] = []
 @export var second_test: Array[AudioStream] = []
-@export var second_test_might: Array[AudioStream] = []
 @export var dissertation: Array[AudioStream] = []
-@export var dissertation_might: Array[AudioStream] = []
 @export var reposition_test: Array[AudioStream] = []
-@export var reposition_test_might: Array[AudioStream] = []
 @export var exam: Array[AudioStream] = []
-@export var exam_might: Array[AudioStream] = []
 @export var recurrence_exam: Array[AudioStream] = []
-@export var recurrence_exam_might: Array[AudioStream] = []
 @export var extraordinary: Array[AudioStream] = []
-@export var extraordinary_might: Array[AudioStream] = []
 
 @export_category("Journey Stage")
 @export var journey_first_test: Array[AudioStream] = []
-@export var journey_first_test_might: Array[AudioStream] = []
 @export var journey_second_test: Array[AudioStream] = []
-@export var journey_second_test_might: Array[AudioStream] = []
 @export var journey_dissertation: Array[AudioStream] = []
-@export var journey_dissertation_might: Array[AudioStream] = []
 @export var journey_reposition_test: Array[AudioStream] = []
-@export var journey_reposition_test_might: Array[AudioStream] = []
 @export var journey_exam: Array[AudioStream] = []
-@export var journey_exam_might: Array[AudioStream] = []
 @export var journey_recurrence_exam: Array[AudioStream] = []
-@export var journey_recurrence_exam_might: Array[AudioStream] = []
 @export var journey_extraordinary: Array[AudioStream] = []
-@export var journey_extraordinary_might: Array[AudioStream] = []
 @export var journey_finished: Array[AudioStream] = []
-@export var journey_finished_might: Array[AudioStream] = []
 
 @export_category("Journey Diagnosis")
 @export var diagnosis_perfect: Array[AudioStream] = []
@@ -115,54 +97,54 @@ func erase(storage := Storage.USER) -> void:
 
 
 func get_main_menu_track(use_might := false) -> AudioStream:
-	return _select_from_pair(main_menu, main_menu_might, use_might)
+	return _select_variant(main_menu, use_might)
 
 
 func get_freestyle_track(use_might := false) -> AudioStream:
-	return _select_from_pair(freestyle, freestyle_might, use_might)
+	return _select_variant(freestyle, use_might)
 
 
 func get_subjects_writing_track(use_might := false) -> AudioStream:
-	return _select_from_pair(subjects_writing, subjects_writing_might, use_might)
+	return _select_variant(subjects_writing, use_might)
 
 
 func get_quiz_track(level: int, use_might := false) -> AudioStream:
 	match level:
 		QuizLevel.FIRST_TEST:
-			return _select_from_pair(first_test, first_test_might, use_might)
+			return _select_variant(first_test, use_might)
 		QuizLevel.SECOND_TEST:
-			return _select_from_pair(second_test, second_test_might, use_might)
+			return _select_variant(second_test, use_might)
 		QuizLevel.DISSERTATION:
-			return _select_from_pair(dissertation, dissertation_might, use_might)
+			return _select_variant(dissertation, use_might)
 		QuizLevel.REPOSITION_TEST:
-			return _select_from_pair(reposition_test, reposition_test_might, use_might)
+			return _select_variant(reposition_test, use_might)
 		QuizLevel.EXAM:
-			return _select_from_pair(exam, exam_might, use_might)
+			return _select_variant(exam, use_might)
 		QuizLevel.RECURRENCE_EXAM:
-			return _select_from_pair(recurrence_exam, recurrence_exam_might, use_might)
+			return _select_variant(recurrence_exam, use_might)
 		QuizLevel.EXTRAORDINARY:
-			return _select_from_pair(extraordinary, extraordinary_might, use_might)
+			return _select_variant(extraordinary, use_might)
 	return null
 
 
 func get_journey_stage_track(stage: int, use_might := false) -> AudioStream:
 	match stage:
 		QuizLevel.FIRST_TEST:
-			return _select_from_pair(journey_first_test, journey_first_test_might, use_might)
+			return _select_variant(journey_first_test, use_might)
 		QuizLevel.SECOND_TEST:
-			return _select_from_pair(journey_second_test, journey_second_test_might, use_might)
+			return _select_variant(journey_second_test, use_might)
 		QuizLevel.DISSERTATION:
-			return _select_from_pair(journey_dissertation, journey_dissertation_might, use_might)
+			return _select_variant(journey_second_test, use_might)
 		QuizLevel.REPOSITION_TEST:
-			return _select_from_pair(journey_reposition_test, journey_reposition_test_might, use_might)
+			return _select_variant(journey_reposition_test, use_might)
 		QuizLevel.EXAM:
-			return _select_from_pair(journey_exam, journey_exam_might, use_might)
+			return _select_variant(journey_exam, use_might)
 		QuizLevel.RECURRENCE_EXAM:
-			return _select_from_pair(journey_recurrence_exam, journey_recurrence_exam_might, use_might)
+			return _select_variant(journey_recurrence_exam, use_might)
 		QuizLevel.EXTRAORDINARY:
-			return _select_from_pair(journey_extraordinary, journey_extraordinary_might, use_might)
-		8:
-			return _select_from_pair(journey_finished, journey_finished_might, use_might)
+			return _select_variant(journey_extraordinary, use_might)
+		7, 8:
+			return _select_variant(journey_finished, use_might)
 	return null
 
 
@@ -238,13 +220,75 @@ func get_track(context: String, options := {}) -> AudioStream:
 	return null
 
 
-func _select_from_pair(base_tracks: Array[AudioStream], might_tracks: Array[AudioStream], use_might: bool) -> AudioStream:
-	if base_tracks.is_empty():
-		return _select(might_tracks) if use_might else null
-	var index = randi() % base_tracks.size()
-	if use_might && index < might_tracks.size() && might_tracks[index] != null:
-		return might_tracks[index]
-	return base_tracks[index]
+func has_might_variant(context: String, options := {}) -> bool:
+	return _get_context_tracks(context, options).size() > 1
+
+
+func _select_variant(tracks: Array[AudioStream], use_might: bool) -> AudioStream:
+	var available_tracks: Array[AudioStream] = []
+	for track in tracks:
+		if track != null:
+			available_tracks.push_back(track)
+	if available_tracks.is_empty():
+		return null
+	if use_might:
+		if available_tracks.size() <= 1:
+			return null
+		return available_tracks[1 + (randi() % (available_tracks.size() - 1))]
+	return available_tracks[0]
+
+
+func _get_context_tracks(context: String, options := {}) -> Array[AudioStream]:
+	match context.to_lower():
+		"main_menu", "menu":
+			return main_menu
+		"freestyle":
+			return freestyle
+		"subjects", "subjects_writing", "writing":
+			return subjects_writing
+		"quiz":
+			return _get_quiz_track_array(int(options.get("level", 0)))
+		"journey", "journey_stage":
+			return _get_journey_track_array(int(options.get("stage", 0)))
+	return []
+
+
+func _get_quiz_track_array(level: int) -> Array[AudioStream]:
+	match level:
+		QuizLevel.FIRST_TEST:
+			return first_test
+		QuizLevel.SECOND_TEST:
+			return second_test
+		QuizLevel.DISSERTATION:
+			return dissertation
+		QuizLevel.REPOSITION_TEST:
+			return reposition_test
+		QuizLevel.EXAM:
+			return exam
+		QuizLevel.RECURRENCE_EXAM:
+			return recurrence_exam
+		QuizLevel.EXTRAORDINARY:
+			return extraordinary
+	return []
+
+
+func _get_journey_track_array(stage: int) -> Array[AudioStream]:
+	match stage:
+		QuizLevel.FIRST_TEST:
+			return journey_first_test
+		QuizLevel.SECOND_TEST, QuizLevel.DISSERTATION:
+			return journey_second_test
+		QuizLevel.REPOSITION_TEST:
+			return journey_reposition_test
+		QuizLevel.EXAM:
+			return journey_exam
+		QuizLevel.RECURRENCE_EXAM:
+			return journey_recurrence_exam
+		QuizLevel.EXTRAORDINARY:
+			return journey_extraordinary
+		7, 8:
+			return journey_finished
+	return []
 
 
 func _select(tracks: Array[AudioStream]) -> AudioStream:

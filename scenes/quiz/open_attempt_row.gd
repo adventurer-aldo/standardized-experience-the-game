@@ -53,17 +53,27 @@ func make_text_red() -> void:
 func tick() -> void:
 	$TextsMargin/Text.hide()
 	$Correction/Tick.show()
+	$TextsMargin/RTL.clear()
 	$TextsMargin/RTL.append_text($TextsMargin/Text.text)
 
 func cross(with_text: String, mark:= true) -> void:
+	cross_precise(with_text, 0, mark)
+
+func cross_precise(with_text: String, wrong_from:= 0, mark:= true) -> void:
 	$TextsMargin/Text.hide()
 	$DeleteButton.hide()
+	$TextsMargin/RTL.clear()
+	var attempt_text = $TextsMargin/Text.text
+	var safe_wrong_from = clampi(wrong_from, 0, attempt_text.length())
+	if safe_wrong_from > 0:
+		$TextsMargin/RTL.append_text(attempt_text.substr(0, safe_wrong_from))
 	$TextsMargin/RTL.push_strikethrough(Color.RED)
-	$TextsMargin/RTL.append_text($TextsMargin/Text.text)
+	$TextsMargin/RTL.append_text(attempt_text.substr(safe_wrong_from))
 	$TextsMargin/RTL.pop()
-	$TextsMargin/RTL.push_color(Color.RED)
-	$TextsMargin/RTL.append_text(with_text)
-	$TextsMargin/RTL.pop()
+	if with_text.strip_edges() != "":
+		$TextsMargin/RTL.push_color(Color.RED)
+		$TextsMargin/RTL.append_text(with_text)
+		$TextsMargin/RTL.pop()
 	if mark:
 		$Correction/Cross.show()
 

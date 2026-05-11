@@ -27,20 +27,11 @@ func _on_back_buton_pressed() -> void:
 	get_tree().change_scene_to_file("res://scenes/main.tscn")
 
 func _setup_focus_picker() -> void:
-	if has_node("FocusPicker"):
-		return
-	var picker = OptionButton.new()
-	picker.name = "FocusPicker"
-	picker.set_anchors_preset(Control.PRESET_TOP_RIGHT)
-	picker.offset_left = -360
-	picker.offset_top = 70
-	picker.offset_right = -48
-	picker.offset_bottom = 108
+	var picker: OptionButton = $FocusPicker
+	picker.clear()
 	for focus_level in FOCUS_OPTIONS.keys():
 		picker.add_item(FOCUS_OPTIONS[focus_level])
 		picker.set_item_metadata(picker.item_count - 1, focus_level)
-	picker.item_selected.connect(_on_focus_selected)
-	add_child(picker)
 	_select_focus()
 
 func _select_focus() -> void:

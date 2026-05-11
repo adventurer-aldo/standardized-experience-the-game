@@ -9,11 +9,18 @@ enum Diagnosis { NONE, TERRIBLE, MEH, ALRIGHT, GREAT, AWESOME }
 @export var end_time: float
 @export var stage:= 1
 @export var diagnosis:= Diagnosis.NONE
+@export var soundtrack_id:= 0
 
 
 func create() -> void:
 	if id <= 0 && !Engine.is_editor_hint():
 		id = Main.data.next_journey_id()
+	if soundtrack_id <= 0 && !Engine.is_editor_hint():
+		var soundtrack = Main.data.get_current_soundtrack()
+		if soundtrack == null:
+			soundtrack = Main.data.get_default_soundtrack()
+		if soundtrack != null:
+			soundtrack_id = soundtrack.id
 	DirAccess.make_dir_recursive_absolute(get_dir_path())
 	start_time = Time.get_unix_time_from_system()
 	for subject in Main.data.get_subjects():
@@ -33,7 +40,7 @@ func save() -> void:
 
 func finish() -> void:
 	end_time = Time.get_unix_time_from_system()
-	stage = 8
+	stage = 7
 	update_diagnosis()
 	save()
 
@@ -97,7 +104,7 @@ func update_stage() -> void:
 			all_chairs_passed = false
 			break
 	if all_chairs_passed:
-		stage = 8
+		stage = 6 if should_have_extraordinary_stage() else 7
 		return
 	var highest_needed_stage = 1
 	for chair in get_chairs():
@@ -108,7 +115,7 @@ func update_stage() -> void:
 			Chair.Status.EXAM_ELIGIBLE, Chair.Status.FAILED_AVERAGE:
 				highest_needed_stage = max(highest_needed_stage, 5)
 			Chair.Status.RECURRENCE_ELIGIBLE:
-				highest_needed_stage = max(highest_needed_stage, 6)
+				highest_needed_stage = max(highest_needed_stage, 5)
 			Chair.Status.FAILED_RECURRENCE:
 				highest_needed_stage = max(highest_needed_stage, 7)
 	stage = highest_needed_stage
@@ -138,3 +145,53 @@ func refresh() -> void:
 	update_stage()
 	update_diagnosis()
 	save()
+
+
+func get_soundtrack() -> Soundtrack:
+	if soundtrack_id > 0:
+		var soundtrack = Main.data.get_soundtrack(soundtrack_id)
+		if soundtrack != null:
+			return soundtrack
+	return Main.data.get_default_soundtrack()
+
+
+func get_stage_track(use_might:= false) -> AudioStream:
+	var soundtrack = get_soundtrack()
+	if soundtrack == null:
+		return null
+	if stage == 7:
+		var diagnosis_track = soundtrack.get_journey_diagnosis_track(_soundtrack_diagnosis())
+		if diagnosis_track != null:
+			return diagnosis_track
+	return soundtrack.get_journey_stage_track(stage, use_might)
+
+
+func should_have_extraordinary_stage() -> bool:
+	var chairs = get_chairs()
+	if chairs.size() <= 1:
+		return false
+	for chair in chairs:
+		if chair.get_final_grade() < Chair.PERFECT_GRADE:
+			return false
+		var subject = chair.get_subject()
+		if subject == null:
+			return false
+		for question in subject.get_questions():
+			if question.experience_level < 4:
+				return false
+	return true
+
+
+func _soundtrack_diagnosis() -> int:
+	match diagnosis:
+		Diagnosis.AWESOME:
+			return Soundtrack.JourneyDiagnosis.PERFECT
+		Diagnosis.GREAT:
+			return Soundtrack.JourneyDiagnosis.PASSING
+		Diagnosis.ALRIGHT:
+			return Soundtrack.JourneyDiagnosis.DANGER
+		Diagnosis.MEH:
+			return Soundtrack.JourneyDiagnosis.DANGER
+		Diagnosis.TERRIBLE:
+			return Soundtrack.JourneyDiagnosis.FAILING
+	return Soundtrack.JourneyDiagnosis.UNKNOWN

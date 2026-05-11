@@ -1,12 +1,12 @@
-[gd_scene format=3 uid="uid://c7oufr7oa4s4k"]
+[gd_scene format=3 uid="uid://be0ud2c0t2whp"]
 
-[ext_resource type="Script" uid="uid://c06lq3xix3dbf" path="res://scenes/quiz/choice_attempt.gd" id="1_bem41"]
+[ext_resource type="Script" path="res://scenes/quiz/schema_attempt.gd" id="1_script"]
 [ext_resource type="PackedScene" uid="uid://bd634eo063jbr" path="res://scenes/data/data_question.tscn" id="2_edit"]
 
-[node name="ChoiceAttempt" type="VBoxContainer" unique_id=1240084012]
+[node name="SchemaAttempt" type="VBoxContainer"]
 custom_minimum_size = Vector2(0, 96)
 theme_override_constants/separation = 0
-script = ExtResource("1_bem41")
+script = ExtResource("1_script")
 edit_shortcut = ExtResource("2_edit")
 
 [node name="Shell" type="PanelContainer" parent="."]

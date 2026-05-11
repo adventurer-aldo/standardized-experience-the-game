@@ -2,11 +2,14 @@ extends Control
 
 @export var nodes: Array = []
 @export var links: Array = []
+@export var allow_alternatives:= true
 
 const NODE_SIZE := Vector2(190, 104)
 const HANDLE_SIZE := Vector2(24, 24)
 const LONG_PRESS_MS := 280
 const NEW_NODE_DISTANCE := 190.0
+const GRAPH_MARGIN := 280.0
+const PAN_DISTANCE := 220
 
 var toolbar: HBoxContainer
 var scroll: ScrollContainer
@@ -23,7 +26,7 @@ var handle_is_dragging:= false
 var handle_end:= Vector2.ZERO
 
 func _ready() -> void:
-	custom_minimum_size = Vector2(0, 420)
+	custom_minimum_size = Vector2(0, 360)
 	mouse_filter = Control.MOUSE_FILTER_PASS
 	_build()
 	_refresh()
@@ -44,6 +47,7 @@ func fetch() -> Dictionary:
 func replicate(data: Dictionary) -> void:
 	nodes = data.get("nodes", []).duplicate(true)
 	links = data.get("links", []).duplicate(true)
+	_build()
 	_refresh()
 
 func add_node(id: String, text: String, position:= Vector2.ZERO, mediaset_id:= 0) -> void:
@@ -77,42 +81,23 @@ func add_link(from_id: String, to_id: String, label:= "", bidirectional:= false)
 	_redraw_links()
 
 func _build() -> void:
-	if has_node("Scroll"):
-		return
-	toolbar = HBoxContainer.new()
-	toolbar.name = "Toolbar"
-	toolbar.add_theme_constant_override("separation", 8)
-	add_child(toolbar)
+	toolbar = $Toolbar
+	scroll = $Scroll
+	graph = $Scroll/Graph
+	links_layer = $Scroll/Graph/Links
+	live_arrow = $Scroll/Graph/Links/LiveArrow
 
-	var add_text = Button.new()
-	add_text.text = "+ Text"
-	add_text.pressed.connect(_on_add_text_pressed)
-	toolbar.add_child(add_text)
+func _on_pan_left_pressed() -> void:
+	_pan_graph(Vector2(-PAN_DISTANCE, 0))
 
-	scroll = ScrollContainer.new()
-	scroll.name = "Scroll"
-	scroll.set_anchors_preset(Control.PRESET_FULL_RECT)
-	scroll.offset_top = 42
-	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_SHOW_ALWAYS
-	scroll.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_SHOW_ALWAYS
-	add_child(scroll)
+func _on_pan_right_pressed() -> void:
+	_pan_graph(Vector2(PAN_DISTANCE, 0))
 
-	graph = Control.new()
-	graph.name = "Graph"
-	graph.mouse_filter = Control.MOUSE_FILTER_PASS
-	graph.custom_minimum_size = Vector2(3200, 2200)
-	scroll.add_child(graph)
+func _on_pan_up_pressed() -> void:
+	_pan_graph(Vector2(0, -PAN_DISTANCE))
 
-	links_layer = Control.new()
-	links_layer.name = "Links"
-	links_layer.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	links_layer.set_anchors_preset(Control.PRESET_FULL_RECT)
-	graph.add_child(links_layer)
-
-	live_arrow = Line2D.new()
-	live_arrow.width = 3
-	live_arrow.default_color = Color(0.16, 0.46, 0.95)
-	links_layer.add_child(live_arrow)
+func _on_pan_down_pressed() -> void:
+	_pan_graph(Vector2(0, PAN_DISTANCE))
 
 func _refresh() -> void:
 	_ensure_nodes()
@@ -122,6 +107,7 @@ func _refresh() -> void:
 	node_controls.clear()
 	for node in nodes:
 		_add_node_control(node)
+	_fit_graph_to_content()
 	_redraw_links()
 
 func _add_node_control(node: Dictionary) -> void:
@@ -164,18 +150,20 @@ func _add_node_control(node: Dictionary) -> void:
 
 	var alternatives = VBoxContainer.new()
 	alternatives.name = "Alternatives"
+	alternatives.visible = allow_alternatives
 	layout.add_child(alternatives)
 	var texts = Array(node.get("texts", [text.text]))
-	for alt_index in range(1, texts.size()):
-		var alt = LineEdit.new()
-		alt.text = str(texts[alt_index])
-		alt.placeholder_text = "Alternative"
-		alternatives.add_child(alt)
+	if allow_alternatives:
+		for alt_index in range(1, texts.size()):
+			var alt = LineEdit.new()
+			alt.text = str(texts[alt_index])
+			alt.placeholder_text = "Alternative"
+			alternatives.add_child(alt)
 
-	var add_alt = Button.new()
-	add_alt.text = "+ Alternative"
-	add_alt.pressed.connect(_on_add_alternative_pressed.bind(alternatives))
-	layout.add_child(add_alt)
+		var add_alt = Button.new()
+		add_alt.text = "+ Alternative"
+		add_alt.pressed.connect(_on_add_alternative_pressed.bind(alternatives))
+		layout.add_child(add_alt)
 
 	_add_handle(box, node_id, Vector2(1, 0), Vector2(NODE_SIZE.x - HANDLE_SIZE.x, NODE_SIZE.y * 0.5 - HANDLE_SIZE.y * 0.5))
 	_add_delete_button(box, node_id)
@@ -332,7 +320,28 @@ func _set_node_position(node_id: String, position: Vector2) -> void:
 	for node in nodes:
 		if str(node.get("id", "")) == node_id:
 			node["position"] = position
+			_fit_graph_to_content()
 			return
+
+func _fit_graph_to_content() -> void:
+	if graph == null:
+		return
+	var max_position := Vector2(640, 320)
+	for node in nodes:
+		var position = _node_position(node)
+		max_position.x = max(max_position.x, position.x + NODE_SIZE.x + GRAPH_MARGIN)
+		max_position.y = max(max_position.y, position.y + NODE_SIZE.y + GRAPH_MARGIN)
+	var viewport_size = scroll.size if scroll != null else Vector2(760, 420)
+	graph.custom_minimum_size = Vector2(
+		max(max_position.x, viewport_size.x + GRAPH_MARGIN),
+		max(max_position.y, viewport_size.y + GRAPH_MARGIN)
+	)
+
+func _pan_graph(delta: Vector2) -> void:
+	if scroll == null:
+		return
+	scroll.scroll_horizontal = max(0, scroll.scroll_horizontal + int(delta.x))
+	scroll.scroll_vertical = max(0, scroll.scroll_vertical + int(delta.y))
 
 func _node_at_position(position: Vector2, except_id:= "") -> String:
 	for node_id in node_controls.keys():

@@ -14,6 +14,8 @@ extends Resource
 @export var exemption:= true
 @export var rigid:= false
 @export_range(0.0, 1.0, 0.01) var negative_likelihood:= 0.0
+@export var average_formula:= Chair.AverageFormula.TESTS_ONLY
+@export var synonym_groups:= []
 
 @export_category("Experience")
 @export var level:= 0
@@ -55,16 +57,26 @@ func erase() -> void:
 	DirAccess.remove_absolute(get_dir_path())
 
 func get_questions() -> Array:
-	var files = Array(DirAccess.get_files_at("user://subjects/" + str(id).lpad(10, '0')))
+	var files = get_question_file_names()
 	var questions: Array = []
 	for question_filename in files:
-		if !question_filename.ends_with(".tres"):
-			continue
-		var file_path = "user://subjects/" + str(id).lpad(10, '0') + "/" + question_filename
+		var file_path = get_question_file_path(question_filename)
 		var loaded_question = ResourceLoader.load(file_path)
 		if loaded_question != null:
 			questions.push_back(loaded_question)
 	return questions
+
+func get_question_file_names(newest_first:= false) -> Array:
+	var files = Array(DirAccess.get_files_at(get_dir_path())).filter(func(filename):
+		return str(filename).ends_with(".tres")
+	)
+	files.sort()
+	if newest_first:
+		files.reverse()
+	return files
+
+func get_question_file_path(question_filename: String) -> String:
+	return get_dir_path() + "/" + question_filename
 
 func get_question(question_id: int) -> Question:
 	return ResourceLoader.load("user://subjects/" + str(id).lpad(10, '0') + "/" + str(question_id).lpad(10, '0') + ".tres")

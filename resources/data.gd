@@ -23,14 +23,18 @@ extends Resource
 @export var skip_dissertation:= true
 @export var negative_points:= true
 @export var use_24_hour_time:= true
-@export var language:= "en"
 @export var soundtrack_id:= 0
 @export var prune_saved_quizzes:= true
 @export var max_saved_quizzes:= 100
 @export var focus:= 0
 @export var theme:= NORMAL
+@export var open_correction_whole_word:= false
+@export var synonym_groups:= []
 
 enum {NORMAL = 0, RED = 1, GREEN = 2, BLUE = 3}
+
+func apply_first_run_defaults() -> void:
+	timezone = Timezone.guess_zone_from_system()
 
 func increment_last_journey_id() -> void:
 	last_journey_id += 1
@@ -206,7 +210,7 @@ func prune_old_quizzes() -> void:
 func get_soundtracks() -> Array[Soundtrack]:
 	var soundtracks: Array[Soundtrack]
 	var seen_keys := {}
-	for dir_path in ["res://soundtracks", "user://soundtracks"]:
+	for dir_path in ["res://saved_resources/soundtracks", "res://soundtracks", "user://soundtracks"]:
 		if !DirAccess.dir_exists_absolute(dir_path):
 			continue
 		for filename in DirAccess.get_files_at(dir_path):
@@ -223,7 +227,7 @@ func get_soundtracks() -> Array[Soundtrack]:
 	return soundtracks
 
 func get_soundtrack(soundtrack_id: int) -> Soundtrack:
-	for storage_path in ["res://soundtracks", "user://soundtracks"]:
+	for storage_path in ["res://saved_resources/soundtracks", "res://soundtracks", "user://soundtracks"]:
 		var file_path = storage_path + "/" + str(soundtrack_id).lpad(10, "0") + ".tres"
 		if FileAccess.file_exists(file_path):
 			return ResourceLoader.load(file_path) as Soundtrack
@@ -247,6 +251,12 @@ func get_current_soundtrack() -> Soundtrack:
 		return null
 	return soundtracks[0]
 
+func get_default_soundtrack() -> Soundtrack:
+	var soundtrack = get_soundtrack(1)
+	if soundtrack != null:
+		return soundtrack
+	return get_soundtrack_by_name("Standardized Experience OST")
+
 func get_timezone_offset_seconds() -> int:
 	return Timezone.get_offset_seconds(timezone)
 
@@ -266,37 +276,88 @@ func get_or_create_pfp_mediaset() -> Mediaset:
 	return mediaset
 
 func get_text(key: String, fallback:= "") -> String:
-	var dictionary = _load_language_dictionary(language)
-	if dictionary.has(key):
-		return str(dictionary[key])
-	if language != "en":
-		var english_dictionary = _load_language_dictionary("en")
-		if english_dictionary.has(key):
-			return str(english_dictionary[key])
 	return fallback if fallback != "" else key
 
 func translate(source_text: String) -> String:
-	if source_text.strip_edges() == "":
-		return source_text
-	var dictionary = _load_language_dictionary(language)
-	if dictionary.has(source_text):
-		return str(dictionary[source_text])
-	var english_dictionary = _load_language_dictionary("en")
-	var text_key = ""
-	for key in english_dictionary.keys():
-		if str(english_dictionary[key]) == source_text:
-			text_key = key
-			break
-	if text_key != "" && dictionary.has(text_key):
-		return str(dictionary[text_key])
 	return source_text
 
 func localize_tree(root: Node) -> void:
-	if root == null:
-		return
-	_localize_node(root)
-	for child in root.get_children():
-		localize_tree(child)
+	return
+
+func normalize_answer_text(value: String, subject_id:= 0, strict:= false) -> String:
+	var normalized = value.strip_edges()
+	var lookup = normalized.to_lower()
+	var groups = get_effective_synonym_groups(subject_id)
+	for group in groups:
+		var canonical = ""
+		for term in group:
+			var clean_term = str(term).strip_edges()
+			if clean_term == "":
+				continue
+			if canonical == "":
+				canonical = clean_term
+			if clean_term.to_lower() == lookup:
+				return canonical if strict else canonical.to_lower()
+	if strict:
+		return normalized
+	return lookup
+
+func get_effective_synonym_groups(subject_id:= 0) -> Array:
+	var subject_groups := []
+	var subject = get_subject(subject_id) if subject_id > 0 else null
+	if subject != null:
+		subject_groups = _clean_synonym_groups(subject.synonym_groups)
+	var global_groups = _clean_synonym_groups(synonym_groups)
+	var subject_terms := {}
+	for group in subject_groups:
+		for term in group:
+			subject_terms[str(term).to_lower()] = true
+	var effective = subject_groups.duplicate(true)
+	for group in global_groups:
+		var overlaps_subject = false
+		for term in group:
+			if subject_terms.has(str(term).to_lower()):
+				overlaps_subject = true
+				break
+		if !overlaps_subject:
+			effective.push_back(group)
+	return effective
+
+func question_has_synonyms(question: Question) -> bool:
+	if question == null:
+		return false
+	var lookup_terms := {}
+	for group in get_effective_synonym_groups(question.subject_id):
+		if group.size() <= 1:
+			continue
+		for term in group:
+			lookup_terms[str(term).strip_edges().to_lower()] = true
+	for answer_set in question.answer:
+		if !(answer_set is Dictionary):
+			continue
+		for answer_text in answer_set.get("texts", []):
+			var words = str(answer_text).split(" ", false)
+			for word in words:
+				if lookup_terms.has(_clean_synonym_lookup_word(word)):
+					return true
+			if lookup_terms.has(str(answer_text).strip_edges().to_lower()):
+				return true
+	for label in question.labels:
+		if !(label is Dictionary):
+			continue
+		for label_text in label.get("texts", []):
+			if lookup_terms.has(str(label_text).strip_edges().to_lower()):
+				return true
+	for column in question.columns:
+		for cell in Array(column):
+			if cell is Dictionary && lookup_terms.has(str(cell.get("text", "")).strip_edges().to_lower()):
+				return true
+	for node in question.scheme_nodes:
+		if node is Dictionary:
+			for node_text in node.get("texts", [node.get("text", "")]):
+				if lookup_terms.has(str(node_text).strip_edges().to_lower()):
+					return true
+	return false
 
 func save() -> void:
 	ResourceSaver.save(self, "user://data.tres", ResourceSaver.FLAG_COMPRESS)
@@ -306,38 +367,21 @@ func _soundtrack_key(soundtrack: Soundtrack) -> String:
 		return "id:" + str(soundtrack.id)
 	return "name:" + soundtrack.name.strip_edges().to_lower()
 
-func _load_language_dictionary(language_code: String) -> Dictionary:
-	var file_path = "res://locales/" + language_code + ".json"
-	if !FileAccess.file_exists(file_path):
-		return {}
-	var file = FileAccess.open(file_path, FileAccess.READ)
-	if file == null:
-		return {}
-	var parsed = JSON.parse_string(file.get_as_text())
-	if parsed is Dictionary:
-		return parsed
-	return {}
+func _clean_synonym_groups(groups: Array) -> Array:
+	var cleaned := []
+	for group in groups:
+		var clean_group := []
+		var terms = group.split(",", false) if group is String else Array(group)
+		for term in terms:
+			var clean_term = str(term).strip_edges()
+			if clean_term != "" && !clean_group.has(clean_term):
+				clean_group.push_back(clean_term)
+		if clean_group.size() > 1:
+			cleaned.push_back(clean_group)
+	return cleaned
 
-func _localize_node(node: Node) -> void:
-	if _node_has_property(node, "text"):
-		var source_text = _get_localization_source(node, "text")
-		if source_text != "":
-			node.set("text", translate(source_text))
-	if _node_has_property(node, "placeholder_text"):
-		var source_placeholder = _get_localization_source(node, "placeholder_text")
-		if source_placeholder != "":
-			node.set("placeholder_text", translate(source_placeholder))
-
-func _get_localization_source(node: Node, property_name: String) -> String:
-	var meta_name = "localization_source_" + property_name
-	if node.has_meta(meta_name):
-		return str(node.get_meta(meta_name))
-	var source_text = str(node.get(property_name))
-	node.set_meta(meta_name, source_text)
-	return source_text
-
-func _node_has_property(node: Node, property_name: String) -> bool:
-	for property in node.get_property_list():
-		if property.get("name", "") == property_name:
-			return true
-	return false
+func _clean_synonym_lookup_word(value: String) -> String:
+	var cleaned = value.strip_edges().to_lower()
+	for character in [".", ",", ";", ":", "!", "?", "(", ")", "[", "]", "{", "}", "\"", "'"]:
+		cleaned = cleaned.replace(character, "")
+	return cleaned

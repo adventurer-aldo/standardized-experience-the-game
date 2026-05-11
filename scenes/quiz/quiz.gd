@@ -5,12 +5,18 @@ signal ambush_rush_might_ended
 var quiz: Quiz
 
 @export var open_attempt: PackedScene
+@export var choice_attempt: PackedScene
+@export var label_attempt: PackedScene
+@export var match_attempt: PackedScene
+@export var table_attempt: PackedScene
+@export var schema_attempt: PackedScene
 @export var battle_ost: AudioStream
 @export var might_ost: AudioStream
 @export var rush_ost: AudioStream
 @export var ambush_opening_ost: AudioStream
 @export var ambush_ending_ost: AudioStream
 var might_mode:= false
+var might_available:= false
 var ambush_mode:= false
 var rush_mode:= false
 var streak = 0
@@ -59,22 +65,44 @@ func _ready() -> void:
 	redo()
 
 func add_questions() -> void:
-	for question in quiz.get_questions():
+	Main.quiz_loading_started.emit(quiz)
+	for question_path in quiz.get_question_file_paths():
+		var question = ResourceLoader.load(question_path, "", ResourceLoader.CACHE_MODE_REPLACE) as Question
+		if question == null:
+			continue
 		add_question(question)
-		await get_tree().create_timer(0.1).timeout
+		await get_tree().process_frame
 		# new_question.grab_focus()
+	Main.quiz_loading_finished.emit(quiz)
 
 func add_question(question: Question) -> VBoxContainer:
-	var new_attempt = open_attempt.instantiate()
+	var new_attempt = _get_attempt_scene(question).instantiate()
 	new_attempt.prepare(question)
-	new_attempt.add_to_might.connect(might_increase)
+	if new_attempt.has_signal("add_to_might"):
+		new_attempt.add_to_might.connect(might_increase)
 	if question.is_ambush || question.is_rush:
 		new_attempt.hide()
 		new_attempt.add_to_group("rush_questions")
 	$ScrollC/Elements/Attempts.add_child(new_attempt)
 	return new_attempt
+
+func _get_attempt_scene(question: Question) -> PackedScene:
+	match question.attempt_type:
+		"choice", "veracity":
+			return choice_attempt if choice_attempt != null else open_attempt
+		"label":
+			return label_attempt if label_attempt != null else open_attempt
+		"connect":
+			return match_attempt if match_attempt != null else open_attempt
+		"table":
+			return table_attempt if table_attempt != null else open_attempt
+		"scheme":
+			return schema_attempt if schema_attempt != null else open_attempt
+	return open_attempt
 	
 func might_increase(value: int) -> void:
+	if !might_available:
+		return
 	var new_value = clamp($MightTimer.time_left + value, 0.0, 30.1)
 	$MightTimer.start(new_value)
 	if !ambush_mode && !might_mode && $MightTimer.time_left > 30.0:
@@ -96,39 +124,51 @@ func redo() -> void:
 	for child in $ScrollC/Elements/Attempts.get_children():
 		child.queue_free()
 	add_questions()
-	$BGM.stream = battle_ost
-	$MightBGM.stream = might_ost
+	var soundtrack = Main.data.get_current_soundtrack()
+	var battle_track = soundtrack.get_quiz_track(quiz.level, false) if soundtrack != null else null
+	var might_track = soundtrack.get_quiz_track(quiz.level, true) if soundtrack != null else null
+	$BGM.stream = battle_track if battle_track != null else battle_ost
+	$MightBGM.stream = might_track
+	might_available = might_track != null
 	var bgm_starting_point:= 0.0
 	if streak > 1:
 		bgm_starting_point += randf_range(0.1, 5.0)
 	$BGM.play(bgm_starting_point)
-	$MightBGM.play(bgm_starting_point)
+	if might_available:
+		$MightBGM.play(bgm_starting_point)
+	else:
+		$MightBGM.stop()
 	$Blood.hide()
 	$TimeBar.reset()
 	$Timer.start(quiz.end_time - quiz.start_time)
 	# Might Start
 	var questions = quiz.get_questions()
-	if questions.size() > 0:
+	if might_available && questions.size() > 0:
 		if questions[0].hit_streak > 0:
 			$MightTransition.play("might_start")
 			might_mode = true
 			$MightTimer.start(30.1)
 	$RushAnimation.reset()
 
-func make_new_quiz():
+func make_new_quiz() -> bool:
 	var prev_subject_id = quiz.subject_id
 	quiz = Quiz.new()
 	quiz.subject_id = prev_subject_id
 	quiz.id = Main.data.next_quiz_id()
 	quiz.level = 2
+	Main.quiz_generation_started.emit(quiz)
 	quiz.create()
-	quiz.generate()
+	var success = await quiz.generate_async(get_tree())
+	Main.quiz_generation_finished.emit(quiz, success)
+	if !success:
+		return false
 	randomize()
 	var random_chance = [false, true, false]
 	random_chance.shuffle()
 	if random_chance[0]:
 		quiz.generate_ambush_questions()
 	streak += 1
+	return true
 
 func _on_button_pressed() -> void:
 	if quiz.has_ambush_questions() && !ambush_mode:
@@ -153,7 +193,9 @@ func _on_button_pressed() -> void:
 		if journey != null:
 			journey.record_quiz_grade(quiz, quiz.get_chair_grade_slot())
 	$Grade.text = str(grade).replace('.', ',').substr(0, 4)
-	$BGM.stream = load("res://audio/tracks/score_{rank}.ogg".format({"rank": rank_grade(grade)}))
+	var soundtrack = Main.data.get_current_soundtrack()
+	var fanfare = soundtrack.get_grade_fanfare(grade) if soundtrack != null else null
+	$BGM.stream = fanfare if fanfare != null else load("res://audio/tracks/score_{rank}.ogg".format({"rank": rank_grade(grade)}))
 	$BGM.play()
 	
 	$RushLight/Anim.play("RESET")
@@ -184,8 +226,8 @@ func _on_timer_timeout() -> void:
 func stop_break() -> void:
 	$Grade.text = ""
 	$EndBreak.hide()
-	make_new_quiz()
-	redo()
+	if await make_new_quiz():
+		redo()
 
 func _on_end_break_pressed() -> void:
 	$BreakTimer.stop()

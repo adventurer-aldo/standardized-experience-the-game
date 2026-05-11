@@ -2,6 +2,8 @@
 extends Resource
 class_name Quiz
 
+const QUESTION_FILTER := preload("res://resources/question_filter.gd")
+
 @export var id:= 0
 @export var subject_id:= 0
 @export var level:= 0
@@ -14,6 +16,10 @@ class_name Quiz
 @export var should_rush:= true
 @export var is_ambush_rush:= false
 @export var template:= 0
+@export var allowed_question_types:= []
+@export var required_tags:= []
+@export var required_parent_ids:= []
+@export var include_parent_ancestors:= true
 
 func get_subject() -> Subject:
 	return ResourceLoader.load("user://subjects/" + str(subject_id).lpad(10, '0') + ".tres")
@@ -26,9 +32,9 @@ func get_file_path() -> String:
 
 func create() -> void:
 	start_time = Time.get_unix_time_from_system()
-	end_time = start_time + 600.0
 	if level <= 0 && journey_id <= 0 && !Engine.is_editor_hint():
 		level = Main.data.focus
+	end_time = start_time + _get_duration_seconds()
 	var subject = get_subject()
 	if subject != null:
 		has_negative_points = randf() < subject.negative_likelihood
@@ -57,10 +63,39 @@ func generate() -> bool:
 	questions.sort_custom(func (question_a: Question, question_b: Question):
 		return question_a.miss_streak > question_b.miss_streak
 	)
-	questions = questions.slice(0, randi() % 10 + 11)
+	var target_count = 96 if level == 6 else randi() % 10 + 11
+	questions = questions.slice(0, min(target_count, questions.size()))
 	questions.shuffle()
 	for question in questions:
 		move_question_to_quiz(question, questions.find(question))
+	return questions.size() > 0
+
+func generate_async(tree: SceneTree) -> bool:
+	randomize()
+	if level <= 0 && journey_id <= 0 && !Engine.is_editor_hint():
+		level = Main.data.focus
+	var subject = get_subject()
+	if subject == null:
+		return false
+	var filter_options = _get_filter_options(!(journey_id > 0))
+	var questions: Array[Question] = []
+	var loaded_count:= 0
+	for question_filename in subject.get_question_file_names(true):
+		var question = ResourceLoader.load(subject.get_question_file_path(question_filename), "", ResourceLoader.CACHE_MODE_REPLACE) as Question
+		if QUESTION_FILTER.matches(question, subject, filter_options):
+			questions.push_back(question)
+		loaded_count += 1
+		if loaded_count % 2 == 0:
+			await tree.process_frame
+	questions.sort_custom(func (question_a: Question, question_b: Question):
+		return question_a.miss_streak > question_b.miss_streak
+	)
+	var target_count = 96 if level == 6 else randi() % 10 + 11
+	questions = questions.slice(0, min(target_count, questions.size()))
+	questions.shuffle()
+	for question_index in range(questions.size()):
+		move_question_to_quiz(questions[question_index], question_index)
+		await tree.process_frame
 	return questions.size() > 0
 
 func generate_rush_questions() -> void:
@@ -73,10 +108,9 @@ func generate_ambush_questions() -> void:
 		move_question_to_quiz(question, insert_index, true)
 	
 func get_questions() -> Array[Question]:
-	var files = Array(DirAccess.get_files_at("user://quizzes/" + str(id).lpad(10, '0')))
 	var res: Array[Question] = []
-	for question_filename in files:
-		var question = ResourceLoader.load("user://quizzes/" + str(id).lpad(10, '0') + "/" + question_filename) as Question
+	for file_path in get_question_file_paths():
+		var question = ResourceLoader.load(file_path) as Question
 		if question != null:
 			res.push_back(question)
 	# Sort by attempt ID
@@ -84,6 +118,13 @@ func get_questions() -> Array[Question]:
 		return question_a.attempt_index < question_b.attempt_index
 	)
 	return res
+
+func get_question_file_paths() -> Array:
+	var files = Array(DirAccess.get_files_at(get_dir_path())).filter(func(filename):
+		return str(filename).ends_with(".tres")
+	)
+	files.sort()
+	return files.map(func(filename): return get_dir_path() + "/" + str(filename))
 
 func has_rush_questions() -> bool:
 	return has_ambush_questions()
@@ -95,29 +136,21 @@ func has_ambush_questions() -> bool:
 	return rush_questions.size() > 0
 
 func get_filtered_questions(block_unsolved_parents:= true) -> Array[Question]:
-	var res:= get_subject().get_questions()
-	# Filter based on quiz's level
-	res = res.filter(func (question: Question):
-		match level:
-			0, 4, 5, 6:
-				return question.level != 3
-			1:
-				return question.level == 1
-			2:
-				return question.level == 2
-			3:
-				return question.level == 3
-	)
-	# Filter based on the parents having completed basic mastery
-	if block_unsolved_parents:
-		res = res.filter(func (question: Question):
-			return question.are_parents_decent()
-		)
-	# Filter based on question type
-	res = res.filter(func (question: Question): return !question.get_types().is_empty())
-	# Filter based on not being in the leveling queue
-	res = res.filter(func (question: Question): return !question.is_level_up_queued)
-	return res
+	var subject = get_subject()
+	if subject == null:
+		return []
+	return QUESTION_FILTER.apply(subject.get_questions(), subject, _get_filter_options(block_unsolved_parents))
+
+func _get_filter_options(block_unsolved_parents:= true) -> Dictionary:
+	return {
+		"quiz_level": level,
+		"types": allowed_question_types,
+		"tags": required_tags,
+		"parent_ids": required_parent_ids,
+		"include_parent_ancestors": include_parent_ancestors,
+		"block_unsolved_parents": block_unsolved_parents,
+		"exclude_level_up_queued": true,
+	}
 
 func get_rush_questions() -> Array[Question]:
 	return get_ambush_questions()
@@ -137,7 +170,7 @@ func size() -> int:
 	return DirAccess.get_files_at("user://quizzes/" + str(id).lpad(10, "0")).size()
 
 func move_question_to_quiz(question: Question, positioning: int, rush_question:= false) -> void:
-	var quiz_question = question.make_quiz_attempt(positioning)
+	var quiz_question = question.make_quiz_attempt(positioning, allowed_question_types)
 	quiz_question.is_rush = rush_question
 	quiz_question.is_ambush = rush_question
 	quiz_question.strip_for_quiz_attempt()
@@ -175,3 +208,11 @@ func get_chair_grade_slot() -> int:
 		6:
 			return Chair.GradeSlot.RECURRENCE
 	return 0
+
+func _get_duration_seconds() -> float:
+	match level:
+		5:
+			return 20.0 * 60.0
+		6:
+			return 60.0 * 60.0
+	return 10.0 * 60.0

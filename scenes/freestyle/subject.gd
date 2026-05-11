@@ -33,8 +33,12 @@ func _on_pressed() -> void:
 	new_quiz.id = Main.data.next_quiz_id()
 	new_quiz.subject_id = subject_id
 	new_quiz.level = 2
+	Main.quiz_generation_started.emit(new_quiz)
 	new_quiz.create()
-	new_quiz.generate()
+	var success = await new_quiz.generate_async(get_tree())
+	Main.quiz_generation_finished.emit(new_quiz, success)
+	if !success:
+		return
 	get_tree().change_scene_to_file("res://scenes/quiz/quiz.tscn")
 
 func set_title(from: String) -> void:

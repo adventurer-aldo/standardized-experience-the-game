@@ -422,7 +422,7 @@ text = "Settings"
 texture = ExtResource("16_0ld40")
 
 [node name="Desc" parent="Base2/VBoxContainer/SettingsButton/Texts/MDesc" parent_id_path=PackedInt32Array(924513859, 312624622) index="0" unique_id=1441112836]
-text = "Adjust your language, quiz rules, time display, and saved quiz limits."
+text = "Adjust quiz rules, synonyms, time display, and saved quiz limits."
 
 [node name="RestButton" parent="Base2/VBoxContainer" unique_id=1558879698 instance=ExtResource("14_muem4")]
 layout_mode = 2

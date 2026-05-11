@@ -5,12 +5,19 @@ var data: Data
 
 signal wipe_finished
 signal update_finished
+signal quiz_generation_started(quiz: Quiz)
+signal quiz_generation_finished(quiz: Quiz, success: bool)
+signal quiz_loading_started(quiz: Quiz)
+signal quiz_loading_finished(quiz: Quiz)
+signal question_list_loading_started(subject_id: int)
+signal question_list_loading_finished(subject_id: int)
 
 func _ready() -> void:
 	if FileAccess.file_exists("user://data.tres"):
 		data = ResourceLoader.load("user://data.tres")
 	else:
 		data = Data.new()
+		data.apply_first_run_defaults()
 	if !DirAccess.dir_exists_absolute("user://journeys"):
 		DirAccess.make_dir_absolute("user://journeys")
 	if !DirAccess.dir_exists_absolute("user://mediasets"):

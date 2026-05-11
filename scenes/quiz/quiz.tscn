@@ -2,6 +2,11 @@
 
 [ext_resource type="Script" uid="uid://bvnuh150gond2" path="res://scenes/quiz/quiz.gd" id="1_1ip8j"]
 [ext_resource type="PackedScene" uid="uid://do5cgc300pwx1" path="res://scenes/quiz/open_attempt.tscn" id="2_3uwr7"]
+[ext_resource type="PackedScene" uid="uid://c7oufr7oa4s4k" path="res://scenes/quiz/choice_attempt.tscn" id="2_choice"]
+[ext_resource type="PackedScene" path="res://scenes/quiz/label_attempt.tscn" id="2_label"]
+[ext_resource type="PackedScene" path="res://scenes/quiz/match_attempt.tscn" id="2_match"]
+[ext_resource type="PackedScene" path="res://scenes/quiz/table_attempt.tscn" id="2_table"]
+[ext_resource type="PackedScene" path="res://scenes/quiz/schema_attempt.tscn" id="2_schema"]
 [ext_resource type="AudioStream" uid="uid://cn77xjvtseycg" path="res://audio/tracks/Listen to the Cries of the Planet.ogg" id="3_3wj08"]
 [ext_resource type="AudioStream" uid="uid://4v2t11p0wl6i" path="res://audio/tracks/Listen to the Cries of the Planet_might.ogg" id="4_p3q4f"]
 [ext_resource type="AudioStream" uid="uid://bipoinqa04knv" path="res://audio/tracks/pact.ogg" id="5_y507y"]
@@ -274,6 +279,11 @@ grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_wd8gu")
 script = ExtResource("1_1ip8j")
 open_attempt = ExtResource("2_3uwr7")
+choice_attempt = ExtResource("2_choice")
+label_attempt = ExtResource("2_label")
+match_attempt = ExtResource("2_match")
+table_attempt = ExtResource("2_table")
+schema_attempt = ExtResource("2_schema")
 battle_ost = ExtResource("3_3wj08")
 might_ost = ExtResource("4_p3q4f")
 rush_ost = ExtResource("5_y507y")

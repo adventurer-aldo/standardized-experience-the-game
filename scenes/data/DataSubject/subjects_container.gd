@@ -14,6 +14,8 @@ func _ready() -> void:
 func reload_subjects() -> void:
 	subjects.clear()
 	for res_filename in DirAccess.get_files_at("user://subjects"):
+		if !res_filename.ends_with(".tres"):
+			continue
 		var subj = ResourceLoader.load("user://subjects/" + res_filename)
 		if subj != null:
 			subjects.push_back(subj)
@@ -40,6 +42,8 @@ func add_to_container(subj: Subject) -> void:
 	# new_subject_scene.set_progress(subj_size * subj.level, subj.experience)
 	# new_subject_scene.set_questions_size(subj_size)
 	new_subject_scene.subject_id = subj.id
+	if new_subject_scene.has_method("set_subject_data"):
+		new_subject_scene.set_subject_data(subj)
 	add_child(new_subject_scene)
 	
 	new_subject_scene.subject_was_focused.connect(subject_focused)

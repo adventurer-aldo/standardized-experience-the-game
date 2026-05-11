@@ -1,6 +1,7 @@
-[gd_scene format=3 uid="uid://bgs6qogye5q6g"]
+[gd_scene load_steps=3 format=3 uid="uid://bgs6qogye5q6g"]
 
 [ext_resource type="Script" path="res://scenes/settings.gd" id="1_settings"]
+[ext_resource type="PackedScene" path="res://scenes/shared/synonym_groups_editor.tscn" id="2_synonyms"]
 
 [node name="Settings" type="Control"]
 layout_mode = 3
@@ -10,3 +11,234 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_settings")
+
+[node name="Background" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Root" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 64
+theme_override_constants/margin_top = 42
+theme_override_constants/margin_right = 64
+theme_override_constants/margin_bottom = 42
+
+[node name="Layout" type="VBoxContainer" parent="Root"]
+layout_mode = 2
+theme_override_constants/separation = 18
+
+[node name="Header" type="HBoxContainer" parent="Root/Layout"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Back" type="Button" parent="Root/Layout/Header"]
+custom_minimum_size = Vector2(110, 38)
+layout_mode = 2
+text = "Back"
+
+[node name="Title" type="Label" parent="Root/Layout/Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 34
+text = "Settings"
+horizontal_alignment = 1
+
+[node name="Save" type="Button" parent="Root/Layout/Header"]
+custom_minimum_size = Vector2(110, 38)
+layout_mode = 2
+text = "Save"
+
+[node name="Scroll" type="ScrollContainer" parent="Root/Layout"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Form" type="VBoxContainer" parent="Root/Layout/Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 16
+
+[node name="Profile" type="PanelContainer" parent="Root/Layout/Scroll/Form"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Margin" type="MarginContainer" parent="Root/Layout/Scroll/Form/Profile"]
+layout_mode = 2
+theme_override_constants/margin_left = 18
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 18
+theme_override_constants/margin_bottom = 16
+
+[node name="Box" type="VBoxContainer" parent="Root/Layout/Scroll/Form/Profile/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="Root/Layout/Scroll/Form/Profile/Margin/Box"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "Profile"
+
+[node name="FirstNameRow" type="HBoxContainer" parent="Root/Layout/Scroll/Form/Profile/Margin/Box"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Label" type="Label" parent="Root/Layout/Scroll/Form/Profile/Margin/Box/FirstNameRow"]
+custom_minimum_size = Vector2(240, 0)
+layout_mode = 2
+text = "First Name"
+
+[node name="FirstName" type="LineEdit" parent="Root/Layout/Scroll/Form/Profile/Margin/Box/FirstNameRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="LastNameRow" type="HBoxContainer" parent="Root/Layout/Scroll/Form/Profile/Margin/Box"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Label" type="Label" parent="Root/Layout/Scroll/Form/Profile/Margin/Box/LastNameRow"]
+custom_minimum_size = Vector2(240, 0)
+layout_mode = 2
+text = "Last Name"
+
+[node name="LastName" type="LineEdit" parent="Root/Layout/Scroll/Form/Profile/Margin/Box/LastNameRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TimezoneRow" type="HBoxContainer" parent="Root/Layout/Scroll/Form/Profile/Margin/Box"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Label" type="Label" parent="Root/Layout/Scroll/Form/Profile/Margin/Box/TimezoneRow"]
+custom_minimum_size = Vector2(240, 0)
+layout_mode = 2
+text = "Timezone"
+
+[node name="Timezone" type="OptionButton" parent="Root/Layout/Scroll/Form/Profile/Margin/Box/TimezoneRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="BirthdayRow" type="HBoxContainer" parent="Root/Layout/Scroll/Form/Profile/Margin/Box"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Label" type="Label" parent="Root/Layout/Scroll/Form/Profile/Margin/Box/BirthdayRow"]
+custom_minimum_size = Vector2(240, 0)
+layout_mode = 2
+text = "Birthday"
+
+[node name="Birthday" type="LineEdit" parent="Root/Layout/Scroll/Form/Profile/Margin/Box/BirthdayRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Unix timestamp, optional"
+
+[node name="Quiz" type="PanelContainer" parent="Root/Layout/Scroll/Form"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Margin" type="MarginContainer" parent="Root/Layout/Scroll/Form/Quiz"]
+layout_mode = 2
+theme_override_constants/margin_left = 18
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 18
+theme_override_constants/margin_bottom = 16
+
+[node name="Box" type="VBoxContainer" parent="Root/Layout/Scroll/Form/Quiz/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="Root/Layout/Scroll/Form/Quiz/Margin/Box"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "Quiz"
+
+[node name="FocusRow" type="HBoxContainer" parent="Root/Layout/Scroll/Form/Quiz/Margin/Box"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Label" type="Label" parent="Root/Layout/Scroll/Form/Quiz/Margin/Box/FocusRow"]
+custom_minimum_size = Vector2(240, 0)
+layout_mode = 2
+text = "Freestyle Focus"
+
+[node name="Focus" type="OptionButton" parent="Root/Layout/Scroll/Form/Quiz/Margin/Box/FocusRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Lenient" type="CheckBox" parent="Root/Layout/Scroll/Form/Quiz/Margin/Box"]
+layout_mode = 2
+text = "Lenient Grading"
+
+[node name="NegativePoints" type="CheckBox" parent="Root/Layout/Scroll/Form/Quiz/Margin/Box"]
+layout_mode = 2
+text = "Negative Points"
+
+[node name="SkipDissertation" type="CheckBox" parent="Root/Layout/Scroll/Form/Quiz/Margin/Box"]
+layout_mode = 2
+text = "Skip Dissertation When Missing"
+
+[node name="CorrectionWholeWord" type="CheckBox" parent="Root/Layout/Scroll/Form/Quiz/Margin/Box"]
+layout_mode = 2
+text = "Strike Whole Word On Open Corrections"
+
+[node name="TimeFormat" type="CheckBox" parent="Root/Layout/Scroll/Form/Quiz/Margin/Box"]
+layout_mode = 2
+text = "Use 24-Hour Time"
+
+[node name="PruneQuizzes" type="CheckBox" parent="Root/Layout/Scroll/Form/Quiz/Margin/Box"]
+layout_mode = 2
+text = "Limit Saved Quizzes"
+
+[node name="MaxQuizzesRow" type="HBoxContainer" parent="Root/Layout/Scroll/Form/Quiz/Margin/Box"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Label" type="Label" parent="Root/Layout/Scroll/Form/Quiz/Margin/Box/MaxQuizzesRow"]
+custom_minimum_size = Vector2(240, 0)
+layout_mode = 2
+text = "Maximum Saved Quizzes"
+
+[node name="MaxQuizzes" type="SpinBox" parent="Root/Layout/Scroll/Form/Quiz/Margin/Box/MaxQuizzesRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 1.0
+max_value = 10000.0
+value = 1.0
+
+[node name="Synonyms" type="PanelContainer" parent="Root/Layout/Scroll/Form"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Margin" type="MarginContainer" parent="Root/Layout/Scroll/Form/Synonyms"]
+layout_mode = 2
+theme_override_constants/margin_left = 18
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 18
+theme_override_constants/margin_bottom = 16
+
+[node name="Box" type="VBoxContainer" parent="Root/Layout/Scroll/Form/Synonyms/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="Root/Layout/Scroll/Form/Synonyms/Margin/Box"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "Synonyms"
+
+[node name="Hint" type="Label" parent="Root/Layout/Scroll/Form/Synonyms/Margin/Box"]
+layout_mode = 2
+text = "Global exact-match groups are used everywhere. Subject-specific groups are edited from the Subjects screen."
+autowrap_mode = 3
+
+[node name="GlobalSynonyms" parent="Root/Layout/Scroll/Form/Synonyms/Margin/Box" instance=ExtResource("2_synonyms")]
+layout_mode = 2
+
+[connection signal="pressed" from="Root/Layout/Header/Back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="Root/Layout/Header/Save" to="." method="_on_save_pressed"]

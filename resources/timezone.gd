@@ -236,6 +236,32 @@ static func get_zone_from_label(label: String) -> Zone:
 			return zone
 	return Zone.UTC
 
+static func guess_zone_from_system() -> Zone:
+	return get_zone_for_offset_minutes(get_system_offset_minutes())
+
+static func get_system_offset_minutes() -> int:
+	var local_datetime = Time.get_datetime_dict_from_system(false)
+	var utc_datetime = Time.get_datetime_dict_from_system(true)
+	var local_unix = Time.get_unix_time_from_datetime_dict(local_datetime)
+	var utc_unix = Time.get_unix_time_from_datetime_dict(utc_datetime)
+	return clampi(int(round((local_unix - utc_unix) / 60.0)), -720, 840)
+
+static func get_zone_for_offset_minutes(offset_minutes: int) -> Zone:
+	for zone in ORDERED_ZONES:
+		if get_offset_minutes(zone) == offset_minutes && _normalize_label(get_label(zone)).begins_with("UTC"):
+			return zone
+	for zone in ORDERED_ZONES:
+		if get_offset_minutes(zone) == offset_minutes:
+			return zone
+	var nearest_zone = Zone.UTC
+	var nearest_distance = 999999
+	for zone in ORDERED_ZONES:
+		var distance = abs(get_offset_minutes(zone) - offset_minutes)
+		if distance < nearest_distance:
+			nearest_distance = distance
+			nearest_zone = zone
+	return nearest_zone
+
 static func get_data(zone: Zone) -> Dictionary:
 	return DATA.get(zone, DATA[Zone.UTC])
 

@@ -59,6 +59,10 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 0
 
+[node name="MediaPreview" type="HFlowContainer" parent="Answer"]
+visible = false
+layout_mode = 2
+
 [node name="Set" type="HBoxContainer" parent="Answer" unique_id=1615877489]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -73,10 +77,10 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_eoayo")
 shortcut = SubResource("Shortcut_826cn")
 text = "Alt"
 
-[node name="AddImage" type="Button" parent="Answer/Set" unique_id=1177977849]
+[node name="AddMedia" type="Button" parent="Answer/Set" unique_id=1177977849]
 visible = false
 layout_mode = 2
-text = "Image"
+text = "Media"
 
 [node name="Text" type="TextEdit" parent="Answer/Set" unique_id=802458983]
 custom_minimum_size = Vector2(100, 50)
@@ -153,4 +157,5 @@ layout_mode = 2
 theme_override_constants/separation = 0
 
 [connection signal="pressed" from="Answer/Set/AddAlt" to="." method="_on_add_alt_pressed"]
+[connection signal="pressed" from="Answer/Set/AddMedia" to="." method="_on_add_media_pressed"]
 [connection signal="pressed" from="Answer/Set/DeleteAnswer" to="." method="_on_delete_answer_pressed"]

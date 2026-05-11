@@ -105,6 +105,17 @@ label_settings = SubResource("LabelSettings_hidf3")
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="FocusPicker" type="OptionButton" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -360.0
+offset_top = 70.0
+offset_right = -48.0
+offset_bottom = 108.0
+grow_horizontal = 0
+
 [node name="BackButon" parent="." unique_id=791702814 instance=ExtResource("6_dsjbm")]
 layout_mode = 0
 offset_left = 136.0
@@ -156,3 +167,5 @@ theme_override_font_sizes/font_size = 43
 text = "Subject Title"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[connection signal="item_selected" from="FocusPicker" to="." method="_on_focus_selected"]

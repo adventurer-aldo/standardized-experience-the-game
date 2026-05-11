@@ -12,7 +12,6 @@ var title = "Default Subject"
 var question = Question.new()
 var subject: Subject
 @export var silence = false
-var search_thread = Thread.new()
 
 var might_mode:= false
 var question_filter_level:= 0
@@ -21,11 +20,18 @@ var question_sort_criteria:= "last_edited"
 var question_sort_ascending:= false
 var relationship_filter:= ""
 var relationship_question_id:= 0
+@onready var synonym_hint: Label = $Items/ScrollData/Data/Question/SynonymHint
+var question_load_generation:= 0
+var pending_media_row: Node
 
 func _ready() -> void:
 	question.subject_id = subject_id
 	subject = Main.data.get_subject(subject_id) if subject_id > 0 else null
 	$SubjectBar/Title.text = title
+	$Items/ScrollData/Data/Opens.row_media_requested.connect(_on_answer_media_requested)
+	$Items/ScrollData/Data/Choices.row_media_requested.connect(_on_answer_media_requested)
+	_ensure_extra_parameter_buttons()
+	_ensure_synonym_hint()
 	_setup_question_search_controls()
 	_on_add_question_alt_pressed()
 	$Items/ScrollData/Data/Types/M/VBoxContainer/Types/Open.button_pressed = true
@@ -63,17 +69,36 @@ func _on_reset_pressed() -> void:
 	if has_node("Items/ScrollData/Data/Scheme"):
 		$Items/ScrollData/Data/Scheme.replicate({})
 	question.id = 0
+	question.is_open = true
+	question.is_choice = false
+	question.is_connect = false
+	question.is_table = false
+	question.is_label = false
+	question.is_scheme = false
+	_sync_type_ui()
+	_update_synonym_hint()
 
 func set_container() -> void:
 	if subject == null:
 		return
-	subject.get_questions().map(func (saved_question):
-		# var a = Thread.new()
-		# a.start(add_question_to_container.bind(saved_question))
-		add_question_to_container(saved_question)
-	)
+	question_load_generation += 1
+	var generation = question_load_generation
+	var container_node = $QuestionsScroll/QuestionsContainer
+	for child in container_node.get_children():
+		child.queue_free()
+	$SubjectBar/AmountBar/Amount.text = "00"
+	Main.question_list_loading_started.emit(subject_id)
+	for question_filename in subject.get_question_file_names(true):
+		if generation != question_load_generation:
+			return
+		var saved_question = ResourceLoader.load(subject.get_question_file_path(question_filename), "", ResourceLoader.CACHE_MODE_REPLACE) as Question
+		if saved_question != null:
+			add_question_to_container(saved_question, false)
+		await get_tree().process_frame
+	_apply_question_filters_and_sort()
+	Main.question_list_loading_finished.emit(subject_id)
 
-func add_question_to_container(saved_question: Question) -> void:
+func add_question_to_container(saved_question: Question, apply_filters:= true) -> void:
 	var question_to_add
 	var container_node = $QuestionsScroll/QuestionsContainer
 	var is_new_card:= false
@@ -98,9 +123,11 @@ func add_question_to_container(saved_question: Question) -> void:
 		question_to_add.set_level(saved_question.experience_level)
 	if is_new_card:
 		container_node.add_child(question_to_add)
-	container_node.move_child(question_to_add, 0)
+	elif apply_filters:
+		container_node.move_child(question_to_add, 0)
 	$SubjectBar/AmountBar/Amount.text = str(container_node.get_child_count()).lpad(2, '0')
-	_apply_question_filters_and_sort()
+	if apply_filters:
+		_apply_question_filters_and_sort()
 
 func _on_add_question_alt_pressed() -> void:
 	var q_scene = question_packed_scene.instantiate()
@@ -114,61 +141,71 @@ func _on_question_delete_pressed() -> void:
 	question_alt_changed.emit($Items/ScrollData/Data/Question/Texts.get_child_count() - 1)
 
 func _on_open_pressed() -> void:
-	if question.get_types().size() == 1 && question.is_open: return
-	question.is_open = !question.is_open
-	$Items/ScrollData/Data/Opens.visible = question.is_open
+	_set_type_from_buttons("open")
 
 func _on_choice_pressed() -> void:
-	if question.get_types().size() == 1 && question.is_choice: return
-	question.is_choice = !question.is_choice
-	$Items/ScrollData/Data/Opens.visible = (question.is_open || question.is_choice)
-	$Items/ScrollData/Data/Choices.visible = question.is_choice
+	_set_type_from_buttons("choice")
 
 func _on_match_pressed() -> void:
-	if question.get_types().size() == 1 && question.is_connect: return
-	question.is_connect = !question.is_connect
-	$Items/ScrollData/Data/Match.visible = question.is_connect
+	_set_type_from_buttons("connect")
 
 func _on_table_pressed() -> void:
-	if question.get_types().size() == 1 && question.is_table: return
-	question.is_table = !question.is_table
-	$Items/ScrollData/Data/Table.visible = question.is_table
+	_set_type_from_buttons("table")
 
 func _on_label_pressed() -> void:
-	if question.get_types().size() == 1 && question.is_label: return
-	question.is_label = !question.is_label
-	$Items/ScrollData/Data/Label.visible = question.is_label
+	_set_type_from_buttons("label")
 
 func _on_scheme_pressed() -> void:
-	if question.get_types().size() == 1 && question.is_scheme: return
-	question.is_scheme = !question.is_scheme
-	$Items/ScrollData/Data/Scheme.visible = question.is_scheme
+	_set_type_from_buttons("scheme")
 
 func _on_ordered_pressed() -> void:
-	question.is_order = !question.is_order
+	question.is_order = $Items/ScrollData/Data/Types/M/VBoxContainer/Parameters/Ordered.button_pressed
 	$Items/ScrollData/Data/Opens.is_order_enabled = question.is_order
 	if question.is_order:
 		$Items/ScrollData/Data/Opens.show_orders()
 	else:
 		$Items/ScrollData/Data/Opens.hide_orders()
+	_sync_parameter_visibility()
 
 func _on_strict_pressed() -> void:
-	question.is_strict = !question.is_strict
+	question.is_strict = $Items/ScrollData/Data/Types/M/VBoxContainer/Parameters/Strict.button_pressed
+	_sync_parameter_visibility()
 
 func _on_gap_pressed() -> void:
-	question.is_gap = !question.is_gap
+	question.is_gap = $Items/ScrollData/Data/Types/M/VBoxContainer/Parameters/Gap.button_pressed
+	_sync_parameter_visibility()
 
 func _on_veracity_pressed() -> void:
-	question.is_veracity = !question.is_veracity
+	question.is_veracity = $Items/ScrollData/Data/Types/M/VBoxContainer/Parameters/Veracity.button_pressed
+	_sync_parameter_visibility()
 
 func _on_shuffle_pressed() -> void:
-	question.is_shuffle = !question.is_shuffle
+	question.is_shuffle = $Items/ScrollData/Data/Types/M/VBoxContainer/Parameters/Shuffle.button_pressed
+	_sync_parameter_visibility()
+
+func _on_shuffle_rows_pressed() -> void:
+	question.shuffle_rows = $Items/ScrollData/Data/Types/M/VBoxContainer/Parameters/ShuffleRows.button_pressed
+	_sync_parameter_visibility()
+
+func _on_shuffle_columns_pressed() -> void:
+	question.shuffle_columns = $Items/ScrollData/Data/Types/M/VBoxContainer/Parameters/ShuffleColumns.button_pressed
+	_sync_parameter_visibility()
 
 func fetch_question_texts() -> PackedStringArray:
 	var strings = $Items/ScrollData/Data/Question/Texts.get_children().map(func (question_row):
 		return question_row.fetch()
 	)
 	return PackedStringArray(strings)
+
+func _ensure_extra_parameter_buttons() -> void:
+	return
+
+func _ensure_synonym_hint() -> void:
+	return
+
+func _update_synonym_hint() -> void:
+	_ensure_synonym_hint()
+	synonym_hint.visible = question.id > 0 && Main.data.question_has_synonyms(question)
 
 func _on_increase_level_pressed() -> void:
 	change_level([1, 2, 3, 4, 1][question.level])
@@ -178,6 +215,98 @@ func change_level(to: int) -> void:
 	var tar = $Items/ScrollData/Data/Question/GloballyRelevant/IncreaseLevel/Elements/Text
 	var texts = ['Beginner Level', 'Advanced Level', 'Dissertation', 'Master Level']
 	tar.text = Main.data.translate(texts[to - 1])
+
+func _set_type_from_buttons(changed_type: String) -> void:
+	var type_buttons = $Items/ScrollData/Data/Types/M/VBoxContainer/Types
+	question.is_open = type_buttons.get_node("Open").button_pressed
+	question.is_choice = type_buttons.get_node("Choice").button_pressed
+	question.is_connect = type_buttons.get_node("Match").button_pressed
+	question.is_table = type_buttons.get_node("Table").button_pressed
+	question.is_label = type_buttons.get_node("Label").button_pressed
+	question.is_scheme = type_buttons.get_node("Label2").button_pressed
+	if ["connect", "table", "label", "scheme"].has(changed_type) && _button_for_type(changed_type).button_pressed:
+		question.is_open = false
+		question.is_choice = false
+		question.is_connect = changed_type == "connect"
+		question.is_table = changed_type == "table"
+		question.is_label = changed_type == "label"
+		question.is_scheme = changed_type == "scheme"
+	elif ["open", "choice"].has(changed_type) && _button_for_type(changed_type).button_pressed:
+		question.is_connect = false
+		question.is_table = false
+		question.is_label = false
+		question.is_scheme = false
+	question.enforce_type_rules()
+	_sync_type_ui()
+
+func _button_for_type(type: String) -> Button:
+	var type_buttons = $Items/ScrollData/Data/Types/M/VBoxContainer/Types
+	match type:
+		"open":
+			return type_buttons.get_node("Open")
+		"choice":
+			return type_buttons.get_node("Choice")
+		"connect":
+			return type_buttons.get_node("Match")
+		"table":
+			return type_buttons.get_node("Table")
+		"label":
+			return type_buttons.get_node("Label")
+	return type_buttons.get_node("Label2")
+
+func _sync_type_ui() -> void:
+	var type_buttons = $Items/ScrollData/Data/Types/M/VBoxContainer/Types
+	type_buttons.get_node("Open").button_pressed = question.is_open
+	type_buttons.get_node("Choice").button_pressed = question.is_choice
+	type_buttons.get_node("Match").button_pressed = question.is_connect
+	type_buttons.get_node("Table").button_pressed = question.is_table
+	type_buttons.get_node("Label").button_pressed = question.is_label
+	type_buttons.get_node("Label2").button_pressed = question.is_scheme
+	$Items/ScrollData/Data/Opens.visible = question.is_open || question.is_choice
+	$Items/ScrollData/Data/Choices.visible = question.is_choice
+	$Items/ScrollData/Data/Opens.set_media_buttons_enabled(question.is_choice)
+	$Items/ScrollData/Data/Choices.set_media_buttons_enabled(question.is_choice)
+	$Items/ScrollData/Data/Match.visible = question.is_connect
+	$Items/ScrollData/Data/Table.visible = question.is_table
+	$Items/ScrollData/Data/Label.visible = question.is_label
+	if has_node("Items/ScrollData/Data/Scheme"):
+		$Items/ScrollData/Data/Scheme.visible = question.is_scheme
+	_sync_parameter_visibility()
+
+func _sync_parameter_visibility() -> void:
+	question.enforce_type_rules()
+	var parameters = $Items/ScrollData/Data/Types/M/VBoxContainer/Parameters
+	var allowed = question.get_allowed_parameters()
+	var nodes = {
+		"order": parameters.get_node("Ordered"),
+		"strict": parameters.get_node("Strict"),
+		"gap": parameters.get_node("Gap"),
+		"veracity": parameters.get_node("Veracity"),
+		"shuffle": parameters.get_node("Shuffle"),
+		"shuffle_rows": parameters.get_node("ShuffleRows") if parameters.has_node("ShuffleRows") else null,
+		"shuffle_columns": parameters.get_node("ShuffleColumns") if parameters.has_node("ShuffleColumns") else null,
+	}
+	for parameter in nodes.keys():
+		var node = nodes[parameter]
+		if node == null:
+			continue
+		node.visible = allowed.has(parameter)
+		if !node.visible:
+			node.button_pressed = false
+	parameters.get_node("Ordered").button_pressed = question.is_order
+	parameters.get_node("Strict").button_pressed = question.is_strict
+	parameters.get_node("Gap").button_pressed = question.is_gap
+	parameters.get_node("Veracity").button_pressed = question.is_veracity
+	parameters.get_node("Shuffle").button_pressed = question.is_shuffle
+	if parameters.has_node("ShuffleRows"):
+		parameters.get_node("ShuffleRows").button_pressed = question.shuffle_rows
+	if parameters.has_node("ShuffleColumns"):
+		parameters.get_node("ShuffleColumns").button_pressed = question.shuffle_columns
+	$Items/ScrollData/Data/Opens.is_order_enabled = question.is_order
+	if question.is_order:
+		$Items/ScrollData/Data/Opens.show_orders()
+	else:
+		$Items/ScrollData/Data/Opens.hide_orders()
 
 func _on_add_tag_button_pressed() -> void:
 	var text: String = $Items/ScrollData/Data/Tag/Text.text.strip_edges()
@@ -205,9 +334,14 @@ func on_edit_pressed(id: int) -> void:
 		$Items/ScrollData/Data/Question/Texts.get_child(i).set_text(to_edit.question[i])
 	
 	if to_edit.has_media():
-		$Items/ScrollData/Data/Question/Image.texture = to_edit.get_mediaset().images[0]
+		var mediaset = to_edit.get_mediaset()
+		$Items/ScrollData/Data/Question/Image.texture = mediaset.images[0] if mediaset != null && !mediaset.images.is_empty() else null
+		$Items/ScrollData/Data/Opens.set_mediaset(mediaset)
+		$Items/ScrollData/Data/Choices.set_mediaset(mediaset)
 	else:
 		$Items/ScrollData/Data/Question/Image.texture = null
+		$Items/ScrollData/Data/Opens.set_mediaset(null)
+		$Items/ScrollData/Data/Choices.set_mediaset(null)
 	$Items/ScrollData/Data/Opens.replicate(to_edit.answer)
 	$Items/ScrollData/Data/Choices.replicate(_get_choice_decoys(to_edit.choices))
 	
@@ -219,25 +353,21 @@ func on_edit_pressed(id: int) -> void:
 	$Items/ScrollData/Data/Types/M/VBoxContainer/Types/Table.button_pressed = to_edit.is_table
 	$Items/ScrollData/Data/Types/M/VBoxContainer/Types/Label.button_pressed = to_edit.is_label
 	$Items/ScrollData/Data/Types/M/VBoxContainer/Types/Label2.button_pressed = to_edit.is_scheme
-	$Items/ScrollData/Data/Opens.visible = to_edit.is_open || to_edit.is_choice
 	$Items/ScrollData/Data/Opens.is_order_enabled = to_edit.is_order
-	if to_edit.is_order:
-		$Items/ScrollData/Data/Opens.show_orders()
-	else:
-		$Items/ScrollData/Data/Opens.hide_orders()
-	$Items/ScrollData/Data/Choices.visible = to_edit.is_choice
-	$Items/ScrollData/Data/Match.visible = to_edit.is_connect
-	$Items/ScrollData/Data/Table.visible = to_edit.is_table
-	$Items/ScrollData/Data/Label.visible = to_edit.is_label
 	if has_node("Items/ScrollData/Data/Scheme"):
-		$Items/ScrollData/Data/Scheme.visible = to_edit.is_scheme
 		$Items/ScrollData/Data/Scheme.replicate({"nodes": to_edit.scheme_nodes, "links": to_edit.scheme_links})
 	$Items/ScrollData/Data/Types/M/VBoxContainer/Parameters/Ordered.button_pressed = to_edit.is_order
 	$Items/ScrollData/Data/Types/M/VBoxContainer/Parameters/Strict.button_pressed = to_edit.is_strict
 	$Items/ScrollData/Data/Types/M/VBoxContainer/Parameters/Gap.button_pressed = to_edit.is_gap
 	$Items/ScrollData/Data/Types/M/VBoxContainer/Parameters/Veracity.button_pressed = to_edit.is_veracity
 	$Items/ScrollData/Data/Types/M/VBoxContainer/Parameters/Shuffle.button_pressed = to_edit.is_shuffle
+	if $Items/ScrollData/Data/Types/M/VBoxContainer/Parameters.has_node("ShuffleRows"):
+		$Items/ScrollData/Data/Types/M/VBoxContainer/Parameters/ShuffleRows.button_pressed = to_edit.shuffle_rows
+	if $Items/ScrollData/Data/Types/M/VBoxContainer/Parameters.has_node("ShuffleColumns"):
+		$Items/ScrollData/Data/Types/M/VBoxContainer/Parameters/ShuffleColumns.button_pressed = to_edit.shuffle_columns
 	change_level(to_edit.level)
+	_sync_type_ui()
+	_update_synonym_hint()
 
 func fetch_data() -> void:
 	var was_existing = question.id > 0 && subject.has_question(question.id)
@@ -260,9 +390,13 @@ func fetch_data() -> void:
 	
 	question.tags = $Items/ScrollData/Data/TagsContainer/TagsFlow.fetch()
 	question.parents = $Items/ScrollData/Data/ParentsContainer/ParentsFlow.fetch()
+	question.enforce_type_rules()
 	var images = [$Items/ScrollData/Data/Question/Image.texture]
 	for image in images.filter(func (img): return img != null):
 		question.get_or_create_mediaset().add_image(image)
+	var mediaset = question.get_mediaset()
+	$Items/ScrollData/Data/Opens.set_mediaset(mediaset)
+	$Items/ScrollData/Data/Choices.set_mediaset(mediaset)
 
 func _get_choice_decoys(choice_entries) -> Array:
 	if choice_entries == null:
@@ -297,6 +431,8 @@ func _on_submit_pressed() -> void:
 	$Items/ScrollData/Data/Question/Image.texture = null
 	$Items/ScrollData/Data/Opens.reset()
 	$Items/ScrollData/Data/Choices.reset()
+	$Items/ScrollData/Data/Opens.set_mediaset(null)
+	$Items/ScrollData/Data/Choices.set_mediaset(null)
 	if has_node("Items/ScrollData/Data/Scheme"):
 		$Items/ScrollData/Data/Scheme.replicate({})
 		$Items/ScrollData/Data/Scheme.visible = false
@@ -310,6 +446,8 @@ func _on_submit_pressed() -> void:
 	question = Question.new()
 	question.subject_id = subject_id
 	question.is_open = true
+	_sync_type_ui()
+	_update_synonym_hint()
 	_apply_question_filters_and_sort()
 
 func _on_close_pressed() -> void:
@@ -317,7 +455,55 @@ func _on_close_pressed() -> void:
 
 func _on_images_pressed() -> void:
 	var img = DisplayServer.clipboard_get_image()
+	if img == null || img.is_empty():
+		return
 	$Items/ScrollData/Data/Question/Image.texture = ImageTexture.create_from_image(img)
+
+func _on_media_file_button_pressed() -> void:
+	pending_media_row = null
+	$MediaFileDialog.popup_centered_ratio(0.72)
+
+func _on_answer_media_requested(row: Node) -> void:
+	pending_media_row = row
+	$MediaFileDialog.popup_centered_ratio(0.72)
+
+func _on_media_file_selected(path: String) -> void:
+	var ref = _add_media_file_to_question(path)
+	if ref.is_empty():
+		return
+	var mediaset = question.get_mediaset()
+	$Items/ScrollData/Data/Opens.set_mediaset(mediaset)
+	$Items/ScrollData/Data/Choices.set_mediaset(mediaset)
+	if pending_media_row != null && is_instance_valid(pending_media_row):
+		pending_media_row.set_mediaset(mediaset)
+		pending_media_row.add_media_ref(ref)
+	else:
+		var media = mediaset.get_media(ref) if mediaset != null else null
+		if media is Texture2D:
+			$Items/ScrollData/Data/Question/Image.texture = media
+	pending_media_row = null
+
+func _add_media_file_to_question(path: String) -> Dictionary:
+	var mediaset = question.get_or_create_mediaset()
+	var media = ResourceLoader.load(path) if path.begins_with("res://") || path.begins_with("user://") else null
+	if media is Texture2D:
+		return mediaset.add_image(media)
+	if media is AudioStream:
+		return mediaset.add_sound(media)
+	if media is VideoStream:
+		return mediaset.add_video(media)
+	var extension = path.get_extension().to_lower()
+	if ["png", "jpg", "jpeg", "webp", "bmp", "tga", "svg"].has(extension):
+		var image = Image.new()
+		if image.load(path) == OK:
+			return mediaset.add_image(ImageTexture.create_from_image(image))
+	if extension == "ogg":
+		return mediaset.add_sound(AudioStreamOggVorbis.load_from_file(path))
+	if extension == "mp3":
+		return mediaset.add_sound(AudioStreamMP3.load_from_file(path))
+	if extension == "wav":
+		return mediaset.add_sound(AudioStreamWAV.load_from_file(path))
+	return {}
 
 
 func _on_search_bar_text_changed(new_text: String) -> void:
@@ -327,48 +513,22 @@ func _on_search_bar_text_changed(new_text: String) -> void:
 
 func _setup_question_search_controls() -> void:
 	var elements = $Search/Elements
-	if !elements.has_node("LevelFilter"):
-		var level_filter = OptionButton.new()
-		level_filter.name = "LevelFilter"
-		level_filter.add_item("Any Level")
-		level_filter.set_item_metadata(0, 0)
-		for level in range(1, 8):
-			level_filter.add_item("L" + str(level))
-			level_filter.set_item_metadata(level_filter.item_count - 1, level)
-		level_filter.item_selected.connect(_on_question_level_filter_selected)
-		elements.add_child(level_filter)
-	if !elements.has_node("TypeFilter"):
-		var type_filter = OptionButton.new()
-		type_filter.name = "TypeFilter"
-		for type in ["any", "open", "choice", "veracity", "table", "connect", "label", "scheme"]:
-			type_filter.add_item(type.capitalize())
-			type_filter.set_item_metadata(type_filter.item_count - 1, type)
-		type_filter.item_selected.connect(_on_question_type_filter_selected)
-		elements.add_child(type_filter)
-	if !elements.has_node("SortFilter"):
-		var sort_filter = OptionButton.new()
-		sort_filter.name = "SortFilter"
-		for criteria in ["last_edited", "experience_level", "level", "question"]:
-			sort_filter.add_item(criteria.capitalize())
-			sort_filter.set_item_metadata(sort_filter.item_count - 1, criteria)
-		sort_filter.item_selected.connect(_on_question_sort_selected)
-		elements.add_child(sort_filter)
-	if !elements.has_node("SortDirection"):
-		var direction = OptionButton.new()
-		direction.name = "SortDirection"
-		direction.add_item("Descending")
-		direction.set_item_metadata(0, false)
-		direction.add_item("Ascending")
-		direction.set_item_metadata(1, true)
-		direction.item_selected.connect(_on_question_sort_direction_selected)
-		elements.add_child(direction)
+	var sort_filter: OptionButton = elements.get_node("SortFilter")
+	sort_filter.clear()
+	for criteria in ["last_edited", "experience_level", "level", "question"]:
+		sort_filter.add_item(criteria.capitalize())
+		sort_filter.set_item_metadata(sort_filter.item_count - 1, criteria)
+	var direction: OptionButton = elements.get_node("SortDirection")
+	direction.clear()
+	direction.add_item("Descending")
+	direction.set_item_metadata(0, false)
+	direction.add_item("Ascending")
+	direction.set_item_metadata(1, true)
 
 func _on_question_level_filter_selected(index: int) -> void:
-	question_filter_level = int($Search/Elements/LevelFilter.get_item_metadata(index))
 	_apply_question_filters_and_sort()
 
 func _on_question_type_filter_selected(index: int) -> void:
-	question_filter_type = str($Search/Elements/TypeFilter.get_item_metadata(index))
 	_apply_question_filters_and_sort()
 
 func _on_question_sort_selected(index: int) -> void:
@@ -380,13 +540,13 @@ func _on_question_sort_direction_selected(index: int) -> void:
 	_apply_question_filters_and_sort()
 
 func on_show_parents_pressed(id: int) -> void:
-	relationship_filter = "parents"
-	relationship_question_id = id
+	relationship_filter = ""
+	relationship_question_id = 0
 	_apply_question_filters_and_sort()
 
 func on_show_children_pressed(id: int) -> void:
-	relationship_filter = "children"
-	relationship_question_id = id
+	relationship_filter = ""
+	relationship_question_id = 0
 	_apply_question_filters_and_sort()
 
 func _apply_question_filters_and_sort() -> void:
@@ -402,24 +562,9 @@ func _apply_question_filters_and_sort() -> void:
 		card.visible = _question_card_matches_filters(card)
 
 func _question_card_matches_filters(card: Node) -> bool:
-	if _has_default_question_filters():
-		return true
 	var search = $Search/Elements/SearchBar.text.strip_edges()
 	if search != "":
-		var text_match = str(card.question_text).containsn(search)
-		var tag_match = card.tags.any(func(tag): return str(tag).containsn(search))
-		if !text_match && !tag_match:
-			return false
-	if question_filter_level > 0 && int(card.question_level) != question_filter_level:
-		return false
-	if question_filter_type != "any" && !card.types.has(question_filter_type):
-		return false
-	if relationship_filter == "parents":
-		var source = subject.get_question(relationship_question_id) if subject != null else null
-		return source != null && source.parents.has(card.id)
-	if relationship_filter == "children":
-		var saved_question = subject.get_question(card.id) if subject != null else null
-		return saved_question != null && saved_question.parents.has(relationship_question_id)
+		return str(card.question_text).containsn(search)
 	return true
 
 func _compare_question_cards(card_a: Node, card_b: Node) -> int:
@@ -445,7 +590,4 @@ func _compare_question_cards(card_a: Node, card_b: Node) -> int:
 	return 1 if a > b else -1
 
 func _has_default_question_filters() -> bool:
-	return $Search/Elements/SearchBar.text.strip_edges() == "" \
-		&& question_filter_level == 0 \
-		&& question_filter_type == "any" \
-		&& relationship_filter == ""
+	return $Search/Elements/SearchBar.text.strip_edges() == ""

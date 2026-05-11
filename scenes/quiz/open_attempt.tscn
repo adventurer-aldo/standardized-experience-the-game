@@ -52,8 +52,15 @@ attempt_row_scene = ExtResource("2_lysjw")
 edit_shortcut = ExtResource("3_qbo3c")
 
 [node name="Image" type="TextureRect" parent="." unique_id=1445611978]
+visible = false
 layout_mode = 2
-expand_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="MediaExtras" type="VBoxContainer" parent="."]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 8
 
 [node name="ID" type="HBoxContainer" parent="." unique_id=1183301303]
 layout_mode = 2

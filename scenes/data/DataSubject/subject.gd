@@ -19,6 +19,12 @@ func _input(event: InputEvent) -> void:
 	
 func _ready() -> void:
 	var subject = Main.data.get_subject(subject_id)
+	if subject == null:
+		return
+	set_subject_data(subject)
+
+func set_subject_data(subject: Subject) -> void:
+	subject_id = subject.id
 	set_title(subject.title)
 	set_description(subject.description)
 	set_level(subject.level)
@@ -28,6 +34,9 @@ func _ready() -> void:
 	var next_level_experience = subject.get_experience_for_level(subject.level + 1)
 	set_progress(next_level_experience - current_level_experience, subject.experience - current_level_experience)
 	set_bookmark(subject.is_journey_eligible)
+	var mediaset = subject.get_image_mediaset()
+	if mediaset != null && !mediaset.images.is_empty():
+		$M/Elements/Quick/MTitle/M/Name/Icon/Inner/Image.texture = mediaset.images[0]
 
 func set_bookmark(to: bool) -> void:
 	$Bookmark/Filler.visible = to
