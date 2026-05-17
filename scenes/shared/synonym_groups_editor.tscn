@@ -32,7 +32,37 @@ text = "Synonyms"
 [node name="AddGroup" type="Button" parent="Margin/Root/Header"]
 custom_minimum_size = Vector2(128, 34)
 layout_mode = 2
-text = "+ Synonym"
+text = "+ Word"
+
+[node name="NewGroup" type="VBoxContainer" parent="Margin/Root"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Inputs" type="HBoxContainer" parent="Margin/Root/NewGroup"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Word" type="LineEdit" parent="Margin/Root/NewGroup/Inputs"]
+custom_minimum_size = Vector2(160, 34)
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Word"
+
+[node name="Synonyms" type="LineEdit" parent="Margin/Root/NewGroup/Inputs"]
+custom_minimum_size = Vector2(240, 34)
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Synonyms, separated by commas"
+
+[node name="Submit" type="Button" parent="Margin/Root/NewGroup/Inputs"]
+custom_minimum_size = Vector2(96, 34)
+layout_mode = 2
+text = "Submit"
+
+[node name="Warning" type="Label" parent="Margin/Root/NewGroup"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.72, 0.05, 0.07, 1)
+autowrap_mode = 3
 
 [node name="Columns" type="HBoxContainer" parent="Margin/Root"]
 layout_mode = 2
@@ -57,3 +87,5 @@ size_flags_vertical = 3
 theme_override_constants/separation = 8
 
 [connection signal="pressed" from="Margin/Root/Header/AddGroup" to="." method="_on_add_group_pressed"]
+[connection signal="pressed" from="Margin/Root/NewGroup/Inputs/Submit" to="." method="_on_submit_group_pressed"]
+[connection signal="text_submitted" from="Margin/Root/NewGroup/Inputs/Synonyms" to="." method="_on_synonyms_submitted"]

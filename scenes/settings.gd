@@ -56,7 +56,7 @@ func _load_data() -> void:
 	max_quizzes_spin.value = Main.data.max_saved_quizzes
 	global_synonyms_editor.set_groups(Main.data.synonym_groups)
 
-func _save_data() -> void:
+func _save_data() -> bool:
 	Main.data.first_name = first_name_edit.text.strip_edges()
 	Main.data.last_name = last_name_edit.text.strip_edges()
 	Main.data.timezone = int(timezone_option.get_selected_metadata())
@@ -69,9 +69,14 @@ func _save_data() -> void:
 	Main.data.prune_saved_quizzes = prune_quizzes_check.button_pressed
 	Main.data.open_correction_whole_word = correction_whole_word_check.button_pressed
 	Main.data.max_saved_quizzes = int(max_quizzes_spin.value)
+	if global_synonyms_editor.has_method("submit_pending_group_if_any") && !global_synonyms_editor.submit_pending_group_if_any():
+		return false
+	if global_synonyms_editor.has_method("can_save") && !global_synonyms_editor.can_save():
+		return false
 	Main.data.synonym_groups = global_synonyms_editor.get_synonym_groups()
 	Main.data.save()
 	Main.data.prune_old_quizzes()
+	return true
 
 func _select_metadata(option: OptionButton, metadata) -> void:
 	for item_index in range(option.item_count):
@@ -83,7 +88,8 @@ func _on_save_pressed() -> void:
 	_save_data()
 
 func _on_back_pressed() -> void:
-	_save_data()
+	if !_save_data():
+		return
 	Main.wipe_in()
 	await Main.wipe_finished
 	get_tree().change_scene_to_file("res://scenes/main.tscn")

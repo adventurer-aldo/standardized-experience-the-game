@@ -49,12 +49,12 @@ func _on_image_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton && event.button_index == MOUSE_BUTTON_LEFT && event.pressed:
 		_add_label_attempt_at(image_rect.get_local_mouse_position())
 
-func _add_label_attempt_at(position: Vector2) -> void:
+func _add_label_attempt_at(label_position: Vector2) -> void:
 	label_attempt_count += 1
 	var row = HBoxContainer.new()
 	row.name = "LabelAttemptRow"
 	row.add_theme_constant_override("separation", 8)
-	row.set_meta("position", position)
+	row.set_meta("position", label_position)
 	body.add_child(row)
 
 	var number = Label.new()
@@ -76,7 +76,7 @@ func _add_label_attempt_at(position: Vector2) -> void:
 	delete.pressed.connect(_delete_label_attempt.bind(row))
 	row.add_child(delete)
 
-	_add_marker(position, label_attempt_count, row)
+	_add_marker(label_position, label_attempt_count, row)
 	input.grab_focus()
 
 func _prepare_marker_layer() -> void:
@@ -90,8 +90,8 @@ func _prepare_marker_layer() -> void:
 	marker_layer.set_anchors_preset(Control.PRESET_FULL_RECT)
 	image_rect.add_child(marker_layer)
 
-func _add_marker(position: Vector2, number: int, row: HBoxContainer) -> void:
-	if position == Vector2.ZERO:
+func _add_marker(label_position: Vector2, number: int, row: HBoxContainer) -> void:
+	if label_position == Vector2.ZERO:
 		return
 	_prepare_marker_layer()
 	var marker = Label.new()
@@ -100,7 +100,7 @@ func _add_marker(position: Vector2, number: int, row: HBoxContainer) -> void:
 	marker.size = Vector2(26, 26)
 	marker.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	marker.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	marker.position = position - marker.size * 0.5
+	marker.position = label_position - marker.size * 0.5
 	marker.add_theme_color_override("font_color", Color(0.03, 0.06, 0.08))
 	marker_layer.add_child(marker)
 	row.set_meta("marker", marker)

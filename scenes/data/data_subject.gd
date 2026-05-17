@@ -1,24 +1,17 @@
 extends Control
 
 var subject = Subject.new()
-var currently_selected_subject_id: int
 var sort_criteria:= "last_edited"
 var sort_ascending:= false
 @onready var average_formula_option: OptionButton = $DataSubject/Elements/AverageFormula
-@onready var subject_synonyms_editor: PanelContainer = $Interface/SubjectSynonyms
 @onready var subject_image_preview: TextureRect = $DataSubject/Elements/SubjectImagePreview
-var loading_subject_synonyms:= false
 var pending_subject_image: Texture2D
 
 func _ready() -> void:
 	_setup_average_formula_control()
 	_setup_sort_controls()
-	_setup_subject_synonym_panel()
 	Main.localize_tree(self)
 	Main.wipe_out()
-
-func _exit_tree() -> void:
-	_save_current_subject_synonyms()
 
 func _on_create_button_pressed() -> void:
 	var title = $DataSubject/Elements/TitleLine.text.strip_edges()
@@ -88,9 +81,6 @@ func _setup_average_formula_control() -> void:
 	average_formula_option.add_item("Best Test 60 + Dissertation 40")
 	average_formula_option.set_item_metadata(4, Chair.AverageFormula.BEST_TEST_60_DISSERTATION_40)
 
-func _setup_subject_synonym_panel() -> void:
-	subject_synonyms_editor.setup("Subject Synonyms", "Select a subject, then add synonym groups here.")
-
 func _on_sort_criteria_selected(index: int) -> void:
 	sort_criteria = str($Interface/Search/Elements/SortCriteria.get_item_metadata(index))
 	_apply_sort_and_search()
@@ -104,41 +94,8 @@ func _apply_sort_and_search() -> void:
 	_apply_search($Interface/Search/Elements/SearchBar.text)
 
 
-func _on_subjects_container_subject_was_focused(subject_id: int) -> void:
-	_save_current_subject_synonyms()
-	currently_selected_subject_id = subject_id
-	_load_current_subject_synonyms()
-
-func _load_current_subject_synonyms() -> void:
-	if subject_synonyms_editor == null:
-		return
-	var selected_subject = Main.data.get_subject(currently_selected_subject_id)
-	loading_subject_synonyms = true
-	if selected_subject == null:
-		subject_synonyms_editor.setup("Subject Synonyms", "Select a subject, then add synonym groups here.")
-		subject_synonyms_editor.set_groups([])
-	else:
-		subject_synonyms_editor.setup(selected_subject.title + " Synonyms", "No subject synonym groups yet.")
-		subject_synonyms_editor.set_groups(selected_subject.synonym_groups)
-	loading_subject_synonyms = false
-
-func _save_current_subject_synonyms() -> void:
-	if currently_selected_subject_id <= 0 || subject_synonyms_editor == null:
-		return
-	var selected_subject = Main.data.get_subject(currently_selected_subject_id)
-	if selected_subject == null:
-		return
-	selected_subject.synonym_groups = subject_synonyms_editor.get_synonym_groups()
-	selected_subject.save()
-
-func _on_subject_synonyms_changed(groups: Array) -> void:
-	if loading_subject_synonyms || currently_selected_subject_id <= 0:
-		return
-	var selected_subject = Main.data.get_subject(currently_selected_subject_id)
-	if selected_subject == null:
-		return
-	selected_subject.synonym_groups = groups
-	selected_subject.save()
+func _on_subjects_container_subject_was_focused(_subject_id: int) -> void:
+	pass
 
 func might_bgm() -> void:
 	$MightTransitions.play("might")

@@ -50,17 +50,17 @@ func replicate(data: Dictionary) -> void:
 	_build()
 	_refresh()
 
-func add_node(id: String, text: String, position:= Vector2.ZERO, mediaset_id:= 0) -> void:
+func add_node(id: String, text: String, node_position:= Vector2.ZERO, mediaset_id:= 0) -> void:
 	_sync_from_ui()
 	if id.strip_edges() == "":
 		id = _next_node_id()
-	if position == Vector2.ZERO:
-		position = _next_node_position()
+	if node_position == Vector2.ZERO:
+		node_position = _next_node_position()
 	nodes.push_back({
 		"id": id,
 		"text": text,
 		"texts": [text] if text.strip_edges() != "" else [id],
-		"position": position,
+		"position": node_position,
 		"mediaset_id": mediaset_id,
 	})
 	_refresh()
@@ -168,13 +168,13 @@ func _add_node_control(node: Dictionary) -> void:
 	_add_handle(box, node_id, Vector2(1, 0), Vector2(NODE_SIZE.x - HANDLE_SIZE.x, NODE_SIZE.y * 0.5 - HANDLE_SIZE.y * 0.5))
 	_add_delete_button(box, node_id)
 
-func _add_handle(box: Control, node_id: String, direction: Vector2, position: Vector2) -> void:
+func _add_handle(box: Control, node_id: String, direction: Vector2, handle_position: Vector2) -> void:
 	var handle = Button.new()
 	handle.text = "+"
 	handle.focus_mode = Control.FOCUS_NONE
 	handle.custom_minimum_size = HANDLE_SIZE
 	handle.size = HANDLE_SIZE
-	handle.position = position
+	handle.position = handle_position
 	handle.mouse_filter = Control.MOUSE_FILTER_STOP
 	handle.gui_input.connect(_on_handle_gui_input.bind(node_id, direction.normalized()))
 	box.add_child(handle)
@@ -316,10 +316,10 @@ func _node_position_by_id(node_id: String) -> Vector2:
 			return _node_position(node)
 	return Vector2.ZERO
 
-func _set_node_position(node_id: String, position: Vector2) -> void:
+func _set_node_position(node_id: String, node_position: Vector2) -> void:
 	for node in nodes:
 		if str(node.get("id", "")) == node_id:
-			node["position"] = position
+			node["position"] = node_position
 			_fit_graph_to_content()
 			return
 
@@ -328,9 +328,9 @@ func _fit_graph_to_content() -> void:
 		return
 	var max_position := Vector2(640, 320)
 	for node in nodes:
-		var position = _node_position(node)
-		max_position.x = max(max_position.x, position.x + NODE_SIZE.x + GRAPH_MARGIN)
-		max_position.y = max(max_position.y, position.y + NODE_SIZE.y + GRAPH_MARGIN)
+		var node_position = _node_position(node)
+		max_position.x = max(max_position.x, node_position.x + NODE_SIZE.x + GRAPH_MARGIN)
+		max_position.y = max(max_position.y, node_position.y + NODE_SIZE.y + GRAPH_MARGIN)
 	var viewport_size = scroll.size if scroll != null else Vector2(760, 420)
 	graph.custom_minimum_size = Vector2(
 		max(max_position.x, viewport_size.x + GRAPH_MARGIN),
@@ -343,12 +343,12 @@ func _pan_graph(delta: Vector2) -> void:
 	scroll.scroll_horizontal = max(0, scroll.scroll_horizontal + int(delta.x))
 	scroll.scroll_vertical = max(0, scroll.scroll_vertical + int(delta.y))
 
-func _node_at_position(position: Vector2, except_id:= "") -> String:
+func _node_at_position(graph_position: Vector2, except_id:= "") -> String:
 	for node_id in node_controls.keys():
 		if node_id == except_id:
 			continue
 		var box = node_controls[node_id]
-		if Rect2(box.position, NODE_SIZE).has_point(position):
+		if Rect2(box.position, NODE_SIZE).has_point(graph_position):
 			return node_id
 	return ""
 

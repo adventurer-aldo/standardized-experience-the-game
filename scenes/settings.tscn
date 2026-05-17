@@ -234,7 +234,7 @@ text = "Synonyms"
 
 [node name="Hint" type="Label" parent="Root/Layout/Scroll/Form/Synonyms/Margin/Box"]
 layout_mode = 2
-text = "Global exact-match groups are used everywhere. Subject-specific groups are edited from the Subjects screen."
+text = "Global exact-match groups are used everywhere. Subject-specific groups are edited from the subject question editor."
 autowrap_mode = 3
 
 [node name="GlobalSynonyms" parent="Root/Layout/Scroll/Form/Synonyms/Margin/Box" instance=ExtResource("2_synonyms")]

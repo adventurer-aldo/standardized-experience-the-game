@@ -17,6 +17,9 @@ var edit_button: Button
 
 func _ready() -> void:
 	_ensure_layout()
+	if !resized.is_connected(_resize_question_image):
+		resized.connect(_resize_question_image)
+	_resize_question_image.call_deferred()
 
 func prepare(with_question: Question) -> void:
 	question = with_question
@@ -75,6 +78,7 @@ func _set_image() -> void:
 				image_rect.texture = mediaset.images[0]
 				_configure_texture_rect(image_rect, mediaset.images[0])
 				image_rect.visible = true
+				_resize_question_image.call_deferred()
 			for sound in mediaset.sounds:
 				media_container.add_child(_make_sound_button(sound))
 			for video in mediaset.videos:
@@ -85,13 +89,31 @@ func _configure_texture_rect(rect: TextureRect, texture: Texture2D, maximum_widt
 	if texture == null:
 		return
 	var texture_size = texture.get_size()
-	var available_width = min(maximum_width, max(220.0, get_viewport_rect().size.x * 0.72))
+	if texture_size.x <= 0.0:
+		return
+	var available_width = _available_texture_width(rect, maximum_width)
 	var width = min(texture_size.x, available_width)
-	var scale = width / max(1.0, texture_size.x)
-	rect.custom_minimum_size = Vector2(width, texture_size.y * scale)
+	var image_scale = width / texture_size.x
+	rect.custom_minimum_size = Vector2(width, texture_size.y * image_scale)
 	rect.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	rect.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	rect.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+
+func _available_texture_width(rect: TextureRect, maximum_width: float) -> float:
+	var available_width = maximum_width
+	var parent_node = rect.get_parent()
+	while parent_node != null:
+		if parent_node is Control && parent_node.size.x > 1.0:
+			available_width = min(available_width, parent_node.size.x)
+			break
+		parent_node = parent_node.get_parent()
+	if available_width <= 1.0:
+		available_width = min(maximum_width, max(1.0, get_viewport_rect().size.x))
+	return available_width
+
+func _resize_question_image() -> void:
+	if image_rect != null && image_rect.texture != null:
+		_configure_texture_rect(image_rect, image_rect.texture)
 
 func _make_media_strip(media_refs: Array) -> VBoxContainer:
 	var strip = VBoxContainer.new()

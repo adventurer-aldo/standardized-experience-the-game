@@ -32,8 +32,8 @@ func set_level(to: int) -> void:
 	experience_level = to
 	$Buttons/Level.text = "Lv. " + str(to)
 
-func set_types(types: Array) -> void:
-	self.types = types.duplicate()
+func set_types(new_types: Array) -> void:
+	types = new_types.duplicate()
 
 func set_question_data(saved_question: Question) -> void:
 	id = saved_question.id

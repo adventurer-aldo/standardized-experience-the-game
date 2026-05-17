@@ -15,8 +15,6 @@
 [ext_resource type="Texture2D" uid="uid://b4mjun0mwc3lt" path="res://graphics/icons/magnifying-glass.svg" id="9_ulao1"]
 [ext_resource type="FontFile" uid="uid://djqlkih7hivms" path="res://fonts/DMSans-Bold.ttf" id="10_4k6aa"]
 [ext_resource type="PackedScene" uid="uid://bg7bp0isxc8bv" path="res://scenes/user_display/user.tscn" id="14_y345i"]
-[ext_resource type="PackedScene" path="res://scenes/shared/synonym_groups_editor.tscn" id="15_synonyms"]
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hbpdo"]
 bg_color = Color(0.90513396, 0.9369275, 0.9893057, 1)
 border_width_bottom = 333
@@ -393,19 +391,6 @@ columns = 2
 script = ExtResource("2_k41un")
 subject_packed_scene = ExtResource("2_8o7ef")
 
-[node name="SubjectSynonyms" parent="Interface" instance=ExtResource("15_synonyms")]
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 38.0
-offset_top = -210.0
-offset_right = -52.0
-offset_bottom = -5.0
-grow_horizontal = 2
-grow_vertical = 0
-
 [connection signal="pressed" from="DataSubject/Elements/CreateButton" to="." method="_on_create_button_pressed"]
 [connection signal="pressed" from="DataSubject/Elements/SubjectImage" to="." method="_on_subject_image_pressed"]
 [connection signal="pressed" from="CreateSubject" to="." method="_on_create_subject_pressed"]
@@ -413,4 +398,3 @@ grow_vertical = 0
 [connection signal="item_selected" from="Interface/Search/Elements/SortCriteria" to="." method="_on_sort_criteria_selected"]
 [connection signal="item_selected" from="Interface/Search/Elements/SortDirection" to="." method="_on_sort_direction_selected"]
 [connection signal="subject_was_focused" from="Interface/GradientMask/SubjectsScroll/SubjectsContainer" to="." method="_on_subjects_container_subject_was_focused"]
-[connection signal="groups_changed" from="Interface/SubjectSynonyms" to="." method="_on_subject_synonyms_changed"]

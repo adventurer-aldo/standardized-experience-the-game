@@ -227,12 +227,12 @@ func save(update_edit_time:= true) -> void:
 				subject.last_time_saved = last_time_edited
 				ResourceSaver.save(subject, subject.get_file_path(), ResourceSaver.FLAG_COMPRESS)
 
-func save_to_quiz(quiz_id: int, attempt_id:= id):
-	self.quiz_id = quiz_id
+func save_to_quiz(target_quiz_id: int, attempt_id:= id):
+	self.quiz_id = target_quiz_id
 	attempt_index = attempt_id
 	if source_question_id <= 0:
 		source_question_id = id
-	var quiz_id_dir = str(quiz_id).lpad(10, '0') + '/'
+	var quiz_id_dir = str(target_quiz_id).lpad(10, '0') + '/'
 	if quiz_file_index < 0:
 		quiz_file_index = DirAccess.get_files_at("user://quizzes/" + quiz_id_dir).size()
 	save()
@@ -697,10 +697,10 @@ func _score_scheme_attempt(submitted_attempt: Array) -> float:
 			wrong_attempts.push_back(submitted_link)
 	return score / max(1.0, scheme_links.size() + wrong_attempts.size())
 
-func _make_open_score_part(attempt_index: int, attempt_text, correction_text: String, correct: bool) -> Dictionary:
+func _make_open_score_part(open_attempt_index: int, attempt_text, correction_text: String, correct: bool) -> Dictionary:
 	var wrong_from = -1 if correct else _wrong_start_index(str(attempt_text), correction_text)
 	return {
-		"attempt_index": attempt_index,
+		"attempt_index": open_attempt_index,
 		"attempt": attempt_text,
 		"correct": correct,
 		"correction": correction_text,
@@ -727,9 +727,9 @@ func _closest_answer_for_attempt(attempt_text, answer_indexes: Array) -> Diction
 func _wrong_start_index(attempt_text: String, correction_text: String) -> int:
 	if correction_text == "":
 		return 0
-	var attempt = attempt_text.strip_edges()
+	var submitted_attempt = attempt_text.strip_edges()
 	var correction = correction_text.strip_edges()
-	var attempt_compare = attempt if is_strict else attempt.to_lower()
+	var attempt_compare = submitted_attempt if is_strict else submitted_attempt.to_lower()
 	var correction_compare = correction if is_strict else correction.to_lower()
 	var limit = min(attempt_compare.length(), correction_compare.length())
 	var wrong_index = limit
@@ -740,8 +740,8 @@ func _wrong_start_index(attempt_text: String, correction_text: String) -> int:
 	if attempt_compare.length() != correction_compare.length() && wrong_index == limit:
 		wrong_index = limit
 	if !Engine.is_editor_hint() && Main.data.open_correction_whole_word:
-		wrong_index = _word_start_for_index(attempt, wrong_index)
-	return clampi(wrong_index, 0, attempt.length())
+		wrong_index = _word_start_for_index(submitted_attempt, wrong_index)
+	return clampi(wrong_index, 0, submitted_attempt.length())
 
 func _word_start_for_index(text: String, index: int) -> int:
 	var start = clampi(index, 0, text.length())

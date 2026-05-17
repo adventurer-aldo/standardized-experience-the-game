@@ -129,6 +129,6 @@ func _make_image_preview(texture: Texture2D) -> TextureRect:
 	rect.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	var image_size = texture.get_size()
 	var width = min(image_size.x, 180.0)
-	var scale = width / max(1.0, image_size.x)
-	rect.custom_minimum_size = Vector2(width, image_size.y * scale)
+	var image_scale = width / max(1.0, image_size.x)
+	rect.custom_minimum_size = Vector2(width, image_size.y * image_scale)
 	return rect

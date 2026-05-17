@@ -21,8 +21,10 @@ var question_sort_ascending:= false
 var relationship_filter:= ""
 var relationship_question_id:= 0
 @onready var synonym_hint: Label = $Items/ScrollData/Data/Question/SynonymHint
+@onready var subject_synonyms_editor: PanelContainer = $Items/ScrollData/Data/SubjectSynonyms
 var question_load_generation:= 0
 var pending_media_row: Node
+var loading_subject_synonyms:= false
 
 func _ready() -> void:
 	question.subject_id = subject_id
@@ -32,6 +34,7 @@ func _ready() -> void:
 	$Items/ScrollData/Data/Choices.row_media_requested.connect(_on_answer_media_requested)
 	_ensure_extra_parameter_buttons()
 	_ensure_synonym_hint()
+	_setup_subject_synonym_editor()
 	_setup_question_search_controls()
 	_on_add_question_alt_pressed()
 	$Items/ScrollData/Data/Types/M/VBoxContainer/Types/Open.button_pressed = true
@@ -43,6 +46,9 @@ func _ready() -> void:
 	if silence:
 		$BGM.stop()
 		$MightBGM.stop()
+
+func _exit_tree() -> void:
+	_save_subject_synonyms()
 
 func might_boost(value: float) -> void:
 	var new_value = clamp($MightTimer.time_left + value, 0.0, 30.1)
@@ -206,6 +212,54 @@ func _ensure_synonym_hint() -> void:
 func _update_synonym_hint() -> void:
 	_ensure_synonym_hint()
 	synonym_hint.visible = question.id > 0 && Main.data.question_has_synonyms(question)
+
+func _setup_subject_synonym_editor() -> void:
+	if subject_synonyms_editor == null:
+		return
+	if !subject_synonyms_editor.groups_changed.is_connected(_on_subject_synonyms_changed):
+		subject_synonyms_editor.groups_changed.connect(_on_subject_synonyms_changed)
+	_load_subject_synonyms()
+
+func _load_subject_synonyms() -> void:
+	if subject_synonyms_editor == null:
+		return
+	loading_subject_synonyms = true
+	if subject == null:
+		subject_synonyms_editor.setup("Subject Synonyms", "This subject has no synonym groups yet.")
+		subject_synonyms_editor.set_groups([])
+	else:
+		subject_synonyms_editor.setup(subject.title + " Synonyms", "This subject has no synonym groups yet.")
+		subject_synonyms_editor.set_groups(subject.synonym_groups)
+	loading_subject_synonyms = false
+
+func _save_subject_synonyms() -> bool:
+	if subject_synonyms_editor == null || subject_id <= 0:
+		return true
+	if subject_synonyms_editor.has_method("submit_pending_group_if_any") && !subject_synonyms_editor.submit_pending_group_if_any():
+		return false
+	if subject_synonyms_editor.has_method("can_save") && !subject_synonyms_editor.can_save():
+		return false
+	var selected_subject = Main.data.get_subject(subject_id)
+	if selected_subject == null:
+		return true
+	var synonym_groups = subject_synonyms_editor.get_synonym_groups()
+	if selected_subject.synonym_groups == synonym_groups:
+		return true
+	selected_subject.synonym_groups = synonym_groups
+	selected_subject.save()
+	subject = selected_subject
+	return true
+
+func _on_subject_synonyms_changed(groups: Array) -> void:
+	if loading_subject_synonyms || subject_id <= 0:
+		return
+	var selected_subject = Main.data.get_subject(subject_id)
+	if selected_subject == null:
+		return
+	selected_subject.synonym_groups = groups
+	selected_subject.save()
+	subject = selected_subject
+	_update_synonym_hint()
 
 func _on_increase_level_pressed() -> void:
 	change_level([1, 2, 3, 4, 1][question.level])
@@ -415,6 +469,7 @@ func play_submit_edit_voice() -> void:
 			$Voice.random_play("questions_new", 1.0)
 
 func _on_submit_pressed() -> void:
+	_save_subject_synonyms()
 	might_boost(45.0)
 	play_submit_edit_voice()
 	fetch_data()
@@ -451,6 +506,8 @@ func _on_submit_pressed() -> void:
 	_apply_question_filters_and_sort()
 
 func _on_close_pressed() -> void:
+	if !_save_subject_synonyms():
+		return
 	queue_free()
 
 func _on_images_pressed() -> void:

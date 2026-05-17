@@ -226,13 +226,13 @@ func get_soundtracks() -> Array[Soundtrack]:
 			soundtracks.push_back(soundtrack)
 	return soundtracks
 
-func get_soundtrack(soundtrack_id: int) -> Soundtrack:
+func get_soundtrack(requested_soundtrack_id: int) -> Soundtrack:
 	for storage_path in ["res://saved_resources/soundtracks", "res://soundtracks", "user://soundtracks"]:
-		var file_path = storage_path + "/" + str(soundtrack_id).lpad(10, "0") + ".tres"
+		var file_path = storage_path + "/" + str(requested_soundtrack_id).lpad(10, "0") + ".tres"
 		if FileAccess.file_exists(file_path):
 			return ResourceLoader.load(file_path) as Soundtrack
 	for soundtrack in get_soundtracks():
-		if soundtrack.id == soundtrack_id:
+		if soundtrack.id == requested_soundtrack_id:
 			return soundtrack
 	return null
 

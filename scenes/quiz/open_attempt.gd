@@ -28,7 +28,10 @@ func set_description(text: String) -> void:
 func prepare(with_question: Question):
 	question = with_question
 	question_id = with_question.id
+	if !resized.is_connected(_resize_question_image):
+		resized.connect(_resize_question_image)
 	_populate_media()
+	_resize_question_image.call_deferred()
 	set_description(question.get_display_question())
 	for child in $Elements/OpensRow.get_children():
 		_wire_row(child)
@@ -167,6 +170,7 @@ func _populate_media() -> void:
 		$Image.texture = mediaset.images[0]
 		_configure_image($Image, mediaset.images[0])
 		$Image.visible = true
+		_resize_question_image.call_deferred()
 	for sound in mediaset.sounds:
 		$MediaExtras.add_child(_make_sound_button(sound))
 	for video in mediaset.videos:
@@ -179,13 +183,31 @@ func _populate_media() -> void:
 
 func _configure_image(rect: TextureRect, texture: Texture2D) -> void:
 	var texture_size = texture.get_size()
-	var available_width = min(720.0, max(220.0, get_viewport_rect().size.x * 0.72))
+	if texture_size.x <= 0.0:
+		return
+	var available_width = _available_image_width(rect, 720.0)
 	var width = min(texture_size.x, available_width)
-	var scale = width / max(1.0, texture_size.x)
-	rect.custom_minimum_size = Vector2(width, texture_size.y * scale)
+	var image_scale = width / texture_size.x
+	rect.custom_minimum_size = Vector2(width, texture_size.y * image_scale)
 	rect.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	rect.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	rect.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+
+func _available_image_width(rect: TextureRect, maximum_width: float) -> float:
+	var available_width = maximum_width
+	var parent_node = rect.get_parent()
+	while parent_node != null:
+		if parent_node is Control && parent_node.size.x > 1.0:
+			available_width = min(available_width, parent_node.size.x)
+			break
+		parent_node = parent_node.get_parent()
+	if available_width <= 1.0:
+		available_width = min(maximum_width, max(1.0, get_viewport_rect().size.x))
+	return available_width
+
+func _resize_question_image() -> void:
+	if $Image.texture != null:
+		_configure_image($Image, $Image.texture)
 
 func _make_sound_button(stream: AudioStream) -> Button:
 	var button = Button.new()
