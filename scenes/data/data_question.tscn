@@ -506,15 +506,6 @@ texture = ExtResource("14_pdx67")
 [node name="Label" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters/Strict/HBoxContainer" parent_id_path=PackedInt32Array(250698906, 844840613) index="1" unique_id=1614917766]
 text = "Strict"
 
-[node name="Gap" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters" unique_id=1542786920 instance=ExtResource("13_lyehf")]
-layout_mode = 2
-
-[node name="ImgTexture" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters/Gap/HBoxContainer" parent_id_path=PackedInt32Array(1542786920, 844840613) index="0" unique_id=1880938025]
-texture = ExtResource("15_pdx67")
-
-[node name="Label" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters/Gap/HBoxContainer" parent_id_path=PackedInt32Array(1542786920, 844840613) index="1" unique_id=1614917766]
-text = "Gap"
-
 [node name="Veracity" parent="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters" unique_id=675399262 instance=ExtResource("13_lyehf")]
 layout_mode = 2
 
@@ -846,7 +837,6 @@ filters = PackedStringArray("*.png, *.jpg, *.jpeg, *.webp, *.bmp, *.tga, *.svg ;
 [connection signal="pressed" from="Items/ScrollData/Data/Types/M/VBoxContainer/Types/Label2" to="." method="_on_scheme_pressed"]
 [connection signal="pressed" from="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters/Ordered" to="." method="_on_ordered_pressed"]
 [connection signal="pressed" from="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters/Strict" to="." method="_on_strict_pressed"]
-[connection signal="pressed" from="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters/Gap" to="." method="_on_gap_pressed"]
 [connection signal="pressed" from="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters/Veracity" to="." method="_on_veracity_pressed"]
 [connection signal="pressed" from="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters/Shuffle" to="." method="_on_shuffle_pressed"]
 [connection signal="pressed" from="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters/ShuffleRows" to="." method="_on_shuffle_rows_pressed"]
@@ -867,7 +857,6 @@ filters = PackedStringArray("*.png, *.jpg, *.jpeg, *.webp, *.bmp, *.tga, *.svg ;
 [editable path="Items/ScrollData/Data/Types/M/VBoxContainer/Types/Label"]
 [editable path="Items/ScrollData/Data/Types/M/VBoxContainer/Types/Label2"]
 [editable path="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters/Strict"]
-[editable path="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters/Gap"]
 [editable path="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters/Veracity"]
 [editable path="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters/Shuffle"]
 [editable path="Items/ScrollData/Data/Types/M/VBoxContainer/Parameters/ShuffleRows"]

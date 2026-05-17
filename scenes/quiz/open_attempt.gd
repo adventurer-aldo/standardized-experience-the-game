@@ -1,5 +1,7 @@
 extends VBoxContainer
 
+const FORMULA_ATTEMPT_ROW_SCRIPT := preload("res://scenes/quiz/formula_attempt_row.gd")
+
 @export var attempt_row_scene: PackedScene
 @export var id:= 0
 @export var question_id:= 0
@@ -8,10 +10,14 @@ extends VBoxContainer
 
 signal add_to_might(value: int)
 
+var gap_rows: Array = []
+var active_formula_row: Node
+
 func _on_add_row_button_pressed() -> HBoxContainer:
-	var new_child = attempt_row_scene.instantiate()
+	var new_child = _make_attempt_row()
 	_wire_row(new_child)
 	$Elements/OpensRow.add_child(new_child)
+	_configure_row_for_formula(new_child)
 	new_child.call_deferred("get_focus")
 	return new_child
 
@@ -19,11 +25,16 @@ func a_text_has_changed(difference: int) -> void:
 	add_to_might.emit(difference)
 
 func set_description(text: String) -> void:
+	_set_number_label()
+	_clear_gap_description()
+	$ID/Description.show()
+	$ID/Description.text = text
+
+func _set_number_label() -> void:
 	if question.is_ambush || question.is_rush:
 		$ID/Number.text = "X. "
 	else:
 		$ID/Number.text = str(question.attempt_index + 1) + ". "
-	$ID/Description.text = text
 
 func prepare(with_question: Question):
 	question = with_question
@@ -32,14 +43,22 @@ func prepare(with_question: Question):
 		resized.connect(_resize_question_image)
 	_populate_media()
 	_resize_question_image.call_deferred()
-	set_description(question.get_display_question())
+	_prepare_description()
+	if _is_formula_question():
+		for child in $Elements/OpensRow.get_children():
+			child.queue_free()
+		for index in range(max(1, question.answer.size() - gap_rows.size())):
+			var formula_row = _make_attempt_row()
+			$Elements/OpensRow.add_child(formula_row)
 	for child in $Elements/OpensRow.get_children():
 		_wire_row(child)
+		_configure_row_for_formula(child)
+	_sync_open_rows_with_gaps()
 	_update_order_numbers()
 
 func fetch() -> Array:
 	var result = []
-	for child in $Elements/OpensRow.get_children():
+	for child in _get_answer_input_rows():
 		result.push_back(child.fetch())
 	return result
 
@@ -76,9 +95,9 @@ func solve() -> bool:
 			var attempt_i = int(part.get("attempt_index", -1))
 			if attempt_i < 0:
 				continue
-			while attempt_i >= $Elements/OpensRow.get_child_count():
+			while attempt_i >= _get_answer_input_rows().size():
 				_on_add_row_button_pressed()
-			var row = $Elements/OpensRow.get_child(attempt_i)
+			var row = _get_answer_input_rows()[attempt_i]
 			if bool(part.get("correct", false)):
 				row.tick()
 			else:
@@ -94,12 +113,13 @@ func solve() -> bool:
 			new_correction.cross(str(answer_text), false)
 		$Edit.show()
 		return result["correct"]
+	var input_rows = _get_answer_input_rows()
 	for attempt_i in range(attempts.size()):
 		if wrong_attempts.has(attempts[attempt_i]):
 			var correction = missing_answers.pop_front() if !missing_answers.is_empty() else ""
-			$Elements/OpensRow.get_child(attempt_i).cross(correction)
+			input_rows[attempt_i].cross(correction)
 		else:
-			$Elements/OpensRow.get_child(attempt_i).tick()
+			input_rows[attempt_i].tick()
 	for answer_text in missing_answers:
 		var new_correction = _on_add_row_button_pressed()
 		new_correction.cross(answer_text, false)
@@ -118,6 +138,8 @@ func edit() -> void:
 	edit_scene.on_edit_pressed(question.id)
 
 func _on_attempt_text_focused() -> void:
+	if gap_rows.size() > 0 && !$Elements.visible:
+		return
 	$Elements/AddRowButton.show()
 
 func _on_attempt_text_unfocused() -> void:
@@ -126,6 +148,9 @@ func _on_attempt_text_unfocused() -> void:
 func _on_attempt_row_erase_if_empty_requested(row: Node) -> void:
 	if row == null || row.fetch().strip_edges() != "":
 		return
+	if bool(row.get_meta("is_gap_row", false)):
+		row.set_text("")
+		return
 	if $Elements/OpensRow.get_child_count() <= 1:
 		row.set_text("")
 		return
@@ -133,7 +158,12 @@ func _on_attempt_row_erase_if_empty_requested(row: Node) -> void:
 	_update_order_numbers.call_deferred()
 
 func _wire_row(row: Node) -> void:
-	if row == null || row.has_meta("open_attempt_wired"):
+	if row == null:
+		return
+	if !row.has_meta("open_attempt_focus_bound"):
+		row.text_focused.connect(_on_attempt_text_focused_for_row.bind(row))
+		row.set_meta("open_attempt_focus_bound", true)
+	if row.has_meta("open_attempt_wired"):
 		return
 	if !row.text_focused.is_connected(_on_attempt_text_focused):
 		row.text_focused.connect(_on_attempt_text_focused)
@@ -148,13 +178,137 @@ func _wire_row(row: Node) -> void:
 	row.set_meta("open_attempt_wired", true)
 	_update_order_numbers()
 
+func _on_attempt_text_focused_for_row(row: Node) -> void:
+	active_formula_row = row
+	_on_attempt_text_focused()
+
 func _update_order_numbers() -> void:
-	for index in range($Elements/OpensRow.get_child_count()):
-		var row = $Elements/OpensRow.get_child(index)
+	var input_rows = _get_answer_input_rows()
+	for index in range(input_rows.size()):
+		var row = input_rows[index]
 		if question != null && question.is_order && row.has_method("show_order"):
 			row.show_order(index + 1)
 		elif row.has_method("hide_order"):
 			row.hide_order()
+
+func _prepare_description() -> void:
+	var source_text = question.get_display_question_source()
+	if question.has_gap_variables_in_text(source_text):
+		_build_gap_description(source_text)
+	else:
+		set_description(question.get_display_question())
+
+func _build_gap_description(source_text: String) -> void:
+	_set_number_label()
+	_clear_gap_description()
+	$ID/Description.hide()
+	gap_rows = []
+	var flow = HFlowContainer.new()
+	flow.name = "GapDescription"
+	flow.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	flow.alignment = FlowContainer.ALIGNMENT_BEGIN
+	$ID.add_child(flow)
+	var scan_index := 0
+	while scan_index < source_text.length():
+		var open_index = source_text.find(Question.VARIABLE_TOKEN_OPEN, scan_index)
+		if open_index < 0:
+			_add_gap_text_label(flow, question.resolve_variable_tokens(source_text.substr(scan_index), false))
+			break
+		_add_gap_text_label(flow, question.resolve_variable_tokens(source_text.substr(scan_index, open_index - scan_index), false))
+		var close_index = source_text.find(Question.VARIABLE_TOKEN_CLOSE, open_index + Question.VARIABLE_TOKEN_OPEN.length())
+		if close_index < 0:
+			_add_gap_text_label(flow, question.resolve_variable_tokens(source_text.substr(open_index), false))
+			break
+		var token_payload = source_text.substr(open_index + Question.VARIABLE_TOKEN_OPEN.length(), close_index - open_index - Question.VARIABLE_TOKEN_OPEN.length())
+		var variable_key = Question.variable_key_from_token_payload(token_payload)
+		if question.get_variable_kind(variable_key) == Question.VARIABLE_KIND_GAP:
+			var variable_spec = question.get_variable_spec(variable_key)
+			var gap_row = _make_attempt_row()
+			gap_row.set_meta("is_gap_row", true)
+			gap_row.set_meta("answer_index", int(variable_spec.get("answer_index", gap_rows.size())))
+			if gap_row.has_method("enable_compact_gap_mode"):
+				gap_row.enable_compact_gap_mode()
+			_wire_row(gap_row)
+			_configure_row_for_formula(gap_row)
+			flow.add_child(gap_row)
+			gap_rows.push_back(gap_row)
+		else:
+			var token_text = source_text.substr(open_index, close_index - open_index + Question.VARIABLE_TOKEN_CLOSE.length())
+			_add_gap_text_label(flow, question.resolve_variable_tokens(token_text, false))
+		scan_index = close_index + Question.VARIABLE_TOKEN_CLOSE.length()
+
+func _add_gap_text_label(flow: HFlowContainer, display_text: String) -> void:
+	if display_text == "":
+		return
+	var text_label = Label.new()
+	text_label.text = display_text
+	text_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	text_label.add_theme_color_override("font_color", Color(0, 0, 0, 1))
+	flow.add_child(text_label)
+
+func _clear_gap_description() -> void:
+	if has_node("ID/GapDescription"):
+		$ID/GapDescription.free()
+	gap_rows = []
+
+func _sync_open_rows_with_gaps() -> void:
+	var gap_count = gap_rows.size()
+	if gap_count <= 0:
+		$Elements.show()
+		return
+	var remaining_answer_count = max(0, question.answer.size() - gap_count)
+	$Elements.visible = remaining_answer_count > 0
+	if remaining_answer_count <= 0:
+		return
+	while $Elements/OpensRow.get_child_count() < remaining_answer_count:
+		_on_add_row_button_pressed()
+	while $Elements/OpensRow.get_child_count() > remaining_answer_count && $Elements/OpensRow.get_child_count() > 1:
+		$Elements/OpensRow.get_child($Elements/OpensRow.get_child_count() - 1).queue_free()
+
+func _get_answer_input_rows() -> Array:
+	if gap_rows.is_empty():
+		return $Elements/OpensRow.get_children() if $Elements.visible else []
+	var normal_rows = $Elements/OpensRow.get_children() if $Elements.visible else []
+	var ordered_rows := []
+	var expected_count = max(question.answer.size(), gap_rows.size() + normal_rows.size())
+	ordered_rows.resize(expected_count)
+	var overflow_rows := []
+	for gap_row in gap_rows:
+		if !is_instance_valid(gap_row):
+			continue
+		var answer_index = int(gap_row.get_meta("answer_index", gap_rows.find(gap_row)))
+		if answer_index >= 0 && answer_index < ordered_rows.size() && ordered_rows[answer_index] == null:
+			ordered_rows[answer_index] = gap_row
+		else:
+			overflow_rows.push_back(gap_row)
+	var normal_index := 0
+	for ordered_index in range(ordered_rows.size()):
+		if ordered_rows[ordered_index] != null:
+			continue
+		if normal_index < normal_rows.size():
+			ordered_rows[ordered_index] = normal_rows[normal_index]
+			normal_index += 1
+	while normal_index < normal_rows.size():
+		overflow_rows.push_back(normal_rows[normal_index])
+		normal_index += 1
+	var input_rows := []
+	for ordered_row in ordered_rows:
+		if ordered_row != null:
+			input_rows.push_back(ordered_row)
+	input_rows.append_array(overflow_rows)
+	return input_rows
+
+func _configure_row_for_formula(row: Node) -> void:
+	if row == null || !_is_formula_question():
+		return
+	if !row.has_meta("formula_enabled"):
+		row.set_meta("formula_enabled", true)
+
+func _is_formula_question() -> bool:
+	return question != null && (question.is_formula || question.attempt_type == "formula")
+
+func _make_attempt_row() -> HBoxContainer:
+	return FORMULA_ATTEMPT_ROW_SCRIPT.new() if _is_formula_question() else attempt_row_scene.instantiate()
 
 func _populate_media() -> void:
 	$Image.texture = null

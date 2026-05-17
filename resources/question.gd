@@ -2,6 +2,18 @@
 class_name Question
 extends Resource
 
+const FORMULA_EDITOR_SCRIPT := preload("res://scenes/data/DataQuestion/formula_editor.gd")
+const VARIABLE_TOKEN_OPEN := "\u2063"
+const VARIABLE_TOKEN_CLOSE := "\u2064"
+const VARIABLE_ID_MARKER := "\u2060"
+const VARIABLE_ID_ZERO := "\u200B"
+const VARIABLE_ID_ONE := "\u200C"
+const FORMULA_TOKEN_OPEN := "\u2062"
+const FORMULA_TOKEN_CLOSE := "\u2061"
+const VARIABLE_KIND_NUMBER := "number"
+const VARIABLE_KIND_WORD := "word"
+const VARIABLE_KIND_GAP := "gap"
+
 @export_category('Identifiers')
 @export var id: int
 @export var subject_id: int
@@ -33,15 +45,16 @@ extends Resource
 @export var is_label:= false
 @export var is_connect:= false
 @export var is_scheme:= false
+@export var is_formula:= false
 
 @export_category('Question Add-Ons')
 @export var is_order: bool = false
 @export var is_strict: bool = false
-@export var is_gap: bool = false
 @export var is_veracity: bool = false
 @export var is_shuffle: bool = false
 @export var shuffle_rows: bool = false
 @export var shuffle_columns: bool = false
+@export var uses_variables: bool = false
 
 @export_category('Experience')
 @export var parents: Array
@@ -63,6 +76,7 @@ extends Resource
 @export var source_question_id:= 0
 @export var attempt_index:= 0
 @export var formulated_variables := []
+@export var formulated_variable_values := {}
 @export var formulated_question:= ""
 @export var formulated_choices:= []
 @export var attempt_type: String
@@ -83,6 +97,7 @@ func get_types() -> Array:
 	if is_label: types.push_back('label')
 	if is_connect: types.push_back('connect')
 	if is_scheme: types.push_back('scheme')
+	if is_formula: types.push_back('formula')
 	return types
 
 func get_attempt_types() -> Array:
@@ -104,22 +119,20 @@ func get_parameters() -> Array:
 				if shuffle_rows: parameters.push_back(parameter)
 			"shuffle_columns":
 				if shuffle_columns: parameters.push_back(parameter)
+			"variables":
+				if uses_variables: parameters.push_back(parameter)
 			"order":
 				if is_order: parameters.push_back(parameter)
-			"gap":
-				if is_gap: parameters.push_back(parameter)
 			"veracity":
 				if is_veracity: parameters.push_back(parameter)
 	return parameters
 
 func get_allowed_parameters() -> Array:
 	var parameters := []
-	if is_open || is_label || is_choice:
+	if is_open || is_label || is_choice || is_formula:
 		parameters.push_back("order")
-	if is_open || is_table || is_scheme:
+	if is_open || is_table || is_scheme || is_formula:
 		parameters.push_back("strict")
-	if is_open:
-		parameters.push_back("gap")
 	if is_choice:
 		parameters.push_back("veracity")
 	if is_connect || is_table:
@@ -127,14 +140,16 @@ func get_allowed_parameters() -> Array:
 	if is_table:
 		parameters.push_back("shuffle_rows")
 		parameters.push_back("shuffle_columns")
+	if !get_types().is_empty():
+		parameters.push_back("variables")
 	return parameters
 
 func enforce_type_rules() -> void:
-	var isolated_types = ["connect", "table", "scheme", "label"]
+	var isolated_types = ["connect", "table", "scheme", "label", "formula"]
 	var selected_isolated := ""
-	for type in isolated_types:
-		if _has_type(type):
-			selected_isolated = type
+	for type_key in isolated_types:
+		if _has_type(type_key):
+			selected_isolated = type_key
 	if selected_isolated != "":
 		is_open = false
 		is_choice = false
@@ -142,14 +157,16 @@ func enforce_type_rules() -> void:
 		is_table = selected_isolated == "table"
 		is_scheme = selected_isolated == "scheme"
 		is_label = selected_isolated == "label"
+		is_formula = selected_isolated == "formula"
 	elif !is_open && !is_choice:
 		is_open = true
+		is_formula = false
+	else:
+		is_formula = false
 	if !get_allowed_parameters().has("order"):
 		is_order = false
 	if !get_allowed_parameters().has("strict"):
 		is_strict = false
-	if !get_allowed_parameters().has("gap"):
-		is_gap = false
 	if !get_allowed_parameters().has("veracity"):
 		is_veracity = false
 	if !get_allowed_parameters().has("shuffle"):
@@ -158,9 +175,11 @@ func enforce_type_rules() -> void:
 		shuffle_rows = false
 	if !get_allowed_parameters().has("shuffle_columns"):
 		shuffle_columns = false
+	if !get_allowed_parameters().has("variables"):
+		uses_variables = false
 
-func _has_type(type: String) -> bool:
-	match type:
+func _has_type(type_key: String) -> bool:
+	match type_key:
 		"open":
 			return is_open
 		"choice":
@@ -173,6 +192,8 @@ func _has_type(type: String) -> bool:
 			return is_connect
 		"scheme":
 			return is_scheme
+		"formula":
+			return is_formula
 	return false
 
 func get_subject() -> Subject:
@@ -264,7 +285,6 @@ func strip_for_quiz_attempt() -> void:
 			match_a = {}
 			match_b = {}
 			labels = []
-			variables = []
 			scheme_nodes = []
 			scheme_links = []
 		"table":
@@ -273,7 +293,6 @@ func strip_for_quiz_attempt() -> void:
 			match_a = {}
 			match_b = {}
 			labels = []
-			variables = []
 			scheme_nodes = []
 			scheme_links = []
 		"connect":
@@ -281,7 +300,6 @@ func strip_for_quiz_attempt() -> void:
 			choices = []
 			columns = []
 			labels = []
-			variables = []
 			scheme_nodes = []
 			scheme_links = []
 		"label":
@@ -290,7 +308,6 @@ func strip_for_quiz_attempt() -> void:
 			columns = []
 			match_a = {}
 			match_b = {}
-			variables = []
 			scheme_nodes = []
 			scheme_links = []
 		"scheme":
@@ -300,14 +317,20 @@ func strip_for_quiz_attempt() -> void:
 			match_a = {}
 			match_b = {}
 			labels = []
-			variables = []
+		"formula":
+			choices = []
+			columns = []
+			match_a = {}
+			match_b = {}
+			labels = []
+			scheme_nodes = []
+			scheme_links = []
 		_:
 			choices = []
 			columns = []
 			match_a = {}
 			match_b = {}
 			labels = []
-			variables = []
 			scheme_nodes = []
 			scheme_links = []
 
@@ -316,6 +339,7 @@ func generate_attempt(attempt_id:= 0, allowed_types:= []) -> void:
 	attempt_index = attempt_id
 	attempt = []
 	formulated_variables = []
+	formulated_variable_values = {}
 	formulated_choices = []
 	wrong_attempts = []
 	missing_answers = []
@@ -336,6 +360,7 @@ func generate_attempt(attempt_id:= 0, allowed_types:= []) -> void:
 	)
 	possible_questions.shuffle()
 	formulated_question = possible_questions[0] if !possible_questions.is_empty() else ""
+	_generate_variable_attempt()
 	match attempt_type:
 		"choice":
 			_generate_choice_attempt()
@@ -349,6 +374,9 @@ func generate_attempt(attempt_id:= 0, allowed_types:= []) -> void:
 			_generate_scheme_attempt()
 
 func get_display_question() -> String:
+	return resolve_variable_tokens(get_display_question_source(), false)
+
+func get_display_question_source() -> String:
 	if formulated_question.strip_edges() != "":
 		return formulated_question
 	return get_primary_question_text()
@@ -443,6 +471,8 @@ func get_difficulty_weight() -> float:
 			weight = 1.0
 		"open":
 			weight = 1.4
+		"formula":
+			weight = 1.6
 		"connect":
 			weight = 1.5
 		"label":
@@ -461,8 +491,8 @@ func get_difficulty_weight() -> float:
 		weight += 0.2
 	if is_strict:
 		weight += 0.15
-	if is_gap:
-		weight += 0.15
+	if uses_variables && !variables.is_empty():
+		weight += 0.2
 	return weight
 
 func sync_choices_from_answers(include_decoys:= true) -> void:
@@ -479,6 +509,280 @@ func sync_choices_from_answers(include_decoys:= true) -> void:
 			"media": answer_set.get("media", []),
 		})
 	choices.append_array(existing_decoys)
+
+static func make_variable_token(variable_key, token_label:= "") -> String:
+	var clean_label = str(token_label).strip_edges()
+	if clean_label != "":
+		clean_label = clean_label.replace(VARIABLE_TOKEN_OPEN, "").replace(VARIABLE_TOKEN_CLOSE, "")
+		clean_label = clean_label.replace(VARIABLE_ID_MARKER, "").replace(VARIABLE_ID_ZERO, "").replace(VARIABLE_ID_ONE, "")
+	else:
+		clean_label = "v" + str(variable_key)
+	var hidden_key = VARIABLE_ID_MARKER + _encode_hidden_variable_key(str(variable_key)) + VARIABLE_ID_MARKER
+	var payload = hidden_key + clean_label
+	return VARIABLE_TOKEN_OPEN + payload + VARIABLE_TOKEN_CLOSE
+
+static func make_formula_token(element_key: String) -> String:
+	return FORMULA_TOKEN_OPEN + element_key + FORMULA_TOKEN_CLOSE
+
+func get_variable_spec(variable_key) -> Dictionary:
+	var lookup_key = variable_key_from_token_payload(variable_key)
+	for variable_entry in variables:
+		if !(variable_entry is Dictionary):
+			continue
+		if str(variable_entry.get("id", "")) == lookup_key:
+			return variable_entry
+	return {}
+
+static func variable_key_from_token_payload(token_payload) -> String:
+	var payload_text = str(token_payload)
+	if payload_text.begins_with(VARIABLE_ID_MARKER):
+		var key_end = payload_text.find(VARIABLE_ID_MARKER, VARIABLE_ID_MARKER.length())
+		if key_end >= 0:
+			var encoded_key = payload_text.substr(VARIABLE_ID_MARKER.length(), key_end - VARIABLE_ID_MARKER.length())
+			var decoded_key = _decode_hidden_variable_key(encoded_key)
+			if decoded_key != "":
+				return decoded_key
+	var separator_index = payload_text.find(":")
+	if separator_index >= 0:
+		return payload_text.substr(0, separator_index)
+	return payload_text
+
+static func _encode_hidden_variable_key(variable_key: String) -> String:
+	var encoded_key := ""
+	for character_index in range(variable_key.length()):
+		var codepoint = variable_key.unicode_at(character_index)
+		for bit_index in range(15, -1, -1):
+			encoded_key += VARIABLE_ID_ONE if ((codepoint >> bit_index) & 1) == 1 else VARIABLE_ID_ZERO
+	return encoded_key
+
+static func _decode_hidden_variable_key(encoded_key: String) -> String:
+	var decoded_key := ""
+	var character_width := 16
+	for character_index in range(0, encoded_key.length(), character_width):
+		if character_index + character_width > encoded_key.length():
+			break
+		var codepoint := 0
+		for bit_index in range(character_width):
+			var bit_value = encoded_key.substr(character_index + bit_index, 1)
+			codepoint = (codepoint << 1) | (1 if bit_value == VARIABLE_ID_ONE else 0)
+		if codepoint > 0:
+			decoded_key += String.chr(codepoint)
+	return decoded_key
+
+func get_variable_display_name(variable_key) -> String:
+	var variable_spec = get_variable_spec(variable_key)
+	var label_text = str(variable_spec.get("label", "")).strip_edges()
+	if label_text != "":
+		return label_text
+	return "v" + str(variable_key)
+
+func get_variable_kind(variable_key) -> String:
+	return str(get_variable_spec(variable_key).get("kind", VARIABLE_KIND_NUMBER))
+
+func has_gap_variables_in_text(source_value: String) -> bool:
+	return !get_gap_variable_tokens(source_value).is_empty()
+
+func get_gap_variable_tokens(source_value: String) -> Array:
+	var token_results := []
+	for token_info in _get_variable_tokens(source_value):
+		if get_variable_kind(token_info.get("variable_id", "")) == VARIABLE_KIND_GAP:
+			token_results.push_back(token_info)
+	return token_results
+
+func resolve_variable_tokens(source_value, keep_gap_tokens:= false) -> String:
+	var resolved_value := ""
+	var raw_value = str(source_value)
+	var scan_index := 0
+	while scan_index < raw_value.length():
+		var open_index = raw_value.find(VARIABLE_TOKEN_OPEN, scan_index)
+		if open_index < 0:
+			resolved_value += raw_value.substr(scan_index)
+			break
+		var close_index = raw_value.find(VARIABLE_TOKEN_CLOSE, open_index + VARIABLE_TOKEN_OPEN.length())
+		if close_index < 0:
+			resolved_value += raw_value.substr(scan_index)
+			break
+		resolved_value += raw_value.substr(scan_index, open_index - scan_index)
+		var token_payload = raw_value.substr(open_index + VARIABLE_TOKEN_OPEN.length(), close_index - open_index - VARIABLE_TOKEN_OPEN.length())
+		var variable_key = variable_key_from_token_payload(token_payload)
+		var full_token = raw_value.substr(open_index, close_index - open_index + VARIABLE_TOKEN_CLOSE.length())
+		if get_variable_kind(variable_key) == VARIABLE_KIND_GAP:
+			resolved_value += full_token if keep_gap_tokens else "____"
+		else:
+			resolved_value += str(formulated_variable_values.get(str(variable_key), get_variable_display_name(variable_key)))
+		scan_index = close_index + VARIABLE_TOKEN_CLOSE.length()
+	return resolve_formula_tokens(resolved_value)
+
+func resolve_formula_tokens(source_value) -> String:
+	var resolved_value := ""
+	var raw_value = str(source_value)
+	var scan_index := 0
+	while scan_index < raw_value.length():
+		var open_index = raw_value.find(FORMULA_TOKEN_OPEN, scan_index)
+		if open_index < 0:
+			resolved_value += raw_value.substr(scan_index)
+			break
+		var close_index = raw_value.find(FORMULA_TOKEN_CLOSE, open_index + FORMULA_TOKEN_OPEN.length())
+		if close_index < 0:
+			resolved_value += raw_value.substr(scan_index)
+			break
+		resolved_value += raw_value.substr(scan_index, open_index - scan_index)
+		var element_key = raw_value.substr(open_index + FORMULA_TOKEN_OPEN.length(), close_index - open_index - FORMULA_TOKEN_OPEN.length())
+		resolved_value += _formula_display_text(element_key)
+		scan_index = close_index + FORMULA_TOKEN_CLOSE.length()
+	return resolved_value
+
+func canonicalize_formula_tokens(source_value) -> String:
+	if FORMULA_EDITOR_SCRIPT.is_formula_string(source_value):
+		return FORMULA_EDITOR_SCRIPT.source_to_canonical(source_value)
+	var canonical_value = str(source_value)
+	for element_key in ["fraction", "log", "sin", "cos", "tan"]:
+		canonical_value = canonical_value.replace(make_formula_token(element_key), _formula_display_text(element_key))
+	return canonical_value
+
+func _generate_variable_attempt() -> void:
+	if variables.is_empty():
+		_apply_variable_values_to_quiz_payload()
+		return
+	var consumed_answer_indexes := []
+	for variable_entry in variables:
+		if !(variable_entry is Dictionary):
+			continue
+		var variable_key = str(variable_entry.get("id", "")).strip_edges()
+		if variable_key == "":
+			continue
+		var variable_kind = str(variable_entry.get("kind", VARIABLE_KIND_NUMBER))
+		match variable_kind:
+			VARIABLE_KIND_NUMBER:
+				formulated_variable_values[variable_key] = str(_roll_number_variable(variable_entry))
+			VARIABLE_KIND_WORD:
+				var word_pick = _pick_word_variable_value(variable_entry, consumed_answer_indexes)
+				formulated_variable_values[variable_key] = str(word_pick.get("value", ""))
+				if word_pick.has("answer_index"):
+					consumed_answer_indexes.push_back(int(word_pick["answer_index"]))
+			VARIABLE_KIND_GAP:
+				formulated_variable_values[variable_key] = ""
+	consumed_answer_indexes.sort()
+	consumed_answer_indexes.reverse()
+	for answer_index in consumed_answer_indexes:
+		if answer_index >= 0 && answer_index < answer.size():
+			answer.remove_at(answer_index)
+	_apply_variable_values_to_quiz_payload()
+
+func _roll_number_variable(variable_spec: Dictionary) -> int:
+	var minimum_value = int(variable_spec.get("minimum", variable_spec.get("min", 0)))
+	var maximum_value = int(variable_spec.get("maximum", variable_spec.get("max", minimum_value)))
+	if maximum_value < minimum_value:
+		var swapped_value = minimum_value
+		minimum_value = maximum_value
+		maximum_value = swapped_value
+	return randi_range(minimum_value, maximum_value)
+
+func _pick_word_variable_value(variable_spec: Dictionary, consumed_answer_indexes: Array) -> Dictionary:
+	var candidate_entries := []
+	if bool(variable_spec.get("from_answers", false)):
+		for answer_index in range(answer.size()):
+			if consumed_answer_indexes.has(answer_index):
+				continue
+			var answer_entry = answer[answer_index]
+			if !(answer_entry is Dictionary):
+				continue
+			var answer_texts = Array(answer_entry.get("texts", []))
+			if answer_texts.is_empty():
+				continue
+			answer_texts.shuffle()
+			candidate_entries.push_back({
+				"value": str(answer_texts[0]),
+				"answer_index": answer_index,
+			})
+	else:
+		for word_text in _word_variable_candidates(variable_spec.get("words", [])):
+			candidate_entries.push_back({"value": word_text})
+	if candidate_entries.is_empty():
+		return {"value": ""}
+	candidate_entries.shuffle()
+	var picked_entry = candidate_entries[0]
+	if bool(variable_spec.get("consume_answer", false)) && picked_entry.has("answer_index"):
+		return picked_entry
+	return {"value": str(picked_entry.get("value", ""))}
+
+func _word_variable_candidates(source_value) -> Array:
+	var candidate_words := []
+	var raw_candidates = Array(source_value) if source_value is Array else str(source_value).split("\n", false)
+	for raw_candidate in raw_candidates:
+		var comma_parts = str(raw_candidate).split(",", false)
+		for comma_part in comma_parts:
+			var word_text = str(comma_part).strip_edges()
+			if word_text != "":
+				candidate_words.push_back(word_text)
+	return candidate_words
+
+func _apply_variable_values_to_quiz_payload() -> void:
+	answer = _resolve_tokens_in_value(answer)
+	choices = _resolve_tokens_in_value(choices)
+	columns = _resolve_tokens_in_value(columns)
+	match_a = _resolve_tokens_in_value(match_a)
+	match_b = _resolve_tokens_in_value(match_b)
+	labels = _resolve_tokens_in_value(labels)
+	scheme_nodes = _resolve_tokens_in_value(scheme_nodes)
+	scheme_links = _resolve_tokens_in_value(scheme_links)
+
+func _resolve_tokens_in_value(payload_value):
+	if payload_value is String:
+		if FORMULA_EDITOR_SCRIPT.is_formula_string(payload_value):
+			return FORMULA_EDITOR_SCRIPT.serialize_formula_elements(_resolve_tokens_in_value(FORMULA_EDITOR_SCRIPT.parse_formula_elements(payload_value)))
+		return resolve_variable_tokens(payload_value, false)
+	if payload_value is PackedStringArray:
+		var resolved_strings := PackedStringArray()
+		for packed_value in payload_value:
+			resolved_strings.push_back(resolve_variable_tokens(str(packed_value), false))
+		return resolved_strings
+	if payload_value is Array:
+		var resolved_array := []
+		for array_value in payload_value:
+			resolved_array.push_back(_resolve_tokens_in_value(array_value))
+		return resolved_array
+	if payload_value is Dictionary:
+		var resolved_dictionary := {}
+		for dictionary_key in payload_value.keys():
+			resolved_dictionary[dictionary_key] = _resolve_tokens_in_value(payload_value[dictionary_key])
+		return resolved_dictionary
+	return payload_value
+
+func _get_variable_tokens(source_value: String) -> Array:
+	var token_results := []
+	var scan_index := 0
+	while scan_index < source_value.length():
+		var open_index = source_value.find(VARIABLE_TOKEN_OPEN, scan_index)
+		if open_index < 0:
+			break
+		var close_index = source_value.find(VARIABLE_TOKEN_CLOSE, open_index + VARIABLE_TOKEN_OPEN.length())
+		if close_index < 0:
+			break
+		var token_payload = source_value.substr(open_index + VARIABLE_TOKEN_OPEN.length(), close_index - open_index - VARIABLE_TOKEN_OPEN.length())
+		var variable_key = variable_key_from_token_payload(token_payload)
+		token_results.push_back({
+			"variable_id": variable_key,
+			"start": open_index,
+			"end": close_index + VARIABLE_TOKEN_CLOSE.length(),
+			"token": source_value.substr(open_index, close_index - open_index + VARIABLE_TOKEN_CLOSE.length()),
+		})
+		scan_index = close_index + VARIABLE_TOKEN_CLOSE.length()
+	return token_results
+
+func _formula_display_text(element_key: String) -> String:
+	match element_key:
+		"fraction":
+			return "frac"
+		"log":
+			return "log"
+		"sin":
+			return "sin"
+		"cos":
+			return "cos"
+		"tan":
+			return "tan"
+	return element_key
 
 func _generate_choice_attempt() -> void:
 	for choice in _get_choice_entries():
@@ -907,10 +1211,11 @@ func _is_lenient() -> bool:
 	return Main.data.lenient
 
 func _normalize_string(value: String) -> String:
+	var prepared_value = FORMULA_EDITOR_SCRIPT.source_to_canonical(_resolve_tokens_in_value(value)) if FORMULA_EDITOR_SCRIPT.is_formula_string(value) else canonicalize_formula_tokens(resolve_variable_tokens(value, false))
 	if Engine.is_editor_hint():
-		var normalized = value.strip_edges()
+		var normalized = prepared_value.strip_edges()
 		return normalized if is_strict else normalized.to_lower()
-	return Main.data.normalize_answer_text(value, subject_id, is_strict)
+	return Main.data.normalize_answer_text(prepared_value, subject_id, is_strict)
 
 # ==============================================================================
 # LEVELING
