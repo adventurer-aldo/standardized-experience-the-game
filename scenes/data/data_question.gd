@@ -623,18 +623,27 @@ func _refresh_variable_token_overlay_for(text_edit: TextEdit) -> void:
 		child.queue_free()
 	var can_place_inline = text_edit.has_method("get_pos_at_line_column")
 	for token_data in tokens:
+		var highlight_panel = Panel.new()
+		highlight_panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		highlight_panel.add_theme_stylebox_override("panel", _make_variable_chip_style())
 		var button = Button.new()
-		button.text = str(token_data.get("label", "var"))
+		button.text = ""
 		button.tooltip_text = "Edit variable"
 		button.focus_mode = Control.FOCUS_NONE
-		var chip_style = _make_variable_chip_style()
-		button.add_theme_stylebox_override("normal", chip_style)
-		button.add_theme_stylebox_override("hover", chip_style)
+		button.flat = true
+		var transparent_style = StyleBoxEmpty.new()
+		button.add_theme_stylebox_override("normal", transparent_style)
+		button.add_theme_stylebox_override("hover", transparent_style)
+		button.add_theme_stylebox_override("pressed", transparent_style)
 		button.pressed.connect(_on_variable_chip_pressed.bind(int(token_data.get("id", 0))))
 		if can_place_inline:
-			_place_inline_variable_chip(text_edit, button, token_data)
+			_place_inline_variable_chip(text_edit, highlight_panel, token_data)
 		else:
-			_place_fallback_variable_chip(button, token_data)
+			_place_fallback_variable_chip(highlight_panel, token_data)
+		button.position = highlight_panel.position
+		button.size = highlight_panel.size
+		button.custom_minimum_size = button.size
+		overlay.add_child(highlight_panel)
 		overlay.add_child(button)
 		var delete_button = Button.new()
 		delete_button.text = "x"
@@ -644,7 +653,7 @@ func _refresh_variable_token_overlay_for(text_edit: TextEdit) -> void:
 		delete_button.add_theme_stylebox_override("normal", delete_style)
 		delete_button.add_theme_stylebox_override("hover", delete_style)
 		delete_button.add_theme_font_size_override("font_size", 10)
-		delete_button.position = button.position + Vector2(max(0.0, button.size.x - 13.0), -7.0)
+		delete_button.position = highlight_panel.position + Vector2(max(0.0, highlight_panel.size.x - 13.0), -7.0)
 		delete_button.size = Vector2(18.0, 18.0)
 		delete_button.custom_minimum_size = delete_button.size
 		delete_button.pressed.connect(_delete_variable_token_range.bind(text_edit, int(token_data.get("start", 0)), int(token_data.get("end", 0))))
@@ -678,28 +687,42 @@ func _make_variable_delete_style() -> StyleBoxFlat:
 	delete_style.corner_radius_bottom_left = 9
 	return delete_style
 
-func _place_inline_variable_chip(text_edit: TextEdit, button: Button, token_data: Dictionary) -> void:
+func _place_inline_variable_chip(text_edit: TextEdit, target_control: Control, token_data: Dictionary) -> void:
 	var start_location = _line_column_for_absolute(text_edit.text, int(token_data.get("start", 0)))
 	var end_location = _line_column_for_absolute(text_edit.text, int(token_data.get("end", 0)))
 	var start_point = text_edit.call("get_pos_at_line_column", int(start_location.get("line", 0)), int(start_location.get("column", 0)))
 	var end_point = text_edit.call("get_pos_at_line_column", int(end_location.get("line", 0)), int(end_location.get("column", 0)))
 	if !(start_point is Vector2) && !(start_point is Vector2i):
-		_place_fallback_variable_chip(button, token_data)
+		_place_fallback_variable_chip(target_control, token_data)
 		return
 	if !(end_point is Vector2) && !(end_point is Vector2i):
-		_place_fallback_variable_chip(button, token_data)
+		_place_fallback_variable_chip(target_control, token_data)
 		return
-	var chip_origin = Vector2(start_point) + Vector2(0, -1)
-	var chip_width = max(42.0, Vector2(end_point).x - Vector2(start_point).x + 8.0)
-	button.position = chip_origin
-	button.size = Vector2(chip_width, 24.0)
-	button.custom_minimum_size = button.size
+	var start_vector = Vector2(start_point)
+	var end_vector = Vector2(end_point)
+	if start_vector.x < 0.0 || start_vector.y < 0.0 || end_vector.x < 0.0 || end_vector.y < 0.0:
+		_place_fallback_variable_chip(target_control, token_data)
+		return
+	var line_height = _text_edit_line_height(text_edit)
+	var chip_origin = start_vector + Vector2(-2.0, -line_height + 3.0)
+	var chip_width = max(42.0, end_vector.x - start_vector.x + 6.0)
+	target_control.position = chip_origin
+	target_control.size = Vector2(chip_width, max(18.0, line_height - 3.0))
+	target_control.custom_minimum_size = target_control.size
 
-func _place_fallback_variable_chip(button: Button, token_data: Dictionary) -> void:
+func _place_fallback_variable_chip(target_control: Control, token_data: Dictionary) -> void:
 	var chip_index = int(token_data.get("index", 0))
-	button.position = Vector2(8 + chip_index * 72, 4)
-	button.size = Vector2(68, 24)
-	button.custom_minimum_size = button.size
+	target_control.position = Vector2(8 + chip_index * 72, 4)
+	target_control.size = Vector2(68, 24)
+	target_control.custom_minimum_size = target_control.size
+
+func _text_edit_line_height(text_edit: TextEdit) -> float:
+	if text_edit.has_method("get_line_height"):
+		var raw_line_height = text_edit.call("get_line_height")
+		if raw_line_height is int || raw_line_height is float:
+			return max(18.0, float(raw_line_height))
+	var theme_font_size = text_edit.get_theme_font_size("font_size")
+	return max(18.0, float(theme_font_size) + 6.0)
 
 func _delete_variable_token_range(text_edit: TextEdit, start_index: int, end_index: int) -> void:
 	if text_edit == null || !is_instance_valid(text_edit):
