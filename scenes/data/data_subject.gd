@@ -38,5 +38,4 @@ func calm_bgm() -> void:
 	$MightTransitions.play("calm")
 
 func _on_create_subject_pressed() -> void:
-	$MightTransitions.play("might")
 	$Slides.play("slide_out")

@@ -19,7 +19,9 @@ func _on_add_row_pressed() -> void:
 	for column in $Writable/Table/Base/Rows.get_children():
 		column.add_child(cell_scene.instantiate())
 	for column in $Editable/Table/Base/Rows.get_children():
-		column.add_child(button_scene.instantiate())
+		var new_button_cell = button_scene.instantiate()
+		column.add_child(new_button_cell)
+		new_button_cell.pressed_cell.connect(flip_openness)
 
 func _on_delete_row_pressed() -> void:
 	if $Writable/Table/Base/Rows.get_child(0).get_child_count() > 1:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://cpwekjf6gc83c"]
+[gd_scene format=3 uid="uid://cpwekjf6gc83c"]
 
 [ext_resource type="Script" uid="uid://c06qr8xmf27r2" path="res://scenes/autoload.gd" id="1_jjwjd"]
 
@@ -118,8 +118,17 @@ color = Color(1, 0.713726, 0, 1)
 
 [node name="WipeAnim" type="AnimationPlayer" parent="." unique_id=1128509360]
 root_node = NodePath("../LoadingWipe")
-libraries = {
-&"": SubResource("AnimationLibrary_85g3d")
-}
+libraries/ = SubResource("AnimationLibrary_85g3d")
+
+[node name="HTTPRequest" type="HTTPRequest" parent="." unique_id=158802892]
+use_threads = true
+
+[node name="SubjectHTTP" type="HTTPRequest" parent="." unique_id=2102158641]
+use_threads = true
+
+[node name="QuestionHTTP" type="HTTPRequest" parent="." unique_id=832556979]
+use_threads = true
 
 [connection signal="update_finished" from="." to="." method="_on_update_finished"]
+[connection signal="request_completed" from="HTTPRequest" to="." method="_on_http_request_request_completed"]
+[connection signal="request_completed" from="QuestionHTTP" to="." method="_on_question_http_request_completed"]

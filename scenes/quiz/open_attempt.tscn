@@ -22,13 +22,14 @@ corner_radius_bottom_left = 5
 font = ExtResource("5_vmxha")
 font_color = Color(0, 0, 0, 1)
 
-[sub_resource type="InputEventKey" id="InputEventKey_lysjw"]
+[sub_resource type="InputEventKey" id="InputEventKey_vmxha"]
 device = -1
 alt_pressed = true
-keycode = 43
+keycode = 61
+unicode = 61
 
 [sub_resource type="Shortcut" id="Shortcut_qbo3c"]
-events = [SubResource("InputEventKey_lysjw")]
+events = [SubResource("InputEventKey_vmxha")]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lysjw"]
 bg_color = Color(0.75046504, 0.73709995, 0.81, 1)

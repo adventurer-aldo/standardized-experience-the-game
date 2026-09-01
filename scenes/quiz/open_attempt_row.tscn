@@ -23,13 +23,11 @@ expand_margin_right = 10.0
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
 
-[sub_resource type="InputEventKey" id="InputEventKey_v00ik"]
-device = -1
-alt_pressed = true
-keycode = 45
+[sub_resource type="InputEventKey" id="InputEventKey_j0u2j"]
+keycode = 4194308
 
 [sub_resource type="Shortcut" id="Shortcut_ob4sp"]
-events = [SubResource("InputEventKey_v00ik")]
+events = [SubResource("InputEventKey_j0u2j")]
 
 [node name="Attempt" type="HBoxContainer" unique_id=566250399]
 offset_right = 40.0

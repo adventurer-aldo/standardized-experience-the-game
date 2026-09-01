@@ -1,5 +1,7 @@
 [gd_scene format=3 uid="uid://dtcoyvpr14rxx"]
 
+[ext_resource type="Script" uid="uid://cx7qoanis4fdp" path="res://scenes/welcome.gd" id="1_uety2"]
+
 [node name="Welcome" type="ColorRect" unique_id=850365412]
 anchors_preset = 15
 anchor_right = 1.0
@@ -7,3 +9,61 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
+script = ExtResource("1_uety2")
+
+[node name="HTTPRequest" type="HTTPRequest" parent="." unique_id=1060203520]
+
+[node name="Label" type="Label" parent="." unique_id=1364376764]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -10.5
+offset_right = 20.0
+offset_bottom = 10.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 155
+text = "0"
+
+[node name="Button" type="Panel" parent="." unique_id=1069203113]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -53.0
+offset_top = 174.0
+offset_right = 53.0
+offset_bottom = 202.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Button" unique_id=84963841]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Success"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PingRequest" type="HTTPRequest" parent="." unique_id=1531556776]
+timeout = 5.0
+
+[node name="SubjectRequest" type="HTTPRequest" parent="." unique_id=910853005]
+
+[node name="QuestionRequest" type="HTTPRequest" parent="." unique_id=1533270349]
+
+[connection signal="request_completed" from="HTTPRequest" to="." method="_on_http_request_request_completed"]
+[connection signal="request_completed" from="PingRequest" to="." method="_on_ping_request_request_completed"]
+[connection signal="request_completed" from="SubjectRequest" to="." method="_on_subject_request_request_completed"]
+[connection signal="request_completed" from="QuestionRequest" to="." method="_on_question_request_request_completed"]

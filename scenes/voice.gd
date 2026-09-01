@@ -9,11 +9,11 @@ func random_play(filename: String, delay:= 0.0) -> void:
 	# The line below removes the files that contain ".import" so that .import
 	# files are not included in the list, and only valid audio files
 	# (supposedly) are accounted for.
-	files = files.filter(func (file_name: String): return !file_name.contains('.import'))
+	files = files.filter(func (file_name: String): return file_name.contains('.ogg.import'))
 	
 	# Randomizes so that it isn't the same audio file being played every time.
 	randomize()
-	stream = load(dir + files[randi() % files.size()])
+	stream = load(dir + files[randi() % files.size()].replace(".import",""))
 	if delay > 0.0: await get_tree().create_timer(delay).timeout
 	play()
 

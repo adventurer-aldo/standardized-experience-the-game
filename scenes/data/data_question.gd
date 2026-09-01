@@ -74,7 +74,8 @@ func add_question_to_container(saved_question: Question) -> void:
 		question_to_add.id = saved_question.id
 	question_to_add.set_text(saved_question.question[0])
 	question_to_add.set_level(saved_question.experience_level)
-	container_node.add_child(question_to_add)
+	if question_to_add.get_parent() == null:
+		container_node.add_child(question_to_add)
 	container_node.move_child(question_to_add, 0)
 	$SubjectBar/AmountBar/Amount.text = str(container_node.get_child_count()).lpad(2, '0')
 

@@ -130,10 +130,13 @@ color = Color(0, 0, 0, 1)
 script = ExtResource("1_pff0n")
 
 [node name="HBoxC" type="HBoxContainer" parent="." unique_id=1724004769]
-layout_mode = 0
-offset_left = 1130.0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.99500006
+anchor_right = 0.99500006
+offset_left = -143.6001
 offset_top = 3.0
-offset_right = 1273.0
+offset_right = -0.60009766
 offset_bottom = 25.0
 
 [node name="TimeLabel" type="Label" parent="HBoxC" unique_id=952943647]

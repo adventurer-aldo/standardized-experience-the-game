@@ -7,6 +7,7 @@ extends Resource
 @export var last_name:= ""
 @export var timezone: Timezone.Zone = Timezone.Zone.UTC
 @export var birthday:= 0.0
+@export var last_sync_time:= 0
 @export_category("IDs")
 @export var last_journey_id:= 0
 @export var last_subject_id := 0

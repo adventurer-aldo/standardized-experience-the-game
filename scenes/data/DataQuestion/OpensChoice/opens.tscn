@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://bdgmtw2gpw4ag"]
+[gd_scene format=3 uid="uid://bdgmtw2gpw4ag"]
 
 [ext_resource type="Script" uid="uid://cucom1fvn0dtj" path="res://scenes/data/DataQuestion/OpensChoice/opens.gd" id="1_sjol5"]
 [ext_resource type="PackedScene" uid="uid://bcuq3veu0kx2k" path="res://scenes/data/DataQuestion/OpensChoice/opens_row.tscn" id="2_sjol5"]
@@ -17,8 +17,14 @@ device = -1
 ctrl_pressed = true
 keycode = 43
 
+[sub_resource type="InputEventKey" id="InputEventKey_5qul3"]
+device = -1
+ctrl_pressed = true
+keycode = 61
+unicode = 61
+
 [sub_resource type="Shortcut" id="Shortcut_sif78"]
-events = [SubResource("InputEventKey_6sn6f")]
+events = [SubResource("InputEventKey_6sn6f"), SubResource("InputEventKey_5qul3")]
 
 [node name="Opens" type="HBoxContainer" unique_id=163235051]
 theme_override_constants/separation = 0
@@ -37,5 +43,7 @@ shortcut_context = NodePath("..")
 theme_override_styles/normal = SubResource("StyleBoxFlat_sjol5")
 shortcut = SubResource("Shortcut_sif78")
 text = "+"
+
+[node name="HTTPRequest" type="HTTPRequest" parent="." unique_id=1903533818]
 
 [connection signal="pressed" from="AddAnswer" to="." method="_on_add_answer_pressed"]

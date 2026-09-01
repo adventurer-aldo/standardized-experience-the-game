@@ -6,9 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://ejk8mymsv7ff" path="res://graphics/mainpattern.png" id="2_ylpgf"]
 [ext_resource type="Texture2D" uid="uid://db7qe8840obw7" path="res://graphics/grad.png" id="3_buabq"]
 [ext_resource type="PackedScene" uid="uid://bg238dkkbuae" path="res://scenes/data/back_buton.tscn" id="3_y345i"]
-[ext_resource type="FontFile" uid="uid://cll00c3mbr5pe" path="res://fonts/DMSans.ttf" id="4_0pdix"]
 [ext_resource type="FontFile" uid="uid://b5hv4vumrlxlb" path="res://fonts/ContinuumMedium.ttf" id="4_hiay8"]
-[ext_resource type="Script" path="res://addons/SmoothScroll/smooth_scroll_container.gd" id="4_y345i"]
+[ext_resource type="Script" uid="uid://bgqglerkcylxx" path="res://addons/SmoothScroll/smooth_scroll_container.gd" id="4_y345i"]
 [ext_resource type="Script" uid="uid://b7h0k2h2qwlqv" path="res://addons/SmoothScroll/scroll_damper/expo_scroll_damper.gd" id="5_ob4f8"]
 [ext_resource type="Texture2D" uid="uid://dgsrudcioj334" path="res://graphics/icons/books-medical.svg" id="5_y345i"]
 [ext_resource type="PackedScene" uid="uid://cem6uvu73l4bp" path="res://scenes/data/DataSubject/new_subject.tscn" id="7_ob4f8"]
@@ -57,12 +56,6 @@ corner_radius_bottom_left = 20
 [sub_resource type="LabelSettings" id="LabelSettings_wphfj"]
 font = ExtResource("10_4k6aa")
 outline_color = Color(0.19607843, 0.1882353, 0.23137255, 1)
-
-[sub_resource type="LabelSettings" id="LabelSettings_hiay8"]
-font_size = 24
-font_color = Color(0.2, 0.2, 0.2, 1)
-outline_size = 2
-outline_color = Color(0.2, 0.2, 0.2, 1)
 
 [sub_resource type="Animation" id="Animation_ob4f8"]
 length = 0.001
@@ -145,33 +138,6 @@ stretch_mode = 1
 [node name="BackButon" parent="." unique_id=791702814 instance=ExtResource("3_y345i")]
 layout_mode = 1
 
-[node name="DataSubject" type="VBoxContainer" parent="." unique_id=616288865]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = 67.0
-offset_bottom = -537.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Elements" type="VBoxContainer" parent="DataSubject" unique_id=407280567]
-layout_mode = 2
-
-[node name="TitleLine" type="LineEdit" parent="DataSubject/Elements" unique_id=1293323938]
-layout_mode = 2
-placeholder_text = "Title"
-
-[node name="DescriptionText" type="TextEdit" parent="DataSubject/Elements" unique_id=1330644743]
-custom_minimum_size = Vector2(0, 50)
-layout_mode = 2
-placeholder_text = "Description"
-
-[node name="CreateButton" type="Button" parent="DataSubject/Elements" unique_id=897002850]
-layout_mode = 2
-text = "Create"
-
 [node name="SubjectsBanner" type="Panel" parent="." unique_id=983001645]
 layout_mode = 1
 anchors_preset = 10
@@ -242,30 +208,6 @@ text = "Create Subject"
 label_settings = SubResource("LabelSettings_wphfj")
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="ColorRect2" type="ColorRect" parent="." unique_id=817042018]
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -44.0
-grow_horizontal = 2
-grow_vertical = 0
-
-[node name="Title" type="Label" parent="ColorRect2" unique_id=631228193]
-custom_minimum_size = Vector2(1, 1)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 3
-theme_override_fonts/font = ExtResource("4_0pdix")
-text = "A - Delete, B - Edit, C - Eligible"
-label_settings = SubResource("LabelSettings_hiay8")
-autowrap_mode = 1
 
 [node name="User" parent="." unique_id=579549992 instance=ExtResource("14_y345i")]
 layout_mode = 1
@@ -371,7 +313,6 @@ columns = 2
 script = ExtResource("2_k41un")
 subject_packed_scene = ExtResource("2_8o7ef")
 
-[connection signal="pressed" from="DataSubject/Elements/CreateButton" to="." method="_on_create_button_pressed"]
 [connection signal="pressed" from="CreateSubject" to="." method="_on_create_subject_pressed"]
 [connection signal="text_changed" from="Interface/Search/Elements/SearchBar" to="." method="_on_search_bar_text_changed"]
 [connection signal="subject_was_focused" from="Interface/GradientMask/SubjectsScroll/SubjectsContainer" to="." method="_on_subjects_container_subject_was_focused"]

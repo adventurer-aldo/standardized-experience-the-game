@@ -19,12 +19,14 @@ func _input(event: InputEvent) -> void:
 	
 func _ready() -> void:
 	var subject = Main.data.get_subject(subject_id)
+	#subject.update_experience()
 	set_title(subject.title)
 	set_description(subject.description)
-	set_level(subject.level)
 	var amount_of_questions = subject.size()
+	set_level((subject.experience / (amount_of_questions * 15)) * 15)
 	set_questions_size(amount_of_questions)
-	set_progress(amount_of_questions * subject.level, subject.experience)
+	var int_level = int((subject.experience / (amount_of_questions * 15)) * 15) + 1
+	set_progress(amount_of_questions * int_level, subject.experience)
 	set_bookmark(subject.is_journey_eligible)
 
 func set_bookmark(to: bool) -> void:
@@ -37,7 +39,7 @@ func set_description(to: String) -> void:
 	$M/Elements/MTitle/VBox/Description.text = to
 
 func set_level(to: int) -> void:
-	$M/Elements/Quick/Level.text = "Lv. " + str(to)
+	$M/Elements/Quick/Level.text = "Lv. " + str(clamp(to, 0, 15))
 
 func set_questions_size(to: int) -> void:
 	var res:= str(to) + " Question"
@@ -45,6 +47,8 @@ func set_questions_size(to: int) -> void:
 	$M/Elements/MTitle/VBox/Details/Questions.text = res
 
 func set_progress(maximum: int, value: int):
+	if maximum < 1: 
+		maximum += 1
 	$M/Elements/MTitle/VBox/Details/Outline/Experience.max_value = maximum
 	$M/Elements/MTitle/VBox/Details/Outline/Experience.value = value
 

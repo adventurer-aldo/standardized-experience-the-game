@@ -110,8 +110,14 @@ device = -1
 alt_pressed = true
 keycode = 43
 
+[sub_resource type="InputEventKey" id="InputEventKey_irox0"]
+device = -1
+alt_pressed = true
+keycode = 61
+unicode = 61
+
 [sub_resource type="Shortcut" id="Shortcut_eed2l"]
-events = [SubResource("InputEventKey_lyehf")]
+events = [SubResource("InputEventKey_lyehf"), SubResource("InputEventKey_irox0")]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vs3r5"]
 bg_color = Color(0, 0.5241666, 0.85, 1)

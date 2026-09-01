@@ -9,7 +9,8 @@ func fetch() -> String:
 	return $TextsMargin/Text.text
 
 func _on_delete_button_pressed() -> void:
-	queue_free()
+	if $TextsMargin/Text.text == "":
+		queue_free()
 
 func set_text(to: String) -> void:
 	$TextsMargin/Text.text = to

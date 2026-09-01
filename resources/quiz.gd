@@ -72,6 +72,13 @@ func get_questions() -> Array[Question]:
 	)
 	return res
 
+func post_questions() -> void:
+	var subject = get_subject()
+	var questions = get_questions().map(func (question: Question): 
+		return subject.get_question(question.id).get_dictionary()
+	)
+	Main.post_questions(questions)
+
 func has_rush_questions() -> bool:
 	var rush_questions = get_questions().filter(func (question: Question):
 		return question.is_rush
@@ -112,7 +119,10 @@ func get_rush_questions() -> Array[Question]:
 	)
 	randomize()
 	questions.shuffle()
-	return questions.slice(0, 4)
+	var chosen_ambush_questions = questions.slice(0, 4)
+	for question: Question in chosen_ambush_questions:
+		question.finish_level_up()
+	return chosen_ambush_questions
 
 func size() -> int:
 	return DirAccess.get_files_at("user://quizzes/" + str(id).lpad(10, "0")).size()

@@ -24,7 +24,7 @@ func process_leveling(time:= Time.get_unix_time_from_system()) -> bool:
 		var question = get_question()
 		question.is_level_up_queued = false
 		question.last_time_leveled = Time.get_unix_time_from_system()
-		question.save()
+		question.save(false)
 		erase()
 		return true
 	else:

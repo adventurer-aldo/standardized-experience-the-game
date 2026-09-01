@@ -76,6 +76,20 @@ func might_increase(value: int) -> void:
 		
 
 func redo() -> void:
+	var osts = [["res://audio/tracks/corneria_test2.ogg", "res://audio/tracks/corneria_test2_might.ogg"]]
+	[["res://audio/tracks/destruction_test.ogg","res://audio/tracks/destruction_test_might.ogg"],
+	["res://audio/tracks/destruction_test2.ogg","res://audio/tracks/destruction_test2_might.ogg"]]
+	[
+		["res://audio/tracks/royal1.ogg", "res://audio/tracks/royal1_might.ogg"],
+		["res://audio/tracks/royal2.ogg","res://audio/tracks/royal2_might.ogg"],
+		["res://audio/tracks/dread.ogg","res://audio/tracks/dread_might.ogg"],
+		["res://audio/tracks/Listen to the Cries of the Planet.ogg", "res://audio/tracks/Listen to the Cries of the Planet_might.ogg"],
+		["res://audio/tracks/battle1_0_calm.ogg", "res://audio/tracks/battle1_0_might.ogg"],
+		["res://audio/tracks/awakening_exam.ogg", "res://audio/tracks/awakening_exam_might.ogg"],
+		["res://audio/tracks/test_rivers.ogg","res://audio/tracks/test_rivers_might.ogg"]
+	]
+	randomize()
+	osts.shuffle()
 	var timezone_offset = Main.data.get_timezone_offset_seconds()
 	var start_time = Time.get_datetime_dict_from_unix_time(quiz.start_time + timezone_offset)
 	var end_time = Time.get_datetime_dict_from_unix_time(quiz.end_time + timezone_offset)
@@ -89,10 +103,10 @@ func redo() -> void:
 	for child in $ScrollC/Elements/Attempts.get_children():
 		child.queue_free()
 	add_questions()
-	$BGM.stream = battle_ost
-	$MightBGM.stream = might_ost
+	$BGM.stream = load(osts[0][0])#battle_ost
+	$MightBGM.stream = load(osts[0][1])#might_ost
 	var bgm_starting_point:= 0.0
-	if streak > 1:
+	if streak > 1 && false:
 		bgm_starting_point += randf_range(0.1, 5.0)
 	$BGM.play(bgm_starting_point)
 	$MightBGM.play(bgm_starting_point)
@@ -113,7 +127,7 @@ func make_new_quiz():
 	quiz = Quiz.new()
 	quiz.subject_id = prev_subject_id
 	quiz.id = Main.data.next_quiz_id()
-	quiz.level = 2
+	quiz.level = 1
 	quiz.create()
 	quiz.generate()
 	randomize()
@@ -142,6 +156,8 @@ func _on_button_pressed() -> void:
 	for child in $ScrollC/Elements/Attempts.get_children():
 		var truth = child.solve()
 		if truth: grade += 20.0 / amount_of_questions
+	quiz.post_questions()
+	Main.sync()
 	$Grade.text = str(grade).replace('.', ',').substr(0, 4)
 	$BGM.stream = load("res://audio/tracks/score_{rank}.ogg".format({"rank": rank_grade(grade)}))
 	$BGM.play()

@@ -12,7 +12,7 @@ func _on_add_alt_pressed() -> void:
 	var new_alt = alt_scene.instantiate()
 	if is_decoy: new_alt.to_decoy()
 	$Answer/Alts.add_child(new_alt)
-	new_alt.get_focus()
+	new_alt.call_deferred("get_focus")
 
 func _on_delete_answer_pressed() -> void:
 	delete_pressed.emit(get_index())
@@ -57,7 +57,7 @@ func hide_order() -> void:
 	$Answer/Set/Text/Order.hide()
 
 func get_focus() -> void:
-	$Answer/Set/Text.grab_focus()
+	$Answer/Set/Text.call_deferred("grab_focus")
 
 func reset(full:= false) -> void:
 	$Answer/Set/Text.text = ""

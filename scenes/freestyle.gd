@@ -4,7 +4,11 @@ extends Control
 
 func _ready() -> void:
 	Main.wipe_out()
-	Main.data.get_subjects().map(func (subject):
+	var subjects = Main.data.get_subjects()
+	subjects.sort_custom(func (subject_a: Subject, subject_b:Subject):
+		return subject_a.last_time_saved > subject_b.last_time_saved
+	)
+	subjects.map(func (subject):
 		var subj = subject_scene.instantiate()
 		subj.subject_id = subject.id
 		subj.focused.connect(change_subject_text)

@@ -20,7 +20,7 @@ extends Resource
 @export var match_a: Dictionary
 @export var match_b: Dictionary
 @export var labels: Array
-@export var variables: Array
+@export var variables:= []
 
 @export var level: int = 1
 
@@ -94,20 +94,76 @@ func get_file_path() -> String:
 	var id_filename = str(id).lpad(10, '0') + '.tres'
 	return "user://subjects/" + subject_id_dir + id_filename
 
+func get_dictionary() -> Dictionary:
+	var res: Dictionary
+	var elements: PackedStringArray = [
+	"question", "answer", "last_time_edited", "last_time_leveled",
+	"subject_id", "created_at", "tags", "choices", "columns", "match_a",
+	"match_b", "labels", "variables", "parents", "level", "experience_level",
+	"is_level_up_queued", "appearances", "hits", "hit_streak", "misses",
+	"miss_streak", "is_open", "is_choice", "is_table", "is_label", "is_connect",
+	"is_order", "is_strict", "is_gap", "is_veracity", "is_shuffle"
+	]
+	for element in elements:
+		res[element] = get(element)
+	res["local_id"] = id
+	return res
+
+func absorb_dictionary(dict: Dictionary) -> void:
+	id = dict["local_id"]
+	question = JSON.parse_string(dict["question"])
+	answer = JSON.parse_string(dict["answer"])
+	last_time_edited = dict["last_time_edited"]
+	last_time_leveled = dict["last_time_leveled"]
+	subject_id = dict["subject_id"]
+	created_at = dict["created_at"]
+	tags = JSON.parse_string(dict["tags"])
+	choices = JSON.parse_string(dict["choices"])
+	columns = JSON.parse_string(dict["columns"])
+	match_a = JSON.parse_string(dict["match_a"])
+	match_b = JSON.parse_string(dict["match_b"])
+	labels = JSON.parse_string(dict["labels"])
+	# variables = JSON.parse_string(dict["variables"])
+	parents = JSON.parse_string(dict["parents"])
+	level = dict["level"]
+	experience_level = dict["experience_level"]
+	hits = dict["hits"]
+	misses = dict["misses"]
+	hit_streak = dict["hit_streak"]
+	miss_streak = dict["miss_streak"]
+	appearances = dict["appearances"]
+	is_level_up_queued = dict["is_level_up_queued"]
+	is_open = dict["is_open"]
+	is_choice = dict["is_choice"]
+	is_table = dict["is_table"]
+	is_label = dict["is_label"]
+	is_connect = dict["is_connect"]
+	is_order = dict["is_order"]
+	is_strict = dict["is_strict"]
+	is_gap = dict["is_gap"]
+	is_veracity = dict["is_veracity"]
+	is_shuffle = dict["is_shuffle"]
+
 func create() -> void:
 	id = get_subject().next_question_id(true)
 	save()
 
-func erase() -> void:
+func erase(post:= true) -> void:
 	DirAccess.remove_absolute(get_file_path())
+	if post:
+		Main.question_http.request("https://standardized-experience-cloud.adventureraldo.workers.dev/api/question/", ["Content-Type: application/json"], HTTPClient.METHOD_DELETE,
+		JSON.stringify({"subject_id": subject_id, "local_id": id}))
 
-func save() -> void:
+func save(post:= true) -> void:
 	ResourceSaver.save(self, get_file_path(), ResourceSaver.FLAG_COMPRESS)
+	if post:
+		Main.question_http.request("https://standardized-experience-cloud.adventureraldo.workers.dev/api/question/", ["Content-type: application/json"], HTTPClient.METHOD_POST,
+			JSON.stringify([get_dictionary()]))
 
 func save_to_quiz(quiz_id: int, attempt_id:= id):
 	appearances += 1
 	attempt_index = attempt_id
-	save()
+	save(false)
 	
 	var quiz_id_dir = str(quiz_id).lpad(10, '0') + '/'
 	var id_filename = str(DirAccess.get_files_at("user://quizzes/" + quiz_id_dir).size()).lpad(10, '0') + '.tres'
@@ -125,10 +181,10 @@ func hit(is_in_journey:= false) -> void:
 		experience_level = clampi(next_level, 1, 15)
 		queue_level_up(next_level)
 	miss_streak = 0
-	save()
+	save(false)
 	var subj = get_subject()
 	subj.experience += 1
-	subj.save()
+	subj.save(false)
 
 func miss(is_in_journey:= false) -> void:
 	misses += 1
@@ -137,10 +193,10 @@ func miss(is_in_journey:= false) -> void:
 	if ((!is_in_journey && miss_streak > 1) || is_in_journey) && !is_level_up_queued && experience_level > 1:
 		miss_streak = 0
 		experience_level = clampi(experience_level - 1, 1, 15)
-	save()
+	save(false)
 	var subj = get_subject()
 	subj.experience -= 1
-	subj.save()
+	subj.save(false)
 
 func queue_level_up(to_level: int) -> void:
 	is_level_up_queued = true

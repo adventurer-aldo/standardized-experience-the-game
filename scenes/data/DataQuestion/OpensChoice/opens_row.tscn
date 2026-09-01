@@ -13,8 +13,14 @@ device = -1
 alt_pressed = true
 keycode = 43
 
+[sub_resource type="InputEventKey" id="InputEventKey_irox0"]
+device = -1
+alt_pressed = true
+keycode = 61
+unicode = 61
+
 [sub_resource type="Shortcut" id="Shortcut_826cn"]
-events = [SubResource("InputEventKey_p870i")]
+events = [SubResource("InputEventKey_p870i"), SubResource("InputEventKey_irox0")]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0rm0x"]
 content_margin_left = 10.0
