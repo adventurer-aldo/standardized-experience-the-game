@@ -39,15 +39,16 @@ func sync() -> void:
 
 func update() -> bool:
 	var files = DirAccess.get_files_at("user://leveling_queues")
-	var to_post = []
+	var to_post:= []
 	for file in files:
 		var queue: LevelingQueue
 		var file_path = "user://leveling_queues/" + file
 		queue = ResourceLoader.load(file_path, "", ResourceLoader.CACHE_MODE_REPLACE)
 		if queue.process_leveling(): 
 			print(str(queue.id) + " has finished SR wait time.")
-			to_post.push_back(queue.get_question())
+			to_post.push_back(queue.get_question().get_dictionary())
 	if to_post.size() > 0:
+		print("Size of questions to post: ", to_post, "\n", to_post)
 		Main.post_questions(to_post)
 	call_deferred("emit_signal", "update_finished")
 	if files.size() > 0:
@@ -105,4 +106,4 @@ func _on_http_request_request_completed(_result: int, _response_code: int, heade
 
 
 func _on_question_http_request_completed(_result: int, _response_code: int, _headers: PackedStringArray, body: PackedByteArray) -> void:
-	print(body.get_string_from_utf8())
+	print("After querying question server on autoload: ", body.get_string_from_utf8())
