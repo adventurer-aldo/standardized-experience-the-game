@@ -12,6 +12,11 @@ var might_mode:= false
 var rush_mode:= false
 var streak = 0
 
+# Apprenticeship
+var apprenticeship: float
+var maximum_apprenticeship: float
+var new_apprenticeship: float
+
 func _process(_delta: float) -> void:
 	$TimeBar.set_time_string(str(int($Timer.time_left)) + "s")
 	if $Timer.time_left <= 90 && !rush_mode && !$Timer.is_stopped():
@@ -90,6 +95,7 @@ func redo() -> void:
 	]
 	randomize()
 	osts.shuffle()
+	fetch_base_xp_measurements()
 	var timezone_offset = Main.data.get_timezone_offset_seconds()
 	var start_time = Time.get_datetime_dict_from_unix_time(quiz.start_time + timezone_offset)
 	var end_time = Time.get_datetime_dict_from_unix_time(quiz.end_time + timezone_offset)
@@ -137,6 +143,24 @@ func make_new_quiz():
 		quiz.generate_rush_questions()
 	streak += 1
 
+func fetch_base_xp_measurements() -> void:
+		var subject = quiz.get_subject()
+		maximum_apprenticeship = subject.size()
+		$ProficiencyPanel/ProficiencyV/XP/New.max_value = maximum_apprenticeship
+		$ProficiencyPanel/ProficiencyV/XP/Base.max_value = maximum_apprenticeship
+		apprenticeship = fetch_apprenticeship()
+		$ProficiencyPanel/ProficiencyV/XP/New.value = apprenticeship
+		$ProficiencyPanel/ProficiencyV/XP/Base.value = apprenticeship
+		new_apprenticeship = 0.0
+
+func fetch_apprenticeship() -> float:
+	var subject = quiz.get_subject()
+	var n_apprenticeship:= 0.0
+	for question in subject.get_questions():
+		if question.experience_level >= 2:
+			n_apprenticeship += 1
+	return n_apprenticeship
+
 func _on_button_pressed() -> void:
 	if quiz.has_rush_questions() && !rush_mode:
 		$Timer.start(90.1)
@@ -165,6 +189,24 @@ func _on_button_pressed() -> void:
 	$RushLight/Anim.play("RESET")
 	$BreakTimer.start(quiz.size() * 10.0)
 	$EndBreak.show()
+	
+	# Proficiency
+	new_apprenticeship = fetch_apprenticeship()
+	print("Old proficiency is ", apprenticeship, " while new one is ", new_apprenticeship)
+	if new_apprenticeship > apprenticeship:
+		$ProficiencyAnimation.play("display")
+		await $ProficiencyAnimation.animation_finished
+		await get_tree().create_timer(2.0).timeout
+		var tween = get_tree().create_tween()
+		tween.tween_property($ProficiencyPanel/ProficiencyV/XP/New, "value", new_apprenticeship, 1.0)
+		await tween.finished
+		var tween2 = get_tree().create_tween()
+		tween2.tween_property($ProficiencyPanel/ProficiencyV/XP/Base, "value", new_apprenticeship, 1.0)
+		await tween2.finished
+		tween.kill()
+		tween2.kill()
+		await get_tree().create_timer(2.0).timeout
+		$ProficiencyAnimation.play("dispose")
 
 func rank_grade(grade: float) -> String:
 	if grade >= 19.9:

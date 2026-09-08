@@ -105,9 +105,11 @@ func solve() -> bool:
 			attempts_copy.remove_at(matching_attempts.find(true))
 	# The remaining answers don't have a match. Ergo, they were not written
 	# The remaining attempts are not correct.
-	print("#%s: %s" % [question_id, question.question[0]])
-	print(answers_copy)
-	print(attempts_copy)
+	
+	# Posting solving debugging
+	# print("#%s: %s" % [question_id, question.question[0]])
+	# print(answers_copy)
+	# print(attempts_copy)
 	for attempt_i in range(attempts.size()):
 		var matches = answers.map(func (answer: Array):
 			return answer.has(attempts[attempt_i])
@@ -143,12 +145,12 @@ func solve() -> bool:
 	# New attempt finished
 	$Edit.show()
 	if res:
-		print("--Correct--")
+		# print("--Correct--")
 		# $Right.show()
 		# $Wrong.hide()
 		question.get_subject().get_question(question.id).hit()
 	else:
-		print("--Wrong--")
+		# print("--Wrong--")
 		# replicate()
 		# $Right.hide()
 		# $Wrong.show()

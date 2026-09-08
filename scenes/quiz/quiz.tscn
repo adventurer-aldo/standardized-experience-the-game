@@ -127,6 +127,95 @@ keycode = 83
 [sub_resource type="Shortcut" id="Shortcut_cvutw"]
 events = [SubResource("InputEventKey_6oeex")]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wa5n2"]
+bg_color = Color(0, 0, 0.14901961, 0.5764706)
+border_width_bottom = 31
+border_color = Color(0.3254902, 0.10980392, 0.7411765, 0.6745098)
+border_blend = true
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f44r3"]
+bg_color = Color(0.8117647, 0.8901961, 0.9137255, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4rpmn"]
+bg_color = Color(0.53359985, 0.36540002, 0.87, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4rpmn"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3wj08"]
+bg_color = Color(0.8009799, 0.5742, 0.87, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wa5n2"]
+
+[sub_resource type="Animation" id="Animation_p3q4f"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../ProficiencyPanel:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(336, -59)]
+}
+
+[sub_resource type="Animation" id="Animation_y507y"]
+resource_name = "display"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../ProficiencyPanel:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(336, -59), Vector2(336, 14)]
+}
+
+[sub_resource type="Animation" id="Animation_cr5du"]
+resource_name = "dispose"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../ProficiencyPanel:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(336, 14), Vector2(336, -59)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_cvm3b"]
+_data = {
+&"RESET": SubResource("Animation_p3q4f"),
+&"display": SubResource("Animation_y507y"),
+&"dispose": SubResource("Animation_cr5du")
+}
+
 [sub_resource type="Animation" id="Animation_qqaln"]
 length = 0.001
 tracks/0/type = "value"
@@ -458,6 +547,83 @@ volume_db = -60.0
 
 [node name="TimeBar" parent="." unique_id=1655604307 instance=ExtResource("12_wytnh")]
 layout_mode = 1
+
+[node name="ProficiencyPanel" type="Panel" parent="." unique_id=1398729419]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 336.0
+offset_top = -59.0
+offset_right = -334.0
+offset_bottom = -7.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_wa5n2")
+metadata/_edit_group_ = true
+
+[node name="ProficiencyV" type="VBoxContainer" parent="ProficiencyPanel" unique_id=98114583]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -293.0
+offset_top = -20.0
+offset_right = 293.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="ProficiencyPanel/ProficiencyV" unique_id=1974430789]
+layout_mode = 2
+text = "Proficiency"
+horizontal_alignment = 1
+
+[node name="XP" type="ProgressBar" parent="ProficiencyPanel/ProficiencyV" unique_id=1525125547]
+custom_minimum_size = Vector2(20, 15)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_styles/background = SubResource("StyleBoxFlat_f44r3")
+theme_override_styles/fill = SubResource("StyleBoxFlat_4rpmn")
+show_percentage = false
+
+[node name="New" type="ProgressBar" parent="ProficiencyPanel/ProficiencyV/XP" unique_id=1359862787]
+custom_minimum_size = Vector2(20, 15)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_styles/background = SubResource("StyleBoxEmpty_4rpmn")
+theme_override_styles/fill = SubResource("StyleBoxFlat_3wj08")
+value = 60.0
+show_percentage = false
+
+[node name="Base" type="ProgressBar" parent="ProficiencyPanel/ProficiencyV/XP" unique_id=221774276]
+custom_minimum_size = Vector2(20, 15)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_styles/background = SubResource("StyleBoxEmpty_wa5n2")
+theme_override_styles/fill = SubResource("StyleBoxFlat_4rpmn")
+value = 50.0
+show_percentage = false
+
+[node name="ProficiencyAnimation" type="AnimationPlayer" parent="." unique_id=612336158]
+root_node = NodePath("../Timer")
+libraries/ = SubResource("AnimationLibrary_cvm3b")
 
 [node name="Timer" type="Timer" parent="." unique_id=1426380253]
 wait_time = 300.0

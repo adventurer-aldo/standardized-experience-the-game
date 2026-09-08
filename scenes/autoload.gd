@@ -102,6 +102,7 @@ func _on_http_request_request_completed(_result: int, _response_code: int, heade
 		var json: Dictionary = JSON.parse_string(body.get_string_from_utf8())
 		if json.has("time"):
 			data.last_sync_time = json["time"]
+			print("The local sync time is ", Time.get_unix_time_from_system(), " and the server's is ", json["time"])
 			data.save()
 
 
