@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://bpf0tt33ehi2y" path="res://scenes/main.tscn" id="2_0naf5"]
 [ext_resource type="Texture2D" uid="uid://2dx55lrhkwqm" path="res://graphics/LogoO.png" id="2_es01l"]
 [ext_resource type="PackedScene" uid="uid://dlr7qwhpdikn6" path="res://scenes/voice.tscn" id="3_0naf5"]
+[ext_resource type="PackedScene" uid="uid://baieaao5htcva" path="res://scenes/mobile/main_mobile.tscn" id="3_es01l"]
 [ext_resource type="AudioStream" uid="uid://naq6njq5p240" path="res://audio/tracks/main_intro.ogg" id="4_wfs7u"]
 
 [sub_resource type="Animation" id="Animation_wfs7u"]
@@ -92,7 +93,6 @@ _data = {
 }
 
 [node name="Main" type="ColorRect" unique_id=464485588]
-anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
@@ -100,22 +100,20 @@ grow_vertical = 2
 color = Color(0.065, 0.0766667, 0.1, 1)
 script = ExtResource("1_wfs7u")
 main_scene = ExtResource("2_0naf5")
+main_mobile_scene = ExtResource("3_es01l")
 
 [node name="Emblem" type="TextureRect" parent="." unique_id=572880920]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = -1
-anchor_top = 0.5
 anchor_right = 1.0
-anchor_bottom = 0.5
+anchor_bottom = 1.0
 offset_left = 465.0
-offset_top = -175.25
+offset_top = 184.75
 offset_right = -465.0
-offset_bottom = 174.75
-grow_horizontal = 2
-grow_vertical = 2
+offset_bottom = -185.25
 texture = ExtResource("2_es01l")
-expand_mode = 5
+expand_mode = 4
 
 [node name="BGM" type="AudioStreamPlayer" parent="." unique_id=46621302]
 stream = ExtResource("4_wfs7u")
@@ -124,10 +122,6 @@ stream = ExtResource("4_wfs7u")
 
 [node name="EmblemAnim" type="AnimationPlayer" parent="." unique_id=1655529034]
 libraries/ = SubResource("AnimationLibrary_o6xl0")
-
-[node name="FileDialog" type="FileDialog" parent="." unique_id=1064984743]
-oversampling_override = 1.0
-position = Vector2i(0, 36)
 
 [node name="SubjectRequest" type="HTTPRequest" parent="." unique_id=1137812321]
 

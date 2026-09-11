@@ -14,7 +14,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(1440, 0)]
+"values": [Vector2(0, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -42,7 +42,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(1440, 0), Vector2(1440, 1726)]
+"values": [Vector2(5887.2944, 0), Vector2(5887.2944, 2814.706)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -54,10 +54,10 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(-440.44482, 313.55566), Vector2(-440.44482, 313.55566)]
+"values": [Vector2(-2566.9255, 2440.0313), Vector2(-2566.9255, 2440.0313)]
 }
 
-[sub_resource type="Animation" id="Animation_nfvj1"]
+[sub_resource type="Animation" id="Animation_jjwjd"]
 resource_name = "wipe_out"
 length = 0.5
 tracks/0/type = "value"
@@ -70,7 +70,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(1440, 1458.016), Vector2(1440, 0)]
+"values": [Vector2(5887.2944, 2814.706), Vector2(5887.2944, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -82,14 +82,14 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(-396.50696, 357.49353), Vector2(634.46484, 1388.4678)]
+"values": [Vector2(-2566.9255, 2440.0313), Vector2(-2566.9255, 2440.0313)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_85g3d"]
 _data = {
 &"RESET": SubResource("Animation_w43bn"),
 &"wipe_in": SubResource("Animation_t3bqs"),
-&"wipe_out": SubResource("Animation_nfvj1")
+&"wipe_out": SubResource("Animation_jjwjd")
 }
 
 [node name="Autoload" type="Control" unique_id=394204179]
@@ -107,10 +107,10 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -440.44482
-offset_top = 313.55566
-offset_right = -280.44482
-offset_bottom = -406.44434
+offset_left = -2566.9255
+offset_top = 2440.0313
+offset_right = 2040.3689
+offset_bottom = 1720.0313
 grow_horizontal = 2
 grow_vertical = 2
 rotation = -0.785397

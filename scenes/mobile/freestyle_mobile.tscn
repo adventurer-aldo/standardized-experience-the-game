@@ -1,0 +1,114 @@
+[gd_scene format=3 uid="uid://d3vcdfc2lmw1g"]
+
+[ext_resource type="Script" uid="uid://cli4eqt6a0k7m" path="res://scenes/mobile/freestyle_mobile.gd" id="1_8nlef"]
+[ext_resource type="Script" uid="uid://bgqglerkcylxx" path="res://addons/SmoothScroll/smooth_scroll_container.gd" id="2_ilusb"]
+[ext_resource type="Script" uid="uid://b7h0k2h2qwlqv" path="res://addons/SmoothScroll/scroll_damper/expo_scroll_damper.gd" id="3_raqke"]
+
+[sub_resource type="Resource" id="Resource_334i4"]
+script = ExtResource("3_raqke")
+
+[sub_resource type="Resource" id="Resource_3nlwv"]
+script = ExtResource("3_raqke")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f44r3"]
+border_color = Color(0.8784212, 0.74117684, 0.9455636, 1)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+
+[node name="Freestyle" type="ColorRect" unique_id=430386518]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_8nlef")
+
+[node name="Label" type="Label" parent="." unique_id=2083048053]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -184.0
+offset_top = -56.5
+offset_right = 184.0
+offset_bottom = 56.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 86
+text = "Freestyle"
+
+[node name="GridContainer2" type="ScrollContainer" parent="." unique_id=1275255406]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 165.0
+offset_bottom = -217.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 0
+script = ExtResource("2_ilusb")
+wheel_scroll_damper = SubResource("Resource_334i4")
+dragging_scroll_damper = SubResource("Resource_3nlwv")
+
+[node name="GridContainer" type="GridContainer" parent="GridContainer2" unique_id=884140232]
+layout_mode = 2
+theme_override_constants/h_separation = 30
+theme_override_constants/v_separation = 40
+columns = 2
+
+[node name="Panel" type="Panel" parent="GridContainer2/GridContainer" unique_id=20414143]
+custom_minimum_size = Vector2(600, 620)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_f44r3")
+
+[node name="Panel2" type="Panel" parent="GridContainer2/GridContainer" unique_id=785222533]
+custom_minimum_size = Vector2(600, 620)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_f44r3")
+
+[node name="Panel3" type="Panel" parent="GridContainer2/GridContainer" unique_id=1068272393]
+custom_minimum_size = Vector2(600, 620)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_f44r3")
+
+[node name="Panel4" type="Panel" parent="GridContainer2/GridContainer" unique_id=559183792]
+custom_minimum_size = Vector2(600, 620)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_f44r3")
+
+[node name="Panel5" type="Panel" parent="GridContainer2/GridContainer" unique_id=1713098390]
+custom_minimum_size = Vector2(600, 620)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_f44r3")
+
+[node name="Panel6" type="Panel" parent="GridContainer2/GridContainer" unique_id=1122590836]
+custom_minimum_size = Vector2(600, 620)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_f44r3")
+
+[node name="Panel7" type="Panel" parent="GridContainer2/GridContainer" unique_id=2438567]
+custom_minimum_size = Vector2(600, 620)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_f44r3")
+
+[node name="Panel8" type="Panel" parent="GridContainer2/GridContainer" unique_id=1039304507]
+custom_minimum_size = Vector2(600, 620)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_f44r3")
+
+[node name="Panel9" type="Panel" parent="GridContainer2/GridContainer" unique_id=263746886]
+custom_minimum_size = Vector2(600, 620)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_f44r3")
+
+[node name="Panel10" type="Panel" parent="GridContainer2/GridContainer" unique_id=73689901]
+custom_minimum_size = Vector2(600, 620)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_f44r3")

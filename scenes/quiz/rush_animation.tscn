@@ -354,25 +354,26 @@ texture = ExtResource("3_vntpl")
 
 [node name="Bottom" type="TextureRect" parent="." unique_id=1097645662]
 layout_mode = 1
-anchors_preset = 10
+anchors_preset = 12
+anchor_top = 1.0
 anchor_right = 1.0
-offset_top = 720.0
-offset_bottom = 977.0004
+anchor_bottom = 1.0
+offset_bottom = 257.00043
 grow_horizontal = 2
+grow_vertical = 0
 mouse_filter = 2
 texture = ExtResource("3_vntpl")
 flip_v = true
 
 [node name="Label" type="TextureRect" parent="." unique_id=1009498494]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
+anchors_preset = -1
 anchor_top = 0.5
-anchor_right = 0.5
+anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = 642.0
+offset_left = 1282.0
 offset_top = -218.0
-offset_right = 1643.0044
+offset_right = 1003.0044
 offset_bottom = 115.0
 grow_horizontal = 2
 grow_vertical = 2

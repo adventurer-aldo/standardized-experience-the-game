@@ -1,6 +1,7 @@
 extends ColorRect
 
 @export var main_scene: PackedScene
+@export var main_mobile_scene: PackedScene
 signal subjects_completed
 signal questions_completed
 signal deletions_completed
@@ -8,14 +9,6 @@ var base = "https://standardized-experience-cloud.adventureraldo.workers.dev"
 var append = "?last_sync_time={sync}"
 
 func _ready() -> void:
-	var fin_append = append.format({"sync": Main.data.last_sync_time})
-	$SubjectRequest.request(base + "/api/subjects/" + fin_append, [], HTTPClient.METHOD_GET)
-	await subjects_completed
-	$QuestionRequest.request(base + "/api/questions/" + fin_append, [], HTTPClient.METHOD_GET)
-	await questions_completed
-	$DeleteRequest.request(base + "/api/deletions/" + fin_append, [], HTTPClient.METHOD_GET)
-	await deletions_completed
-	Main.sync()
 	$EmblemAnim.play("splash")
 	await get_tree().create_timer(0.7).timeout
 	$BGM.play()
@@ -25,8 +18,21 @@ func _ready() -> void:
 	Main.wipe_in()
 	await Main.wipe_finished
 	await get_tree().create_timer(1).timeout
-	get_tree().change_scene_to_packed(main_scene)
+	print("The system is ", OS.get_model_name())
+	if OS.get_model_name() == "Linux":
+		get_tree().change_scene_to_packed(main_mobile_scene)
+	else:
+		get_tree().change_scene_to_packed(main_scene)
 
+func sync():
+	var fin_append = append.format({"sync": Main.data.last_sync_time})
+	$SubjectRequest.request(base + "/api/subjects/" + fin_append, [], HTTPClient.METHOD_GET)
+	await subjects_completed
+	$QuestionRequest.request(base + "/api/questions/" + fin_append, [], HTTPClient.METHOD_GET)
+	await questions_completed
+	$DeleteRequest.request(base + "/api/deletions/" + fin_append, [], HTTPClient.METHOD_GET)
+	await deletions_completed
+	Main.sync()
 
 func _on_subject_request_request_completed(result: int, _response_code: int, _headers: PackedStringArray, body: PackedByteArray) -> void:
 	if result == 0:

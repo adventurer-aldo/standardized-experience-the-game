@@ -1,0 +1,159 @@
+[gd_scene format=3 uid="uid://baieaao5htcva"]
+
+[ext_resource type="Script" uid="uid://cokdeihob7twj" path="res://scenes/mobile/main_mobile.gd" id="1_6soc8"]
+[ext_resource type="PackedScene" uid="uid://d3vcdfc2lmw1g" path="res://scenes/mobile/freestyle_mobile.tscn" id="2_6soc8"]
+[ext_resource type="FontFile" uid="uid://rc72ny274tp4" path="res://fonts/ContinuumBold.ttf" id="2_xnvfj"]
+[ext_resource type="Texture2D" uid="uid://c84vifgxk83ta" path="res://graphics/smallicons/SpeechIcon.png" id="3_dwoly"]
+[ext_resource type="Script" uid="uid://beeh1u3slrs6d" path="res://scenes/main/quote.gd" id="4_55s3s"]
+[ext_resource type="FontFile" uid="uid://djqlkih7hivms" path="res://fonts/DMSans-Bold.ttf" id="4_u15dr"]
+[ext_resource type="Texture2D" uid="uid://2dx55lrhkwqm" path="res://graphics/LogoO.png" id="6_u15dr"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xnvfj"]
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+
+[sub_resource type="LabelSettings" id="LabelSettings_f44r3"]
+font = ExtResource("2_xnvfj")
+font_size = 64
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u15dr"]
+bg_color = Color(1, 1, 1, 0.5254902)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(1, 1, 1, 1)
+border_blend = true
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+corner_detail = 6
+
+[node name="MainMobile" type="ColorRect" unique_id=434138956]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_6soc8")
+freestyle_scene = ExtResource("2_6soc8")
+
+[node name="VFlowContainer" type="VFlowContainer" parent="." unique_id=434809586]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -505.0
+offset_top = -505.5
+offset_right = 505.0
+offset_bottom = 511.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Button" parent="VFlowContainer" unique_id=1837619768]
+custom_minimum_size = Vector2(500, 500)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_xnvfj")
+
+[node name="Label" type="Label" parent="VFlowContainer/Panel" unique_id=1077717349]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -21.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Subjects"
+label_settings = SubResource("LabelSettings_f44r3")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="FreestyleButton" type="Button" parent="VFlowContainer" unique_id=378927149]
+custom_minimum_size = Vector2(500, 500)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_xnvfj")
+
+[node name="Label" type="Label" parent="VFlowContainer/FreestyleButton" unique_id=816681155]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -21.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Freestyle"
+label_settings = SubResource("LabelSettings_f44r3")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Panel3" type="Panel" parent="VFlowContainer" unique_id=304083161]
+custom_minimum_size = Vector2(500, 500)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_xnvfj")
+
+[node name="Panel4" type="Panel" parent="VFlowContainer" unique_id=988622054]
+custom_minimum_size = Vector2(500, 500)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_xnvfj")
+
+[node name="QuoteBG" type="Panel" parent="." unique_id=1475513374]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 42.0
+offset_top = 22.0
+offset_right = -30.0
+offset_bottom = 189.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_u15dr")
+
+[node name="QuoteContainer" type="HBoxContainer" parent="QuoteBG" unique_id=1460257927]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Icon" type="TextureRect" parent="QuoteBG/QuoteContainer" unique_id=167027331]
+layout_mode = 2
+texture = ExtResource("3_dwoly")
+expand_mode = 2
+
+[node name="Quote" type="Label" parent="QuoteBG/QuoteContainer" unique_id=562358169]
+custom_minimum_size = Vector2(1.545, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.19607843, 0.1882353, 0.23137255, 1)
+theme_override_colors/font_outline_color = Color(0.19607843, 0.1882353, 0.23137255, 1)
+theme_override_constants/outline_size = 1
+theme_override_fonts/font = ExtResource("4_u15dr")
+theme_override_font_sizes/font_size = 45
+text = "\"We're unprepared for every challenge we meet for the first time.\""
+vertical_alignment = 1
+autowrap_mode = 2
+script = ExtResource("4_55s3s")
+quotes = PackedStringArray("We\'re unprepared for every challenge we meet for the first time.", "The early student learns sooner.", "Each defeat is a step towards the ending.", "Don\'t wait for the challenge to get prepared for it.", "To err is to gain experience.", "With new knowledge, you don\'t study how you came to know it.", "Your own experienced knowledge is more valuable than words of others.", "Pacience and persistence are needed to create a solid mind.", "Learning is simple. We make it difficult.", "Incompetence is a feeling that can never be experienced again once you gain mastery.", "Humans are beings of knowledge and experience.", "To study is to train the mind.", "Experience is a cruel teacher. She gives the test first and the lesson afterwards.", "Being ready enough is a myth, even for the truly experienced.", "Self-esteem is irrelevant for whether you do good or bad.", "Being a genius is subjective to others\' intellect. Evolution is subjective to the growth between you and your past.", "If you\'re not leveling up, you\'re leveling down.", "Courage and bravery triumph over confidence when learning.", "You don\'t lack willpower—you lack a compelling enough reason.", "Talent is just early progress that you mistook for destiny.", "Being busy is a decision, not a circumstance.", "Overthinking is just underdoing disguised as preparation.", "Procrastination isn\'t laziness—it\'s perfectionism wearing a disguise.", "Suffering doesn\'t build character—how you interpret suffering does.", "Clarity comes from action, not contemplation.", "You don\'t struggle with the subject—you struggle with the fact that struggling is part of the subject.", "Every time you say \'I\'ll understand it later,\' you\'re choosing to misunderstand it now.", "The difference between an A and a C isn\'t intelligence. It\'s whether you started the problem set on Tuesday or Sunday.", "Cramming proves you could have learned it slowly if you\'d wanted to. You just chose panic over preparation.", "The material didn\'t get harder. You just got further behind.", "You don\'t \'not get it\'—you just haven\'t gotten it yet, and you\'re pretending that\'s permanent.", "Intelligence is what you use to avoid the work that would make you competent.", "Intelligence is subjective. Competence is not.", "Complete mastery of a challenging subject begins with reading a single sentence.", "Those who never venture outside their comfort zone never learn their ability to master skills beyond it.", "Even dust, when piled up, becomes a mountain.", "Study the old to know the new.", "Fail seven times, retry eight.", "After rain, the ground hardens.", "Only failure cures stupidity.", "Even monkeys fall from trees sometimes.", "Adversity strengthens the foundations of your knowledge.", "The more people you have, the more ideas you will get through the discussion.", "One who chases after 2 rabbits will not even catch one.", "One man’s failure is another’s lesson.", "Giving birth is easier than worrying about it.")
+
+[node name="LogoO" type="TextureRect" parent="." unique_id=1301605356]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -249.99994
+offset_top = 285.0
+offset_right = 1132.3062
+offset_bottom = 1667.3062
+grow_horizontal = 2
+scale = Vector2(0.36171427, 0.37971425)
+texture = ExtResource("6_u15dr")
+expand_mode = 5
+
+[connection signal="pressed" from="VFlowContainer/FreestyleButton" to="." method="_on_freestyle_button_pressed"]
