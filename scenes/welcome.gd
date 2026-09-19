@@ -13,7 +13,7 @@ func _ready() -> void:
 	await ping_completed
 	# var base = "http://localhost:5173" if local else "https://standardized-experience-cloud.adventureraldo.workers.dev"
 	print("Doing it locally" if local else "Doing it serverwise")
-	questions()
+	subjects()
 	await $HTTPRequest.request_completed
 	#questions()
 	#await $HTTPRequest.request_completed

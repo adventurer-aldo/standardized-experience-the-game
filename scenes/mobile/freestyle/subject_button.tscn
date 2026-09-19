@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://cnt8nubec41i7"]
+
+[ext_resource type="Script" uid="uid://bp50ka0th4paq" path="res://scenes/mobile/freestyle/subject_button.gd" id="1_75h5s"]
+[ext_resource type="FontFile" uid="uid://rc72ny274tp4" path="res://fonts/ContinuumBold.ttf" id="1_wbpdv"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f44r3"]
+border_color = Color(0.8784212, 0.74117684, 0.9455636, 1)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+
+[node name="SubjectFreestyleMobile" type="Button" unique_id=1914680697]
+custom_minimum_size = Vector2(600, 620)
+theme_override_styles/normal = SubResource("StyleBoxFlat_f44r3")
+script = ExtResource("1_75h5s")
+
+[node name="Abbreviation" type="Label" parent="." unique_id=2071240271]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -175.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("1_wbpdv")
+theme_override_font_sizes/font_size = 192
+text = "F2"
+horizontal_alignment = 1
+vertical_alignment = 1

@@ -1,8 +1,64 @@
 [gd_scene format=3 uid="uid://bntitmyapdmh4"]
 
+[ext_resource type="Script" uid="uid://bgqglerkcylxx" path="res://addons/SmoothScroll/smooth_scroll_container.gd" id="1_gdtux"]
+[ext_resource type="Script" uid="uid://bcbe30h7vjha4" path="res://scenes/mobile/quiz_mobile.gd" id="1_kn2eb"]
+[ext_resource type="Script" uid="uid://b7h0k2h2qwlqv" path="res://addons/SmoothScroll/scroll_damper/expo_scroll_damper.gd" id="2_3st0x"]
+[ext_resource type="PackedScene" uid="uid://do5cgc300pwx1" path="res://scenes/quiz/open_attempt.tscn" id="3_3st0x"]
+
+[sub_resource type="Resource" id="Resource_kn2eb"]
+script = ExtResource("2_3st0x")
+
+[sub_resource type="Resource" id="Resource_et1h7"]
+script = ExtResource("2_3st0x")
+
 [node name="QuizMobile" type="ColorRect" unique_id=534389525]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_kn2eb")
+
+[node name="Timer" type="Timer" parent="." unique_id=200579726]
+wait_time = 300.0
+one_shot = true
+
+[node name="MightTimer" type="Timer" parent="." unique_id=817164136]
+wait_time = 0.06
+one_shot = true
+
+[node name="ScrollC" type="ScrollContainer" parent="." unique_id=748507694]
+clip_contents = false
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.99700004
+offset_left = 184.0
+offset_top = 2.0
+offset_right = -179.0
+offset_bottom = 0.15997314
+follow_focus = true
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 3
+script = ExtResource("1_gdtux")
+wheel_scroll_damper = SubResource("Resource_kn2eb")
+dragging_scroll_damper = SubResource("Resource_et1h7")
+
+[node name="Elements" type="VBoxContainer" parent="ScrollC" unique_id=1683464395]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Header" type="VBoxContainer" parent="ScrollC/Elements" unique_id=1350318929]
+layout_mode = 2
+
+[node name="Attempts" type="VBoxContainer" parent="ScrollC/Elements" unique_id=2088059198]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Attempt" parent="ScrollC/Elements/Attempts" unique_id=378380950 instance=ExtResource("3_3st0x")]
+layout_mode = 2
+
+[node name="Footer" type="VBoxContainer" parent="ScrollC/Elements" unique_id=695371509]
+layout_mode = 2

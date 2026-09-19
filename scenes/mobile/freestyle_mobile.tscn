@@ -3,6 +3,10 @@
 [ext_resource type="Script" uid="uid://cli4eqt6a0k7m" path="res://scenes/mobile/freestyle_mobile.gd" id="1_8nlef"]
 [ext_resource type="Script" uid="uid://bgqglerkcylxx" path="res://addons/SmoothScroll/smooth_scroll_container.gd" id="2_ilusb"]
 [ext_resource type="Script" uid="uid://b7h0k2h2qwlqv" path="res://addons/SmoothScroll/scroll_damper/expo_scroll_damper.gd" id="3_raqke"]
+[ext_resource type="Script" uid="uid://3m3nb5gr1tfd" path="res://scenes/mobile/subjects_container.gd" id="4_334i4"]
+[ext_resource type="PackedScene" uid="uid://cnt8nubec41i7" path="res://scenes/mobile/freestyle/subject_button.tscn" id="4_raqke"]
+[ext_resource type="FontFile" uid="uid://djqlkih7hivms" path="res://fonts/DMSans-Bold.ttf" id="6_3nlwv"]
+[ext_resource type="FontFile" uid="uid://rc72ny274tp4" path="res://fonts/ContinuumBold.ttf" id="7_nv6u8"]
 
 [sub_resource type="Resource" id="Resource_334i4"]
 script = ExtResource("3_raqke")
@@ -10,12 +14,9 @@ script = ExtResource("3_raqke")
 [sub_resource type="Resource" id="Resource_3nlwv"]
 script = ExtResource("3_raqke")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f44r3"]
-border_color = Color(0.8784212, 0.74117684, 0.9455636, 1)
-corner_radius_top_left = 50
-corner_radius_top_right = 50
-corner_radius_bottom_right = 50
-corner_radius_bottom_left = 50
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4rpmn"]
+corner_radius_top_left = 100
+corner_radius_top_right = 100
 
 [node name="Freestyle" type="ColorRect" unique_id=430386518]
 anchors_preset = 15
@@ -25,24 +26,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_8nlef")
 
-[node name="Label" type="Label" parent="." unique_id=2083048053]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -184.0
-offset_top = -56.5
-offset_right = 184.0
-offset_bottom = 56.5
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 86
-text = "Freestyle"
-
-[node name="GridContainer2" type="ScrollContainer" parent="." unique_id=1275255406]
+[node name="Scroll" type="ScrollContainer" parent="." unique_id=1275255406]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -54,61 +38,69 @@ grow_horizontal = 2
 grow_vertical = 2
 horizontal_scroll_mode = 0
 script = ExtResource("2_ilusb")
+speed = 2000.0
 wheel_scroll_damper = SubResource("Resource_334i4")
 dragging_scroll_damper = SubResource("Resource_3nlwv")
 
-[node name="GridContainer" type="GridContainer" parent="GridContainer2" unique_id=884140232]
+[node name="SubjectsContainer" type="GridContainer" parent="Scroll" unique_id=884140232]
 layout_mode = 2
 theme_override_constants/h_separation = 30
 theme_override_constants/v_separation = 40
 columns = 2
+script = ExtResource("4_334i4")
+subject_button = ExtResource("4_raqke")
 
-[node name="Panel" type="Panel" parent="GridContainer2/GridContainer" unique_id=20414143]
-custom_minimum_size = Vector2(600, 620)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_f44r3")
+[node name="Panel" type="Panel" parent="." unique_id=984055495]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -171.0
+offset_bottom = 177.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_4rpmn")
 
-[node name="Panel2" type="Panel" parent="GridContainer2/GridContainer" unique_id=785222533]
-custom_minimum_size = Vector2(600, 620)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_f44r3")
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel" unique_id=2041638253]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 105.0
+offset_right = -105.0
+offset_bottom = 177.0
+grow_horizontal = 2
 
-[node name="Panel3" type="Panel" parent="GridContainer2/GridContainer" unique_id=1068272393]
-custom_minimum_size = Vector2(600, 620)
+[node name="Label" type="Label" parent="Panel/HBoxContainer" unique_id=2090779122]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_f44r3")
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("6_3nlwv")
+theme_override_font_sizes/font_size = 61
+text = "Subject Title Snippet"
 
-[node name="Panel4" type="Panel" parent="GridContainer2/GridContainer" unique_id=559183792]
-custom_minimum_size = Vector2(600, 620)
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/HBoxContainer" unique_id=1217828047]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_f44r3")
 
-[node name="Panel5" type="Panel" parent="GridContainer2/GridContainer" unique_id=1713098390]
-custom_minimum_size = Vector2(600, 620)
+[node name="Label2" type="Label" parent="Panel/HBoxContainer/HBoxContainer" unique_id=1222797668]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_f44r3")
+theme_override_fonts/font = ExtResource("6_3nlwv")
+theme_override_font_sizes/font_size = 61
+text = "Lv. "
 
-[node name="Panel6" type="Panel" parent="GridContainer2/GridContainer" unique_id=1122590836]
-custom_minimum_size = Vector2(600, 620)
+[node name="Label3" type="Label" parent="Panel/HBoxContainer/HBoxContainer" unique_id=682194227]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_f44r3")
+theme_override_font_sizes/font_size = 61
+text = "2"
 
-[node name="Panel7" type="Panel" parent="GridContainer2/GridContainer" unique_id=2438567]
-custom_minimum_size = Vector2(600, 620)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_f44r3")
-
-[node name="Panel8" type="Panel" parent="GridContainer2/GridContainer" unique_id=1039304507]
-custom_minimum_size = Vector2(600, 620)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_f44r3")
-
-[node name="Panel9" type="Panel" parent="GridContainer2/GridContainer" unique_id=263746886]
-custom_minimum_size = Vector2(600, 620)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_f44r3")
-
-[node name="Panel10" type="Panel" parent="GridContainer2/GridContainer" unique_id=73689901]
-custom_minimum_size = Vector2(600, 620)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_f44r3")
+[node name="Label" type="Label" parent="." unique_id=1496165288]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 21.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("7_nv6u8")
+theme_override_font_sizes/font_size = 120
+text = "Freestyle"
+horizontal_alignment = 1
+vertical_alignment = 1

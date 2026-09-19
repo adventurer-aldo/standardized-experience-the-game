@@ -27,6 +27,7 @@ func _ready() -> void:
 	if !DirAccess.dir_exists_absolute("user://quizzes"):
 		DirAccess.make_dir_absolute("user://quizzes")
 	begin_update()
+	pass
 	for subject in data.get_subjects():
 		subject.maximum_experience = subject.size() * 15
 		subject.update_experience()
@@ -35,7 +36,9 @@ func begin_update() -> void:
 	thread.start(update)
 
 func sync() -> void:
-	$HTTPRequest.request("https://standardized-experience-cloud.adventureraldo.workers.dev/api/sync/", [], HTTPClient.METHOD_POST)
+	var str_time = "https://standardized-experience-cloud.adventureraldo.workers.dev/api/sync/?last_sync_time="
+	str_time += str(Time.get_unix_time_from_system())
+	$HTTPRequest.request(str_time, [], HTTPClient.METHOD_POST)
 
 func update() -> bool:
 	var files = DirAccess.get_files_at("user://leveling_queues")
