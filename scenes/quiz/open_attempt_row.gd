@@ -1,52 +1,41 @@
-extends HBoxContainer
+extends MarginContainer
 
 signal text_has_changed(difference: int)
-signal text_focused
-signal text_unfocused
 var text:= ""
 
-func fetch() -> String:
-	return $TextsMargin/Text.text
-
-func _on_delete_button_pressed() -> void:
-	if $TextsMargin/Text.text == "":
-		queue_free()
+func fetch() -> PackedStringArray:
+	print($Text.text.split("\n"))
+	return $Text.text.split("\n")
 
 func set_text(to: String) -> void:
-	$TextsMargin/Text.text = to
+	$Text.text = to
 
 func get_focus() -> void:
-	$TextsMargin/Text.grab_focus()
+	$Text.grab_focus()
 
 func _on_text_text_changed() -> void:
-	var diff = $TextsMargin/Text.text.strip_edges().length() - text.strip_edges().length()
-	text = $TextsMargin/Text.text
+	$Text.grab_focus()
+	var diff = $Text.text.strip_edges().length() - text.strip_edges().length()
+	text = $Text.text
 	if diff!= 0: text_has_changed.emit(diff)
 
-func _on_text_focus_entered() -> void:
-	text_focused.emit()
-	$DeleteButton.show()
-
-func _on_text_focus_exited() -> void:
-	text_unfocused.emit()
-	$DeleteButton.hide()
-
 func make_text_red() -> void:
-	$TextsMargin/Text.add_theme_color_override("font_color", Color.RED)
+	$Text.add_theme_color_override("font_color", Color.RED)
 
-func tick() -> void:
-	$TextsMargin/Text.hide()
-	$Correction/Tick.show()
-	$TextsMargin/RTL.append_text($TextsMargin/Text.text)
+func tick(right_text: String) -> void:
+	if !$RTL.get_parsed_text().is_empty():
+		$RTL.newline()
+	$RTL.append_text(right_text)
 
-func cross(with_text: String, mark:= true) -> void:
-	$TextsMargin/Text.hide()
-	$DeleteButton.hide()
-	$TextsMargin/RTL.push_strikethrough(Color.RED)
-	$TextsMargin/RTL.append_text($TextsMargin/Text.text)
-	$TextsMargin/RTL.pop()
-	$TextsMargin/RTL.push_color(Color.RED)
-	$TextsMargin/RTL.append_text(with_text)
-	$TextsMargin/RTL.pop()
-	if mark:
-		$Correction/Cross.show()
+func cross(wrong_text: String, with_text: String) -> void:
+	if !$RTL.get_parsed_text().is_empty():
+		$RTL.newline()
+	if with_text.is_empty():
+		$RTL.push_color(Color.RED)
+	else:
+		$RTL.push_strikethrough(Color.RED)
+	$RTL.append_text(wrong_text)
+	$RTL.pop()
+	$RTL.push_color(Color.RED)
+	$RTL.append_text(with_text)
+	$RTL.pop()

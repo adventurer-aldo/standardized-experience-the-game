@@ -1,10 +1,14 @@
 [gd_scene format=3 uid="uid://do5cgc300pwx1"]
 
 [ext_resource type="Script" uid="uid://btdjogxpkgxak" path="res://scenes/quiz/open_attempt.gd" id="1_0dpb1"]
-[ext_resource type="PackedScene" uid="uid://cddvp6f3qvlqn" path="res://scenes/quiz/open_attempt_row.tscn" id="2_lysjw"]
+[ext_resource type="Texture2D" uid="uid://s608ay8rpdbh" path="res://graphics/quiz/tick.png" id="3_6ahi7"]
 [ext_resource type="PackedScene" uid="uid://bd634eo063jbr" path="res://scenes/data/data_question.tscn" id="3_qbo3c"]
 [ext_resource type="FontFile" uid="uid://bo1dug3kwgf87" path="res://fonts/timesbi.ttf" id="4_en7q1"]
+[ext_resource type="Texture2D" uid="uid://betv5j6of7iau" path="res://graphics/quiz/cross.png" id="4_mycmj"]
 [ext_resource type="FontFile" uid="uid://bunjfygn0oso1" path="res://fonts/times.ttf" id="5_vmxha"]
+[ext_resource type="Script" uid="uid://bhkvfsvq75ak3" path="res://scenes/quiz/open_attempt_row.gd" id="7_o5lyl"]
+[ext_resource type="FontFile" uid="uid://fwboxxvvu160" path="res://fonts/Allison-Regular.ttf" id="8_lxfrt"]
+[ext_resource type="Texture2D" uid="uid://du6m4j5gxybkq" path="res://graphics/quiz/inputline.png" id="9_koj4h"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_vmxha"]
 font = ExtResource("4_en7q1")
@@ -22,14 +26,22 @@ corner_radius_bottom_left = 5
 font = ExtResource("5_vmxha")
 font_color = Color(0, 0, 0, 1)
 
-[sub_resource type="InputEventKey" id="InputEventKey_vmxha"]
-device = -1
-alt_pressed = true
-keycode = 61
-unicode = 61
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_p8yc6"]
+content_margin_left = 5.0
+texture = ExtResource("9_koj4h")
+expand_margin_left = 10.0
+expand_margin_right = 10.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
 
-[sub_resource type="Shortcut" id="Shortcut_qbo3c"]
-events = [SubResource("InputEventKey_vmxha")]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_j0u2j"]
+content_margin_left = 5.0
+content_margin_top = 4.0
+texture = ExtResource("9_koj4h")
+expand_margin_left = 10.0
+expand_margin_right = 10.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lysjw"]
 bg_color = Color(0.75046504, 0.73709995, 0.81, 1)
@@ -54,12 +66,34 @@ offset_bottom = -0.20000458
 focus_mode = 1
 theme_override_constants/separation = 0
 script = ExtResource("1_0dpb1")
-attempt_row_scene = ExtResource("2_lysjw")
 edit_shortcut = ExtResource("3_qbo3c")
 
 [node name="Image" type="TextureRect" parent="." unique_id=1445611978]
 layout_mode = 2
 expand_mode = 2
+
+[node name="Correction" type="Control" parent="." unique_id=1150114008]
+layout_mode = 2
+
+[node name="Tick" type="TextureRect" parent="Correction" unique_id=1072190836]
+visible = false
+layout_mode = 0
+offset_left = 211.0
+offset_top = -14.0
+offset_right = 285.0
+offset_bottom = 45.0
+texture = ExtResource("3_6ahi7")
+expand_mode = 1
+
+[node name="Cross" type="TextureRect" parent="Correction" unique_id=1535210034]
+visible = false
+layout_mode = 0
+offset_left = 206.0
+offset_top = -12.0
+offset_right = 280.0
+offset_bottom = 47.0
+texture = ExtResource("4_mycmj")
+expand_mode = 1
 
 [node name="ID" type="HBoxContainer" parent="." unique_id=1183301303]
 layout_mode = 2
@@ -91,23 +125,50 @@ text = "test"
 label_settings = SubResource("LabelSettings_2ocr8")
 autowrap_mode = 3
 
-[node name="Elements" type="HBoxContainer" parent="." unique_id=608012511]
-layout_mode = 2
-
-[node name="OpensRow" type="VBoxContainer" parent="Elements" unique_id=308595558]
+[node name="Attempt" type="MarginContainer" parent="." unique_id=1191986727]
 layout_mode = 2
 size_flags_horizontal = 3
+script = ExtResource("7_o5lyl")
 
-[node name="Attempt" parent="Elements/OpensRow" unique_id=1191986727 instance=ExtResource("2_lysjw")]
+[node name="Text" type="TextEdit" parent="Attempt" unique_id=641507122]
 layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/caret_color = Color(0.17400002, 0.2947, 0.6, 1)
+theme_override_colors/font_color = Color(0, 0, 0.16470589, 1)
+theme_override_colors/word_highlighted_color = Color(0.32799998, 0.48380008, 0.82, 0.50980395)
+theme_override_constants/caret_width = 10
+theme_override_fonts/font = ExtResource("8_lxfrt")
+theme_override_font_sizes/font_size = 33
+theme_override_styles/normal = SubResource("StyleBoxTexture_p8yc6")
+theme_override_styles/focus = SubResource("StyleBoxTexture_p8yc6")
+theme_override_styles/read_only = SubResource("StyleBoxTexture_p8yc6")
+context_menu_enabled = false
+shortcut_keys_enabled = false
+middle_mouse_paste_enabled = false
+wrap_mode = 1
+scroll_smooth = true
+scroll_fit_content_height = true
+caret_type = 1
+caret_blink = true
+caret_multiple = false
 
-[node name="AddRowButton" type="Button" parent="Elements" unique_id=657333845 node_paths=PackedStringArray("shortcut_context")]
-visible = false
+[node name="RTL" type="RichTextLabel" parent="Attempt" unique_id=1407424823]
+clip_contents = false
 layout_mode = 2
 focus_mode = 0
-shortcut_context = NodePath("../..")
-shortcut = SubResource("Shortcut_qbo3c")
-text = "+"
+mouse_filter = 2
+theme_override_constants/line_separation = 4
+theme_override_fonts/normal_font = ExtResource("8_lxfrt")
+theme_override_font_sizes/normal_font_size = 33
+theme_override_font_sizes/bold_font_size = 33
+theme_override_font_sizes/bold_italics_font_size = 33
+theme_override_font_sizes/italics_font_size = 33
+theme_override_font_sizes/mono_font_size = 33
+theme_override_styles/normal = SubResource("StyleBoxTexture_j0u2j")
+theme_override_styles/focus = SubResource("StyleBoxTexture_j0u2j")
+bbcode_enabled = true
+fit_content = true
+scroll_active = false
 
 [node name="Edit" type="Button" parent="." unique_id=309994819]
 visible = false
@@ -128,8 +189,6 @@ theme_override_styles/disabled_mirrored = SubResource("StyleBoxFlat_lysjw")
 theme_override_styles/focus = SubResource("StyleBoxFlat_lysjw")
 text = "Edit"
 
-[connection signal="text_focused" from="Elements/OpensRow/Attempt" to="." method="_on_attempt_text_focused"]
-[connection signal="text_has_changed" from="Elements/OpensRow/Attempt" to="." method="a_text_has_changed"]
-[connection signal="text_unfocused" from="Elements/OpensRow/Attempt" to="." method="_on_attempt_text_unfocused"]
-[connection signal="pressed" from="Elements/AddRowButton" to="." method="_on_add_row_button_pressed"]
+[connection signal="text_has_changed" from="Attempt" to="." method="a_text_has_changed"]
+[connection signal="text_changed" from="Attempt/Text" to="Attempt" method="_on_text_text_changed"]
 [connection signal="pressed" from="Edit" to="." method="edit"]
