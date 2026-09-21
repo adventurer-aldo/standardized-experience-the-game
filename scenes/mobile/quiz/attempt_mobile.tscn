@@ -1,0 +1,180 @@
+[gd_scene format=3 uid="uid://c8kobarp0ebmi"]
+
+[ext_resource type="Script" uid="uid://btdjogxpkgxak" path="res://scenes/quiz/open_attempt.gd" id="1_7hcvf"]
+[ext_resource type="Texture2D" uid="uid://s608ay8rpdbh" path="res://graphics/quiz/tick.png" id="1_kksfv"]
+[ext_resource type="Texture2D" uid="uid://betv5j6of7iau" path="res://graphics/quiz/cross.png" id="2_x6tn3"]
+[ext_resource type="FontFile" uid="uid://bo1dug3kwgf87" path="res://fonts/timesbi.ttf" id="3_7glka"]
+[ext_resource type="FontFile" uid="uid://bunjfygn0oso1" path="res://fonts/times.ttf" id="4_wdl5r"]
+[ext_resource type="Script" uid="uid://bhkvfsvq75ak3" path="res://scenes/quiz/open_attempt_row.gd" id="5_4cam2"]
+[ext_resource type="FontFile" uid="uid://fwboxxvvu160" path="res://fonts/Allison-Regular.ttf" id="6_gyu0k"]
+[ext_resource type="Texture2D" uid="uid://b4nosb58eg0hr" path="res://graphics/quiz/inputline_mobile.png" id="8_7hcvf"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_i6h2x"]
+font = ExtResource("3_7glka")
+font_size = 72
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w4vu2"]
+bg_color = Color(0, 0, 0, 1)
+skew = Vector2(0.215, 0)
+corner_radius_top_left = 6
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="LabelSettings" id="LabelSettings_naxvp"]
+font = ExtResource("4_wdl5r")
+font_size = 64
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gmtgl"]
+content_margin_left = 5.0
+texture = ExtResource("8_7hcvf")
+expand_margin_left = 10.0
+expand_margin_right = 10.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_77krq"]
+bg_color = Color(0.75046504, 0.73709995, 0.81, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.59, 0.59, 0.59, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="Attempt" type="VBoxContainer" unique_id=2072504123]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_7hcvf")
+
+[node name="Image" type="TextureRect" parent="." unique_id=1373481610]
+layout_mode = 2
+expand_mode = 2
+
+[node name="Correction" type="Control" parent="." unique_id=1300798038]
+layout_mode = 2
+
+[node name="Tick" type="TextureRect" parent="Correction" unique_id=1531518496]
+visible = false
+layout_mode = 0
+offset_left = 211.0
+offset_top = -14.0
+offset_right = 285.0
+offset_bottom = 45.0
+texture = ExtResource("1_kksfv")
+expand_mode = 1
+
+[node name="Cross" type="TextureRect" parent="Correction" unique_id=2024013590]
+visible = false
+layout_mode = 0
+offset_left = 206.0
+offset_top = -12.0
+offset_right = 280.0
+offset_bottom = 47.0
+texture = ExtResource("2_x6tn3")
+expand_mode = 1
+
+[node name="ID" type="HBoxContainer" parent="." unique_id=1036824903]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Number" type="Label" parent="ID" unique_id=1032892952]
+layout_mode = 2
+text = "1. "
+label_settings = SubResource("LabelSettings_i6h2x")
+horizontal_alignment = 1
+
+[node name="Panel" type="Panel" parent="ID/Number" unique_id=1626182102]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -3.0
+offset_right = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_w4vu2")
+
+[node name="Description" type="Label" parent="ID" unique_id=284072888]
+custom_minimum_size = Vector2(1.92, 1.37)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "test"
+label_settings = SubResource("LabelSettings_naxvp")
+autowrap_mode = 3
+
+[node name="Attempt" type="MarginContainer" parent="." unique_id=1431773656]
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("5_4cam2")
+
+[node name="Text" type="TextEdit" parent="Attempt" unique_id=1827727466]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/caret_color = Color(0.17400002, 0.2947, 0.6, 1)
+theme_override_colors/font_color = Color(0, 0, 0.16470589, 1)
+theme_override_colors/word_highlighted_color = Color(0.32799998, 0.48380008, 0.82, 0.50980395)
+theme_override_constants/caret_width = 10
+theme_override_fonts/font = ExtResource("6_gyu0k")
+theme_override_font_sizes/font_size = 132
+theme_override_styles/normal = SubResource("StyleBoxTexture_gmtgl")
+theme_override_styles/focus = SubResource("StyleBoxTexture_gmtgl")
+theme_override_styles/read_only = SubResource("StyleBoxTexture_gmtgl")
+context_menu_enabled = false
+shortcut_keys_enabled = false
+middle_mouse_paste_enabled = false
+wrap_mode = 1
+scroll_smooth = true
+scroll_fit_content_height = true
+caret_type = 1
+caret_blink = true
+caret_multiple = false
+
+[node name="RTL" type="RichTextLabel" parent="Attempt" unique_id=311706623]
+clip_contents = false
+layout_mode = 2
+focus_mode = 0
+mouse_filter = 2
+theme_override_constants/line_separation = 4
+theme_override_fonts/normal_font = ExtResource("6_gyu0k")
+theme_override_font_sizes/normal_font_size = 132
+theme_override_font_sizes/bold_font_size = 132
+theme_override_font_sizes/bold_italics_font_size = 132
+theme_override_font_sizes/italics_font_size = 132
+theme_override_font_sizes/mono_font_size = 132
+theme_override_styles/normal = SubResource("StyleBoxTexture_gmtgl")
+theme_override_styles/focus = SubResource("StyleBoxTexture_gmtgl")
+bbcode_enabled = true
+fit_content = true
+scroll_active = false
+
+[node name="Edit" type="Button" parent="." unique_id=1197236553]
+visible = false
+custom_minimum_size = Vector2(0, 33)
+layout_mode = 2
+focus_mode = 0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_77krq")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxFlat_77krq")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_77krq")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_77krq")
+theme_override_styles/hover = SubResource("StyleBoxFlat_77krq")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxFlat_77krq")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_77krq")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxFlat_77krq")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_77krq")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxFlat_77krq")
+theme_override_styles/focus = SubResource("StyleBoxFlat_77krq")
+text = "Edit"
+
+[connection signal="text_has_changed" from="Attempt" to="." method="a_text_has_changed"]
+[connection signal="text_changed" from="Attempt/Text" to="Attempt" method="_on_text_text_changed"]

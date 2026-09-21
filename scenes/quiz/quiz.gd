@@ -3,8 +3,6 @@ extends Panel
 var quiz: Quiz
 
 @export var open_attempt: PackedScene
-@export var battle_ost: AudioStream
-@export var might_ost: AudioStream
 @export var rush_ost: AudioStream
 @export var ambush_opening_ost: AudioStream
 @export var ambush_ending_ost: AudioStream
@@ -52,6 +50,7 @@ func rush() -> void:
 	$RushLoop.play("rush")
 	
 func _ready() -> void:
+	Main.wipe_out()
 	quiz = Main.data.get_last_quiz()
 	_on_rush_arrow_anim_animation_finished("")
 	redo()

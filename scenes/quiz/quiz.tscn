@@ -2,8 +2,6 @@
 
 [ext_resource type="Script" uid="uid://bvnuh150gond2" path="res://scenes/quiz/quiz.gd" id="1_1ip8j"]
 [ext_resource type="PackedScene" uid="uid://do5cgc300pwx1" path="res://scenes/quiz/open_attempt.tscn" id="2_3uwr7"]
-[ext_resource type="AudioStream" uid="uid://c1y5tjs21j7mn" path="res://audio/tracks/destruction_test_might.ogg" id="3_3wj08"]
-[ext_resource type="AudioStream" uid="uid://dg8erp87pechp" path="res://audio/tracks/destruction_test2_might.ogg" id="4_p3q4f"]
 [ext_resource type="AudioStream" uid="uid://c0yh8hvnf3fpg" path="res://audio/tracks/destruction_rush.ogg" id="5_y507y"]
 [ext_resource type="AudioStream" uid="uid://d0cxjsck8mc2b" path="res://audio/tracks/destruction_ambush_intro.ogg" id="6_cr5du"]
 [ext_resource type="AudioStream" uid="uid://d1ntlbaowj5d6" path="res://audio/tracks/destruction_ambush.ogg" id="7_cvm3b"]
@@ -362,8 +360,6 @@ grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_wd8gu")
 script = ExtResource("1_1ip8j")
 open_attempt = ExtResource("2_3uwr7")
-battle_ost = ExtResource("3_3wj08")
-might_ost = ExtResource("4_p3q4f")
 rush_ost = ExtResource("5_y507y")
 ambush_opening_ost = ExtResource("6_cr5du")
 ambush_ending_ost = ExtResource("7_cvm3b")
@@ -670,11 +666,11 @@ libraries/ = SubResource("AnimationLibrary_emm6g")
 libraries/ = SubResource("AnimationLibrary_cggyg")
 
 [node name="RushAnimation" parent="." unique_id=1614869028 instance=ExtResource("14_wytnh")]
+visible = false
 layout_mode = 1
 metadata/_edit_lock_ = true
 
 [node name="Blood" type="Control" parent="." unique_id=665999923]
-visible = false
 modulate = Color(0, 0.31666684, 1, 0.43529412)
 layout_mode = 1
 anchors_preset = 15

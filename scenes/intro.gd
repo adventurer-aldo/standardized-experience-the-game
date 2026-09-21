@@ -19,7 +19,7 @@ func _ready() -> void:
 	await Main.wipe_finished
 	await get_tree().create_timer(1).timeout
 	print("The system is ", OS.get_model_name())
-	if OS.get_model_name() == "Linux":
+	if OS.get_name() == "Android":
 		get_tree().change_scene_to_packed(main_mobile_scene)
 	else:
 		get_tree().change_scene_to_packed(main_scene)
