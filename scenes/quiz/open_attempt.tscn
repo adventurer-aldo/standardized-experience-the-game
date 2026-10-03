@@ -69,8 +69,10 @@ script = ExtResource("1_0dpb1")
 edit_shortcut = ExtResource("3_qbo3c")
 
 [node name="Image" type="TextureRect" parent="." unique_id=1445611978]
+custom_maximum_size = Vector2(-1, 620)
 layout_mode = 2
-expand_mode = 2
+expand_mode = 5
+stretch_mode = 5
 
 [node name="Correction" type="Control" parent="." unique_id=1150114008]
 layout_mode = 2

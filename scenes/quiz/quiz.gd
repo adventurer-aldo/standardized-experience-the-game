@@ -80,17 +80,18 @@ func might_increase(value: int) -> void:
 		
 
 func redo() -> void:
-	var osts = [["res://audio/tracks/corneria_test2.ogg", "res://audio/tracks/corneria_test2_might.ogg"]]
-	[["res://audio/tracks/destruction_test.ogg","res://audio/tracks/destruction_test_might.ogg"],
+	var osts = [["res://audio/tracks/corneria_test2.ogg", "res://audio/tracks/corneria_test2_might.ogg"],
+	["res://audio/tracks/destruction_test.ogg","res://audio/tracks/destruction_test_might.ogg"],
 	["res://audio/tracks/destruction_test2.ogg","res://audio/tracks/destruction_test2_might.ogg"]]
 	[
 		["res://audio/tracks/royal1.ogg", "res://audio/tracks/royal1_might.ogg"],
 		["res://audio/tracks/royal2.ogg","res://audio/tracks/royal2_might.ogg"],
 		["res://audio/tracks/dread.ogg","res://audio/tracks/dread_might.ogg"],
+		["res://audio/tracks/test_rivers.ogg","res://audio/tracks/test_rivers_might.ogg"],
 		["res://audio/tracks/Listen to the Cries of the Planet.ogg", "res://audio/tracks/Listen to the Cries of the Planet_might.ogg"],
 		["res://audio/tracks/battle1_0_calm.ogg", "res://audio/tracks/battle1_0_might.ogg"],
-		["res://audio/tracks/awakening_exam.ogg", "res://audio/tracks/awakening_exam_might.ogg"],
-		["res://audio/tracks/test_rivers.ogg","res://audio/tracks/test_rivers_might.ogg"]
+		["res://audio/tracks/awakening_exam.ogg", "res://audio/tracks/awakening_exam_might.ogg"]
+		
 	]
 	randomize()
 	osts.shuffle()
@@ -105,6 +106,7 @@ func redo() -> void:
 		"e_hour": str(end_time.hour).lpad(2, "0"), "e_minute": str(end_time.minute).lpad(2, "0")
 	})
 	$ScrollC/Elements/Header/Date/Duration.text = duration
+	$ScrollC/Elements/Header/Level.text = ['Practice', '1st Test', '2nd Test', 'Dissertation', 'Exam', 'Recurrence'][quiz.level]
 	for child in $ScrollC/Elements/Attempts.get_children():
 		child.queue_free()
 	add_questions()

@@ -230,6 +230,7 @@ func _on_submit_pressed() -> void:
 	$Items/ScrollData/Data/Question/Image.texture = null
 	$Items/ScrollData/Data/Opens.reset()
 	question.id = 0
+	question.mediaset_id = 0
 
 func _on_close_pressed() -> void:
 	queue_free()

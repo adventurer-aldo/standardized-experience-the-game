@@ -78,7 +78,7 @@ func get_subject() -> Subject:
 	return ResourceLoader.load("user://subjects/" + str(subject_id).lpad(10, '0') + ".tres")
 
 func get_mediaset() -> Mediaset:
-	return ResourceLoader.load("user://mediasets/" + str(mediaset_id).lpad(10, '0') + ".tres")
+	return ResourceLoader.load("user://mediasets/" + str(mediaset_id).lpad(10, '0') + ".res")
 
 func get_or_create_mediaset() -> Mediaset:
 	if has_media():

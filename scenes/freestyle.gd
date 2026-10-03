@@ -1,6 +1,7 @@
 extends Control
 
 @export var subject_scene: PackedScene
+var level: int = Main.data.get_last_quiz().level
 
 func _ready() -> void:
 	Main.wipe_out()
@@ -12,13 +13,27 @@ func _ready() -> void:
 		var subj = subject_scene.instantiate()
 		subj.subject_id = subject.id
 		subj.focused.connect(change_subject_text)
+		subj.pressed.connect(subject_pressed)
 		$SubjectsContainer.add_child(subj)
 	)
 
 func change_subject_text(from_subject_id: int) -> void:
+	print(from_subject_id)
 	$ColorRect/Label.text = Main.data.get_subject(from_subject_id).title
+
+func subject_pressed(subject_id: int) -> void:
+	var new_quiz = Quiz.new()
+	new_quiz.id = Main.data.next_quiz_id()
+	new_quiz.subject_id = subject_id
+	new_quiz.level = level
+	new_quiz.create()
+	new_quiz.generate()
+	get_tree().change_scene_to_file("res://scenes/quiz/quiz.tscn")
 
 func _on_back_buton_pressed() -> void:
 	Main.wipe_in()
 	await Main.wipe_finished
 	get_tree().change_scene_to_file("res://scenes/main.tscn")
+
+func change_level(to: int) -> void:
+	level = to

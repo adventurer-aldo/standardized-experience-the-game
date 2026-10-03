@@ -96,55 +96,6 @@ border_blend = true
 corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_muem4"]
-bg_color = Color(0.41, 0.41, 0.41, 0.5294118)
-border_width_left = 10
-border_width_top = 10
-border_width_right = 10
-border_width_bottom = 10
-border_color = Color(0.14, 0.14, 0.14, 0.73333335)
-border_blend = true
-corner_radius_top_right = 20
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dp3eg"]
-bg_color = Color(0.19, 0.19, 0.19, 0.5294118)
-border_width_left = 10
-border_width_top = 10
-border_width_right = 10
-border_width_bottom = 10
-border_color = Color(0.08, 0.08, 0.08, 0.73333335)
-border_blend = true
-corner_radius_top_right = 20
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0ld40"]
-bg_color = Color(0.41, 0.41, 0.41, 0.5294118)
-border_width_left = 10
-border_width_top = 10
-border_width_right = 10
-border_width_bottom = 10
-border_color = Color(0.14, 0.14, 0.14, 0.73333335)
-border_blend = true
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gqmmt"]
-bg_color = Color(0.41, 0.41, 0.41, 0.5294118)
-border_width_left = 10
-border_width_top = 10
-border_width_right = 10
-border_width_bottom = 10
-border_color = Color(0.14, 0.14, 0.14, 0.73333335)
-border_blend = true
-corner_radius_top_right = 20
-corner_radius_bottom_right = 20
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y6deb"]
-bg_color = Color(0.19, 0.19, 0.19, 0.5294118)
-border_width_left = 10
-border_width_top = 10
-border_width_right = 10
-border_width_bottom = 10
-border_color = Color(0.08, 0.08, 0.08, 0.73333335)
-border_blend = true
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yc10j"]
 bg_color = Color(1, 1, 1, 1)
 border_width_left = 5
@@ -336,26 +287,6 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_pm3ni")
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="StoryButton" parent="Base2/VBoxContainer" unique_id=1057535993 instance=ExtResource("14_muem4")]
-layout_mode = 2
-focus_mode = 0
-
-[node name="Base" parent="Base2/VBoxContainer/StoryButton" index="0" unique_id=271060979]
-visible = true
-theme_override_styles/panel = SubResource("StyleBoxFlat_muem4")
-
-[node name="Focus" parent="Base2/VBoxContainer/StoryButton" index="1" unique_id=1686158507]
-theme_override_styles/panel = SubResource("StyleBoxFlat_dp3eg")
-
-[node name="Label" parent="Base2/VBoxContainer/StoryButton/Texts" parent_id_path=PackedInt32Array(1057535993, 816294809) index="0" unique_id=1320499887]
-text = "Story"
-
-[node name="Icon" parent="Base2/VBoxContainer/StoryButton/Texts/Label" index="0" unique_id=1236317861]
-texture = ExtResource("16_0ld40")
-
-[node name="Desc" parent="Base2/VBoxContainer/StoryButton/Texts/MDesc" parent_id_path=PackedInt32Array(1057535993, 312624622) index="0" unique_id=1441112836]
-text = "Play with Subjects and level up as you go."
-
 [node name="SubjectsButton" parent="Base2/VBoxContainer" unique_id=1764401637 instance=ExtResource("14_muem4")]
 layout_mode = 2
 
@@ -381,46 +312,6 @@ text = "Freestyle"
 texture = ExtResource("16_0ld40")
 
 [node name="Desc" parent="Base2/VBoxContainer/FreestyleButton/Texts/MDesc" parent_id_path=PackedInt32Array(1804627280, 312624622) index="0" unique_id=1441112836]
-text = "Play with Subjects and level up as you go."
-
-[node name="MultiStudyButton" parent="Base2/VBoxContainer" unique_id=1233098636 instance=ExtResource("14_muem4")]
-layout_mode = 2
-focus_mode = 0
-
-[node name="Base" parent="Base2/VBoxContainer/MultiStudyButton" index="0" unique_id=271060979]
-visible = true
-theme_override_styles/panel = SubResource("StyleBoxFlat_0ld40")
-
-[node name="Focus" parent="Base2/VBoxContainer/MultiStudyButton" index="1" unique_id=1686158507]
-theme_override_styles/panel = SubResource("StyleBoxFlat_gqmmt")
-
-[node name="Label" parent="Base2/VBoxContainer/MultiStudyButton/Texts" parent_id_path=PackedInt32Array(1233098636, 816294809) index="0" unique_id=1320499887]
-text = "Multistudy"
-
-[node name="Icon" parent="Base2/VBoxContainer/MultiStudyButton/Texts/Label" index="0" unique_id=1236317861]
-texture = ExtResource("16_0ld40")
-
-[node name="Desc" parent="Base2/VBoxContainer/MultiStudyButton/Texts/MDesc" parent_id_path=PackedInt32Array(1233098636, 312624622) index="0" unique_id=1441112836]
-text = "Play with Subjects and level up as you go."
-
-[node name="SettingsButton" parent="Base2/VBoxContainer" unique_id=924513859 instance=ExtResource("14_muem4")]
-layout_mode = 2
-focus_mode = 0
-
-[node name="Base" parent="Base2/VBoxContainer/SettingsButton" index="0" unique_id=271060979]
-visible = true
-theme_override_styles/panel = SubResource("StyleBoxFlat_0ld40")
-
-[node name="Focus" parent="Base2/VBoxContainer/SettingsButton" index="1" unique_id=1686158507]
-theme_override_styles/panel = SubResource("StyleBoxFlat_y6deb")
-
-[node name="Label" parent="Base2/VBoxContainer/SettingsButton/Texts" parent_id_path=PackedInt32Array(924513859, 816294809) index="0" unique_id=1320499887]
-text = "Settings"
-
-[node name="Icon" parent="Base2/VBoxContainer/SettingsButton/Texts/Label" index="0" unique_id=1236317861]
-texture = ExtResource("16_0ld40")
-
-[node name="Desc" parent="Base2/VBoxContainer/SettingsButton/Texts/MDesc" parent_id_path=PackedInt32Array(924513859, 312624622) index="0" unique_id=1441112836]
 text = "Play with Subjects and level up as you go."
 
 [node name="RestButton" parent="Base2/VBoxContainer" unique_id=1558879698 instance=ExtResource("14_muem4")]
@@ -519,9 +410,6 @@ expand_mode = 1
 [connection signal="focus_entered" from="Base2/VBoxContainer/RestButton" to="." method="_on_rest_button_focus_entered"]
 [connection signal="pressed" from="Base2/VBoxContainer/RestButton" to="." method="_on_exit_pressed"]
 
-[editable path="Base2/VBoxContainer/StoryButton"]
 [editable path="Base2/VBoxContainer/JourneyButton"]
 [editable path="Base2/VBoxContainer/FreestyleButton"]
-[editable path="Base2/VBoxContainer/MultiStudyButton"]
-[editable path="Base2/VBoxContainer/SettingsButton"]
 [editable path="Base2/VBoxContainer/RestButton"]

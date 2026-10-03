@@ -34,6 +34,23 @@ font_color = Color(0.19607843, 0.1882353, 0.23137255, 1)
 outline_size = 1
 outline_color = Color(0.19607843, 0.1882353, 0.23137255, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hidf3"]
+content_margin_left = 5.0
+content_margin_right = 5.0
+bg_color = Color(0.46860003, 0.49093005, 0.66, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dsjbm"]
+content_margin_left = 5.0
+content_margin_right = 5.0
+bg_color = Color(0.17000002, 0.25300014, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wodw0"]
+content_margin_left = 5.0
+content_margin_right = 5.0
+bg_color = Color(0.5504, 0.61748, 0.86, 1)
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_mxjf0"]
+
 [node name="Freestyle" type="Control" unique_id=554057354]
 layout_mode = 3
 anchors_preset = 15
@@ -156,3 +173,49 @@ theme_override_font_sizes/font_size = 43
 text = "Subject Title"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Levels" type="HBoxContainer" parent="." unique_id=1929777200]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 820.0
+offset_top = 644.0
+offset_right = -22.0
+offset_bottom = -44.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="FirstButton" type="Button" parent="Levels" unique_id=1220152767]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_hidf3")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_dsjbm")
+theme_override_styles/hover = SubResource("StyleBoxFlat_wodw0")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_dsjbm")
+toggle_mode = true
+button_group = SubResource("ButtonGroup_mxjf0")
+text = "1st Test"
+
+[node name="SecondButton" type="Button" parent="Levels" unique_id=876616937]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_hidf3")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_dsjbm")
+theme_override_styles/hover = SubResource("StyleBoxFlat_wodw0")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_dsjbm")
+toggle_mode = true
+button_group = SubResource("ButtonGroup_mxjf0")
+text = "2nd Test"
+
+[node name="ExamButton" type="Button" parent="Levels" unique_id=119489396]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_hidf3")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_dsjbm")
+theme_override_styles/hover = SubResource("StyleBoxFlat_wodw0")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_dsjbm")
+toggle_mode = true
+button_group = SubResource("ButtonGroup_mxjf0")
+text = "Exam"
+
+[connection signal="pressed" from="Levels/FirstButton" to="." method="change_level" binds= [1]]
+[connection signal="pressed" from="Levels/SecondButton" to="." method="change_level" binds= [2]]
+[connection signal="pressed" from="Levels/ExamButton" to="." method="change_level" binds= [4]]

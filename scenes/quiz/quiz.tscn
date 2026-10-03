@@ -666,7 +666,6 @@ libraries/ = SubResource("AnimationLibrary_emm6g")
 libraries/ = SubResource("AnimationLibrary_cggyg")
 
 [node name="RushAnimation" parent="." unique_id=1614869028 instance=ExtResource("14_wytnh")]
-visible = false
 layout_mode = 1
 metadata/_edit_lock_ = true
 

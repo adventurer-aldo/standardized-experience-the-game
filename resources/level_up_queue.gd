@@ -22,11 +22,16 @@ func get_question() -> Question:
 func process_leveling(time:= Time.get_unix_time_from_system()) -> bool:
 	if check(time):
 		var question = get_question()
-		question.is_level_up_queued = false
-		question.last_time_leveled = Time.get_unix_time_from_system()
-		question.save(false)
-		erase()
-		return true
+		if question == null:
+			print("LevelUp failed. Question ", question_id, " from subject ", subject_id, " not found. Deleting LevelUpQueue...")
+			erase()
+			return false
+		else:
+			question.is_level_up_queued = false
+			question.last_time_leveled = Time.get_unix_time_from_system()
+			question.save(false)
+			erase()
+			return true
 	else:
 		return false
 

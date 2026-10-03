@@ -9,7 +9,7 @@ class_name Mediaset
 @export var videos: Array[VideoStream]
 
 func get_file_path() -> String:
-	var id_filename = str(id).lpad(10, '0') + '.tres'
+	var id_filename = str(id).lpad(10, '0') + '.res'
 	return "user://mediasets/" + id_filename
 
 func create() -> void:
