@@ -37,6 +37,7 @@ func _on_subjects_pressed() -> void:
 	Main.wipe_in()
 	await Main.wipe_finished
 	get_tree().change_scene_to_packed(data_subject_scene)
+	
 	# add_child(data_subject_scene.instantiate())
 
 func _on_exit_pressed() -> void:

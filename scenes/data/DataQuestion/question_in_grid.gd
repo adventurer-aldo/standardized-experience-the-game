@@ -3,6 +3,7 @@ extends VBoxContainer
 signal parent_pressed(id: int)
 signal edit_pressed(id: int)
 signal delete_pressed(id: int)
+signal reset_pressed(id: int)
 
 var id:= 0
 
@@ -31,3 +32,6 @@ func _on_delete_pressed() -> void:
 
 func _on_edit_pressed() -> void:
 	edit_pressed.emit(id)
+
+func _on_reset_pressed() -> void:
+	reset_pressed.emit(id)

@@ -80,15 +80,19 @@ func might_increase(value: int) -> void:
 		
 
 func redo() -> void:
-	var osts = [["res://audio/tracks/corneria_test2.ogg", "res://audio/tracks/corneria_test2_might.ogg"],
-	["res://audio/tracks/destruction_test.ogg","res://audio/tracks/destruction_test_might.ogg"],
-	["res://audio/tracks/destruction_test2.ogg","res://audio/tracks/destruction_test2_might.ogg"]]
+	var osts = [
+		["res://audio/tracks/Listen to the Cries of the Planet.ogg", "res://audio/tracks/Listen to the Cries of the Planet_might.ogg"],
+		["res://audio/tracks/corneria_test2.ogg", "res://audio/tracks/corneria_test2_might.ogg"],
+		["res://audio/tracks/destruction_test.ogg","res://audio/tracks/destruction_test_might.ogg"],
+		["res://audio/tracks/destruction_test2.ogg","res://audio/tracks/destruction_test2_might.ogg"]
+	]
+	
+	[]
 	[
 		["res://audio/tracks/royal1.ogg", "res://audio/tracks/royal1_might.ogg"],
 		["res://audio/tracks/royal2.ogg","res://audio/tracks/royal2_might.ogg"],
 		["res://audio/tracks/dread.ogg","res://audio/tracks/dread_might.ogg"],
 		["res://audio/tracks/test_rivers.ogg","res://audio/tracks/test_rivers_might.ogg"],
-		["res://audio/tracks/Listen to the Cries of the Planet.ogg", "res://audio/tracks/Listen to the Cries of the Planet_might.ogg"],
 		["res://audio/tracks/battle1_0_calm.ogg", "res://audio/tracks/battle1_0_might.ogg"],
 		["res://audio/tracks/awakening_exam.ogg", "res://audio/tracks/awakening_exam_might.ogg"]
 		
@@ -131,10 +135,11 @@ func redo() -> void:
 
 func make_new_quiz():
 	var prev_subject_id = quiz.subject_id
+	var prev_level = quiz.level
 	quiz = Quiz.new()
 	quiz.subject_id = prev_subject_id
 	quiz.id = Main.data.next_quiz_id()
-	quiz.level = 1
+	quiz.level = prev_level
 	quiz.create()
 	quiz.generate()
 	randomize()

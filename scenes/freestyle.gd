@@ -1,9 +1,14 @@
 extends Control
 
 @export var subject_scene: PackedScene
-var level: int = Main.data.get_last_quiz().level
+var level:= 1
 
 func _ready() -> void:
+	if Main.data:
+		level = Main.data.get_last_quiz().level
+	$Levels/FirstButton.button_pressed = level == 1
+	$Levels/SecondButton.button_pressed = level == 2
+	$Levels/ExamButton.button_pressed = level == 4
 	Main.wipe_out()
 	var subjects = Main.data.get_subjects()
 	subjects.sort_custom(func (subject_a: Subject, subject_b:Subject):
@@ -28,6 +33,7 @@ func subject_pressed(subject_id: int) -> void:
 	new_quiz.level = level
 	new_quiz.create()
 	new_quiz.generate()
+	new_quiz.save()
 	get_tree().change_scene_to_file("res://scenes/quiz/quiz.tscn")
 
 func _on_back_buton_pressed() -> void:

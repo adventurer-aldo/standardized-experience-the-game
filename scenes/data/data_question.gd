@@ -70,6 +70,7 @@ func add_question_to_container(saved_question: Question) -> void:
 		question_to_add.parent_pressed.connect(on_parent_pressed)
 		question_to_add.edit_pressed.connect(on_edit_pressed)
 		question_to_add.delete_pressed.connect(on_grid_delete_pressed)
+		question_to_add.reset_pressed.connect(on_reset_pressed)
 		question_to_add.name = str(saved_question.id)
 		question_to_add.id = saved_question.id
 	question_to_add.set_text(saved_question.question[0])
@@ -157,6 +158,12 @@ func on_parent_pressed(id: int) -> void:
 func on_grid_delete_pressed(id: int) -> void:
 	question.get_subject().erase_question(id)
 
+func on_reset_pressed(id: int) -> void:
+	var to_reset = question.get_subject().get_question(id)
+	to_reset.experience_level = 1
+	to_reset.save(false)
+	add_question_to_container(to_reset)
+	
 func on_edit_pressed(id: int) -> void:
 	var to_edit = question.get_subject().get_question(id)
 	var questions_difference = to_edit.question.size() - $Items/ScrollData/Data/Question/Texts.get_child_count()
@@ -231,6 +238,11 @@ func _on_submit_pressed() -> void:
 	$Items/ScrollData/Data/Opens.reset()
 	question.id = 0
 	question.mediaset_id = 0
+	question.hits = 0
+	question.misses = 0
+	question.hit_streak = 0
+	question.miss_streak = 0
+	question.experience_level = 1
 
 func _on_close_pressed() -> void:
 	queue_free()
